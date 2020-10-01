@@ -1,57 +1,28 @@
-# The EPOC-AKI Study <img src='doc/images/logo.png' align="right" height="138.5" />
+# epocakir <img src='doc/images/logo.png' align="right" height="138.5" />
 
-Evaluation of the Predictive value of short-term Oliguria and minor Creatinine increases for Acute Kidney Injury in ICU
 
-## Data Overview
+## Codifying patient outcomes in kidney disease
 
-### Definitions
+The _epocakir_ package makes classifying patient illness in kidney disease using clinical practice guidelines easy. The guidelines used are the [KDIGO guidelines](https://kdigo.org/guidelines/).
 
-![Data Overview](/doc/images/overview.png)
+## Installation
 
-Changes in Creatinine Episodes:
+The _epocakir_ package is still under development. The development version can be installed from GitHub. 
 
-- Creatinine change during episode (µmol/L): Δcr
-- Duration of creatinine change episode (hrs): Δt<sub>cr_ch</sub> = T<sub>i</sub> - (T<sub>i</sub> - δt)
-- Time between end of cr change epis and AKI (hrs or NA): Δt<sub>aki</sub> = T<sub>AKI</sub> - T<sub>i</sub>
+You can install the **development** version from [GitHub](https://github.com/alwinw/epocakir).
 
-Oliguria Episodes:
+``` r
+# install.packages("devtools")
+devtools::install_github("alwinw/epocakir")
+```
 
-- Time Oliguria identified: T<sub>olig</sub> = T<sub>0</sub>
-- Time Oliguria episode started: T<sub>olig_4</sub> = T<sub>0</sub> - 4
-- Time between olig epis and AKI (hrs or NA): Δt<sub>aki</sub> - T<sub>AKI</sub> - T<sub>0</sub>
+## Getting Started
 
-### Exploration
+Instructions to come
 
-![Data Exploration](/doc/images/cr_ch_heatmap.png)
+## Examples
 
-Example: Significant difference in creatinine changes 8 < Δt<sub>cr_ch</sub> < 12 between 'No AKI' and 't<sub>AKI</sub> in 4-8 hrs'
-
-## Running
-
-1. Clone the repository and open the R project file `epoc-aki.Rproj` with RStudio
-
-    ```bash
-    git clone git@github.com:AlwinW/epoc-api.git
-    ```
-
-2. Preview the relevant `bookdown` file
-
-   - Option 1: Open the file directly in RStudio
-
-      1. Open up the bookdown index, e.g. `doc/full/index.Rmd`
-      2. In RStudio run `Addins` > `Preview Book`, or from the console run
-
-        ```R
-        bookdown::serve_book()
-        ```
-
-   - Option 2: Run `serve_book` from the console
-
-        ```R
-        bookdown::serve_book(dir = "doc/full/")
-        ```
-
-3. Preview the bookdown site at `http://localhost:4321/` or `http://127.0.0.1:4321/`
+Examples to come
 
 ## Contributors
 
@@ -61,14 +32,14 @@ Alwin Wang and Lisa Toh
 
 ## Activity
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/alwinw/epoc-aki?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/alwinw/epoc-aki?style=flat-square)
-![Visits](https://badges.pufler.dev/visits/alwinw/epoc-aki?style=flat-square&label=visits)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alwinw/epoc-aki?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/alwinw/epocakir?style=flat-square)
+![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?style=flat-square&label=visits)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/alwinw/epocakir?style=flat-square)
 
 ## License
 
-[![GitHub](https://img.shields.io/github/license/alwinw/epoc-aki?style=flat-square)](LICENSE)
+[![GitHub](https://img.shields.io/github/license/alwinw/epocakir?style=flat-square)](LICENSE)
 
 - [GPL-3.0 License](https://opensource.org/licenses/GPL-3.0)
 - Copyright 2020 © [Alwin Wang](https://github.com/alwinw) and [Lisa Toh](https://github.com/lymt)
