@@ -3,7 +3,7 @@
 
 ## Codifying patient outcomes in kidney disease
 
-The _epocakir_ package makes classifying patient illness in kidney disease using clinical practice guidelines easy. The guidelines used are the [KDIGO guidelines](https://kdigo.org/guidelines/).
+The _epocakir_ package makes clinical coding in kidney disease using clinical practice guidelines easy. The guidelines used are the [KDIGO guidelines](https://kdigo.org/guidelines/).
 
 ## Installation
 
