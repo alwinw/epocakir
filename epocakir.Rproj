@@ -1,8 +1,8 @@
 Version: 1.0
 
-RestoreWorkspace: Yes
-SaveWorkspace: Yes
-AlwaysSaveHistory: Yes
+RestoreWorkspace: No
+SaveWorkspace: No
+AlwaysSaveHistory: Default
 
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
@@ -14,6 +14,7 @@ LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
+LineEndingConversion: Posix
 
 BuildType: Package
 PackageUseDevtools: Yes

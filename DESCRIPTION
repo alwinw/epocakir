@@ -1,9 +1,6 @@
 Package: epocakir
-Type: Package
-Title: Clinical coding of Patients with Kidney Disease using Clinical Practice
-    Guidelines
-Version: 0.1.0
-Date: 2020-10-08
+Title: Clinical coding of Patients with Kidney Disease using Clinical Practice Guidelines
+Version: 0.0.0.9000
 Authors@R:
     c(person(given = "Alwin",
              family = "Wang",
@@ -15,14 +12,10 @@ Authors@R:
              role = "aut",
              email = "lisa.toh2@austin.org.au",
              comment = c(ORCID = "0000-0002-5994-3666")))
-
-
-Author: Alwin Wang, Lisa Toh
-Maintainer: Alwin Wang <alwin.wang@austin.org.au>
-Description: The _epocakir_ package makes clinical coding in kidney disease
+Description: The epocakir package makes clinical coding in kidney disease
     using clinical practice guidelines easy. The guidelines used are the KDIGO
     guidelines.
-License: MIT
+License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues
 Depends:
@@ -36,7 +29,6 @@ Imports:
 Suggests:
     testthat (>= 1.0.2)
 Encoding: UTF-8
-Language: en-AU
 LazyData: true
-RoxygenNote: 7.1.0
-VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
