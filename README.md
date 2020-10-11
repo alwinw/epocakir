@@ -17,14 +17,17 @@ commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
 bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total
 Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
 
+<!-- [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master) -->
 <!-- badges: end -->
 
-Codifying patient outcomes in kidney disease
---------------------------------------------
+Clinical Coding of Patients with Kidney Disease
+-----------------------------------------------
 
-The *epocakir* package makes clinical coding in kidney disease using
-clinical practice guidelines easy. The guidelines used are the [KDIGO
-guidelines](https://kdigo.org/guidelines/).
+The *epocakir* package makes clinical coding of patients with kidney
+disease using clinical practice guidelines easy. The guidelines used are
+the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/) and
+cover a wide range of conditions from acute kidney injury (AKI) to
+diabetes and hepatitis.
 
 Installation
 ------------
@@ -52,3 +55,9 @@ Examples
 --------
 
 Examples to come
+
+References
+----------
+
+KDIGO Guidelines -
+<a href="https://kdigo.org/guidelines/" class="uri">https://kdigo.org/guidelines/</a>

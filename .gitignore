@@ -1,21 +1,5 @@
 # Custom
-_book_output/
-_bookdown_files/
-_book/
-_bookdown_files/
-epoc-aki.Rmd
-_main.Rmd
-data/*
-libs/
 resources/
-*.tex
-*.csv
-*.bib.bak
-prelim_doc.RData
-main.RData
-
-!data/*.R
-!data/*.md
 
 # History files
 .Rhistory
