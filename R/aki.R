@@ -1,15 +1,29 @@
-
-#' Codify AKI
+#' Codify AKI from Serum Creatinine and/or Urine Output
 #'
-#' @param sCr numeric
-#' @param bCr numeric
-#' @param UO numeric
+#' Some additional details
 #'
-#' @return numeric
-#' @export
+#' @param x numeric number
+#'
+#' @return
 #'
 #' @examples
-#' aki(1, 1, 1)
-aki <- function(sCr, bCr, UO){
-  return(sCr + UO)
+#' @export
+aki <- function(...) {
+  UseMethod("aki")
 }
+
+#' @rdname aki
+#' @export
+aki.numeric <- function(x) {
+  x + 1
+}
+
+
+#' @rdname aki
+#' @export
+aki.default <- function(x) {
+  factor(x, levels = aki_stages)
+}
+
+
+aki_stages = c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3")

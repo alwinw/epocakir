@@ -2,23 +2,22 @@
 % Please edit documentation in R/aki.R
 \name{aki}
 \alias{aki}
-\title{Codify AKI}
+\alias{aki.numeric}
+\alias{aki.default}
+\title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
-aki(sCr, bCr, UO)
+aki(...)
+
+\method{aki}{numeric}(x)
+
+\method{aki}{default}(x)
 }
 \arguments{
-\item{sCr}{numeric}
-
-\item{bCr}{numeric}
-
-\item{UO}{numeric}
+\item{x}{numeric number}
 }
 \value{
-numeric
+
 }
 \description{
-Codify AKI
-}
-\examples{
-aki(1, 1, 1)
+Some additional details
 }
