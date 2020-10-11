@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir) ![GitHub last commit](https://img.shields.io/github/last-commit/alwinw/epocakir) ![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits) ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
 
+<!-- [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master) -->
+
 <!-- badges: end -->
 
 ## Clinical Coding of Patients with Kidney Disease

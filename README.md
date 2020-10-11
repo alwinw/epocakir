@@ -17,6 +17,7 @@ commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
 bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total
 Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
 
+<!-- [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master) -->
 <!-- badges: end -->
 
 Clinical Coding of Patients with Kidney Disease
