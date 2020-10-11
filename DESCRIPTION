@@ -21,15 +21,15 @@ License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues
 Depends:
-    R (>= 3.5.0)
+    R
 Imports:
-    dplyr (>= 0.8.0),
-    tidyselect (>= 1.1.0),
-    tidyr (>= 1.0.0),
-    purrr (>= 0.3.0),
-    tibble (>= 3.0.0)
+    dplyr,
+    tidyselect,
+    tibble,
+    forcats
 Suggests:
-    testthat (>= 1.0.2)
+    testthat,
+    covr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -3,12 +3,15 @@
 \name{aki}
 \alias{aki}
 \alias{aki.numeric}
+\alias{aki.ts}
 \alias{aki.default}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
-aki(...)
+aki(x, ...)
 
-\method{aki}{numeric}(x)
+\method{aki}{numeric}(SCr, bCr = NULL, na.rm = FALSE)
+
+\method{aki}{ts}(ts_data)
 
 \method{aki}{default}(x)
 }
