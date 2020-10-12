@@ -14,3 +14,4 @@
 ^\.png$
 ^README_cache/
 ^codecov\.yml$
+^resources$
