@@ -3,6 +3,7 @@
 \name{aki}
 \alias{aki}
 \alias{aki.numeric}
+\alias{aki.units}
 \alias{aki.ts}
 \alias{aki.default}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
@@ -10,6 +11,8 @@
 aki(...)
 
 \method{aki}{numeric}(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...)
+
+\method{aki}{units}(SCr, bCr = NULL, na.rm = FALSE, ...)
 
 \method{aki}{ts}(SCr, UO, units = "umol/l", ...)
 

@@ -1,3 +1,11 @@
+.sCr2metric <- function(SCr) {
+  if (grepl("mol", units::deparse_unit(SCr))) {
+    return(units::set_units(SCr * units::set_units(113.120, "g/mol"), "mg/dl"))
+  } else {
+    return(units::set_units(SCr, "mg/dl"))
+  }
+}
+
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
@@ -34,13 +42,26 @@ aki <- function(...) {
 
 .aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"))
 
-
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
+  SCr <- units::as_units(SCr, units)
+  if (is.null(bCr)) {
+    bCr <- min(SCr, na.rm = na.rm)  # Must be run after as_units(SCr, ...)
+  }
+  else {
+    bCr <- units::as_units(bCr, units)
+  }
+  aki_stages <- aki.units(SCr = SCr, bCr = bCr, na.rm = na.rm)
+  return(aki_stages)
+}
+
+#' @rdname aki
+#' @export
+aki.units <- function(SCr, bCr = NULL, na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
   aki_stages <- dplyr::case_when(
-    # Need one for SCr > X
+    .sCr2metric(SCr) >= units::set_units(4.0, mg / dl) ~ .aki_stages[3],
     SCr >= 3.0 * bCr ~ .aki_stages[3],
     SCr >= 2.0 * bCr ~ .aki_stages[2],
     SCr >= 1.5 * bCr ~ .aki_stages[1],
@@ -48,6 +69,7 @@ aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
   )
   return(aki_stages)
 }
+
 
 #' @rdname aki
 #' @export

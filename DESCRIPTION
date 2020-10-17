@@ -28,7 +28,8 @@ Imports:
     tibble,
     forcats,
     ellipsis,
-    rlang
+    rlang,
+    units
 Suggests:
     testthat,
     covr

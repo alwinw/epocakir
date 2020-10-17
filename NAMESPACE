@@ -3,4 +3,5 @@
 S3method(aki,default)
 S3method(aki,numeric)
 S3method(aki,ts)
+S3method(aki,units)
 export(aki)
