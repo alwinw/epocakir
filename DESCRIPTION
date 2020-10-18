@@ -21,12 +21,16 @@ License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues
 Depends:
-    R
+    R (>= 3.5.0)
 Imports:
     dplyr,
     tidyselect,
     tibble,
-    forcats
+    forcats,
+    ellipsis,
+    rlang,
+    units,
+    lubridate
 Suggests:
     testthat,
     covr

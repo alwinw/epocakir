@@ -3,24 +3,54 @@
 \name{aki}
 \alias{aki}
 \alias{aki.numeric}
+\alias{aki.units}
 \alias{aki.ts}
 \alias{aki.default}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
-aki(x, ...)
+aki(...)
 
-\method{aki}{numeric}(SCr, bCr = NULL, na.rm = FALSE)
+\method{aki}{numeric}(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...)
 
-\method{aki}{ts}(ts_data)
+\method{aki}{units}(SCr, bCr = NULL, na.rm = FALSE, ...)
 
-\method{aki}{default}(x)
+\method{aki}{ts}(SCr, UO, units = "umol/l", ...)
+
+\method{aki}{default}(data, SCr, bCr, units = list(SCr = "umol/l"), na.rm = FALSE, ...)
 }
 \arguments{
-\item{x}{numeric number}
-}
-\value{
+\item{...}{Further optional arguments that will be passed to method.}
 
+\item{SCr}{The variable name, e.g. "cr", to be used for determining
+AKI based on creatinine level. A numeric vector or time series of
+serum creatinine values if the data argument is unused}
+
+\item{bCr}{The variable name, e.g. "baseline_cr", to be used for determining
+AKI based on urine output. A single numeric value of
+baseline creatinine if the data argument is unused}
+
+\item{units}{(character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
+#TOFIX, consider changing to a list}
+
+\item{na.rm}{(logical) If TRUE, missing values are removed}
+
+\item{UO}{The variable name, e.g. "urine", to be used for determining
+AKI based on urine output. A numeric vector or time series of
+urine output values if the data argument is unused}
+
+\item{data}{A data.frame with the data needed for serum creatinine (SCr)
+and/or urine output (UO)}
 }
 \description{
-Some additional details
+Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Volume 2 | Issue 1 | March 2012
+}
+\details{
+Provided a series of Serum Creatinine readings and/or Urine Output, aki()
+calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
+also calculated
+}
+\examples{
+aki(seq(60, 200, by = 20))
+aki(SCr = seq(60, 200, by = 20), bCr = 50)
 }
