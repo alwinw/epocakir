@@ -29,7 +29,8 @@ Imports:
     forcats,
     ellipsis,
     rlang,
-    units
+    units,
+    lubridate
 Suggests:
     testthat,
     covr
