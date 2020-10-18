@@ -30,7 +30,7 @@ AKI based on urine output. A single numeric value of
 baseline creatinine if the data argument is unused}
 
 \item{units}{(character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
-#TOFIX}
+#TOFIX, consider changing to a list}
 
 \item{na.rm}{(logical) If TRUE, missing values are removed}
 

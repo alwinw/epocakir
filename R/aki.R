@@ -27,7 +27,7 @@
 #'   AKI based on urine output. A single numeric value of
 #'   baseline creatinine if the data argument is unused
 #' @param units (character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
-#'   #TOFIX
+#'   #TOFIX, consider changing to a list
 #' @param na.rm (logical) If TRUE, missing values are removed
 #' @param ... Further optional arguments that will be passed to method.
 #'
@@ -47,7 +47,7 @@ aki <- function(...) {
 aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
   SCr <- units::as_units(SCr, units)
   if (is.null(bCr)) {
-    bCr <- min(SCr, na.rm = na.rm)  # Must be run after as_units(SCr, ...)
+    bCr <- min(SCr, na.rm = na.rm) # Must be run after as_units(SCr, ...)
   }
   else {
     bCr <- units::as_units(bCr, units)
