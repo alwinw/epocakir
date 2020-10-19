@@ -1,5 +1,8 @@
 # Custom
 resources/
+renv/
+.Rprofile
+renv.lock
 
 # History files
 .Rhistory
