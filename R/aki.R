@@ -6,6 +6,47 @@
   }
 }
 
+#' @importFrom rlang .data
+#' @importFrom magrittr %>%
+.generate_cr_ch <- function(data,
+  SCr, dttm, pt_id)
+{
+  cr_ts = data %>%
+    dplyr::ungroup() %>%
+    {if (TRUE) dplyr::group_by(.data, dplyr::across(dplyr::all_of(pt_id))) else .data} %>%
+    dplyr::select(dplyr::all_of(c(pt_id, dttm, SCr))) %>%
+    unique(.data)  # To remove any duplicate DTTM entries
+
+  # if (nrow(cr_ts) < 2) {
+  #   return(data.frame(
+  #     DateTime_Pathology_Result = as_datetime(NA_real_),
+  #     del_t_ch  = as.duration(NA_real_),
+  #     del_t_aki = as.duration(NA_real_),
+  #     del_cr    = NA_real_,
+  #     cr      = NA_real_
+  #   ))
+  # }
+  # Consider filtering out ones post AKI here?
+
+  # combns <- combn(nrow(cr_ts), 2)
+  # Ti_1 = cr_ts[combns[1,],]
+  # Ti   = cr_ts[combns[2,],]
+  #
+  # if(AKI_ICU == 0 | is.na(AKI_ICU)) {
+  #   del_t_aki = rep(as.duration(NA_real_), nrow(Ti))
+  # } else {
+  #   del_t_aki = as.duration(DateTime_AKI_Dx - Ti$Pathology_Result_DTTM)
+  # }
+  #
+  # return(data.frame(
+  #   DateTime_Pathology_Result = Ti$Pathology_Result_DTTM,
+  #   del_t_ch  = as.duration(Ti$Pathology_Result_DTTM - Ti_1$Pathology_Result_DTTM),
+  #   del_t_aki = del_t_aki,
+  #   del_cr    = Ti$Creatinine_level - Ti_1$Creatinine_level,
+  #   cr      = Ti$Creatinine_level
+  # ))
+}
+
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
@@ -80,5 +121,6 @@ aki.ts <- function(SCr, UO, units = "umol/l", ...) {
 #' @rdname aki
 #' @export
 aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
+  predictor <- rlang::as_name(rlang::enquo(SCr))
   factor(data, levels = .aki_stages)
 }
