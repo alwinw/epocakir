@@ -80,5 +80,6 @@ aki.ts <- function(SCr, UO, units = "umol/l", ...) {
 #' @rdname aki
 #' @export
 aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
+  predictor <- rlang::as_name(rlang::enquo(SCr))
   factor(data, levels = .aki_stages)
 }
