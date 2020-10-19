@@ -30,7 +30,8 @@ Imports:
     ellipsis,
     rlang,
     units,
-    lubridate
+    lubridate,
+    magrittr
 Suggests:
     testthat,
     covr

@@ -71,8 +71,8 @@ test_that("aki() for vector of SCr in mg/dl with baseline", {
 })
 
 data <- data.frame(
-  pt_id = c(rep("pt1", 11), rep("pt2", 13)),
-  dttm = c(
+  pt_id_ = c(rep("pt1", 11), rep("pt2", 13)),
+  dttm_ = c(
     seq(
       lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
       lubridate::as_datetime("2020-10-20 09:00:00", tz = "Australia/Melbourne"),
@@ -84,11 +84,11 @@ data <- data.frame(
       length.out = 13
     )
   ),
-  SCr = c(
+  SCr_ = c(
     units::set_units(seq(2.0, 4.5, by = 0.25), "mg/dl"),
     units::set_units(seq(3.0, 4.2, by = 0.10), "mg/dl")
   ),
-  bCr = c(
+  bCr_ = c(
     rep(units::set_units(1.8, "mg/dl"), 11),
     rep(units::set_units(3.0, "mg/dl"), 13)
   )
