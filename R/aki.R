@@ -13,21 +13,22 @@
   # TODO Consider saving current grouping settings
 
   if (is.null(pt_id)) {
-    data_g <- dplyr::ungroup(data)
+    data$.pt_id <- data[[pt_id]]
   } else {
-    data_g <- dplyr::group_by(data, dplyr::across(dplyr::all_of(pt_id)), .add = FALSE)
+    data$.pt_id <- "pt"
   }
 
-  cr_ts <- data_g %>%
+  data_g <- data %>%
+    dplyr::group_by(.data$.pt_id, .add = FALSE) %>%
     dplyr::select(dplyr::all_of(c(pt_id, dttm, SCr))) %>%
     dplyr::arrange(dplyr::across(dplyr::all_of(dttm)), .by_group = TRUE) %>%
     unique()
 
   # check for nrow < 2
 
-  combns <- utils::combn(nrow(cr_ts), 2)
+  combns <- utils::combn(nrow(data_g), 2)
 
-  return(cr_ts)
+  return(data_g)
 
   # if (nrow(cr_ts) < 2) {
   #   return(data.frame(
