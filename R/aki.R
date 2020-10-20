@@ -13,27 +13,45 @@
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
 
   if (is.null(pt_id)) {
-    data$.pt_id <- data[[pt_id]]
-  } else {
     data$.pt_id <- "pt"
+  } else {
+    data$.pt_id <- data[[pt_id]]
   }
 
   data_g <- data %>%
     dplyr::group_by(.data$.pt_id, .add = FALSE) %>%
-    dplyr::select(dplyr::all_of(c(pt_id, dttm, SCr))) %>%
-    dplyr::arrange(dplyr::across(dplyr::all_of(dttm)), .by_group = TRUE) %>%
+    dplyr::select(.data$.pt_id, dplyr::all_of(c(dttm, SCr))) %>%
+    dplyr::arrange(.data$.pt_id,dplyr::across(dplyr::all_of(dttm)), .by_group = TRUE) %>%
     unique()
 
   # check for nrow < 2
 
   data_n <- data_g %>%
-    dplyr::count(.drop = TRUE) %>%
+    dplyr::count() %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(n_1 = lag(.data$n, default = 0)) %>%
     dplyr::rowwise() %>%
-    dplyr::do(data.frame(t(utils::combn(.data$n, 2)))) # TODO do() superseded, replace
+    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%  # TODO do() superseded, replace
     # no filter required as X1 < X2 already and
     # assume that dplyr::arrange() and unique() took care of edge cases
+    dplyr::arrange(X2, X1)
 
-  return(data_g)
+  T1 <- data_g[data_n$X1, ] %>% rename_with(~paste0(.x, "_1"))
+  T2 <- data_g[data_n$X2, ] %>% rename_with(~paste0(.x, "_2"))
+
+  # The patient id should also match, remove after testing
+  if (!all.equal(T1$.pt_id_1, T2$.pt_id_2))
+    warning("Unexpected mismatch in patient ids")
+
+  data_c <- cbind(T1, T2) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-dplyr::starts_with(".pt_id")) %>%
+    dplyr::mutate(
+      D.SCr = .data[[paste0(SCr, "_2")]] - .data[[paste0(SCr, "_1")]],
+      D.dttm = .data[[paste0(dttm, "_2")]] - .data[[paste0(dttm, "_1")]]
+    )
+
+  return(data_n)
 
   # if (nrow(cr_ts) < 2) {
   #   return(data.frame(
