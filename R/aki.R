@@ -8,6 +8,8 @@
 
 #' @importFrom rlang .data
 .generate_cr_ch <- function(data, SCr, dttm, pt_id) {
+  # TODO rename with actual functionality, >= 0.3mg/dl in 48 hrs -> AKI Stage 1
+
   # Issues with R CMD CHECK when trying to
   # {if (l) dplyr::group_by(., dplyr::across(dplyr::all_of(pt_id))) else ...}
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
@@ -36,51 +38,23 @@
     # assume that dplyr::arrange() and unique() took care of edge cases
     dplyr::arrange(X2, X1)
 
-  T1 <- data_g[data_n$X1, ] %>% rename_with(~paste0(.x, "_1"))
-  T2 <- data_g[data_n$X2, ] %>% rename_with(~paste0(.x, "_2"))
+  # consider a more dplyr version e.g. pivot_longer (X1, X2)
+  # then use summarise and diff
+  T1 <- data_g[data_n$X1, ]
+  T2 <- data_g[data_n$X2, ]
 
   # The patient id should also match, remove after testing
-  if (!all.equal(T1$.pt_id_1, T2$.pt_id_2))
+  if (!all.equal(T1$.pt_id, T2$.pt_id))
     warning("Unexpected mismatch in patient ids")
 
-  data_c <- cbind(T1, T2) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(-dplyr::starts_with(".pt_id")) %>%
-    dplyr::mutate(
-      D.SCr = .data[[paste0(SCr, "_2")]] - .data[[paste0(SCr, "_1")]],
-      D.dttm = .data[[paste0(dttm, "_2")]] - .data[[paste0(dttm, "_1")]]
-    )
+  data_c <- data.frame(
 
-  return(data_n)
+    D.SCr = T2[[SCr]] - T1[[SCr]],
+    D.dttm = T2[[dttm]] - T1[[dttm]]
+  ) %>%
+    filter(D.dttm <= lubridate::duration(hours = 48))
 
-  # if (nrow(cr_ts) < 2) {
-  #   return(data.frame(
-  #     DateTime_Pathology_Result = as_datetime(NA_real_),
-  #     del_t_ch  = as.duration(NA_real_),
-  #     del_t_aki = as.duration(NA_real_),
-  #     del_cr    = NA_real_,
-  #     cr      = NA_real_
-  #   ))
-  # }
-  # Consider filtering out ones post AKI here?
-
-  # combns <- combn(nrow(cr_ts), 2)
-  # Ti_1 = cr_ts[combns[1,],]
-  # Ti   = cr_ts[combns[2,],]
-  #
-  # if(AKI_ICU == 0 | is.na(AKI_ICU)) {
-  #   del_t_aki = rep(as.duration(NA_real_), nrow(Ti))
-  # } else {
-  #   del_t_aki = as.duration(DateTime_AKI_Dx - Ti$Pathology_Result_DTTM)
-  # }
-  #
-  # return(data.frame(
-  #   DateTime_Pathology_Result = Ti$Pathology_Result_DTTM,
-  #   del_t_ch  = as.duration(Ti$Pathology_Result_DTTM - Ti_1$Pathology_Result_DTTM),
-  #   del_t_aki = del_t_aki,
-  #   del_cr    = Ti$Creatinine_level - Ti_1$Creatinine_level,
-  #   cr      = Ti$Creatinine_level
-  # ))
+  return(data_c)
 }
 
 #' Codify AKI from Serum Creatinine and/or Urine Output
