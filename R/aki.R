@@ -10,7 +10,7 @@
 .generate_cr_ch <- function(data, SCr, dttm, pt_id) {
   # Issues with R CMD CHECK when trying to
   # {if (l) dplyr::group_by(., dplyr::across(dplyr::all_of(pt_id))) else ...}
-  # TODO Consider saving current grouping settings
+  # TODO Consider saving current grouping settings e.g. dplyr::group_data()
 
   if (is.null(pt_id)) {
     data$.pt_id <- data[[pt_id]]
@@ -26,7 +26,12 @@
 
   # check for nrow < 2
 
-  combns <- utils::combn(nrow(data_g), 2)
+  data_n <- data_g %>%
+    dplyr::count(.drop = TRUE) %>%
+    dplyr::rowwise() %>%
+    dplyr::do(data.frame(t(utils::combn(.data$n, 2)))) # TODO do() superseded, replace
+    # no filter required as X1 < X2 already and
+    # assume that dplyr::arrange() and unique() took care of edge cases
 
   return(data_g)
 
