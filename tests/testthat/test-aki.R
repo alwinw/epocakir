@@ -70,6 +70,10 @@ test_that("aki() for vector of SCr in mg/dl with baseline", {
   expect_equal(aki(SCr, bCr), aki_stages)
 })
 
+pt_id <- "pt_id_"
+dttm <- "dttm_"
+SCr <- "SCr_"
+bCr <- "bCr_"
 data <- data.frame(
   pt_id_ = c(rep("pt1", 11), rep("pt2", 13)),
   dttm_ = c(
@@ -93,3 +97,5 @@ data <- data.frame(
     rep(units::set_units(3.0, "mg/dl"), 13)
   )
 )
+
+data <- data[sample(nrow(data)), ]

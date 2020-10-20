@@ -7,15 +7,27 @@
 }
 
 #' @importFrom rlang .data
-#' @importFrom magrittr %>%
-.generate_cr_ch <- function(data,
-  SCr, dttm, pt_id)
-{
-  cr_ts = data %>%
-    dplyr::ungroup() %>%
-    {if (TRUE) dplyr::group_by(.data, dplyr::across(dplyr::all_of(pt_id))) else .data} %>%
+.generate_cr_ch <- function(data, SCr, dttm, pt_id) {
+  # Issues with R CMD CHECK when trying to
+  # {if (l) dplyr::group_by(., dplyr::across(dplyr::all_of(pt_id))) else ...}
+  # TODO Consider saving current grouping settings
+
+  if (is.null(pt_id)) {
+    data_g <- dplyr::ungroup(data)
+  } else {
+    data_g <- dplyr::group_by(data, dplyr::across(dplyr::all_of(pt_id)), .add = FALSE)
+  }
+
+  cr_ts <- data_g %>%
     dplyr::select(dplyr::all_of(c(pt_id, dttm, SCr))) %>%
-    unique(.data)  # To remove any duplicate DTTM entries
+    dplyr::arrange(dplyr::across(dplyr::all_of(dttm)), .by_group = TRUE) %>%
+    unique()
+
+  # check for nrow < 2
+
+  combns <- utils::combn(nrow(cr_ts), 2)
+
+  return(cr_ts)
 
   # if (nrow(cr_ts) < 2) {
   #   return(data.frame(
