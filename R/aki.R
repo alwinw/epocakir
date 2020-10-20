@@ -10,8 +10,7 @@
 .generate_cr_ch <- function(data, SCr, dttm, pt_id) {
   # TODO rename with actual functionality, >= 0.3mg/dl in 48 hrs -> AKI Stage 1
 
-  # Issues with R CMD CHECK when trying to
-  # {if (l) dplyr::group_by(., dplyr::across(dplyr::all_of(pt_id))) else ...}
+  # TODO break into 48hr increments to reduce combn
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
 
   if (is.null(pt_id)) {
@@ -31,15 +30,12 @@
   data_n <- data_g %>%
     dplyr::count() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(n_1 = lag(.data$n, default = 0)) %>%
+    dplyr::mutate(n_1 = dplyr::lag(.data$n, default = 0)) %>%
     dplyr::rowwise() %>%
     dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%  # TODO do() superseded, replace
-    # no filter required as X1 < X2 already and
-    # assume that dplyr::arrange() and unique() took care of edge cases
     dplyr::arrange(X2, X1)
 
-  # consider a more dplyr version e.g. pivot_longer (X1, X2)
-  # then use summarise and diff
+  # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_g[data_n$X1, ]
   T2 <- data_g[data_n$X2, ]
 
@@ -48,11 +44,13 @@
     warning("Unexpected mismatch in patient ids")
 
   data_c <- data.frame(
-
+    .pt_id = T1$.pt_id,
+    dttm = T1[[dttm]],
     D.SCr = T2[[SCr]] - T1[[SCr]],
     D.dttm = T2[[dttm]] - T1[[dttm]]
   ) %>%
-    filter(D.dttm <= lubridate::duration(hours = 48))
+    dplyr::filter(D.dttm <= lubridate::duration(hours = 48)) %>%
+    dplyr::rename(!!dttm := dttm)
 
   return(data_c)
 }
