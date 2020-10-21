@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
 
 <!-- [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master) -->
 
+[![R build status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
 <!-- badges: end -->
 
 ## Clinical Coding of Patients with Kidney Disease
