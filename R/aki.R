@@ -7,50 +7,59 @@
 }
 
 #' @importFrom rlang .data
-.generate_cr_ch <- function(data, SCr, dttm, pt_id) {
-  # TODO rename with actual functionality, >= 0.3mg/dl in 48 hrs -> AKI Stage 1
-
+.generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   # TODO break into 48hr increments to reduce combn
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
 
+  data_gr <- data[, c(SCr, dttm)]
   if (is.null(pt_id)) {
-    data$.pt_id <- "pt"
+    data_gr$pt_id <- "pt"
   } else {
-    data$.pt_id <- data[[pt_id]]
+    data_gr$pt_id <- data[[pt_id]]
   }
+  colnames(data_gr) <- c("SCr", "dttm", "pt_id")
 
-  data_g <- data %>%
-    dplyr::group_by(.data$.pt_id, .add = FALSE) %>%
-    dplyr::select(.data$.pt_id, dplyr::all_of(c(dttm, SCr))) %>%
-    dplyr::arrange(.data$.pt_id,dplyr::across(dplyr::all_of(dttm)), .by_group = TRUE) %>%
-    unique()
+
+  data_a <- data_gr %>%
+    dplyr::group_by(.data$pt_id, .add = FALSE) %>%
+    dplyr::arrange(.data$pt_id, .data$dttm) %>%
+    unique() %>%
+    dplyr::mutate(
+      admin = cumsum(
+        (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >= lubridate::duration(hours = 48)
+      )
+    ) %>%
+    dplyr::group_by(.data$admin, .add = TRUE)
 
   # check for nrow < 2
 
-  data_n <- data_g %>%
+  data_n <- data_a %>%
     dplyr::count() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(n_1 = dplyr::lag(.data$n, default = 0)) %>%
+    dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%
-    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%  # TODO do() superseded, replace
+    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>% # TODO do() superseded, replace
     dplyr::arrange(X2, X1)
 
   # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
-  T1 <- data_g[data_n$X1, ]
-  T2 <- data_g[data_n$X2, ]
+  T1 <- data_a[data_n$X1, ]
+  T2 <- data_a[data_n$X2, ]
 
   # The patient id should also match, remove after testing
-  if (!all.equal(T1$.pt_id, T2$.pt_id))
+  if (!all.equal(T1[c("pt_id", "admin")], T2[c("pt_id", "admin")])) {
     warning("Unexpected mismatch in patient ids")
+  }
 
   data_c <- data.frame(
-    .pt_id = T1$.pt_id,
-    dttm = T1[[dttm]],
-    D.SCr = T2[[SCr]] - T1[[SCr]],
-    D.dttm = T2[[dttm]] - T1[[dttm]]
+    pt_id = T1$pt_id,
+    admin = T1$admin,
+    dttm = T1$dttm,
+    SCr = T2$SCr,
+    D.SCr = T2$SCr - T1$SCr,
+    D.dttm = T2$dttm - T1$dttm
   ) %>%
     dplyr::filter(D.dttm <= lubridate::duration(hours = 48)) %>%
-    dplyr::rename(!!dttm := dttm)
+    dplyr::rename(!!dttm := dttm, !!SCr := SCr)
 
   return(data_c)
 }
