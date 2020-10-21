@@ -31,4 +31,3 @@ anemia.numeric <- function(age, birthday, gender, Hb, ...) {
 anemia.units <- function(age, birthday, gender, Hb, ...) {
 
 }
-
