@@ -1,11 +1,3 @@
-.sCr2metric <- function(SCr) {
-  if (grepl("mol", units::deparse_unit(SCr))) {
-    return(units::set_units(SCr * units::set_units(113.120, "g/mol"), "mg/dl"))
-  } else {
-    return(units::set_units(SCr, "mg/dl"))
-  }
-}
-
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
@@ -80,5 +72,63 @@ aki.ts <- function(SCr, UO, units = "umol/l", ...) {
 #' @rdname aki
 #' @export
 aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
+  predictor <- rlang::as_name(rlang::enquo(SCr))
   factor(data, levels = .aki_stages)
+}
+
+
+#' @importFrom rlang .data
+#' @importFrom rlang `:=`
+.generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
+  # TODO break into 48hr increments to reduce combn
+  # TODO Consider saving current grouping settings e.g. dplyr::group_data()
+  data_gr <- data[, c(SCr, dttm)]
+  if (is.null(pt_id)) {
+    data_gr$pt_id <- "pt"
+  } else {
+    data_gr$pt_id <- data[[pt_id]]
+  }
+  colnames(data_gr) <- c("SCr", "dttm", "pt_id")
+  data_gr <- data_gr %>%
+    dplyr::group_by(.data$pt_id, .add = FALSE) %>%
+    dplyr::arrange(.data$pt_id, .data$dttm) %>%
+    unique() %>%
+    dplyr::mutate(
+      admin = cumsum(
+        (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >= lubridate::duration(hours = 48)
+      )
+    ) %>%
+    dplyr::group_by(.data$admin, .add = TRUE)
+  # check for nrow < 2
+  data_n <- data_gr %>%
+    dplyr::count() %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
+    dplyr::rowwise() %>%
+    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>% # TODO do() superseded, replace
+    dplyr::arrange(.data$X2, .data$X1)
+  # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
+  T1 <- data_gr[data_n$X1, ]
+  T2 <- data_gr[data_n$X2, ]
+  # The patient id should also match, remove after testing
+  if (!all.equal(T1[c("pt_id", "admin")], T2[c("pt_id", "admin")])) {
+    warning("Unexpected mismatch in patient ids")
+  }
+  data_c <- data.frame(
+    pt_id = T1$pt_id,
+    admin = T1$admin,
+    dttm = T1$dttm,
+    SCr = T2$SCr,
+    D.SCr = T2$SCr - T1$SCr,
+    D.dttm = T2$dttm - T1$dttm
+  ) %>%
+    dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
+    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm) %>%
+    dplyr::rename(!!dttm := .data$dttm, !!SCr := .data$SCr)
+  if (is.null(pt_id)) {
+    data_c$pt_id <- NULL
+  } else {
+    data_c <- dplyr::rename(data_c, !!pt_id := .data$pt_id)
+  }
+  return(data_c)
 }
