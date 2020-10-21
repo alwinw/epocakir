@@ -36,7 +36,9 @@ aki <- function(...) {
 
 #' @rdname aki
 #' @export
-aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
+aki.numeric <- function(SCr,
+                        bCr = NULL,
+                        units = "umol/l", na.rm = FALSE, ...) {
   SCr <- units::as_units(SCr, units)
   if (is.null(bCr)) {
     bCr <- min(SCr, na.rm = na.rm) # Must be run after as_units(SCr, ...)
@@ -50,7 +52,9 @@ aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
 
 #' @rdname aki
 #' @export
-aki.units <- function(SCr, bCr = NULL, na.rm = FALSE, ...) {
+aki.units <- function(SCr,
+                      bCr = NULL,
+                      na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
   aki_stages <- dplyr::case_when(
     .sCr2metric(SCr) >= units::set_units(4.0, mg / dl) ~ .aki_stages[3],
@@ -71,9 +75,17 @@ aki.ts <- function(SCr, UO, units = "umol/l", ...) {
 
 #' @rdname aki
 #' @export
-aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
-  predictor <- rlang::as_name(rlang::enquo(SCr))
-  factor(data, levels = .aki_stages)
+aki.default <- function(data,
+                        SCr = NULL, bCr = NULL, UO = NULL,
+                        aki = "aki",
+                        units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
+  # TODO check if aki is an existing company
+  # Calc UO if not given
+
+  data %>%
+    dplyr::mutate(
+      !!aki := "hi"
+    )
 }
 
 
@@ -82,6 +94,7 @@ aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = 
 .generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   # TODO break into 48hr increments to reduce combn
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
+  # Ref: https://tidyeval.tidyverse.org/dplyr.html
   data_gr <- data[, c(SCr, dttm)]
   if (is.null(pt_id)) {
     data_gr$pt_id <- "pt"
