@@ -57,7 +57,7 @@ aki.units <- function(SCr,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
   aki_stages <- dplyr::case_when(
-    .sCr2metric(SCr) >= units::set_units(4.0, mg / dl) ~ .aki_stages[3],
+    .sCr2metric(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
     SCr >= 3.0 * bCr ~ .aki_stages[3],
     SCr >= 2.0 * bCr ~ .aki_stages[2],
     SCr >= 1.5 * bCr ~ .aki_stages[1],
@@ -84,7 +84,11 @@ aki.default <- function(data,
 
   data %>%
     dplyr::mutate(
-      !!aki := "hi"
+      !!aki := SCr
+        #dplyr::case_when(
+        #.sCr2metric(!!SCr) >= units::set_units(4.0, "mg/dl") ~ 1,
+        #TRUE ~ 2
+      #)
     )
 }
 
