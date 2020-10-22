@@ -16,7 +16,16 @@ aki(...)
 
 \method{aki}{ts}(SCr, UO, units = "umol/l", ...)
 
-\method{aki}{default}(data, SCr, bCr, units = list(SCr = "umol/l"), na.rm = FALSE, ...)
+\method{aki}{default}(
+  data,
+  SCr = NULL,
+  bCr = NULL,
+  UO = NULL,
+  aki = "aki",
+  units = list(SCr = "umol/l"),
+  na.rm = FALSE,
+  ...
+)
 }
 \arguments{
 \item{...}{Further optional arguments that will be passed to method.}
@@ -40,6 +49,8 @@ urine output values if the data argument is unused}
 
 \item{data}{A data.frame with the data needed for serum creatinine (SCr)
 and/or urine output (UO)}
+
+\item{aki}{the variable name e.g. "aki_stages" to be used for the output}
 }
 \description{
 Using KDIGO Clinical Practice Guideline for Acute Kidney Injury

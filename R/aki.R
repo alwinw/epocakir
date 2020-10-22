@@ -18,6 +18,7 @@
 #' @param bCr The variable name, e.g. "baseline_cr", to be used for determining
 #'   AKI based on urine output. A single numeric value of
 #'   baseline creatinine if the data argument is unused
+#' @param aki the variable name e.g. "aki_stages" to be used for the output
 #' @param units (character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
 #'   #TOFIX, consider changing to a list
 #' @param na.rm (logical) If TRUE, missing values are removed
@@ -80,21 +81,20 @@ aki.default <- function(data,
                         aki = "aki",
                         units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
   # TODO check if aki is an existing company
-  # Calc UO if not given
+  # Check SCr or bCr are given1
+  # Calc bCr if not given
 
   data %>%
-    dplyr::mutate("{aki}.test" := !!(as.name(SCr)) * 2) %>%
+    dplyr::mutate("{aki}.test" := !!as.name(SCr) * 2) %>%
     dplyr::mutate(
       aki := dplyr::case_when(
-        .sCr2metric(!!(as.name(SCr))) >= units::set_units(4.0, "mg/dl") ~ "ok!",
-        TRUE ~ "hmm"
+        .sCr2metric(!!as.name(SCr)) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+        !!as.name(SCr) >= 3.0 * !!as.name(bCr) ~ .aki_stages[3],
+        !!as.name(SCr) >= 2.0 * !!as.name(bCr) ~ .aki_stages[2],
+        !!as.name(SCr) >= 1.5 * !!as.name(bCr) ~ .aki_stages[1],
+        TRUE ~ .aki_stages[length(.aki_stages)]
       )
     )
-
-  # dplyr::case_when(
-  # .sCr2metric(!!SCr) >= units::set_units(4.0, "mg/dl") ~ 1,
-  # TRUE ~ 2
-  # )
 }
 
 
