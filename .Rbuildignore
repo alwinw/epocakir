@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^CRAN-RELEASE$
 ^Meta$
 ^doc$
@@ -15,3 +17,7 @@
 ^README_cache/
 ^codecov\.yml$
 ^resources$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

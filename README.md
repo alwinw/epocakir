@@ -8,16 +8,11 @@ epocakir
 
 <!-- badges: start -->
 
-![GitHub commit
-activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir)
-![GitHub last
-commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
-![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits)
-![GitHub repo size in
-bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total
-Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
+[![R build
+status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master)
 
-<!-- [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master) -->
 <!-- badges: end -->
 
 Clinical Coding of Patients with Kidney Disease
@@ -61,3 +56,15 @@ References
 
 KDIGO Guidelines -
 <a href="https://kdigo.org/guidelines/" class="uri">https://kdigo.org/guidelines/</a>
+
+Activity
+--------
+
+![GitHub commit
+activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir)
+![GitHub last
+commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
+![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits)
+![GitHub repo size in
+bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total
+Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
