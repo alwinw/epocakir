@@ -83,11 +83,12 @@ aki.default <- function(data,
   # TODO check if aki is an existing company
   # Check SCr or bCr are given1
   # Calc bCr if not given
+  # TODO consider fuctionalising aki.bCr, etc
 
   data %>%
     dplyr::mutate("{aki}.test" := !!as.name(SCr) * 2) %>%
     dplyr::mutate(
-      aki := dplyr::case_when(
+      "{aki}.bCr" := dplyr::case_when(
         .sCr2metric(!!as.name(SCr)) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
         !!as.name(SCr) >= 3.0 * !!as.name(bCr) ~ .aki_stages[3],
         !!as.name(SCr) >= 2.0 * !!as.name(bCr) ~ .aki_stages[2],
