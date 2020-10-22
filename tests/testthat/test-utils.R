@@ -11,3 +11,9 @@ test_that(".sCr2metric() conversion 353.6 umol/l to 4mg/dl is correct", {
     units::set_units(1e-4, "mg/dl")
   )
 })
+
+Atest_that(".dob2age() between two dates is valid", {
+  expect_equal(
+    .dob2age(lubridate::as_date("1990-01-01"))
+  )
+})

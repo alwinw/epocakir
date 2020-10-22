@@ -5,3 +5,9 @@
     return(units::set_units(SCr, "mg/dl"))
   }
 }
+
+.dob2age <- function(dob, age_on = lubridate::today(), units = "years", fun = NULL) {
+  age = lubridate::as.duration(lubridate::interval(dob, age_on), units)
+  if (!is.null(fun)) fun(age)
+  return(age)
+}
