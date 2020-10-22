@@ -83,13 +83,18 @@ aki.default <- function(data,
   # Calc UO if not given
 
   data %>%
+    dplyr::mutate("{aki}.test" := !!(as.name(SCr)) * 2) %>%
     dplyr::mutate(
-      !!aki := SCr
-        #dplyr::case_when(
-        #.sCr2metric(!!SCr) >= units::set_units(4.0, "mg/dl") ~ 1,
-        #TRUE ~ 2
-      #)
+      aki := dplyr::case_when(
+        .sCr2metric(!!(as.name(SCr))) >= units::set_units(4.0, "mg/dl") ~ "ok!",
+        TRUE ~ "hmm"
+      )
     )
+
+  # dplyr::case_when(
+  # .sCr2metric(!!SCr) >= units::set_units(4.0, "mg/dl") ~ 1,
+  # TRUE ~ 2
+  # )
 }
 
 
