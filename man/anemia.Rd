@@ -9,11 +9,11 @@
 \usage{
 anemia(...)
 
-\method{anemia}{numeric}(Hb, age = NULL, birthday = NULL, gender, ...)
+\method{anemia}{numeric}(Hb, age, gender, ...)
 
-\method{anemia}{units}(Hb, age = NULL, birthday = NULL, gender, ...)
+\method{anemia}{units}(Hb, age, gender, ...)
 
-\method{anemia}{default}(data = NULL, age = NULL, birthday = NULL, gender, Hb, ...)
+\method{anemia}{default}(data = NULL, Hb, age, gender, ...)
 }
 \arguments{
 \item{...}{Further optional arguments that will be passed to method.}
@@ -21,8 +21,6 @@ anemia(...)
 \item{Hb}{The variable name e.g. "Hb" or X}
 
 \item{age}{The variable name, e.g. "age" or X}
-
-\item{birthday}{The variable name, e.g.  "birthday" or X}
 
 \item{gender}{The variable name, e.g. "gender" or X}
 

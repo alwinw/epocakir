@@ -40,3 +40,6 @@ dob2age <- function(dob, age_on = lubridate::today(),
   }
   return(age)
 }
+
+
+gender2factor <- function() {}
