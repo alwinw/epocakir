@@ -4,16 +4,21 @@
 \alias{anemia}
 \alias{anemia.numeric}
 \alias{anemia.units}
+\alias{anemia.default}
 \title{Diagnosis of anemia from Hb concentration}
 \usage{
 anemia(...)
 
-\method{anemia}{numeric}(age, birthday, gender, Hb, ...)
+\method{anemia}{numeric}(Hb, age = NULL, birthday = NULL, gender, ...)
 
-\method{anemia}{units}(age, birthday, gender, Hb, ...)
+\method{anemia}{units}(Hb, age = NULL, birthday = NULL, gender, ...)
+
+\method{anemia}{default}(data = NULL, age = NULL, birthday = NULL, gender, Hb, ...)
 }
 \arguments{
 \item{...}{Further optional arguments that will be passed to method.}
+
+\item{Hb}{The variable name e.g. "Hb" or X}
 
 \item{age}{The variable name, e.g. "age" or X}
 
@@ -21,7 +26,7 @@ anemia(...)
 
 \item{gender}{The variable name, e.g. "gender" or X}
 
-\item{Hb}{The variable name e.g. "Hb" or X}
+\item{data}{A data.frame X}
 }
 \value{
 A dataframe or X
