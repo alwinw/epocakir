@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Diagnosis of anemia from Hb concentration — anemia • epocakir</title>
+<title>Calculate age from DOB — dob2age • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Diagnosis of anemia from Hb concentration — anemia" />
-<meta property="og:description" content="TODO Make consistent with other files" />
+<meta property="og:title" content="Calculate age from DOB — dob2age" />
+<meta property="og:description" content="Calculate age from DOB" />
 
 
 
@@ -108,59 +108,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Diagnosis of anemia from Hb concentration</h1>
-    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/anemia.R'><code>R/anemia.R</code></a></small>
-    <div class="hidden name"><code>anemia.Rd</code></div>
+    <h1>Calculate age from DOB</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>dob2age.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>TODO Make consistent with other files</p>
+    <p>Calculate age from DOB</p>
     </div>
 
-    <pre class="usage"><span class='fu'>anemia</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>anemia</span><span class='op'>(</span><span class='va'>Hb</span>, <span class='va'>age</span>, <span class='va'>gender</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for units</span>
-<span class='fu'>anemia</span><span class='op'>(</span><span class='va'>Hb</span>, <span class='va'>age</span>, <span class='va'>gender</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>anemia</span><span class='op'>(</span>data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>Hb</span>, <span class='va'>age</span>, <span class='va'>gender</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>dob2age</span><span class='op'>(</span><span class='va'>dob</span>, age_on <span class='op'>=</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/now.html'>today</a></span><span class='op'>(</span><span class='op'>)</span>, fun <span class='op'>=</span> <span class='cn'>NULL</span>, units <span class='op'>=</span> <span class='st'>"years"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>dob</th>
+      <td><p>The date or vector of dates representing date(s) of birth.</p></td>
+    </tr>
+    <tr>
+      <th>age_on</th>
+      <td><p>(Date) The date on which age is to be calculated.
+Defaults to today.</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p>(function) The function to be applied to the age, e.g. floor.
+Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>units</th>
+      <td><p>(character) The units to measure age in, e.g. "years".
+Only used if <code>fun</code> is specified. Defaults to "years".</p></td>
+    </tr>
+    <tr>
       <th>...</th>
-      <td><p>Further optional arguments that will be passed to method.</p></td>
-    </tr>
-    <tr>
-      <th>Hb</th>
-      <td><p>The variable name e.g. "Hb" or X</p></td>
-    </tr>
-    <tr>
-      <th>age</th>
-      <td><p>The variable name, e.g. "age" or X</p></td>
-    </tr>
-    <tr>
-      <th>gender</th>
-      <td><p>The variable name, e.g. "gender" or X</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>A data.frame X</p></td>
+      <td><p>Further optional arguments that will be passed to <code>fun</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe or X</p>
+    <p>(Duration) The age as a duration.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>anemia</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "numeric!"
-#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>dob2age</span><span class='op'>(</span><span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='st'>"1990-01-01"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "972259200s (~30.81 years)"</div><div class='input'><span class='fu'>dob2age</span><span class='op'>(</span>
+  dob <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='st'>"1990-01-01"</span><span class='op'>)</span>,
+    <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='st'>"1994-01-01"</span><span class='op'>)</span>,
+    <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='st'>"1998-01-01"</span><span class='op'>)</span>
+  <span class='op'>)</span>,
+  age_on <span class='op'>=</span> <span class='fu'>lubridate</span><span class='fu'>::</span><span class='fu'><a href='http://lubridate.tidyverse.org/reference/as_date.html'>as_date</a></span><span class='op'>(</span><span class='st'>"2002-12-31"</span><span class='op'>)</span>,
+  fun <span class='op'>=</span> <span class='va'>floor</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "378691200s (~12 years)" "252460800s (~8 years)"  "126230400s (~4 years)" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
