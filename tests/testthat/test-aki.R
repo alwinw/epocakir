@@ -74,6 +74,7 @@ pt_id <- "pt_id_"
 dttm <- "dttm_"
 SCr <- "SCr_"
 bCr <- "bCr_"
+aki <- "aki"
 data_ <- data.frame(
   pt_id_ = c(rep("pt1", 11 + 7), rep("pt2", 13)),
   dttm_ = c(

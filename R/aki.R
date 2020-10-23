@@ -18,6 +18,7 @@
 #' @param bCr The variable name, e.g. "baseline_cr", to be used for determining
 #'   AKI based on urine output. A single numeric value of
 #'   baseline creatinine if the data argument is unused
+#' @param aki the variable name e.g. "aki_stages" to be used for the output
 #' @param units (character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
 #'   #TOFIX, consider changing to a list
 #' @param na.rm (logical) If TRUE, missing values are removed
@@ -36,7 +37,9 @@ aki <- function(...) {
 
 #' @rdname aki
 #' @export
-aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
+aki.numeric <- function(SCr,
+                        bCr = NULL,
+                        units = "umol/l", na.rm = FALSE, ...) {
   SCr <- units::as_units(SCr, units)
   if (is.null(bCr)) {
     bCr <- min(SCr, na.rm = na.rm) # Must be run after as_units(SCr, ...)
@@ -50,10 +53,12 @@ aki.numeric <- function(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...) {
 
 #' @rdname aki
 #' @export
-aki.units <- function(SCr, bCr = NULL, na.rm = FALSE, ...) {
+aki.units <- function(SCr,
+                      bCr = NULL,
+                      na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
   aki_stages <- dplyr::case_when(
-    .sCr2metric(SCr) >= units::set_units(4.0, mg / dl) ~ .aki_stages[3],
+    .sCr2metric(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
     SCr >= 3.0 * bCr ~ .aki_stages[3],
     SCr >= 2.0 * bCr ~ .aki_stages[2],
     SCr >= 1.5 * bCr ~ .aki_stages[1],
@@ -71,9 +76,26 @@ aki.ts <- function(SCr, UO, units = "umol/l", ...) {
 
 #' @rdname aki
 #' @export
-aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
-  predictor <- rlang::as_name(rlang::enquo(SCr))
-  factor(data, levels = .aki_stages)
+aki.default <- function(data,
+                        SCr = NULL, bCr = NULL, UO = NULL,
+                        aki = "aki",
+                        units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
+  # TODO check if aki is an existing company
+  # Check SCr or bCr are given1
+  # Calc bCr if not given
+  # TODO consider fuctionalising aki.bCr, etc
+
+  data %>%
+    dplyr::mutate("{aki}.test" := !!as.name(SCr) * 2) %>%
+    dplyr::mutate(
+      "{aki}.bCr" := dplyr::case_when(
+        .sCr2metric(!!as.name(SCr)) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+        !!as.name(SCr) >= 3.0 * !!as.name(bCr) ~ .aki_stages[3],
+        !!as.name(SCr) >= 2.0 * !!as.name(bCr) ~ .aki_stages[2],
+        !!as.name(SCr) >= 1.5 * !!as.name(bCr) ~ .aki_stages[1],
+        TRUE ~ .aki_stages[length(.aki_stages)]
+      )
+    )
 }
 
 
@@ -82,6 +104,7 @@ aki.default <- function(data, SCr, bCr, units = list("SCr" = "umol/l"), na.rm = 
 .generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   # TODO break into 48hr increments to reduce combn
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
+  # Ref: https://tidyeval.tidyverse.org/dplyr.html
   data_gr <- data[, c(SCr, dttm)]
   if (is.null(pt_id)) {
     data_gr$pt_id <- "pt"
