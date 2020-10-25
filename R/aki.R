@@ -81,20 +81,16 @@ aki.default <- function(data,
                         aki = "aki",
                         units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
   # TODO check if aki is an existing company
-  # Check SCr or bCr are given1
+  # Check SCr or bCr are given!
   # Calc bCr if not given
   # TODO consider fuctionalising aki.bCr, etc
 
   data %>%
-    dplyr::mutate("{aki}.test" := !!as.name(SCr) * 2) %>%
     dplyr::mutate(
-      "{aki}.bCr" := dplyr::case_when(
-        .sCr2metric(!!as.name(SCr)) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
-        !!as.name(SCr) >= 3.0 * !!as.name(bCr) ~ .aki_stages[3],
-        !!as.name(SCr) >= 2.0 * !!as.name(bCr) ~ .aki_stages[2],
-        !!as.name(SCr) >= 1.5 * !!as.name(bCr) ~ .aki_stages[1],
-        TRUE ~ .aki_stages[length(.aki_stages)]
-      )
+      "{aki}.bCr" := aki.units(!!as.name(SCr), !!as.name(bCr))
+    ) %>%
+    dplyr::mutate(
+      "{aki}.cr_ch" := !!as.name(SCr) * 2
     )
 }
 
@@ -102,7 +98,6 @@ aki.default <- function(data,
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
 .generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
-  # TODO break into 48hr increments to reduce combn
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
   # Ref: https://tidyeval.tidyverse.org/dplyr.html
   data_gr <- data[, c(SCr, dttm)]
@@ -118,7 +113,8 @@ aki.default <- function(data,
     unique() %>%
     dplyr::mutate(
       admin = cumsum(
-        (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >= lubridate::duration(hours = 48)
+        (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >=
+          lubridate::duration(hours = 48)
       )
     ) %>%
     dplyr::group_by(.data$admin, .add = TRUE)
