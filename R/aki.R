@@ -125,7 +125,7 @@ aki.default <- function(data,
     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%
     dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>% # TODO do() superseded, replace
-    dplyr::arrange(.data$X2, .data$X1)
+    dplyr::arrange(.data$X2, dplyr::desc(.data$X1))
   # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_gr[data_n$X1, ]
   T2 <- data_gr[data_n$X2, ]
@@ -136,7 +136,7 @@ aki.default <- function(data,
   data_c <- data.frame(
     pt_id = T1$pt_id,
     admin = T1$admin,
-    dttm = T1$dttm,
+    dttm = T2$dttm,
     SCr = T2$SCr,
     D.SCr = T2$SCr - T1$SCr,
     D.dttm = T2$dttm - T1$dttm
