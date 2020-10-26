@@ -101,43 +101,42 @@ aki.default <- function(data,
 #' @param dttm The variable name for the datetime column (POSIXct)
 #' @param pt_id The variable name for the patient id (optional, character)
 #'
-#' @return A data.frame of withou input variable names and creatinine changes
+#' @return A data.frame of without input variable names and creatinine changes
 #' @export
 #'
 #' @examples
 #' data_ <- data.frame(
-#' pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
-#' dttm_ = c(
-#'   seq(
-#'     lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
-#'     lubridate::as_datetime("2020-10-20 09:00:00", tz = "Australia/Melbourne"),
-#'     length.out = 3
+#'   pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
+#'   dttm_ = c(
+#'     seq(
+#'       lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-20 09:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     ),
+#'     seq(
+#'       lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     ),
+#'     seq(
+#'       lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     )
 #'   ),
-#'   seq(
-#'     lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
-#'     lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
-#'     length.out = 3
+#'   SCr_ = c(
+#'     units::set_units(seq(2.0, 3.0, by = 0.5), "mg/dl"),
+#'     units::set_units(seq(3.5, 4.0, by = 0.25), "mg/dl"),
+#'     units::set_units(seq(3.3, 3.5, by = 0.10), "mg/dl")
 #'   ),
-#'   seq(
-#'     lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
-#'     lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
-#'     length.out = 3
+#'   bCr_ = c(
+#'     rep(units::set_units(1.8, "mg/dl"), 3 + 3),
+#'     rep(units::set_units(3.0, "mg/dl"), 3)
 #'   )
-#' ),
-#' SCr_ = c(
-#'   units::set_units(seq(2.0, 3.0, by = 0.5), "mg/dl"),
-#'   units::set_units(seq(3.5, 4.0, by = 0.25), "mg/dl"),
-#'   units::set_units(seq(3.3, 3.5, by = 0.10), "mg/dl")
-#' ),
-#' bCr_ = c(
-#'   rep(units::set_units(1.8, "mg/dl"), 3 + 3),
-#'   rep(units::set_units(3.0, "mg/dl"), 3)
-#' )
 #' )
 #' data <- data_[sample(nrow(data_)), ]
 #'
 #' generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
-#'
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
 generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {

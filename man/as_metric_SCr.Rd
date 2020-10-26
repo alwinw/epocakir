@@ -7,10 +7,10 @@
 as_metric_SCr(SCr)
 }
 \arguments{
-\item{SCr}{(units) Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l'}
+\item{SCr}{Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l' (units)}
 }
 \value{
-(units) Serum Creatinine in metric units 'mg/dl'
+Serum Creatinine in metric units 'mg/dl' (units)
 }
 \description{
 Convert SCr to metric

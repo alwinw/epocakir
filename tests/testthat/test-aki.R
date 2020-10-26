@@ -108,8 +108,8 @@ test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
 
   # Test without grouping
   data_ngr <- dplyr::filter(data_gr, .data$pt_id_ == "pt1")
-  cr_ch_ngr <- cr_ch_gr[1:5,2:5]
-  cr_ch_ngr$D.dttm = lubridate::make_difftime(days = c(1, 1, 2, 1.25, 1.25))
+  cr_ch_ngr <- cr_ch_gr[1:5, 2:5]
+  cr_ch_ngr$D.dttm <- lubridate::make_difftime(days = c(1, 1, 2, 1.25, 1.25))
   expect_equal(
     generate_cr_ch(data_ngr, SCr = "SCr_", dttm = "dttm_"),
     cr_ch_ngr
