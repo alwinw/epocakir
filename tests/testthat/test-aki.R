@@ -56,7 +56,8 @@ test_that("aki() for vector of SCr in mg/dl with baseline", {
   expect_equal(aki(SCr, bCr), aki_stages)
 })
 
-test_that(".generate_cr_ch() for dataframe with pt_id grouping", {
+test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
+  # Generate sample data
   data_ <- data.frame(
     pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
     dttm_ = c(
@@ -86,9 +87,10 @@ test_that(".generate_cr_ch() for dataframe with pt_id grouping", {
       rep(units::set_units(3.0, "mg/dl"), 3)
     )
   )
-  data <- data_[sample(nrow(data_)), ]
 
-  cr_ch <- cbind(
+  # Test with grouping
+  data_gr <- data_[sample(nrow(data_)), ]
+  cr_ch_gr <- cbind(
     data_[
       c(2, 3, 3, 5, 6, 8, 9, 9),
       c("pt_id_", "dttm_", "SCr_")
@@ -98,11 +100,19 @@ test_that(".generate_cr_ch() for dataframe with pt_id grouping", {
       D.dttm = lubridate::make_difftime(hours = c(24, 24, 48, 30, 30, 12, 12, 24))
     )
   )
-  rownames(cr_ch) <- NULL
-
+  rownames(cr_ch_gr) <- NULL
   expect_equal(
-    .generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
-    cr_ch
+    generate_cr_ch(data_gr, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
+    cr_ch_gr
+  )
+
+  # Test without grouping
+  data_ngr <- dplyr::filter(data_gr, .data$pt_id_ == "pt1")
+  cr_ch_ngr <- cr_ch_gr[1:5,2:5]
+  cr_ch_ngr$D.dttm = lubridate::make_difftime(days = c(1, 1, 2, 1.25, 1.25))
+  expect_equal(
+    generate_cr_ch(data_ngr, SCr = "SCr_", dttm = "dttm_"),
+    cr_ch_ngr
   )
 })
 

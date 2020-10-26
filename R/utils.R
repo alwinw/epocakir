@@ -1,8 +1,8 @@
 #' Convert SCr to metric
 #'
-#' @param SCr (units) Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l'
+#' @param SCr Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l' (units)
 #'
-#' @return (units) Serum Creatinine in metric units 'mg/dl'
+#' @return Serum Creatinine in metric units 'mg/dl' (units)
 #' @export
 #'
 #' @examples
