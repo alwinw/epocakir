@@ -35,6 +35,16 @@ aki <- function(...) {
 
 .aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"))
 
+.aki_bCr <- function(SCr, bCr) {
+  dplyr::case_when(
+    as_metric_SCr(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+    SCr >= 3.0 * bCr ~ .aki_stages[3],
+    SCr >= 2.0 * bCr ~ .aki_stages[2],
+    SCr >= 1.5 * bCr ~ .aki_stages[1],
+    TRUE ~ .aki_stages[length(.aki_stages)]
+  )
+}
+
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr,
@@ -47,7 +57,7 @@ aki.numeric <- function(SCr,
   else {
     bCr <- units::as_units(bCr, units)
   }
-  aki.units(SCr = SCr, bCr = bCr, na.rm = na.rm)
+  .aki_bCr(SCr, bCr)
 }
 
 #' @rdname aki
@@ -56,13 +66,7 @@ aki.units <- function(SCr,
                       bCr = NULL,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  dplyr::case_when(
-    as_metric_SCr(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
-    SCr >= 3.0 * bCr ~ .aki_stages[3],
-    SCr >= 2.0 * bCr ~ .aki_stages[2],
-    SCr >= 1.5 * bCr ~ .aki_stages[1],
-    TRUE ~ .aki_stages[length(.aki_stages)]
-  )
+  .aki_bCr(SCr, bCr)
 }
 
 
@@ -85,7 +89,7 @@ aki.default <- function(data,
 
   data %>%
     dplyr::mutate(
-      "{aki}.bCr" := aki.units(!!as.name(SCr), !!as.name(bCr))
+      "{aki}.bCr" := .aki_bCr(!!as.name(SCr), !!as.name(bCr))
     ) %>%
     dplyr::mutate(
       "{aki}.cr_ch" := !!as.name(SCr) * 2
@@ -193,3 +197,4 @@ generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   }
   return(data_c)
 }
+
