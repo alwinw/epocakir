@@ -45,6 +45,14 @@ aki <- function(...) {
   )
 }
 
+.aki_UO <- function(dttm, UO) {
+  print(UO)
+}
+
+.aki_cr_ch <- function(data, SCr, dttm, pt_id) {
+  print(SCr)
+}
+
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr,
