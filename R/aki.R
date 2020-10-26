@@ -47,8 +47,7 @@ aki.numeric <- function(SCr,
   else {
     bCr <- units::as_units(bCr, units)
   }
-  aki_stages <- aki.units(SCr = SCr, bCr = bCr, na.rm = na.rm)
-  return(aki_stages)
+  aki.units(SCr = SCr, bCr = bCr, na.rm = na.rm)
 }
 
 #' @rdname aki
@@ -57,14 +56,13 @@ aki.units <- function(SCr,
                       bCr = NULL,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  aki_stages <- dplyr::case_when(
-    .sCr2metric(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+  dplyr::case_when(
+    as_metric_SCr(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
     SCr >= 3.0 * bCr ~ .aki_stages[3],
     SCr >= 2.0 * bCr ~ .aki_stages[2],
     SCr >= 1.5 * bCr ~ .aki_stages[1],
     TRUE ~ .aki_stages[length(.aki_stages)]
   )
-  return(aki_stages)
 }
 
 

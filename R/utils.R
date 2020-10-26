@@ -1,8 +1,17 @@
-.sCr2metric <- function(SCr) {
+#' Convert SCr to metric
+#'
+#' @param SCr (units) Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l'
+#'
+#' @return (units) Serum Creatinine in metric units 'mg/dl'
+#' @export
+#'
+#' @examples
+#' as_metric_SCr(units::set_units(88.4, "umol/l"))
+as_metric_SCr <- function(SCr) {
   if (grepl("mol", units::deparse_unit(SCr))) {
-    return(units::set_units(SCr * units::set_units(113.120, "g/mol"), "mg/dl"))
+    units::set_units(SCr * units::set_units(113.120, "g/mol"), "mg/dl")
   } else {
-    return(units::set_units(SCr, "mg/dl"))
+    units::set_units(SCr, "mg/dl")
   }
 }
 
