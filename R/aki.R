@@ -35,6 +35,24 @@ aki <- function(...) {
 
 .aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"))
 
+.aki_bCr <- function(SCr, bCr) {
+  dplyr::case_when(
+    as_metric_SCr(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+    SCr >= 3.0 * bCr ~ .aki_stages[3],
+    SCr >= 2.0 * bCr ~ .aki_stages[2],
+    SCr >= 1.5 * bCr ~ .aki_stages[1],
+    TRUE ~ .aki_stages[length(.aki_stages)]
+  )
+}
+
+.aki_UO <- function(dttm, UO) {
+  print(UO)
+}
+
+.aki_cr_ch <- function(data, SCr, dttm, pt_id) {
+  print(SCr)
+}
+
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr,
@@ -47,8 +65,7 @@ aki.numeric <- function(SCr,
   else {
     bCr <- units::as_units(bCr, units)
   }
-  aki_stages <- aki.units(SCr = SCr, bCr = bCr, na.rm = na.rm)
-  return(aki_stages)
+  .aki_bCr(SCr, bCr)
 }
 
 #' @rdname aki
@@ -57,14 +74,7 @@ aki.units <- function(SCr,
                       bCr = NULL,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  aki_stages <- dplyr::case_when(
-    .sCr2metric(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
-    SCr >= 3.0 * bCr ~ .aki_stages[3],
-    SCr >= 2.0 * bCr ~ .aki_stages[2],
-    SCr >= 1.5 * bCr ~ .aki_stages[1],
-    TRUE ~ .aki_stages[length(.aki_stages)]
-  )
-  return(aki_stages)
+  .aki_bCr(SCr, bCr)
 }
 
 
@@ -87,7 +97,7 @@ aki.default <- function(data,
 
   data %>%
     dplyr::mutate(
-      "{aki}.bCr" := aki.units(!!as.name(SCr), !!as.name(bCr))
+      "{aki}.bCr" := .aki_bCr(!!as.name(SCr), !!as.name(bCr))
     ) %>%
     dplyr::mutate(
       "{aki}.cr_ch" := !!as.name(SCr) * 2
@@ -95,9 +105,53 @@ aki.default <- function(data,
 }
 
 
+#' Generate creatinine changes
+#'
+#' @param data A data.frame of datetime and creatinine changes
+#'
+#' @param SCr The variable name for serum creatinine column (units)
+#' @param dttm The variable name for the datetime column (POSIXct)
+#' @param pt_id The variable name for the patient id (optional, character)
+#'
+#' @return A data.frame of without input variable names and creatinine changes
+#' @export
+#'
+#' @examples
+#' data_ <- data.frame(
+#'   pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
+#'   dttm_ = c(
+#'     seq(
+#'       lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-20 09:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     ),
+#'     seq(
+#'       lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     ),
+#'     seq(
+#'       lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
+#'       lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
+#'       length.out = 3
+#'     )
+#'   ),
+#'   SCr_ = c(
+#'     units::set_units(seq(2.0, 3.0, by = 0.5), "mg/dl"),
+#'     units::set_units(seq(3.5, 4.0, by = 0.25), "mg/dl"),
+#'     units::set_units(seq(3.3, 3.5, by = 0.10), "mg/dl")
+#'   ),
+#'   bCr_ = c(
+#'     rep(units::set_units(1.8, "mg/dl"), 3 + 3),
+#'     rep(units::set_units(3.0, "mg/dl"), 3)
+#'   )
+#' )
+#' data <- data_[sample(nrow(data_)), ]
+#'
+#' generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
-.generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
+generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
   # Ref: https://tidyeval.tidyverse.org/dplyr.html
   data_gr <- data[, c(SCr, dttm)]
@@ -151,3 +205,4 @@ aki.default <- function(data,
   }
   return(data_c)
 }
+
