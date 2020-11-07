@@ -52,3 +52,16 @@ dob2age <- function(dob, age_on = lubridate::today(),
 
 
 gender2factor <- function() {}
+
+
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL

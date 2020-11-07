@@ -77,12 +77,7 @@ aki.units <- function(SCr,
   .aki_bCr(SCr, bCr)
 }
 
-
-#' @rdname aki
-#' @export
-aki.ts <- function(SCr, UO, units = "umol/l", ...) {
-
-}
+# TODO Consider adding aki.ts
 
 #' @rdname aki
 #' @export
@@ -154,6 +149,9 @@ aki.default <- function(data,
 generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   # TODO Consider saving current grouping settings e.g. dplyr::group_data()
   # Ref: https://tidyeval.tidyverse.org/dplyr.html
+  # TODO Consider adding an option to "break up" a 60 hr stay into
+  # multiple 48hr overlapping chunks. E.g. A, B, C -> A, B and B, C
+  # TODO dplyr::do() superseded, replace in the future
   data_gr <- data[, c(SCr, dttm)]
   if (is.null(pt_id)) {
     data_gr$pt_id <- "pt"
@@ -178,7 +176,7 @@ generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
     dplyr::ungroup() %>%
     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%
-    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>% # TODO do() superseded, replace
+    dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%
     dplyr::arrange(.data$X2, dplyr::desc(.data$X1))
   # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_gr[data_n$X1, ]
@@ -205,4 +203,3 @@ generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
   }
   return(data_c)
 }
-
