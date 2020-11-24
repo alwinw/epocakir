@@ -4,7 +4,6 @@
 \alias{aki}
 \alias{aki.numeric}
 \alias{aki.units}
-\alias{aki.ts}
 \alias{aki.default}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
@@ -13,8 +12,6 @@ aki(...)
 \method{aki}{numeric}(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...)
 
 \method{aki}{units}(SCr, bCr = NULL, na.rm = FALSE, ...)
-
-\method{aki}{ts}(SCr, UO, units = "umol/l", ...)
 
 \method{aki}{default}(
   data,
@@ -43,12 +40,12 @@ baseline creatinine if the data argument is unused}
 
 \item{na.rm}{(logical) If TRUE, missing values are removed}
 
+\item{data}{A data.frame with the data needed for serum creatinine (SCr)
+and/or urine output (UO)}
+
 \item{UO}{The variable name, e.g. "urine", to be used for determining
 AKI based on urine output. A numeric vector or time series of
 urine output values if the data argument is unused}
-
-\item{data}{A data.frame with the data needed for serum creatinine (SCr)
-and/or urine output (UO)}
 
 \item{aki}{the variable name e.g. "aki_stages" to be used for the output}
 }
