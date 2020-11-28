@@ -1,12 +1,21 @@
-as_metric <- function(meas, mol_weight, metric_units) {
+as_metric <- function(...) {
+  elli <- list(...)
+  param <- names(elli)[1]
+  meas <- elli[[1]]
+  conversion <- conversion_factors[
+    tolower(conversion_factors$parameter) == tolower(param),
+  ]
+  if (nrow(conversion) != 1) {
+    stop(paste0("Unable to find conversion for `", param, "`"))
+  }
   if (grepl("mol", units::deparse_unit(meas))) {
     units::set_units(
-      meas * units::set_units(conv_factor, "g/mol"),
-      metric_units,
+      meas * conversion$mol_weight,
+      conversion$metric_units,
       mode = "standard"
     )
   } else {
-    units::set_units(meas, metric_units, mode = "standard")
+    units::set_units(meas, conversion$metric_units, mode = "standard")
   }
 }
 
@@ -23,10 +32,8 @@ conversion_factors <- tibble::tribble(
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
   "Urea", "mg/ml", 60.06, "Urea (plasma)"
-)
-
-
-
+) %>%
+  dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
 
 
