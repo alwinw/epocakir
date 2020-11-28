@@ -3,16 +3,22 @@
 #' @param ... (units) One of conversion_factors$parameter,
 #'   e.g. SCr = units::set_units(88.4, "umol/l").
 #'   Case insensitive.
+#' @param param (char) Name of measurement, e.g. param = "SCr"
+#' @param meas (units) Measurement
 #'
 #' @return (units) Converted measured value
 #' @export
 #'
 #' @examples
 #' as_metric(SCr = units::set_units(88.4, "umol/l"))
-as_metric <- function(...) {
-  elli <- list(...)
-  param <- names(elli)[1]
-  meas <- elli[[1]]
+#' as_metric(param = "scr", meas = units::set_units(88.4, "umol/l"))
+as_metric <- function(param = NULL, meas = NULL, ...) {
+  ellipsis::check_dots_used()
+  if (is.null(param) | is.null(meas)) {
+    elli <- list(...)
+    param <- names(elli)[1]
+    meas <- elli[[1]]
+  }
   conversion <- conversion_factors[
     tolower(conversion_factors$parameter) == tolower(param),
   ]
@@ -42,7 +48,7 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/ml", 60.06, "Urea (plasma)"
+  "Urea", "mg/dl", 60.06, "Urea (plasma)"  # changed from AKI 2012 Guideline
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 

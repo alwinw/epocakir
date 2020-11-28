@@ -4,9 +4,13 @@
 \alias{as_metric}
 \title{Convert a measured value to metric units}
 \usage{
-as_metric(...)
+as_metric(param = NULL, meas = NULL, ...)
 }
 \arguments{
+\item{param}{(char) Name of measurement, e.g. param = "SCr"}
+
+\item{meas}{(units) Measurement}
+
 \item{...}{(units) One of conversion_factors$parameter,
 e.g. SCr = units::set_units(88.4, "umol/l").
 Case insensitive.}
@@ -19,4 +23,5 @@ Convert a measured value to metric units
 }
 \examples{
 as_metric(SCr = units::set_units(88.4, "umol/l"))
+as_metric(param = "scr", meas = units::set_units(88.4, "umol/l"))
 }
