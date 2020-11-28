@@ -2,19 +2,29 @@
 % Please edit documentation in R/utils.R
 \name{as_metric_SCr}
 \alias{as_metric_SCr}
-\title{Convert SCr to metric}
+\title{Convert SAmk to metric}
 \usage{
+as_metric_SCr(SCr)
+
 as_metric_SCr(SCr)
 }
 \arguments{
-\item{SCr}{Serum Creatinine in any units, e.g. 'mg/dl', 'umol/l' (units)}
+\item{SCr}{Serum Creatinine in any units,
+e.g. 'mg/dl', 'umol/l' (units)}
 }
 \value{
-Serum Creatinine in metric units 'mg/dl' (units)
+Amikacin (serum, plasma) in metric units,
+'mg/dl' (units)
+
+Serum Creatinine in metric units,
+'mg/dl' (units)
 }
 \description{
+Convert SAmk to metric
+
 Convert SCr to metric
 }
 \examples{
+as_metric_SCr(units::set_units(88.4, "umol/l"))
 as_metric_SCr(units::set_units(88.4, "umol/l"))
 }

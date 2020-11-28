@@ -11,7 +11,7 @@ as_metric <- function(meas, mol_weight, metric_units) {
 }
 
 conversion_factors <- tibble::tribble(
-  ~parameter, ~metric_units, ~mol_weight, ~description
+  ~parameter, ~metric_units, ~mol_weight, ~description,
   # 2012 AKI Guideline
   "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
   "BUN", "mg/dl", 28.014, "Blood urea nitrogen",
@@ -22,7 +22,7 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea (plasma)"
+  "Urea", "mg/ml", 60.06, "Urea (plasma)"
 )
 
 
