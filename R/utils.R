@@ -1,3 +1,14 @@
+#' Convert a measured value to metric units
+#'
+#' @param ... (units) One of conversion_factors$parameter,
+#'   e.g. SCr = units::set_units(88.4, "umol/l").
+#'   Case insensitive.
+#'
+#' @return (units) Converted measured value
+#' @export
+#'
+#' @examples
+#' as_metric(SCr = units::set_units(88.4, "umol/l"))
 as_metric <- function(...) {
   elli <- list(...)
   param <- names(elli)[1]
@@ -36,42 +47,6 @@ conversion_factors <- tibble::tribble(
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
 
-
-#' Convert SAmk to metric
-#'
-#' @param SCr Amikacin (serum, plasma) in any units,
-#'   e.g. 'mg/l', 'umol/ml' (units)
-#'
-#' @return Amikacin (serum, plasma) in metric units,
-#'  'mg/dl' (units)
-#' @export
-#' @examples
-#' as_metric_SCr(units::set_units(88.4, "umol/l"))
-as_metric_SCr <- function(SCr) {
-  as_metric(
-    meas = SCr, conv_factor = 585.6,
-    si_units = "g/mol", metric_units = "mg/dl"
-  )
-}
-
-
-
-#' Convert SCr to metric
-#'
-#' @param SCr Serum Creatinine in any units,
-#'   e.g. 'mg/dl', 'umol/l' (units)
-#'
-#' @return Serum Creatinine in metric units,
-#'  'mg/dl' (units)
-#' @export
-#' @examples
-#' as_metric_SCr(units::set_units(88.4, "umol/l"))
-as_metric_SCr <- function(SCr) {
-  as_metric(
-    meas = SCr, conv_factor = 113.120,
-    si_units = "g/mol", metric_units = "mg/dl"
-  )
-}
 
 #' Calculate age from DOB
 #'
