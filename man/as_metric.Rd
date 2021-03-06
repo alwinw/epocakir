@@ -9,19 +9,22 @@ as_metric(param = NULL, meas = NULL, ...)
 \arguments{
 \item{param}{(char) Name of measurement, e.g. param = "SCr"}
 
-\item{meas}{(units) Measurement}
+\item{meas}{(units) Measurement or vector of measurements}
 
 \item{...}{(units) One of conversion_factors$parameter,
 e.g. SCr = units::set_units(88.4, "umol/l").
 Case insensitive.}
 }
 \value{
-(units) Converted measured value
+(units) Converted measured value or vector of measured values
 }
 \description{
 Convert a measured value to metric units
 }
 \examples{
-as_metric(SCr = units::set_units(88.4, "umol/l"))
 as_metric(param = "scr", meas = units::set_units(88.4, "umol/l"))
+as_metric("scr", units::set_units(88.4, "umol/l"))
+
+values <- units::set_units(c(60, 70, 80), "umol/l")
+as_metric(SCr = values)
 }
