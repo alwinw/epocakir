@@ -1,3 +1,5 @@
+# consider using Table 7 as the test cases
+
 test_that("aki() for numeric vector of SCr with no baseline", {
   SCr <- seq(60, 200, by = 20)
   aki_stages <- forcats::fct_c(
