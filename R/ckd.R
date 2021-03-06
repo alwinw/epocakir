@@ -24,7 +24,7 @@ GFR.SCr.SCysC <- function() {
 # Pediatric
 GFR.SCr <- function() {
   41.3 * height / SCr |
-    40.7 * (height / SCr)^0.4 * (30/BUN)^0.202
+    40.7 * (height / SCr)^0.4 * (30 / BUN)^0.202
 }
 
 GFR.SCysC <- function() {
@@ -49,4 +49,3 @@ Albuminuria <- function() {
     # Add other cases
   )
 }
-
