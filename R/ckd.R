@@ -1,12 +1,34 @@
-# Adult
-GFR.SCr <- function() {
-  kappa <- dplyr::if_else(male, 0.9, 0.7)
-  alpha <- dplyr::if_else()
+GFR.adult.SCr <- function(SCr, Age, male, black) {
+  kappa <- dplyr::if_else(!male, 0.7, 0.9)
+  alpha <- dplyr::if_else(!male, -0.329, -0.411)
   141 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-1.209 * 0.993^Age *
     dplyr::if_else(male, 1, 1.018) *
     dplyr::if_else(black, 1.159, 1)
+}
+
+
+GFR <- function(SCr = NULL,
+                SCysC = NULL,
+                Age = NULL,
+                height = NULL,
+                BUN = NULL,
+                male = FALSE,
+                black = FALSE,
+                pediatric = FALSE) {
+  dplyr::case_when(
+    !pediatric & !is.null(SCr) & is.null(SCysC) ~ GFR.adult.SCr(SCr, Age, male, black),
+    TRUE ~ NA_real_
+  )
+}
+
+
+
+# Adult
+GFR.SCr <- function() {
+
   # Then set units of GFR
 }
+
 
 GFR.SCysC <- function() {
   133 * min(SCysC / 0.8, 1)^-0.499 * max(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
@@ -31,7 +53,7 @@ GFR.SCysC <- function() {
   70.69 * (SCysC)^-0.931
 }
 
-GFR <- function() {
+GFR.levels <- function() {
   dplyr::case_when(
     GFR >= units::set_units(90, "ml/min") ~ "G1", # PER 1.73m2??
     GFR >= units::set_units(60, "ml/min") ~ "G2",
