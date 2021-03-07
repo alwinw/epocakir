@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • epocakir</title>
+<title>Convert binary data to factors based on column name — binary2factor • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Convert binary data to factors based on column name — binary2factor" />
+<meta property="og:description" content="Convert binary data to factors based on column name" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,90 +106,59 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Convert binary data to factors based on column name</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>binary2factor.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Convert binary data to factors based on column name</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>binary2factor</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="aki.html">aki()</a></code> </p>
-        </td>
-        <td><p>Codify AKI from Serum Creatinine and/or Urine Output</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="anemia.html">anemia()</a></code> </p>
-        </td>
-        <td><p>Diagnosis of anemia from Hb concentration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_metric.html">as_metric()</a></code> </p>
-        </td>
-        <td><p>Convert a measured value to metric units</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="binary2factor.html">binary2factor()</a></code> </p>
-        </td>
-        <td><p>Convert binary data to factors based on column name</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="combine_date_time_cols.html">combine_date_time_cols()</a></code> </p>
-        </td>
-        <td><p>Combine date and time columns into a single DateTime column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conversion_factors.html">conversion_factors</a></code> </p>
-        </td>
-        <td><p>Conversion Factors</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dob2age.html">dob2age()</a></code> </p>
-        </td>
-        <td><p>Calculate age from DOB</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="eGFR.html">eGFR()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr()</a></code> <code><a href="eGFR.html">eGFR.adult.SCysC()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr_SCysC()</a></code> <code><a href="eGFR.html">eGFR.child.SCr()</a></code> <code><a href="eGFR.html">eGFR.child.SCr_BUN()</a></code> <code><a href="eGFR.html">eGFR.child.SCysC()</a></code> </p>
-        </td>
-        <td><p>GFR Estimation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="generate_cr_ch.html">generate_cr_ch()</a></code> </p>
-        </td>
-        <td><p>Generate creatinine changes</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>.data</th>
+      <td><p>(data.frame) A data frame or data frame extension (e.g. a tibble)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Name-value pairs. The names of columns to be transformed</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>(data.frame) An object of the same type as <code>.data</code></p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
+  a <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,
+  b <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"n"</span>, <span class='cn'>NA</span>, <span class='st'>"Y"</span>, <span class='st'>"n"</span><span class='op'>)</span>,
+  c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>, <span class='st'>"no"</span>, <span class='cn'>NA</span>, <span class='st'>"Yes"</span>, <span class='st'>"No"</span><span class='op'>)</span>,
+  d <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>NA</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'>binary2factor</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>a</span>, <span class='va'>b</span><span class='op'>:</span><span class='va'>d</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       a     b     c     d e
+#&gt; 1     a     b     c     d 1
+#&gt; 2 Not_a Not_b Not_c Not_d 2
+#&gt; 3  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 3
+#&gt; 4     a     b     c     d 4
+#&gt; 5 Not_a Not_b Not_c Not_d 5</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>binary2factor</span><span class='op'>(</span><span class='op'>-</span><span class='va'>e</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       a     b     c     d e
+#&gt; 1     a     b     c     d 1
+#&gt; 2 Not_a Not_b Not_c Not_d 2
+#&gt; 3  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 3
+#&gt; 4     a     b     c     d 4
+#&gt; 5 Not_a Not_b Not_c Not_d 5</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

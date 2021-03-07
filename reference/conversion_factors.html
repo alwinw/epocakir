@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • epocakir</title>
+<title>Conversion Factors — conversion_factors • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Conversion Factors — conversion_factors" />
+<meta property="og:description" content="List of conversion factors based on tables in  KDIGO Clinical Practice
+Guidelines." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,90 +107,40 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Conversion Factors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>conversion_factors.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>List of conversion factors based on tables in  KDIGO Clinical Practice
+Guidelines.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>conversion_factors</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="aki.html">aki()</a></code> </p>
-        </td>
-        <td><p>Codify AKI from Serum Creatinine and/or Urine Output</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="anemia.html">anemia()</a></code> </p>
-        </td>
-        <td><p>Diagnosis of anemia from Hb concentration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_metric.html">as_metric()</a></code> </p>
-        </td>
-        <td><p>Convert a measured value to metric units</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="binary2factor.html">binary2factor()</a></code> </p>
-        </td>
-        <td><p>Convert binary data to factors based on column name</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="combine_date_time_cols.html">combine_date_time_cols()</a></code> </p>
-        </td>
-        <td><p>Combine date and time columns into a single DateTime column</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conversion_factors.html">conversion_factors</a></code> </p>
-        </td>
-        <td><p>Conversion Factors</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dob2age.html">dob2age()</a></code> </p>
-        </td>
-        <td><p>Calculate age from DOB</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="eGFR.html">eGFR()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr()</a></code> <code><a href="eGFR.html">eGFR.adult.SCysC()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr_SCysC()</a></code> <code><a href="eGFR.html">eGFR.child.SCr()</a></code> <code><a href="eGFR.html">eGFR.child.SCr_BUN()</a></code> <code><a href="eGFR.html">eGFR.child.SCysC()</a></code> </p>
-        </td>
-        <td><p>GFR Estimation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="generate_cr_ch.html">generate_cr_ch()</a></code> </p>
-        </td>
-        <td><p>Generate creatinine changes</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 10 rows and 4 columns.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<dl>
+<dt>parameter</dt><dd><p>Name of the measurement</p></dd>
+<dt>metric_units</dt><dd><p>Metric units for the parameter</p></dd>
+<dt>mol_weight</dt><dd><p>Molecular weight (where required)</p></dd>
+<dt>description</dt><dd><p>Full name</p></dd>
+
+</dl>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>conversion_factors</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'conversion_factors' not found</span></div></pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
