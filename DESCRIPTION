@@ -15,8 +15,8 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5994-3666")))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
-    KDIGO guidelines and cover a wide range of conditions from
-    acute kidney injury (AKI) to diabetes and hepatitis.
+    KDIGO guidelines. This package covers acute kidney injury (AKI), anemia,
+    and chronic liver disease(CKD).
 License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues

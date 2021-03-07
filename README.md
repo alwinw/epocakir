@@ -1,8 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-epocakir
-========
+# epocakir
 
 */ˈiːpɒk ə keɪ aɪ ɑː/*
 
@@ -15,17 +14,15 @@ coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](
 
 <!-- badges: end -->
 
-Clinical Coding of Patients with Kidney Disease
------------------------------------------------
+## Clinical Coding of Patients with Kidney Disease
 
 The *epocakir* package makes clinical coding of patients with kidney
 disease using clinical practice guidelines easy. The guidelines used are
-the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/) and
-cover a wide range of conditions from acute kidney injury (AKI) to
-diabetes and hepatitis.
+the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/).
+This package covers acute kidney injury (AKI), anemia, and chronic liver
+disease(CKD).
 
-Installation
-------------
+## Installation
 
 <!-- CRAN
 You can install the **releas** version from [CRAN](https://CRAN.R-project.org) with:
@@ -38,27 +35,24 @@ install.packages("epocakir")
 You can install the **development** version from
 [GitHub](https://github.com/) with:
 
-    # install.packages("devtools")
-    devtools::install_github("alwinw/epocakir")
+``` r
+# install.packages("devtools")
+devtools::install_github("alwinw/epocakir")
+```
 
-Getting Started
----------------
+## Getting Started
 
 Instructions to come
 
-Examples
---------
+## Examples
 
 Examples to come
 
-References
-----------
+## References
 
-KDIGO Guidelines -
-<a href="https://kdigo.org/guidelines/" class="uri">https://kdigo.org/guidelines/</a>
+KDIGO Guidelines - <https://kdigo.org/guidelines/>
 
-Activity
---------
+## Activity
 
 ![GitHub commit
 activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir)

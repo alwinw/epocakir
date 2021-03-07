@@ -51,7 +51,7 @@ data_ <- data.frame(
     rep(units::set_units(3.0, "mg/dl"), 3)
   )
 )
-data <- data_[sample(nrow(data_)), ]
+# data <- data_[sample(nrow(data_)), ]
 
-generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
+# generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
 }
