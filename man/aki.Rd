@@ -59,6 +59,6 @@ calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
 also calculated
 }
 \examples{
-aki(seq(60, 200, by = 20))
-aki(SCr = seq(60, 200, by = 20), bCr = 50)
+# aki(seq(60, 200, by = 20))
+# aki(SCr = seq(60, 200, by = 20), bCr = 50)
 }
