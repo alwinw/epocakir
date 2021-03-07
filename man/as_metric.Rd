@@ -7,7 +7,7 @@
 as_metric(param = NULL, meas = NULL, ...)
 }
 \arguments{
-\item{param}{(char) Name of measurement, e.g. param = "SCr"}
+\item{param}{(character) Name of measurement, e.g. param = "SCr"}
 
 \item{meas}{(units) Measurement or vector of measurements}
 

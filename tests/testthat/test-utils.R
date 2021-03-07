@@ -142,9 +142,20 @@ test_that("dob2age() with `ceiling` is valid", {
 })
 
 test_that("binary2factor() with multiple columns", {
-  df = data.frame(a = c(1, 0, NA), b = c(NA, 0, 1))
-  binary2factor(df, a, b)
-
-  df %>% binary2factor(a, b)
-
+  df <- data.frame(
+    a = c(1, 0, NA, 1, 0),
+    b = c("y", "n", NA, "Y", "n"),
+    c = c("yes", "no", NA, "Yes", "No"),
+    d = c(TRUE, FALSE, NA, TRUE, FALSE),
+    e = c(1, 2, 3, 4, 5)
+  )
+  ep <- data.frame(
+    a = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_a", "a"), ordered = TRUE),
+    b = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_b", "b"), ordered = TRUE),
+    c = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_c", "c"), ordered = TRUE),
+    d = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_d", "d"), ordered = TRUE),
+    e = c(1, 2, 3, 4, 5)
+  )
+  expect_equal(binary2factor(df, a, b:d), ep)
+  expect_equal(df %>% binary2factor(-e), ep)
 })

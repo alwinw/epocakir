@@ -27,9 +27,10 @@ conversion_factors <- tibble::tribble(
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
+
 #' Convert a measured value to metric units
 #'
-#' @param param (char) Name of measurement, e.g. param = "SCr"
+#' @param param (character) Name of measurement, e.g. param = "SCr"
 #' @param meas (units) Measurement or vector of measurements
 #' @param ... (units) One of conversion_factors$parameter,
 #'   e.g. SCr = units::set_units(88.4, "umol/l").
@@ -80,7 +81,7 @@ as_metric <- function(param = NULL, meas = NULL, ...) {
 #'   Only used if `fun` is specified. Defaults to "years".
 #' @param ... Further optional arguments that will be passed to `fun`
 #'
-#' @return (Duration) The age as a duration.
+#' @return (duration) The age as a duration.
 #' @export
 #'
 #' @examples
@@ -105,19 +106,40 @@ dob2age <- function(dob, age_on = lubridate::today(),
 }
 
 
+#' Convert binary data to factors based on column name
+#'
+#' @param .data (data.frame) A data frame or data frame extension (e.g. a tibble)
+#' @param ... Name-value pairs. The names of columns to be transformed
+#'
+#' @return (data.frame) An object of the same type as `.data`
+#' @export
+#'
+#' @examples
+#' df <- data.frame(
+#'   a = c(1, 0, NA, 1, 0),
+#'   b = c("y", "n", NA, "Y", "n"),
+#'   c = c("yes", "no", NA, "Yes", "No"),
+#'   d = c(TRUE, FALSE, NA, TRUE, FALSE),
+#'   e = c(1, 2, 3, 4, 5)
+#' )
+#' binary2factor(df, a, b:d)
+#' df %>%
+#'   binary2factor(-e)
 binary2factor <- function(.data, ...) {
   .data %>% dplyr::mutate(
-    dplyr::across(c(...),
-    function(x) {
-      b <- dplyr::case_when(
-        tolower(x) %in% c("y", "1", "true") ~ 1,
-        tolower(x) %in% c("n", "0", "false") ~ 0,
-        is.na(x) ~ NA_real_,
-        TRUE ~ NaN
-      )
-      factor(b, c(0, 1), paste0(c("Not_", ""), dplyr::cur_column()), ordered = TRUE)
-    }
-  ))
+    dplyr::across(
+      c(...),
+      function(x) {
+        b <- dplyr::case_when(
+          tolower(x) %in% c("y", "1", "yes", "true") ~ 1,
+          tolower(x) %in% c("n", "0", "no", "false") ~ 0,
+          is.na(x) ~ NA_real_,
+          TRUE ~ NaN
+        )
+        factor(b, c(0, 1), paste0(c("Not_", ""), dplyr::cur_column()), ordered = TRUE)
+      }
+    )
+  )
 }
 
 #' Pipe operator

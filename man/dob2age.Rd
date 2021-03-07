@@ -21,7 +21,7 @@ Only used if \code{fun} is specified. Defaults to "years".}
 \item{...}{Further optional arguments that will be passed to \code{fun}}
 }
 \value{
-(Duration) The age as a duration.
+(duration) The age as a duration.
 }
 \description{
 Calculate age from DOB
