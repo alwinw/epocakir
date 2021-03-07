@@ -160,10 +160,28 @@ test_that("binary2factor() with multiple columns", {
   expect_equal(df %>% binary2factor(-e), ep)
 })
 
-# test_that("combine_date_time_cols() for multiple columns", {
-#   df <- data.frame(
-#     time_a = 1,
-#     time_b = 2
-#   )
-#   combine_date_time_cols(df)
-# })
+test_that("combine_date_time_cols() for multiple columns", {
+  df1 <- data.frame(
+    date_a = as.Date(c("2020-01-01", "2020-01-02")),
+    date_b = as.POSIXct(c("2020-02-01", "2020-02-02")),
+    time_a = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02")),
+    time_b = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02"))
+  )
+  df2 <- data.frame(
+    a = c(1, 2), date_a = df1$date_a, time_a = df1$time_a,
+    b = c(3, 4), date_b = df1$date_b, time_b = df1$time_b
+  )
+  o1 <- tibble::tibble(
+    DateTime_a = as.POSIXct(c("2020-01-01 01:01:01", "2020-01-02 02:02:02"), tz = "UTC"),
+    DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"), tz = "UTC")
+  )
+  o2 <- tibble::tibble(
+    a = c(1, 2),
+    DateTime_a = as.POSIXct(c("2020-01-01 01:01:01", "2020-01-02 02:02:02")),
+    b = c(3, 4),
+    DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"))
+  )
+
+  expect_equal(combine_date_time_cols(df1, tz = "UTC"), o1)
+  expect_equal(combine_date_time_cols(df2), o2)
+})

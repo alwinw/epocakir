@@ -4,10 +4,13 @@
 \alias{combine_date_time_cols}
 \title{Combine date and time columns into a single DateTime column}
 \usage{
-combine_date_time_cols(.data)
+combine_date_time_cols(.data, tz = NULL)
 }
 \arguments{
 \item{.data}{(data.frame) A data frame or data frame extension (e.g. a tibble)}
+
+\item{tz}{(character) a time zone name (default: time zone of the POSIXt
+object x)}
 }
 \value{
 (data.frame) An object of the same type as \code{.data}

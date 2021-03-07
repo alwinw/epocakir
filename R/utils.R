@@ -155,9 +155,9 @@ binary2factor <- function(.data, ...) {
   )
 }
 
-set_names <- function(obj = names, names) {
-  names(obj) <- names
-  obj
+set_names <- function(.data, names) {
+  names(.data) <- names
+  .data
 }
 
 find_cols <- function(text, replace, colnames) {
@@ -167,20 +167,22 @@ find_cols <- function(text, replace, colnames) {
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(k = gsub(text, replace, .data$j, ignore.case = TRUE)) %>%
-    set_names(.data, c(paste0(text, "_i"), paste0(text), "match"))
+    set_names(c(paste0(text, "_i"), paste0(text), "match"))
 }
 
 
 #' Combine date and time columns into a single DateTime column
 #'
 #' @param .data (data.frame) A data frame or data frame extension (e.g. a tibble)
+#' @param tz (character) a time zone name (default: time zone of the POSIXt
+#' object x)
 #'
 #' @return (data.frame) An object of the same type as `.data`
 #' @export
 #'
 #' @examples
 #' print("todo")
-combine_date_time_cols <- function(.data) {
+combine_date_time_cols <- function(.data, tz = NULL) {
   dttm_col <- dplyr::inner_join(
     find_cols("date", "DateTime", colnames(.data)),
     find_cols("time", "DateTime", colnames(.data)),
@@ -190,13 +192,15 @@ combine_date_time_cols <- function(.data) {
     tidyr::pivot_longer(-.data$match, values_to = "raw") %>%
     dplyr::select(-.data$name)
 
-  new_col_names <- data.frame(raw = colnames(.data)) %>%
-    dplyr::left_join(.data, dttm_col, by = "raw") %>%
+  new_col_names <- dplyr::left_join(
+    data.frame(raw = colnames(.data)), dttm_col, by = "raw"
+  ) %>%
     dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
     dplyr::pull(match) %>%
     unique(.data)
 
   .data %>%
+    tibble::rownames_to_column(var = "_rowname") %>%
     tidyr::pivot_longer(
       dplyr::all_of(dttm_col$raw),
       names_to = "DateTimeName",
@@ -220,7 +224,7 @@ combine_date_time_cols <- function(.data) {
       Date = NULL,
       Time = NULL
     ) %>%
-    dplyr::mutate(datetime = lubridate::as_datetime(.data$datetime, tz = "Australia/Melbourne")) %>%
+    dplyr::mutate(datetime = lubridate::as_datetime(.data$datetime, tz = tz)) %>%
     tidyr::pivot_wider(
       names_from = "DateTimeName",
       values_from = "datetime"
