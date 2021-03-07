@@ -16,6 +16,7 @@ as_metric <- function(param = NULL, meas = NULL, ...) {
   ellipsis::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
+    if (length(elli) == 0) return(NULL)  # as_metric(1) will return NULL, no warning
     param <- names(elli)[1]
     meas <- elli[[1]]
   }
