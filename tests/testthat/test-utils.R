@@ -140,3 +140,11 @@ test_that("dob2age() with `ceiling` is valid", {
     )
   )
 })
+
+test_that("binary2factor() with multiple columns", {
+  df = data.frame(a = c(1, 0, NA), b = c(NA, 0, 1))
+  binary2factor(df, a, b)
+
+  df %>% binary2factor(a, b)
+
+})

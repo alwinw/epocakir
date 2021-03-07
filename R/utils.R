@@ -105,9 +105,20 @@ dob2age <- function(dob, age_on = lubridate::today(),
 }
 
 
-gender2factor <- function() {}
-
-binary2factor <- function() {}
+binary2factor <- function(.data, ...) {
+  .data %>% dplyr::mutate(
+    dplyr::across(c(...),
+    function(x) {
+      b <- dplyr::case_when(
+        tolower(x) %in% c("y", "1", "true") ~ 1,
+        tolower(x) %in% c("n", "0", "false") ~ 0,
+        is.na(x) ~ NA_real_,
+        TRUE ~ NaN
+      )
+      factor(b, c(0, 1), paste0(c("Not_", ""), dplyr::cur_column()), ordered = TRUE)
+    }
+  ))
+}
 
 #' Pipe operator
 #'
