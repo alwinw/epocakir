@@ -1,3 +1,16 @@
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
+
+
 #' Conversion Factors
 #'
 #' List of conversion factors based on tables in  KDIGO Clinical Practice
@@ -142,14 +155,75 @@ binary2factor <- function(.data, ...) {
   )
 }
 
-#' Pipe operator
+set_names <- function(obj = names, names) {
+  names(obj) <- names
+  obj
+}
+
+find_cols <- function(text, replace, colnames) {
+  data.frame(
+    i = grep(paste0("^", text, "|", text, "$"), colnames, ignore.case = TRUE),
+    j = grep(paste0("^", text, "|", text, "$"), colnames, ignore.case = TRUE, value = TRUE),
+    stringsAsFactors = FALSE
+  ) %>%
+    dplyr::mutate(k = gsub(text, replace, .data$j, ignore.case = TRUE)) %>%
+    set_names(.data, c(paste0(text, "_i"), paste0(text), "match"))
+}
+
+
+#' Combine date and time columns into a single DateTime column
 #'
-#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#' @param .data (data.frame) A data frame or data frame extension (e.g. a tibble)
 #'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
+#' @return (data.frame) An object of the same type as `.data`
 #' @export
-#' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
-NULL
+#'
+#' @examples
+#' print("todo")
+combine_date_time_cols <- function(.data) {
+  dttm_col <- dplyr::inner_join(
+    find_cols("date", "DateTime", colnames(.data)),
+    find_cols("time", "DateTime", colnames(.data)),
+    by = "match"
+  ) %>%
+    dplyr::select(.data$date, .data$time, .data$match) %>%
+    tidyr::pivot_longer(-.data$match, values_to = "raw") %>%
+    dplyr::select(-.data$name)
+
+  new_col_names <- data.frame(raw = colnames(.data)) %>%
+    dplyr::left_join(.data, dttm_col, by = "raw") %>%
+    dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
+    dplyr::pull(match) %>%
+    unique(.data)
+
+  .data %>%
+    tidyr::pivot_longer(
+      dplyr::all_of(dttm_col$raw),
+      names_to = "DateTimeName",
+      values_to = "DateTime"
+    ) %>%
+    dplyr::mutate(
+      DateTimeType = dplyr::if_else(grepl("^time|time$", .data$DateTimeName, ignore.case = TRUE), "Time", ""),
+      DateTimeType = dplyr::if_else(grepl("^date|date$", .data$DateTimeName, ignore.case = TRUE), "Date", .data$DateTimeType),
+      DateTimeName = gsub("^time|time$|^date|date$", "DateTime", .data$DateTimeName, ignore.case = TRUE)
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = "DateTimeType",
+      values_from = "DateTime"
+    ) %>%
+    dplyr::mutate(
+      datetime = dplyr::if_else(
+        (is.na(.data$Date) | is.na(.data$Time)),
+        NA_character_,
+        paste(format(.data$Date, format = "%Y-%m-%d"), format(.data$Time, format = "%H:%M:%S"))
+      ),
+      Date = NULL,
+      Time = NULL
+    ) %>%
+    dplyr::mutate(datetime = lubridate::as_datetime(.data$datetime, tz = "Australia/Melbourne")) %>%
+    tidyr::pivot_wider(
+      names_from = "DateTimeName",
+      values_from = "datetime"
+    ) %>%
+    dplyr::select(dplyr::all_of(new_col_names))
+}

@@ -159,3 +159,11 @@ test_that("binary2factor() with multiple columns", {
   expect_equal(binary2factor(df, a, b:d), ep)
   expect_equal(df %>% binary2factor(-e), ep)
 })
+
+# test_that("combine_date_time_cols() for multiple columns", {
+#   df <- data.frame(
+#     time_a = 1,
+#     time_b = 2
+#   )
+#   combine_date_time_cols(df)
+# })
