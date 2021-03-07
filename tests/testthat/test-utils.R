@@ -14,26 +14,66 @@ test_that("as_metric() conversions are correct", {
   ) %>%
     dplyr::left_join(conversion_factors, ., by = "parameter")
 
-  for (i in 1:nrow(kdigo_factors)) {
-    expect_lte(
-      abs(
-        as_metric(
-          param = kdigo_factors[[i, "parameter"]],
-          meas = units::set_units(
-            kdigo_factors[[i, "factor"]], kdigo_factors[[i, "si_units"]],
-            mode = "standard"
-          )
-        ) -
-          units::set_units(1, kdigo_factors[[i, "metric_units"]], mode = "standard")
-      ),
-      units::set_units(5e-3, kdigo_factors[[i, "metric_units"]], mode = "standard"),
-      label = paste(kdigo_factors[[i, "description"]], "conversion of", kdigo_factors[[i, "factor"]]),
-      expected.label = "allowable tolerance"
+  for (i in seq_len(nrow(kdigo_factors))) {
+    expect_lte(abs(
+      as_metric(
+        param = kdigo_factors[[i, "parameter"]],
+        meas = units::set_units(
+          kdigo_factors[[i, "factor"]], kdigo_factors[[i, "si_units"]],
+          mode = "standard"
+        )
+      ) - units::set_units(1, kdigo_factors[[i, "metric_units"]], mode = "standard")
+    ),
+    expected = units::set_units(5e-3, kdigo_factors[[i, "metric_units"]], mode = "standard"),
+    label = paste(kdigo_factors[[i, "description"]], "conversion of", kdigo_factors[[i, "factor"]]),
+    expected.label = "allowable tolerance"
     )
   }
 })
 
-# More as_metric() tests
+test_that("as_metric() on single value", {
+  expect_lte(abs(
+    as_metric(param = "scr", meas = units::set_units(88.4, "umol/l")) -
+      units::set_units(1, "mg/dl")
+  ),
+  expected = units::set_units(5e-3, "mg/dl")
+  )
+
+  expect_lte(abs(
+    as_metric("SCr", units::set_units(88.4, "umol/l")) -
+      units::set_units(1, "mg/dl")
+  ),
+  expected = units::set_units(5e-3, "mg/dl")
+  )
+
+  expect_lte(abs(
+    as_metric(SCr = units::set_units(88.4, "umol/l")) -
+      units::set_units(1, "mg/dl")
+  ),
+  expected = units::set_units(5e-3, "mg/dl")
+  )
+})
+
+test_that("as_metric() on vector", {
+  values <- units::set_units(c(88.4, 88.4, 88.4), "umol/l")
+
+  expect_lte(abs(sum(
+    as_metric(SCr = values) -
+      units::set_units(1, "mg/dl")
+  )),
+  expected = units::set_units(5e-3, "mg/dl")
+  )
+
+  expect_lte(abs(sum(
+    data.frame(meas = values) %>%
+      dplyr::mutate(meas = as_metric(SCr = meas)) %>%
+      dplyr::pull(meas) -
+      units::set_units(1, "mg/dl")
+  )),
+  expected = units::set_units(5e-3, "mg/dl")
+  )
+})
+
 
 test_that("dob2age() between two dates is valid", {
   expect_equal(
@@ -99,4 +139,49 @@ test_that("dob2age() with `ceiling` is valid", {
       lubridate::duration(years = 4)
     )
   )
+})
+
+test_that("binary2factor() with multiple columns", {
+  df <- data.frame(
+    a = c(1, 0, NA, 1, 0),
+    b = c("y", "n", NA, "Y", "n"),
+    c = c("yes", "no", NA, "Yes", "No"),
+    d = c(TRUE, FALSE, NA, TRUE, FALSE),
+    e = c(1, 2, 3, 4, 5)
+  )
+  ep <- data.frame(
+    a = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_a", "a"), ordered = TRUE),
+    b = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_b", "b"), ordered = TRUE),
+    c = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_c", "c"), ordered = TRUE),
+    d = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_d", "d"), ordered = TRUE),
+    e = c(1, 2, 3, 4, 5)
+  )
+  expect_equal(binary2factor(df, a, b:d), ep)
+  expect_equal(df %>% binary2factor(-e), ep)
+})
+
+test_that("combine_date_time_cols() for multiple columns", {
+  df1 <- data.frame(
+    date_a = as.Date(c("2020-01-01", "2020-01-02")),
+    date_b = as.POSIXct(c("2020-02-01", "2020-02-02")),
+    time_a = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02")),
+    time_b = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02"))
+  )
+  df2 <- data.frame(
+    a = c(1, 2), date_a = df1$date_a, time_a = df1$time_a,
+    b = c(3, 4), date_b = df1$date_b, time_b = df1$time_b
+  )
+  o1 <- tibble::tibble(
+    DateTime_a = as.POSIXct(c("2020-01-01 01:01:01", "2020-01-02 02:02:02"), tz = "UTC"),
+    DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"), tz = "UTC")
+  )
+  o2 <- tibble::tibble(
+    a = c(1, 2),
+    DateTime_a = as.POSIXct(c("2020-01-01 01:01:01", "2020-01-02 02:02:02")),
+    b = c(3, 4),
+    DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"))
+  )
+
+  expect_equal(combine_date_time_cols(df1, tz = "UTC"), o1)
+  expect_equal(combine_date_time_cols(df2), o2)
 })
