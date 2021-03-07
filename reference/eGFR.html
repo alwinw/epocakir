@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • epocakir</title>
+<title>GFR Estimation — eGFR • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,15 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="GFR Estimation — eGFR" />
+<meta property="og:description" content="
+
+2009 CKD-EPI creatinine equation
+2012 CKD-EPI cystatin C equation
+2012 CKD-EPI creatinine-cystatin C equation
+Pediatric equations
+
+" />
 
 
 
@@ -58,7 +66,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,72 +113,92 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>GFR Estimation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/ckd.R'><code>R/ckd.R</code></a></small>
+    <div class="hidden name"><code>eGFR.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+<ul>
+<li><p>2009 CKD-EPI creatinine equation</p></li>
+<li><p>2012 CKD-EPI cystatin C equation</p></li>
+<li><p>2012 CKD-EPI creatinine-cystatin C equation</p></li>
+<li><p>Pediatric equations</p></li>
+</ul>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    </div>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="aki.html">aki()</a></code> </p>
-        </td>
-        <td><p>Codify AKI from Serum Creatinine and/or Urine Output</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="anemia.html">anemia()</a></code> </p>
-        </td>
-        <td><p>Diagnosis of anemia from Hb concentration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="as_metric.html">as_metric()</a></code> </p>
-        </td>
-        <td><p>Convert a measured value to metric units</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dob2age.html">dob2age()</a></code> </p>
-        </td>
-        <td><p>Calculate age from DOB</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="eGFR.html">eGFR()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr()</a></code> <code><a href="eGFR.html">eGFR.adult.SCysC()</a></code> <code><a href="eGFR.html">eGFR.adult.SCr_SCysC()</a></code> <code><a href="eGFR.html">eGFR.child.SCr()</a></code> <code><a href="eGFR.html">eGFR.child.SCr_BUN()</a></code> <code><a href="eGFR.html">eGFR.child.SCysC()</a></code> </p>
-        </td>
-        <td><p>GFR Estimation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="generate_cr_ch.html">generate_cr_ch()</a></code> </p>
-        </td>
-        <td><p>Generate creatinine changes</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>eGFR</span><span class='op'>(</span>
+  SCr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  SCysC <span class='op'>=</span> <span class='cn'>NULL</span>,
+  Age <span class='op'>=</span> <span class='cn'>NULL</span>,
+  height <span class='op'>=</span> <span class='cn'>NULL</span>,
+  BUN <span class='op'>=</span> <span class='cn'>NULL</span>,
+  male <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  black <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  pediatric <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+
+<span class='fu'>eGFR.adult.SCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>Age</span>, <span class='va'>male</span>, <span class='va'>black</span><span class='op'>)</span>
+
+<span class='fu'>eGFR.adult.SCysC</span><span class='op'>(</span><span class='va'>SCysC</span>, <span class='va'>Age</span>, <span class='va'>male</span><span class='op'>)</span>
+
+<span class='fu'>eGFR.adult.SCr_SCysC</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>SCysC</span>, <span class='va'>Age</span>, <span class='va'>male</span>, <span class='va'>black</span><span class='op'>)</span>
+
+<span class='fu'>eGFR.child.SCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>height</span><span class='op'>)</span>
+
+<span class='fu'>eGFR.child.SCr_BUN</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>height</span>, <span class='va'>BUN</span><span class='op'>)</span>
+
+<span class='fu'>eGFR.child.SCysC</span><span class='op'>(</span><span class='va'>SCysC</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>SCr</th>
+      <td><p>(units) Serum creatinine, converted to mg/dl</p></td>
+    </tr>
+    <tr>
+      <th>SCysC</th>
+      <td><p>(units) Serum cystatin C, converted to mg/l</p></td>
+    </tr>
+    <tr>
+      <th>Age</th>
+      <td><p>(units) Age of patient, converted to years</p></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <td><p>(units) Height of patient, converted to m</p></td>
+    </tr>
+    <tr>
+      <th>BUN</th>
+      <td><p>(units) Blood urea nitrogen, converted to mg/dl</p></td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td><p>(logical) Male or not</p></td>
+    </tr>
+    <tr>
+      <th>black</th>
+      <td><p>(logical) Black race or not</p></td>
+    </tr>
+    <tr>
+      <th>pediatric</th>
+      <td><p>(logical) Paediatric or not</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>(units) Estimated glomerular filtration rate (eGFR) in ml/min/1.73m2</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"todo"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "todo"</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
