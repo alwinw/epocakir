@@ -14,7 +14,7 @@ test_that("as_metric() conversions are correct", {
   ) %>%
     dplyr::left_join(conversion_factors, ., by = "parameter")
 
-  for (i in 1:nrow(kdigo_factors)) {
+  for (i in seq_len(nrow(kdigo_factors))) {
     expect_lte(abs(
       as_metric(
         param = kdigo_factors[[i, "parameter"]],

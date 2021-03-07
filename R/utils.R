@@ -193,7 +193,8 @@ combine_date_time_cols <- function(.data, tz = NULL) {
     dplyr::select(-.data$name)
 
   new_col_names <- dplyr::left_join(
-    data.frame(raw = colnames(.data)), dttm_col, by = "raw"
+    data.frame(raw = colnames(.data)), dttm_col,
+    by = "raw"
   ) %>%
     dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
     dplyr::pull(match) %>%
