@@ -174,18 +174,10 @@
     <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'>units</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/units/man/units.html'>set_units</a></span><span class='op'>(</span><span class='fl'>3.0</span>, <span class='st'>"mg/dl"</span><span class='op'>)</span>, <span class='fl'>3</span><span class='op'>)</span>
   <span class='op'>)</span>
 <span class='op'>)</span>
-<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data_</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>data_</span><span class='op'>)</span><span class='op'>)</span>, <span class='op'>]</span>
+<span class='co'># data &lt;- data_[sample(nrow(data_)), ]</span>
 
-<span class='fu'>generate_cr_ch</span><span class='op'>(</span><span class='va'>data</span>, SCr <span class='op'>=</span> <span class='st'>"SCr_"</span>, dttm <span class='op'>=</span> <span class='st'>"dttm_"</span>, pt_id <span class='op'>=</span> <span class='st'>"pt_id_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   pt_id_               dttm_         SCr_        D.SCr   D.dttm
-#&gt; 1    pt1 2020-10-19 09:00:00 2.50 [mg/dl] 0.50 [mg/dl] 24 hours
-#&gt; 2    pt1 2020-10-20 09:00:00 3.00 [mg/dl] 0.50 [mg/dl] 24 hours
-#&gt; 3    pt1 2020-10-20 09:00:00 3.00 [mg/dl] 1.00 [mg/dl] 48 hours
-#&gt; 4    pt1 2020-10-24 15:00:00 3.75 [mg/dl] 0.25 [mg/dl] 30 hours
-#&gt; 5    pt1 2020-10-25 21:00:00 4.00 [mg/dl] 0.25 [mg/dl] 30 hours
-#&gt; 6    pt2 2020-10-18 22:00:00 3.40 [mg/dl] 0.10 [mg/dl] 12 hours
-#&gt; 7    pt2 2020-10-19 10:00:00 3.50 [mg/dl] 0.10 [mg/dl] 12 hours
-#&gt; 8    pt2 2020-10-19 10:00:00 3.50 [mg/dl] 0.20 [mg/dl] 24 hours</div></pre>
+<span class='co'># generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
