@@ -1,21 +1,70 @@
+#' Pipe operator
+#'
+#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#'
+#' @name %>%
+#' @rdname pipe
+#' @keywords internal
+#' @export
+#' @importFrom magrittr %>%
+#' @usage lhs \%>\% rhs
+NULL
+
+
+#' Conversion Factors
+#'
+#' List of conversion factors based on tables in  KDIGO Clinical Practice
+#' Guidelines.
+#'
+#' \describe{
+#' \item{parameter}{Name of the measurement}
+#' \item{metric_units}{Metric units for the parameter}
+#' \item{mol_weight}{Molecular weight (where required)}
+#' \item{description}{Full name}
+#' }
+#' @examples
+#' epocakir:::conversion_factors
+conversion_factors <- tibble::tribble(
+  ~parameter, ~metric_units, ~mol_weight, ~description,
+  # 2012 AKI Guideline
+  "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
+  "BUN", "mg/dl", 28.014, "Blood urea nitrogen",
+  "SiCa", "mg/dl", 40.08, "Calcium, ionized (serum)",
+  "SCr", "mg/dl", 113.120, "Creatinine (serum)",
+  "CLcr", "ml/min", NA, "Creatinine clearance",
+  "CGen", "ug/ml", 477.596, "Gentamicin (serum)",
+  "Glc", "mg/dl", 180.156, "Glucose",
+  "Lac", "mg/dl", 90.08, "Lactate (plasma)",
+  "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
+  "Urea", "mg/dl", 60.06, "Urea (plasma)" # changed from AKI 2012 Guideline
+) %>%
+  dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
+
+
 #' Convert a measured value to metric units
 #'
+#' @param param (character) Name of measurement, e.g. param = "SCr"
+#' @param meas (units) Measurement or vector of measurements
 #' @param ... (units) One of conversion_factors$parameter,
 #'   e.g. SCr = units::set_units(88.4, "umol/l").
 #'   Case insensitive.
-#' @param param (char) Name of measurement, e.g. param = "SCr"
-#' @param meas (units) Measurement
 #'
-#' @return (units) Converted measured value
+#' @return (units) Converted measured value or vector of measured values
 #' @export
 #'
 #' @examples
-#' as_metric(SCr = units::set_units(88.4, "umol/l"))
 #' as_metric(param = "scr", meas = units::set_units(88.4, "umol/l"))
+#' as_metric("scr", units::set_units(88.4, "umol/l"))
+#'
+#' values <- units::set_units(c(60, 70, 80), "umol/l")
+#' as_metric(SCr = values)
 as_metric <- function(param = NULL, meas = NULL, ...) {
   ellipsis::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
+    if (length(elli) == 0) {
+      return(NULL)
+    } # as_metric(1) will return NULL, no warning
     param <- names(elli)[1]
     meas <- elli[[1]]
   }
@@ -36,23 +85,6 @@ as_metric <- function(param = NULL, meas = NULL, ...) {
   }
 }
 
-conversion_factors <- tibble::tribble(
-  ~parameter, ~metric_units, ~mol_weight, ~description,
-  # 2012 AKI Guideline
-  "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
-  "BUN", "mg/dl", 28.014, "Blood urea nitrogen",
-  "SiCa", "mg/dl", 40.08, "Calcium, ionized (serum)",
-  "SCr", "mg/dl", 113.120, "Creatinine (serum)",
-  "CLcr", "ml/min", NA, "Creatinine clearance",
-  "CGen", "ug/ml", 477.596, "Gentamicin (serum)",
-  "Glc", "mg/dl", 180.156, "Glucose",
-  "Lac", "mg/dl", 90.08, "Lactate (plasma)",
-  "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/dl", 60.06, "Urea (plasma)" # changed from AKI 2012 Guideline
-) %>%
-  dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
-
-
 
 #' Calculate age from DOB
 #'
@@ -65,7 +97,7 @@ conversion_factors <- tibble::tribble(
 #'   Only used if `fun` is specified. Defaults to "years".
 #' @param ... Further optional arguments that will be passed to `fun`
 #'
-#' @return (Duration) The age as a duration.
+#' @return (duration) The age as a duration.
 #' @export
 #'
 #' @examples
@@ -90,17 +122,116 @@ dob2age <- function(dob, age_on = lubridate::today(),
 }
 
 
-gender2factor <- function() {}
-
-
-#' Pipe operator
+#' Convert binary data to factors based on column name
 #'
-#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+#' @param .data (data.frame) A data frame or data frame extension (e.g. a tibble)
+#' @param ... Name-value pairs. The names of columns to be transformed
 #'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
+#' @return (data.frame) An object of the same type as `.data`
 #' @export
-#' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
-NULL
+#'
+#' @examples
+#' df <- data.frame(
+#'   a = c(1, 0, NA, 1, 0),
+#'   b = c("y", "n", NA, "Y", "n"),
+#'   c = c("yes", "no", NA, "Yes", "No"),
+#'   d = c(TRUE, FALSE, NA, TRUE, FALSE),
+#'   e = c(1, 2, 3, 4, 5)
+#' )
+#' binary2factor(df, a, b:d)
+#' df %>%
+#'   binary2factor(-e)
+binary2factor <- function(.data, ...) {
+  .data %>% dplyr::mutate(
+    dplyr::across(
+      c(...),
+      function(x) {
+        b <- dplyr::case_when(
+          tolower(x) %in% c("y", "1", "yes", "true") ~ 1,
+          tolower(x) %in% c("n", "0", "no", "false") ~ 0,
+          is.na(x) ~ NA_real_,
+          TRUE ~ NaN
+        )
+        factor(b, c(0, 1), paste0(c("Not_", ""), dplyr::cur_column()), ordered = TRUE)
+      }
+    )
+  )
+}
+
+set_names <- function(.data, names) {
+  names(.data) <- names
+  .data
+}
+
+find_cols <- function(text, replace, colnames) {
+  data.frame(
+    i = grep(paste0("^", text, "|", text, "$"), colnames, ignore.case = TRUE),
+    j = grep(paste0("^", text, "|", text, "$"), colnames, ignore.case = TRUE, value = TRUE),
+    stringsAsFactors = FALSE
+  ) %>%
+    dplyr::mutate(k = gsub(text, replace, .data$j, ignore.case = TRUE)) %>%
+    set_names(c(paste0(text, "_i"), paste0(text), "match"))
+}
+
+
+#' Combine date and time columns into a single DateTime column
+#'
+#' @param .data (data.frame) A data frame or data frame extension (e.g. a tibble)
+#' @param tz (character) a time zone name (default: time zone of the POSIXt
+#' object x)
+#'
+#' @return (data.frame) An object of the same type as `.data`
+#' @export
+#'
+#' @examples
+#' print("todo")
+combine_date_time_cols <- function(.data, tz = NULL) {
+  dttm_col <- dplyr::inner_join(
+    find_cols("date", "DateTime", colnames(.data)),
+    find_cols("time", "DateTime", colnames(.data)),
+    by = "match"
+  ) %>%
+    dplyr::select(.data$date, .data$time, .data$match) %>%
+    tidyr::pivot_longer(-.data$match, values_to = "raw") %>%
+    dplyr::select(-.data$name)
+
+  new_col_names <- dplyr::left_join(
+    data.frame(raw = colnames(.data)), dttm_col,
+    by = "raw"
+  ) %>%
+    dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
+    dplyr::pull(match) %>%
+    unique(.data)
+
+  .data %>%
+    tibble::rownames_to_column(var = "_rowname") %>%
+    tidyr::pivot_longer(
+      dplyr::all_of(dttm_col$raw),
+      names_to = "DateTimeName",
+      values_to = "DateTime"
+    ) %>%
+    dplyr::mutate(
+      DateTimeType = dplyr::if_else(grepl("^time|time$", .data$DateTimeName, ignore.case = TRUE), "Time", ""),
+      DateTimeType = dplyr::if_else(grepl("^date|date$", .data$DateTimeName, ignore.case = TRUE), "Date", .data$DateTimeType),
+      DateTimeName = gsub("^time|time$|^date|date$", "DateTime", .data$DateTimeName, ignore.case = TRUE)
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = "DateTimeType",
+      values_from = "DateTime"
+    ) %>%
+    dplyr::mutate(
+      datetime = dplyr::if_else(
+        (is.na(.data$Date) | is.na(.data$Time)),
+        NA_character_,
+        paste(format(.data$Date, format = "%Y-%m-%d"), format(.data$Time, format = "%H:%M:%S"))
+      ),
+      Date = NULL,
+      Time = NULL
+    ) %>%
+    dplyr::mutate(datetime = lubridate::as_datetime(.data$datetime, tz = tz)) %>%
+    tidyr::pivot_wider(
+      names_from = "DateTimeName",
+      values_from = "datetime"
+    ) %>%
+    dplyr::select(dplyr::all_of(new_col_names))
+}

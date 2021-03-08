@@ -25,8 +25,8 @@
 #' @param ... Further optional arguments that will be passed to method.
 #'
 #' @examples
-#' aki(seq(60, 200, by = 20))
-#' aki(SCr = seq(60, 200, by = 20), bCr = 50)
+#' # aki(seq(60, 200, by = 20))
+#' # aki(SCr = seq(60, 200, by = 20), bCr = 50)
 #' @export
 aki <- function(...) {
   ellipsis::check_dots_used()
@@ -141,9 +141,9 @@ aki.default <- function(data,
 #'     rep(units::set_units(3.0, "mg/dl"), 3)
 #'   )
 #' )
-#' data <- data_[sample(nrow(data_)), ]
+#' # data <- data_[sample(nrow(data_)), ]
 #'
-#' generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
+#' # generate_cr_ch(data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
 generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
