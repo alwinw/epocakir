@@ -1,6 +1,7 @@
 test_that("as_metric() conversions are correct", {
   kdigo_factors <- tibble::tribble(
     ~parameter, ~factor, ~si_units,
+    "Age", 12, "months",
     "SAmk", 1.708, "umol/l",
     "BUN", 0.357, "mmol/l",
     "SiCa", 0.25, "mmol/l",

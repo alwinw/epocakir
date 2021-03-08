@@ -26,6 +26,8 @@ NULL
 #' epocakir:::conversion_factors
 conversion_factors <- tibble::tribble(
   ~parameter, ~metric_units, ~mol_weight, ~description,
+  # General
+  "Age", "years", NA, "Age",
   # 2012 AKI Guideline
   "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
   "BUN", "mg/dl", 28.014, "Blood urea nitrogen",
@@ -48,8 +50,10 @@ conversion_factors <- tibble::tribble(
 #' @param ... (units) One of conversion_factors$parameter,
 #'   e.g. SCr = units::set_units(88.4, "umol/l").
 #'   Case insensitive.
+#' @param value_only (logical) Return as value only without units
 #'
-#' @return (units) Converted measured value or vector of measured values
+#' @return (units) Converted measured value or vector of measured values,
+#'   unless `value_only = TRUE`
 #' @export
 #'
 #' @examples
@@ -58,7 +62,7 @@ conversion_factors <- tibble::tribble(
 #'
 #' values <- units::set_units(c(60, 70, 80), "umol/l")
 #' as_metric(SCr = values)
-as_metric <- function(param = NULL, meas = NULL, ...) {
+as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
   ellipsis::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
@@ -75,13 +79,18 @@ as_metric <- function(param = NULL, meas = NULL, ...) {
     stop(paste0("Unable to find conversion for `", param, "`"))
   }
   if (grepl("mol", units::deparse_unit(meas))) {
-    units::set_units(
+    metric_val <- units::set_units(
       meas * conversion$mol_weight,
       conversion$metric_units,
       mode = "standard"
     )
   } else {
-    units::set_units(meas, conversion$metric_units, mode = "standard")
+    metric_val <- units::set_units(meas, conversion$metric_units, mode = "standard")
+  }
+  if (value_only) {
+    as.double(metric_val)
+  } else {
+    metric_val
   }
 }
 

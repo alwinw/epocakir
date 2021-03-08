@@ -42,12 +42,16 @@ eGFR <- function(SCr = NULL,
 #' @rdname eGFR
 #' @export
 eGFR.adult.SCr <- function(SCr, Age, male, black) {
-  # convert units here
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  Age <- as_metric(Age = Age, value_only = TRUE)
+  male <- as.logical(male)
+  black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.329, -0.411)
-  141 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-1.209 * 0.993^Age *
+  eGFR <- 141 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-1.209 * 0.993^Age *
     dplyr::if_else(male, 1, 1.018) *
     dplyr::if_else(black, 1.159, 1)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
