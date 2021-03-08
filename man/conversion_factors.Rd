@@ -23,6 +23,6 @@ Guidelines.
 }
 }
 \examples{
-conversion_factors
+epocakir:::conversion_factors
 }
 \keyword{datasets}
