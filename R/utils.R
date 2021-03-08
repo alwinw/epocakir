@@ -23,7 +23,7 @@ NULL
 #' \item{description}{Full name}
 #' }
 #' @examples
-#' conversion_factors
+#' epocakir:::conversion_factors
 conversion_factors <- tibble::tribble(
   ~parameter, ~metric_units, ~mol_weight, ~description,
   # 2012 AKI Guideline
