@@ -48,7 +48,7 @@ eGFR.adult.SCr <- function(SCr, Age, male, black) {
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.329, -0.411)
-  eGFR <- 141 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-1.209 * 0.993^Age *
+  eGFR <- 141 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-1.209 * 0.993^Age *
     dplyr::if_else(male, 1, 1.018) *
     dplyr::if_else(black, 1.159, 1)
   units::set_units(eGFR, "mL/min/1.73m2")
@@ -59,7 +59,7 @@ eGFR.adult.SCr <- function(SCr, Age, male, black) {
 #' @export
 eGFR.adult.SCysC <- function(SCysC, Age, male) {
   # convert units here
-  133 * min(SCysC / 0.8, 1)^-0.499 * max(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
+  133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
     dplyr::if_else(male, 1, 0.932)
 }
 
@@ -70,8 +70,8 @@ eGFR.adult.SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
   # convert units here
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.248, -0.207)
-  135 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-0.601 *
-    min(SCysC / 0.8, 1)^-0.375 * max(SCysC / 0.8, 1)^-0.711 *
+  135 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-0.601 *
+    pmin(SCysC / 0.8, 1)^-0.375 * pmax(SCysC / 0.8, 1)^-0.711 *
     0.995^Age *
     dplyr::if_else(male, 1, 0.969) *
     dplyr::if_else(black, 1.08, 1)
