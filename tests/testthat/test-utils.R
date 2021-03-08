@@ -86,7 +86,7 @@ test_that("as_metric() error on unknown measurement", {
 })
 
 test_that("dob2age() between two dates is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = lubridate::as_date("1990-01-01"),
       age_on = lubridate::as_date("2002-01-01")
@@ -96,7 +96,7 @@ test_that("dob2age() between two dates is valid", {
 })
 
 test_that("dob2age() for a vector is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -114,7 +114,7 @@ test_that("dob2age() for a vector is valid", {
 })
 
 test_that("dob2age() with `floor` is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -133,7 +133,7 @@ test_that("dob2age() with `floor` is valid", {
 })
 
 test_that("dob2age() with `ceiling` is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -166,8 +166,8 @@ test_that("binary2factor() with multiple columns", {
     d = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_d", "d"), ordered = TRUE),
     e = c(1, 2, 3, 4, 5)
   )
-  expect_equal(binary2factor(df, a, b:d), ep)
-  expect_equal(df %>% binary2factor(-e), ep)
+  expect_identical(binary2factor(df, a, b:d), ep)
+  expect_identical(df %>% binary2factor(-e), ep)
 })
 
 test_that("combine_date_time_cols() for multiple columns", {
@@ -192,6 +192,6 @@ test_that("combine_date_time_cols() for multiple columns", {
     DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"))
   )
 
-  expect_equal(combine_date_time_cols(df1, tz = "UTC"), o1)
-  expect_equal(combine_date_time_cols(df2), o2)
+  expect_identical(combine_date_time_cols(df1, tz = "UTC"), o1)
+  expect_identical(combine_date_time_cols(df2), o2)
 })
