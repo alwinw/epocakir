@@ -74,6 +74,15 @@ test_that("as_metric() on vector", {
   )
 })
 
+test_that("as_metric() on NULL", {
+  expect_null(as_metric(NULL))
+  expect_null(as_metric(1))
+})
+
+test_that("as_metric() error on unknown measurement", {
+  expect_error(as_metric(unknown = 1))
+  expect_error(as_metric(param = "unknown", meas = 1))
+})
 
 test_that("dob2age() between two dates is valid", {
   expect_equal(
