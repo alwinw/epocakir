@@ -131,3 +131,15 @@ test_that("eGFR.child.SCr_BUN", {
   ep <- units::set_units(40.7 * (1.2 / 0.5)^0.64 * (30 / 0.8)^0.202, "mL/min/1.73m2")
   expect_lte(abs(df - ep), units::set_units(0.2, "mL/min/17.3m2"))
 })
+
+
+test_that("eGFR.child.SCysC", {
+  df <- tibble::tibble(
+    SCysC = units::set_units(0.4, "mg/l"),
+  ) %>%
+    dplyr::mutate(eGFR = eGFR.child.SCysC(SCysC)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(70.69 * (0.4)^-0.931, "mL/min/1.73m2")
+  expect_lte(abs(df - ep), units::set_units(0.2, "mL/min/17.3m2"))
+})
