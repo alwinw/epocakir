@@ -38,7 +38,9 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/dl", 60.06, "Urea (plasma)" # changed from AKI 2012 Guideline
+  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline
+  # 2012 CKD Guideline
+  # TODO
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
