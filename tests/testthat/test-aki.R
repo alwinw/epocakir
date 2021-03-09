@@ -12,7 +12,7 @@
 #     .aki_stages[3],
 #     .aki_stages[3]
 #   )
-#   expect_equal(aki(SCr), aki_stages)
+#   expect_identical(aki(SCr), aki_stages)
 # })
 #
 # test_that("aki() for numeric vector of SCr with baseline", {
@@ -27,7 +27,7 @@
 #     .aki_stages[3],
 #     .aki_stages[3]
 #   )
-#   expect_equal(aki(SCr, bCr = 50), aki_stages)
+#   expect_identical(aki(SCr, bCr = 50), aki_stages)
 # })
 #
 # test_that("aki() for vector of SCr in mg/dl with no baseline", {
@@ -41,7 +41,7 @@
 #     .aki_stages[3],
 #     .aki_stages[3]
 #   )
-#   expect_equal(aki(SCr), aki_stages)
+#   expect_identical(aki(SCr), aki_stages)
 # })
 #
 # test_that("aki() for vector of SCr in mg/dl with baseline", {
@@ -55,7 +55,7 @@
 #     .aki_stages[3],
 #     .aki_stages[3]
 #   )
-#   expect_equal(aki(SCr, bCr), aki_stages)
+#   expect_identical(aki(SCr, bCr), aki_stages)
 # })
 #
 # test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
@@ -103,7 +103,7 @@
 #     )
 #   )
 #   rownames(cr_ch_gr) <- NULL
-#   expect_equal(
+#   expect_identical(
 #     generate_cr_ch(data_gr, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
 #     cr_ch_gr
 #   )
@@ -112,7 +112,7 @@
 #   data_ngr <- dplyr::filter(data_gr, .data$pt_id_ == "pt1")
 #   cr_ch_ngr <- cr_ch_gr[1:5, 2:5]
 #   cr_ch_ngr$D.dttm <- lubridate::make_difftime(days = c(1, 1, 2, 1.25, 1.25))
-#   expect_equal(
+#   expect_identical(
 #     generate_cr_ch(data_ngr, SCr = "SCr_", dttm = "dttm_"),
 #     cr_ch_ngr
 #   )

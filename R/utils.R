@@ -11,6 +11,10 @@
 NULL
 
 
+# TODO consider adding a set_metric() and set_SI() which are simple
+# wrappers to convert data.frame columns into units
+
+
 #' Conversion Factors
 #'
 #' List of conversion factors based on tables in  KDIGO Clinical Practice
@@ -26,6 +30,9 @@ NULL
 #' epocakir:::conversion_factors
 conversion_factors <- tibble::tribble(
   ~parameter, ~metric_units, ~mol_weight, ~description,
+  # General
+  "Age", "years", NA, "Age",
+  "height", "m", NA, "Height",
   # 2012 AKI Guideline
   "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
   "BUN", "mg/dl", 28.014, "Blood urea nitrogen",
@@ -36,7 +43,16 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/dl", 60.06, "Urea (plasma)" # changed from AKI 2012 Guideline
+  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline mg/ml. Correct in CKD
+  # 2012 CKD Guideline
+  "SAlb", "g/dl", NA, "Albumin (serum)",
+  "Hb", "g/dl", NA, "Hemoglobin",
+  # "SPhos", "mg/dl", 94.9714, "Phosphate (serum)",
+  # "SPTH", "pg/ml", 3333.9, "Parathyroid Hormone (serum)",
+  "UA", "mg/dl", 168.11, "Uric acid",
+  # "VitD", "ng/ml", 384.6, "Vitamin D, 25-hydroxyvitamin D"
+  "SCysC", "mg/l", NA, "Cystatin C (serum)" # Not in guideline
+  # ACR required albumin-to-creatinine ratio
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
@@ -48,8 +64,10 @@ conversion_factors <- tibble::tribble(
 #' @param ... (units) One of conversion_factors$parameter,
 #'   e.g. SCr = units::set_units(88.4, "umol/l").
 #'   Case insensitive.
+#' @param value_only (logical) Return as value only without units
 #'
-#' @return (units) Converted measured value or vector of measured values
+#' @return (units) Converted measured value or vector of measured values,
+#'   unless `value_only = TRUE`
 #' @export
 #'
 #' @examples
@@ -58,7 +76,7 @@ conversion_factors <- tibble::tribble(
 #'
 #' values <- units::set_units(c(60, 70, 80), "umol/l")
 #' as_metric(SCr = values)
-as_metric <- function(param = NULL, meas = NULL, ...) {
+as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
   ellipsis::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
@@ -75,13 +93,18 @@ as_metric <- function(param = NULL, meas = NULL, ...) {
     stop(paste0("Unable to find conversion for `", param, "`"))
   }
   if (grepl("mol", units::deparse_unit(meas))) {
-    units::set_units(
+    metric_val <- units::set_units(
       meas * conversion$mol_weight,
       conversion$metric_units,
       mode = "standard"
     )
   } else {
-    units::set_units(meas, conversion$metric_units, mode = "standard")
+    metric_val <- units::set_units(meas, conversion$metric_units, mode = "standard")
+  }
+  if (value_only) {
+    as.double(metric_val)
+  } else {
+    metric_val
   }
 }
 
