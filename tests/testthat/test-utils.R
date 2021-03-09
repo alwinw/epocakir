@@ -21,8 +21,12 @@ test_that("as_metric() conversions are correct", {
     # "SPTH", 0.106, "pmol/l",
     "UA", 59.485, "umol/l",
     # "VitD", 2.496, "nmol/l"
+    "SCysC", 1, "mg/l"
   ) %>%
-    dplyr::left_join(conversion_factors, ., by = "parameter")
+    dplyr::left_join(conversion_factors, ., by = "parameter") %>%
+    dplyr::filter(!is.na(factor))
+
+  expect_identical(nrow(conversion_factors), nrow(kdigo_factors))
 
   for (i in seq_len(nrow(kdigo_factors))) {
     expect_lte(abs(

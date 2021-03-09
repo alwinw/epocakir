@@ -79,7 +79,6 @@ test_that("eGFR.adult.SCysC()", {
 
 
 test_that("eGFR.adult.SCr_SCysC()", {
-  # TODO this should be a common framework? e.g. adult <- tribble()
   df <- eGFR.adult.df() %>%
     dplyr::mutate(eGFR = eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black)) %>%
     dplyr::pull(eGFR)
