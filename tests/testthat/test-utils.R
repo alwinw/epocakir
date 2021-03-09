@@ -1,7 +1,9 @@
 test_that("as_metric() conversions are correct", {
   kdigo_factors <- tibble::tribble(
     ~parameter, ~factor, ~si_units,
+    # General
     "Age", 12, "months",
+    # 2012 AKI Guideline
     "SAmk", 1.708, "umol/l",
     "BUN", 0.357, "mmol/l",
     "SiCa", 0.25, "mmol/l",
@@ -11,7 +13,14 @@ test_that("as_metric() conversions are correct", {
     "Glc", 0.0555, "mmol/l",
     "Lac", 0.111, "mmol/l",
     "STob", 2.139, "umol/l",
-    "Urea", 0.167, "mmol/l"
+    "Urea", 0.167, "mmol/l",
+    # 2012 CKD Guideline
+    "SAlb", 10, "g/l",
+    "Hb", 10, "g/l",
+    # "SPhos", 0.323, "mmol/l",
+    # "SPTH", 0.106, "pmol/l",
+    "UA", 59.485, "umol/l",
+    # "VitD", 2.496, "nmol/l"
   ) %>%
     dplyr::left_join(conversion_factors, ., by = "parameter")
 

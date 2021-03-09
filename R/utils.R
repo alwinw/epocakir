@@ -38,9 +38,15 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline
+  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline mg/ml. Correct in CKD
   # 2012 CKD Guideline
-  # TODO
+  "SAlb", "g/dl", NA, "Albumin (serum)",
+  "Hb", "g/dl", NA, "Hemoglobin",
+  # "SPhos", "mg/dl", 94.9714, "Phosphate (serum)",
+  # "SPTH", "pg/ml", 3333.9, "Parathyroid Hormone (serum)",
+  "UA", "mg/dl", 168.11, "Uric acid",
+  # "VitD", "ng/ml", 384.6, "Vitamin D, 25-hydroxyvitamin D"
+  "SCysC", "mg/l", NA, "Cystatin C (serum)" # Not in guideline
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
