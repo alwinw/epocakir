@@ -11,6 +11,10 @@
 NULL
 
 
+# TODO consider adding a set_metric() and set_SI() which are simple
+# wrappers to convert data.frame columns into units
+
+
 #' Conversion Factors
 #'
 #' List of conversion factors based on tables in  KDIGO Clinical Practice
@@ -28,6 +32,7 @@ conversion_factors <- tibble::tribble(
   ~parameter, ~metric_units, ~mol_weight, ~description,
   # General
   "Age", "years", NA, "Age",
+  "height", "m", NA, "Height",
   # 2012 AKI Guideline
   "SAmk", "ug/ml", 585.6, "Amikacin (serum, plasma)",
   "BUN", "mg/dl", 28.014, "Blood urea nitrogen",

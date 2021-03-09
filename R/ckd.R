@@ -89,21 +89,30 @@ eGFR.adult.SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
 #' @rdname eGFR
 #' @export
 eGFR.child.SCr <- function(SCr, height) {
-  41.3 * (height / SCr)
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  height <- as_metric(height = height, value_only = TRUE)
+  eGFR <- 41.3 * (height / SCr)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.child.SCr_BUN <- function(SCr, height, BUN) {
-  40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  height <- as_metric(height = height, value_only = TRUE)
+  BUN <- as_metric(BUN = BUN, value_only = TRUE)
+  eGFR <- 40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.child.SCysC <- function(SCysC) {
-  70.69 * (SCysC)^-0.931
+  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  eGFR <- 70.69 * (SCysC)^-0.931
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 

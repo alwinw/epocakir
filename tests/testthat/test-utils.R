@@ -3,6 +3,7 @@ test_that("as_metric() conversions are correct", {
     ~parameter, ~factor, ~si_units,
     # General
     "Age", 12, "months",
+    "height", 100, "cm",
     # 2012 AKI Guideline
     "SAmk", 1.708, "umol/l",
     "BUN", 0.357, "mmol/l",
