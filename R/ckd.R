@@ -128,9 +128,20 @@ GFR.levels <- function() {
   )
 }
 
-Albuminuria <- function() {
+Albuminuria.levels.AER <- function() {
   dplyr::case_when(
-    AER < units::set_units(30, "mg/day") ~ "A1"
-    # Add other cases
+    AER > units::set_units(300, "mg/day") ~ "A3",
+    AER > units::set_units(30, "mg/day") ~ "A2",
+    AER > units::set_units(0, "mg/day") ~ "A1",
+    TRUE ~ NA_real_
+  )
+}
+
+Albuminuria.levels.ACR <- function() {
+  dplyr::case_when(
+    ACR > units::set_units(30, "mg/g") ~ "A3",
+    ACR > units::set_units(3, "mg/g") ~ "A2",
+    ACR > units::set_units(0, "mg/g") ~ "A1",
+    TRUE ~ NA_real_
   )
 }
