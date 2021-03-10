@@ -1,25 +1,42 @@
 
 aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
 
-aki_staging() <- function() {}
+aki_staging <- function() {}
 
+
+#' AKI Staging based on baseline creatinine
+#'
+#' @param SCr Serum creatinine
+#' @param bCr Baseline creatinine
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
+aki_bCr <- function(SCr, bCr) {
+  ellipsis::check_dots_used()
+  UseMethod("aki_bCr")
+}
+
+#' @rdname aki_bCr
+#' @export
 aki_bCr.units <- function(SCr, bCr) {
-  dplyr::case_when(
-    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
-    SCr >= 3.0 * bCr ~ aki_stages[3],
-    SCr >= 2.0 * bCr ~ aki_stages[2],
-    SCr >= 1.5 * bCr ~ aki_stages[1],
-    TRUE ~ NA_real_
+  aki_bCr.numeric(
+    as_metric(SCr = SCr, value_only = T),
+    as_metric(SCr = bCr, value_only = T)
   )
 }
 
-aki_bCr.numeric <- function(SCr, bCr, units) {
+#' @rdname aki_bCr
+#' @export
+aki_bCr.numeric <- function(SCr, bCr) {
   dplyr::case_when(
-    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
+    SCr >= 4.0 ~ aki_stages[3],
     SCr >= 3.0 * bCr ~ aki_stages[3],
     SCr >= 2.0 * bCr ~ aki_stages[2],
     SCr >= 1.5 * bCr ~ aki_stages[1],
-    TRUE ~ NA_real_
+    TRUE ~ NA_integer_
   )
 }
 

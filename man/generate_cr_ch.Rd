@@ -22,6 +22,7 @@ A data.frame of without input variable names and creatinine changes
 Generate creatinine changes
 }
 \examples{
+# TODO move this into a loadable dataset
 data_ <- data.frame(
   pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
   dttm_ = c(

@@ -1,62 +1,21 @@
 # consider using Table 7 as the test cases
 
-test_that("aki() for numeric vector of SCr with no baseline", {
-  SCr <- seq(60, 200, by = 20)
-  aki_stages <- vctrs::vec_c(
-    aki_stages[length(aki_stages)],
-    aki_stages[length(aki_stages)],
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(aki(SCr), aki_stages)
-})
-
-test_that("aki() for numeric vector of SCr with baseline", {
-  SCr <- seq(60, 200, by = 20)
-  aki_stages <- vctrs::vec_c(
-    aki_stages[length(aki_stages)],
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(aki(SCr, bCr = 50), aki_stages)
-})
-
-test_that("aki() for vector of SCr in mg/dl with no baseline", {
-  SCr <- units::set_units(seq(1.5, 4.5, by = 0.5), "mg/dl")
-  aki_stages <- vctrs::vec_c(
-    NA,
-    NA,
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(aki(SCr), aki_stages)
-})
-
-test_that("aki() for vector of SCr in mg/dl with baseline", {
+test_that("aki_bCr.units() for vector", {
   SCr <- units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl")
   bCr <- units::set_units(1.5, "mg/dl")
-  aki_stages <- vctrs::vec_c(
-    aki_stages[length(aki_stages)],
+  aki_calc <- vctrs::vec_c(
+    NA,
     aki_stages[1],
     aki_stages[2],
     aki_stages[2],
     aki_stages[3],
     aki_stages[3]
   )
-  expect_equal(aki(SCr, bCr), aki_stages)
+  expect_equal(aki_bCr.units(SCr, bCr), aki_calc)
 })
+
+
+
 
 test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
   # Generate sample data
