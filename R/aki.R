@@ -54,7 +54,30 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 }
 
 
+aki_UO <- function(...) {
+  UseMethod("aki_UO")
+}
 
+aki_UO.default <- function(.data, dttm, UO, ...) {
+  ellipsis::check_dots_used()
+  aki_UO(
+    .data[[rlang::as_name(rlang::enquo(dttm))]],
+    .data[[rlang::as_name(rlang::enquo(UO))]],
+  )
+}
+
+aki_UO.units <- function(dttm, UO, ...) {
+  aki_UO(
+    dttm,
+    as_metric(UO = UO, value_only = T)
+  )
+}
+
+aki_UO.numeric <- function(dttm, UO, ...) {
+  print("todo")
+  # TODO need to generate individual UO changes
+  # then determine average urine output
+}
 
 
 #' Codify AKI from Serum Creatinine and/or Urine Output
@@ -92,26 +115,6 @@ aki <- function(...) {
   UseMethod("aki")
 }
 
-aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
-
-.aki_bCr <- function(SCr, bCr) {
-  dplyr::case_when(
-    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
-    SCr >= 3.0 * bCr ~ aki_stages[3],
-    SCr >= 2.0 * bCr ~ aki_stages[2],
-    SCr >= 1.5 * bCr ~ aki_stages[1],
-    TRUE ~ NA_real_
-  )
-}
-
-.aki_UO <- function(dttm, UO) {
-  print(UO)
-}
-
-.aki_cr_ch <- function(data, SCr, dttm, pt_id) {
-  print(SCr)
-}
-
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr,
@@ -124,7 +127,7 @@ aki.numeric <- function(SCr,
   else {
     bCr <- units::as_units(bCr, units)
   }
-  .aki_bCr(SCr, bCr)
+  aki_bCr(SCr, bCr)
 }
 
 #' @rdname aki
@@ -133,7 +136,7 @@ aki.units <- function(SCr,
                       bCr = NULL,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  .aki_bCr(SCr, bCr)
+  aki_bCr(SCr, bCr)
 }
 
 # TODO Consider adding aki.ts
@@ -151,7 +154,7 @@ aki.default <- function(data,
 
   data %>%
     dplyr::mutate(
-      "{aki}.bCr" := .aki_bCr(!!as.name(SCr), !!as.name(bCr))
+      "{aki}.bCr" := aki_bCr(!!as.name(SCr), !!as.name(bCr))
     ) %>%
     dplyr::mutate(
       "{aki}.cr_ch" := !!as.name(SCr) * 2

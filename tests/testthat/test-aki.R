@@ -1,13 +1,13 @@
 # consider using Table 7 as the test cases
 
-aki_test_df <- function(env = parent.frame()) {
+aki_SCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(
     SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
     bCr_measured = units::set_units(1.5, "mg/dl")
   )
 }
 
-aki_exp_df <- function(env = parent.frame()) {
+aki_SCr_exp_df <- function(env = parent.frame()) {
   vctrs::vec_c(
     NA,
     aki_stages[1],
@@ -19,27 +19,27 @@ aki_exp_df <- function(env = parent.frame()) {
 }
 
 test_that("aki_bCr() for data.frame", {
-  expect_equal(aki_bCr(aki_test_df(), "SCr_measured", "bCr_measured"), aki_exp_df())
-  expect_equal(aki_bCr(aki_test_df(), SCr_measured, bCr_measured), aki_exp_df())
+  expect_equal(aki_bCr(aki_SCr_test_df(), "SCr_measured", "bCr_measured"), aki_SCr_exp_df())
+  expect_equal(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for units vector", {
-  SCr_measured <- aki_test_df()$SCr_measured
-  bCr_measured <- aki_test_df()$bCr_measured
-  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_exp_df())
+  SCr_measured <- aki_SCr_test_df()$SCr_measured
+  bCr_measured <- aki_SCr_test_df()$bCr_measured
+  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on units", {
-  df <- aki_test_df() %>%
+  df <- aki_SCr_test_df() %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_equal(df$aki, aki_exp_df())
+  expect_equal(df$aki, aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
-  df <- aki_test_df() %>%
+  df <- aki_SCr_test_df() %>%
     dplyr::mutate(dplyr::across(everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_equal(df$aki, aki_exp_df())
+  expect_equal(df$aki, aki_SCr_exp_df())
 })
 
 
