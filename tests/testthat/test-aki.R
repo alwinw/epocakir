@@ -5,9 +5,6 @@ test_that("aki_bCr() for data.frame", {
     SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
     bCr_measured = units::set_units(1.5, "mg/dl")
   )
-  # aki_est = aki_bCr(df, "SCr_measured", "bCr_measured")
-  # aki_est = aki_bCr(df, SCr_measured, bCr_measured)
-
   aki_exp <- vctrs::vec_c(
     NA,
     aki_stages[1],
@@ -16,7 +13,8 @@ test_that("aki_bCr() for data.frame", {
     aki_stages[3],
     aki_stages[3]
   )
-  # expect_equal(aki_est, aki_exp)
+  expect_equal(aki_bCr(df, "SCr_measured", "bCr_measured"), aki_exp)
+  expect_equal(aki_bCr(df, SCr_measured, bCr_measured), aki_exp)
 })
 
 test_that("aki_bCr() for units vector", {

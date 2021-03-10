@@ -6,9 +6,9 @@ aki_staging <- function() {}
 
 #' AKI Staging based on baseline creatinine
 #'
-#' @param .data A data frame
-#' @param SCr Serum creatinine
-#' @param bCr Baseline creatinine
+#' @param .data (data.frame) A data frame containing SCr and bCr, optional
+#' @param SCr Serum creatinine column name, or vector if data not provided
+#' @param bCr Baseline creatinine column name, or vector if data not provided
 #' @param ... Further optional arguments
 #'
 #' @return (ordered factor) AKI stages
@@ -17,22 +17,24 @@ aki_staging <- function() {}
 #' @examples
 #' print("todo")
 aki_bCr <- function(...) {
-  ellipsis::check_dots_used()
   UseMethod("aki_bCr")
 }
 
 #' @rdname aki_bCr
 #' @export
-aki_bCr.default <- function(.data, SCr, bCr, ...) {
-  # FIX ME
-  # aki_bCr(.data[[rlang::ensym(SCr)]], .data[[rlang::ensym(bCr)]])
-  aki_bCr(SCr, bCr)
+aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
+  ellipsis::check_dots_used()
+  aki_bCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(bCr))]]
+  )
 }
 
 #' @rdname aki_bCr
 #' @export
 aki_bCr.units <- function(SCr, bCr, ...) {
-  aki_bCr.numeric(
+  ellipsis::check_dots_used()
+  aki_bCr(
     as_metric(SCr = SCr, value_only = T),
     as_metric(SCr = bCr, value_only = T)
   )
@@ -41,6 +43,7 @@ aki_bCr.units <- function(SCr, bCr, ...) {
 #' @rdname aki_bCr
 #' @export
 aki_bCr.numeric <- function(SCr, bCr, ...) {
+  ellipsis::check_dots_used()
   dplyr::case_when(
     SCr >= 4.0 ~ aki_stages[3],
     SCr >= 3.0 * bCr ~ aki_stages[3],

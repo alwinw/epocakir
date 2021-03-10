@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_bCr}
 \alias{aki_bCr}
-\alias{aki_bCr.default}
+\alias{aki_bCr.data.frame}
 \alias{aki_bCr.units}
 \alias{aki_bCr.numeric}
 \title{AKI Staging based on baseline creatinine}
 \usage{
 aki_bCr(...)
 
-\method{aki_bCr}{default}(.data, SCr, bCr, ...)
+\method{aki_bCr}{data.frame}(.data, SCr, bCr, ...)
 
 \method{aki_bCr}{units}(SCr, bCr, ...)
 
@@ -18,11 +18,11 @@ aki_bCr(...)
 \arguments{
 \item{...}{Further optional arguments}
 
-\item{.data}{A data frame}
+\item{.data}{(data.frame) A data frame containing SCr and bCr, optional}
 
-\item{SCr}{Serum creatinine}
+\item{SCr}{Serum creatinine column name, or vector if data not provided}
 
-\item{bCr}{Baseline creatinine}
+\item{bCr}{Baseline creatinine column name, or vector if data not provided}
 }
 \value{
 (ordered factor) AKI stages
