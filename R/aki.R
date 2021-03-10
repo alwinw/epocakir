@@ -33,15 +33,15 @@ aki <- function(...) {
   UseMethod("aki")
 }
 
-.aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"))
+aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
 
 .aki_bCr <- function(SCr, bCr) {
   dplyr::case_when(
-    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
-    SCr >= 3.0 * bCr ~ .aki_stages[3],
-    SCr >= 2.0 * bCr ~ .aki_stages[2],
-    SCr >= 1.5 * bCr ~ .aki_stages[1],
-    TRUE ~ .aki_stages[length(.aki_stages)]
+    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
+    SCr >= 3.0 * bCr ~ aki_stages[3],
+    SCr >= 2.0 * bCr ~ aki_stages[2],
+    SCr >= 1.5 * bCr ~ aki_stages[1],
+    TRUE ~ NA_real_
   )
 }
 
@@ -112,6 +112,7 @@ aki.default <- function(data,
 #' @export
 #'
 #' @examples
+#' # TODO move this into a loadable dataset
 #' data_ <- data.frame(
 #'   pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
 #'   dttm_ = c(

@@ -115,33 +115,36 @@ eGFR.child.SCysC <- function(SCysC) {
   units::set_units(eGFR, "mL/min/1.73m2")
 }
 
+GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
 
-GFR.levels <- function() {
+GFR_staging <- function() {
   dplyr::case_when(
-    GFR >= units::set_units(90, "ml/min") ~ "G1", # PER 1.73m2??
-    GFR >= units::set_units(60, "ml/min") ~ "G2",
-    GFR >= units::set_units(45, "ml/min") ~ "G3a",
-    GFR >= units::set_units(30, "ml/min") ~ "G3b",
-    GFR >= units::set_units(15, "ml/min") ~ "G4",
-    GFR >= units::set_units(0, "ml/min") ~ "G5",
+    GFR >= units::set_units(90, "ml/min") ~ GFR_stages[1],
+    GFR >= units::set_units(60, "ml/min") ~ GFR_stages[2],
+    GFR >= units::set_units(45, "ml/min") ~ GFR_stages[3],
+    GFR >= units::set_units(30, "ml/min") ~ GFR_stages[4],
+    GFR >= units::set_units(15, "ml/min") ~ GFR_stages[5],
+    GFR >= units::set_units(0, "ml/min") ~ GFR_stages[5],
     TRUE ~ NA_real_
   )
 }
 
+Albuminuria_stages <- factor(c("A1", "A2", "A3"), ordered = TRUE)
+
 Albuminuria.levels.AER <- function() {
   dplyr::case_when(
-    AER > units::set_units(300, "mg/day") ~ "A3",
-    AER > units::set_units(30, "mg/day") ~ "A2",
-    AER > units::set_units(0, "mg/day") ~ "A1",
+    AER > units::set_units(300, "mg/day") ~ Albuminuria_stages[3],
+    AER > units::set_units(30, "mg/day") ~ Albuminuria_stages[2],
+    AER > units::set_units(0, "mg/day") ~ Albuminuria_stages[1],
     TRUE ~ NA_real_
   )
 }
 
 Albuminuria.levels.ACR <- function() {
   dplyr::case_when(
-    ACR > units::set_units(30, "mg/g") ~ "A3",
-    ACR > units::set_units(3, "mg/g") ~ "A2",
-    ACR > units::set_units(0, "mg/g") ~ "A1",
+    ACR > units::set_units(30, "mg/g") ~ Albuminuria_stages[3],
+    ACR > units::set_units(3, "mg/g") ~ Albuminuria_stages[2],
+    ACR > units::set_units(0, "mg/g") ~ Albuminuria_stages[1],
     TRUE ~ NA_real_
   )
 }
