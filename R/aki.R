@@ -1,3 +1,85 @@
+
+aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
+
+aki_staging <- function() {}
+
+
+#' AKI Staging based on baseline creatinine
+#'
+#' @param .data (data.frame) A data frame containing SCr and bCr, optional
+#' @param SCr Serum creatinine column name, or vector if data not provided
+#' @param bCr Baseline creatinine column name, or vector if data not provided
+#' @param ... Further optional arguments
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
+aki_bCr <- function(...) {
+  UseMethod("aki_bCr")
+}
+
+#' @rdname aki_bCr
+#' @export
+aki_bCr.default <- function(.data, SCr, bCr, ...) {
+  ellipsis::check_dots_used()
+  aki_bCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(bCr))]]
+  )
+}
+
+#' @rdname aki_bCr
+#' @export
+aki_bCr.units <- function(SCr, bCr, ...) {
+  ellipsis::check_dots_used()
+  aki_bCr(
+    as_metric(SCr = SCr, value_only = T),
+    as_metric(SCr = bCr, value_only = T)
+  )
+}
+
+#' @rdname aki_bCr
+#' @export
+aki_bCr.numeric <- function(SCr, bCr, ...) {
+  ellipsis::check_dots_used()
+  dplyr::case_when(
+    SCr >= 4.0 ~ aki_stages[3],
+    SCr >= 3.0 * bCr ~ aki_stages[3],
+    SCr >= 2.0 * bCr ~ aki_stages[2],
+    SCr >= 1.5 * bCr ~ aki_stages[1],
+    TRUE ~ NA_integer_
+  )
+}
+
+
+aki_UO <- function(...) {
+  UseMethod("aki_UO")
+}
+
+aki_UO.default <- function(.data, dttm, UO, ...) {
+  ellipsis::check_dots_used()
+  aki_UO(
+    .data[[rlang::as_name(rlang::enquo(dttm))]],
+    .data[[rlang::as_name(rlang::enquo(UO))]],
+  )
+}
+
+aki_UO.units <- function(dttm, UO, ...) {
+  aki_UO(
+    dttm,
+    as_metric(UO = UO, value_only = T)
+  )
+}
+
+aki_UO.numeric <- function(dttm, UO, ...) {
+  print("todo")
+  # TODO need to generate individual UO changes
+  # then determine average urine output
+}
+
+
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
@@ -33,26 +115,6 @@ aki <- function(...) {
   UseMethod("aki")
 }
 
-.aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"))
-
-.aki_bCr <- function(SCr, bCr) {
-  dplyr::case_when(
-    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
-    SCr >= 3.0 * bCr ~ .aki_stages[3],
-    SCr >= 2.0 * bCr ~ .aki_stages[2],
-    SCr >= 1.5 * bCr ~ .aki_stages[1],
-    TRUE ~ .aki_stages[length(.aki_stages)]
-  )
-}
-
-.aki_UO <- function(dttm, UO) {
-  print(UO)
-}
-
-.aki_cr_ch <- function(data, SCr, dttm, pt_id) {
-  print(SCr)
-}
-
 #' @rdname aki
 #' @export
 aki.numeric <- function(SCr,
@@ -65,7 +127,7 @@ aki.numeric <- function(SCr,
   else {
     bCr <- units::as_units(bCr, units)
   }
-  .aki_bCr(SCr, bCr)
+  aki_bCr(SCr, bCr)
 }
 
 #' @rdname aki
@@ -74,7 +136,7 @@ aki.units <- function(SCr,
                       bCr = NULL,
                       na.rm = FALSE, ...) {
   if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  .aki_bCr(SCr, bCr)
+  aki_bCr(SCr, bCr)
 }
 
 # TODO Consider adding aki.ts
@@ -92,7 +154,7 @@ aki.default <- function(data,
 
   data %>%
     dplyr::mutate(
-      "{aki}.bCr" := .aki_bCr(!!as.name(SCr), !!as.name(bCr))
+      "{aki}.bCr" := aki_bCr(!!as.name(SCr), !!as.name(bCr))
     ) %>%
     dplyr::mutate(
       "{aki}.cr_ch" := !!as.name(SCr) * 2
@@ -112,6 +174,7 @@ aki.default <- function(data,
 #' @export
 #'
 #' @examples
+#' # TODO move this into a loadable dataset
 #' data_ <- data.frame(
 #'   pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
 #'   dttm_ = c(
