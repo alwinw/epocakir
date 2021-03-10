@@ -1,9 +1,14 @@
 # consider using Table 7 as the test cases
 
-test_that("aki_bCr.units() for vector", {
-  SCr <- units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl")
-  bCr <- units::set_units(1.5, "mg/dl")
-  aki_calc <- vctrs::vec_c(
+test_that("aki_bCr() for data.frame", {
+  df <- tibble::tibble(
+    SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
+    bCr_measured = units::set_units(1.5, "mg/dl")
+  )
+  # aki_est = aki_bCr(df, "SCr_measured", "bCr_measured")
+  # aki_est = aki_bCr(df, SCr_measured, bCr_measured)
+
+  aki_exp <- vctrs::vec_c(
     NA,
     aki_stages[1],
     aki_stages[2],
@@ -11,10 +16,56 @@ test_that("aki_bCr.units() for vector", {
     aki_stages[3],
     aki_stages[3]
   )
-  expect_equal(aki_bCr.units(SCr, bCr), aki_calc)
+  # expect_equal(aki_est, aki_exp)
 })
 
+test_that("aki_bCr() for units vector", {
+  SCr_measured <- units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl")
+  bCr_measured <- units::set_units(1.5, "mg/dl")
+  aki_exp <- vctrs::vec_c(
+    NA,
+    aki_stages[1],
+    aki_stages[2],
+    aki_stages[2],
+    aki_stages[3],
+    aki_stages[3]
+  )
+  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_exp)
+})
 
+test_that("aki_bCr() for dplyr::mutate on units", {
+  df <- tibble::tibble(
+    SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
+    bCr_measured = units::set_units(1.5, "mg/dl")
+  ) %>%
+    dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
+  aki_exp <- vctrs::vec_c(
+    NA,
+    aki_stages[1],
+    aki_stages[2],
+    aki_stages[2],
+    aki_stages[3],
+    aki_stages[3]
+  )
+  expect_equal(df$aki, aki_exp)
+})
+
+test_that("aki_bCr() for dplyr::mutate on numeric", {
+  df <- tibble::tibble(
+    SCr_measured = seq(2.0, 4.5, by = 0.5),
+    bCr_measured = 1.5
+  ) %>%
+    dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
+  aki_exp <- vctrs::vec_c(
+    NA,
+    aki_stages[1],
+    aki_stages[2],
+    aki_stages[2],
+    aki_stages[3],
+    aki_stages[3]
+  )
+  expect_equal(df$aki, aki_exp)
+})
 
 
 test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
