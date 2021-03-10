@@ -22,7 +22,7 @@ aki_bCr <- function(...) {
 
 #' @rdname aki_bCr
 #' @export
-aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
+aki_bCr.default <- function(.data, SCr, bCr, ...) {
   ellipsis::check_dots_used()
   aki_bCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],

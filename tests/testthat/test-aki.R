@@ -1,11 +1,14 @@
 # consider using Table 7 as the test cases
 
-test_that("aki_bCr() for data.frame", {
-  df <- tibble::tibble(
+aki_test_df <- function(env = parent.frame()) {
+  tibble::tibble(
     SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
     bCr_measured = units::set_units(1.5, "mg/dl")
   )
-  aki_exp <- vctrs::vec_c(
+}
+
+aki_exp_df <- function(env = parent.frame()) {
+  vctrs::vec_c(
     NA,
     aki_stages[1],
     aki_stages[2],
@@ -13,56 +16,30 @@ test_that("aki_bCr() for data.frame", {
     aki_stages[3],
     aki_stages[3]
   )
-  expect_equal(aki_bCr(df, "SCr_measured", "bCr_measured"), aki_exp)
-  expect_equal(aki_bCr(df, SCr_measured, bCr_measured), aki_exp)
+}
+
+test_that("aki_bCr() for data.frame", {
+  expect_equal(aki_bCr(aki_test_df(), "SCr_measured", "bCr_measured"), aki_exp_df())
+  expect_equal(aki_bCr(aki_test_df(), SCr_measured, bCr_measured), aki_exp_df())
 })
 
 test_that("aki_bCr() for units vector", {
-  SCr_measured <- units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl")
-  bCr_measured <- units::set_units(1.5, "mg/dl")
-  aki_exp <- vctrs::vec_c(
-    NA,
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_exp)
+  SCr_measured <- aki_test_df()$SCr_measured
+  bCr_measured <- aki_test_df()$bCr_measured
+  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on units", {
-  df <- tibble::tibble(
-    SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
-    bCr_measured = units::set_units(1.5, "mg/dl")
-  ) %>%
+  df <- aki_test_df() %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  aki_exp <- vctrs::vec_c(
-    NA,
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(df$aki, aki_exp)
+  expect_equal(df$aki, aki_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
-  df <- tibble::tibble(
-    SCr_measured = seq(2.0, 4.5, by = 0.5),
-    bCr_measured = 1.5
-  ) %>%
+  df <- aki_test_df() %>%
+    dplyr::mutate(dplyr::across(everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  aki_exp <- vctrs::vec_c(
-    NA,
-    aki_stages[1],
-    aki_stages[2],
-    aki_stages[2],
-    aki_stages[3],
-    aki_stages[3]
-  )
-  expect_equal(df$aki, aki_exp)
+  expect_equal(df$aki, aki_exp_df())
 })
 
 
