@@ -27,7 +27,7 @@ Imports:
     tidyr,
     tidyselect,
     tibble,
-    forcats,
+    vctrs,
     ellipsis,
     rlang,
     units,
