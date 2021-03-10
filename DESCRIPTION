@@ -23,14 +23,14 @@ BugReports: https://github.com/alwinw/epocakir/issues
 Depends:
     R (>= 3.5.0)
 Imports:
-    dplyr,
-    tidyr,
-    tidyselect,
-    tibble,
+    dplyr (>= 1.0.1),
+    tidyr (>= 1.1.1),
+    tidyselect (>= 1.1.0),
+    tibble (>= 3.0.1),
     vctrs,
     ellipsis,
-    rlang,
-    units,
+    rlang (>= 0.4.0),
+    units (>= 0.7),
     lubridate,
     magrittr
 Suggests:
