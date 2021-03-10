@@ -1,1 +1,1 @@
-# Albuminuria gategories
+# Albuminuria categories

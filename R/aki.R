@@ -37,7 +37,7 @@ aki <- function(...) {
 
 .aki_bCr <- function(SCr, bCr) {
   dplyr::case_when(
-    as_metric_SCr(SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
+    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ .aki_stages[3],
     SCr >= 3.0 * bCr ~ .aki_stages[3],
     SCr >= 2.0 * bCr ~ .aki_stages[2],
     SCr >= 1.5 * bCr ~ .aki_stages[1],
