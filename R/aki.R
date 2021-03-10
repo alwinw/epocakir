@@ -1,3 +1,31 @@
+
+aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
+
+aki_staging() <- function() {}
+
+aki_bCr.units <- function(SCr, bCr) {
+  dplyr::case_when(
+    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
+    SCr >= 3.0 * bCr ~ aki_stages[3],
+    SCr >= 2.0 * bCr ~ aki_stages[2],
+    SCr >= 1.5 * bCr ~ aki_stages[1],
+    TRUE ~ NA_real_
+  )
+}
+
+aki_bCr.numeric <- function(SCr, bCr, units) {
+  dplyr::case_when(
+    as_metric(SCr = SCr) >= units::set_units(4.0, "mg/dl") ~ aki_stages[3],
+    SCr >= 3.0 * bCr ~ aki_stages[3],
+    SCr >= 2.0 * bCr ~ aki_stages[2],
+    SCr >= 1.5 * bCr ~ aki_stages[1],
+    TRUE ~ NA_real_
+  )
+}
+
+
+
+
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
