@@ -1,0 +1,145 @@
+eGFR.adult.df <- function(env = parent.frame()) {
+  tibble::tribble(
+    ~SCr, ~SCysC, ~Age, ~male, ~black,
+    0.5, 0.4, 20, FALSE, FALSE,
+    0.5, 0.4, 30, FALSE, TRUE,
+    0.5, 1.2, 20, FALSE, FALSE,
+    0.5, 1.2, 30, FALSE, TRUE,
+    1.5, 0.4, 20, FALSE, FALSE,
+    1.5, 0.4, 30, FALSE, TRUE,
+    1.5, 1.2, 20, FALSE, FALSE,
+    1.5, 1.2, 30, FALSE, TRUE,
+    0.5, 0.4, 20, TRUE, FALSE,
+    0.5, 0.4, 30, TRUE, TRUE,
+    0.5, 1.2, 20, TRUE, FALSE,
+    0.5, 1.2, 30, TRUE, TRUE,
+    1.5, 0.4, 20, TRUE, FALSE,
+    1.5, 0.4, 30, TRUE, TRUE,
+    1.5, 1.2, 20, TRUE, FALSE,
+    1.5, 1.2, 30, TRUE, TRUE
+  ) %>%
+    dplyr::mutate(
+      SCr = units::set_units(SCr, "mg/dl"),
+      SCysC = units::set_units(SCysC, "mg/l"),
+      Age = units::set_units(Age, "years")
+    )
+}
+
+
+test_that("eGFR.adult.SCr()", {
+  df <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR.adult.SCr(SCr, Age, male, black)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(c(
+    rep(c(
+      143.5 * (0.5 / 0.7)^-0.329 * 0.993^20,
+      143.5 * (0.5 / 0.7)^-0.329 * 0.993^30 * 1.159
+    ), 2),
+    rep(c(
+      143.5 * (1.5 / 0.7)^-1.209 * 0.993^20,
+      143.5 * (1.5 / 0.7)^-1.209 * 0.993^30 * 1.159
+    ), 2),
+    rep(c(
+      141 * (0.5 / 0.9)^-0.411 * 0.993^20,
+      141 * (0.5 / 0.9)^-0.411 * 0.993^30 * 1.159
+    ), 2),
+    rep(c(
+      141 * (1.5 / 0.9)^-1.209 * 0.993^20,
+      141 * (1.5 / 0.9)^-1.209 * 0.993^30 * 1.159
+    ), 2)
+  ), "mL/min/1.73m2")
+
+  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+})
+
+
+test_that("eGFR.adult.SCysC()", {
+  df <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR.adult.SCysC(SCysC, Age, male)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(c(
+    rep(c(
+      133 * (0.4 / 0.8)^-0.499 * 0.996^20 * 0.932,
+      133 * (0.4 / 0.8)^-0.499 * 0.996^30 * 0.932,
+      133 * (1.2 / 0.8)^-1.328 * 0.996^20 * 0.932,
+      133 * (1.2 / 0.8)^-1.328 * 0.996^30 * 0.932
+    ), 2),
+    rep(c(
+      133 * (0.4 / 0.8)^-0.499 * 0.996^20,
+      133 * (0.4 / 0.8)^-0.499 * 0.996^30,
+      133 * (1.2 / 0.8)^-1.328 * 0.996^20,
+      133 * (1.2 / 0.8)^-1.328 * 0.996^30
+    ), 2)
+  ), "mL/min/1.73m2")
+
+  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+})
+
+
+test_that("eGFR.adult.SCr_SCysC()", {
+  df <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(c(
+    130.8 * (0.5 / 0.7)^-0.248 * (0.4 / 0.8)^-0.375 * 0.995^20,
+    130.8 * (0.5 / 0.7)^-0.248 * (0.4 / 0.8)^-0.375 * 0.995^30 * 1.08,
+    130.8 * (0.5 / 0.7)^-0.248 * (1.2 / 0.8)^-0.711 * 0.995^20,
+    130.8 * (0.5 / 0.7)^-0.248 * (1.2 / 0.8)^-0.711 * 0.995^30 * 1.08,
+    130.8 * (1.5 / 0.7)^-0.601 * (0.4 / 0.8)^-0.375 * 0.995^20,
+    130.8 * (1.5 / 0.7)^-0.601 * (0.4 / 0.8)^-0.375 * 0.995^30 * 1.08,
+    130.8 * (1.5 / 0.7)^-0.601 * (1.2 / 0.8)^-0.711 * 0.995^20,
+    130.8 * (1.5 / 0.7)^-0.601 * (1.2 / 0.8)^-0.711 * 0.995^30 * 1.08,
+    135 * (0.5 / 0.9)^-0.207 * (0.4 / 0.8)^-0.375 * 0.995^20,
+    135 * (0.5 / 0.9)^-0.207 * (0.4 / 0.8)^-0.375 * 0.995^30 * 1.08,
+    135 * (0.5 / 0.9)^-0.207 * (1.2 / 0.8)^-0.711 * 0.995^20,
+    135 * (0.5 / 0.9)^-0.207 * (1.2 / 0.8)^-0.711 * 0.995^30 * 1.08,
+    135 * (1.5 / 0.9)^-0.601 * (0.4 / 0.8)^-0.375 * 0.995^20,
+    135 * (1.5 / 0.9)^-0.601 * (0.4 / 0.8)^-0.375 * 0.995^30 * 1.08,
+    135 * (1.5 / 0.9)^-0.601 * (1.2 / 0.8)^-0.711 * 0.995^20,
+    135 * (1.5 / 0.9)^-0.601 * (1.2 / 0.8)^-0.711 * 0.995^30 * 1.08
+  ), "mL/min/1.73m2")
+
+  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+})
+
+
+test_that("eGFR.child.SCr()", {
+  df <- tibble::tibble(
+    SCr = units::set_units(0.5, "mg/dl"),
+    height = units::set_units(1.2, "m")
+  ) %>%
+    dplyr::mutate(eGFR = eGFR.child.SCr(SCr, height)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(41.3 * (1.2 / 0.5), "mL/min/1.73m2")
+  expect_lte(abs(df - ep), units::set_units(0.2, "mL/min/17.3m2"))
+})
+
+
+test_that("eGFR.child.SCr_BUN", {
+  df <- tibble::tibble(
+    SCr = units::set_units(0.5, "mg/dl"),
+    height = units::set_units(1.2, "m"),
+    BUN = units::set_units(0.8, "mg/dl")
+  ) %>%
+    dplyr::mutate(eGFR = eGFR.child.SCr_BUN(SCr, height, BUN)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(40.7 * (1.2 / 0.5)^0.64 * (30 / 0.8)^0.202, "mL/min/1.73m2")
+  expect_lte(abs(df - ep), units::set_units(0.2, "mL/min/17.3m2"))
+})
+
+
+test_that("eGFR.child.SCysC", {
+  df <- tibble::tibble(
+    SCysC = units::set_units(0.4, "mg/l"),
+  ) %>%
+    dplyr::mutate(eGFR = eGFR.child.SCysC(SCysC)) %>%
+    dplyr::pull(eGFR)
+
+  ep <- units::set_units(70.69 * (0.4)^-0.931, "mL/min/1.73m2")
+  expect_lte(abs(df - ep), units::set_units(0.2, "mL/min/17.3m2"))
+})

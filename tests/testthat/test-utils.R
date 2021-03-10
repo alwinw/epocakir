@@ -1,6 +1,10 @@
 test_that("as_metric() conversions are correct", {
   kdigo_factors <- tibble::tribble(
     ~parameter, ~factor, ~si_units,
+    # General
+    "Age", 12, "months",
+    "height", 100, "cm",
+    # 2012 AKI Guideline
     "SAmk", 1.708, "umol/l",
     "BUN", 0.357, "mmol/l",
     "SiCa", 0.25, "mmol/l",
@@ -10,9 +14,20 @@ test_that("as_metric() conversions are correct", {
     "Glc", 0.0555, "mmol/l",
     "Lac", 0.111, "mmol/l",
     "STob", 2.139, "umol/l",
-    "Urea", 0.167, "mmol/l"
+    "Urea", 0.167, "mmol/l",
+    # 2012 CKD Guideline
+    "SAlb", 10, "g/l",
+    "Hb", 10, "g/l",
+    # "SPhos", 0.323, "mmol/l",
+    # "SPTH", 0.106, "pmol/l",
+    "UA", 59.485, "umol/l",
+    # "VitD", 2.496, "nmol/l"
+    "SCysC", 1, "mg/l"
   ) %>%
-    dplyr::left_join(conversion_factors, ., by = "parameter")
+    dplyr::left_join(conversion_factors, ., by = "parameter") %>%
+    dplyr::filter(!is.na(factor))
+
+  expect_identical(nrow(conversion_factors), nrow(kdigo_factors))
 
   for (i in seq_len(nrow(kdigo_factors))) {
     expect_lte(abs(
@@ -74,9 +89,18 @@ test_that("as_metric() on vector", {
   )
 })
 
+test_that("as_metric() on NULL", {
+  expect_null(as_metric(NULL))
+  expect_null(as_metric(1))
+})
+
+test_that("as_metric() error on unknown measurement", {
+  expect_error(as_metric(unknown = 1))
+  expect_error(as_metric(param = "unknown", meas = 1))
+})
 
 test_that("dob2age() between two dates is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = lubridate::as_date("1990-01-01"),
       age_on = lubridate::as_date("2002-01-01")
@@ -86,7 +110,7 @@ test_that("dob2age() between two dates is valid", {
 })
 
 test_that("dob2age() for a vector is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -104,7 +128,7 @@ test_that("dob2age() for a vector is valid", {
 })
 
 test_that("dob2age() with `floor` is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -123,7 +147,7 @@ test_that("dob2age() with `floor` is valid", {
 })
 
 test_that("dob2age() with `ceiling` is valid", {
-  expect_equal(
+  expect_identical(
     dob2age(
       dob = c(
         lubridate::as_date("1990-01-01"),
@@ -156,8 +180,8 @@ test_that("binary2factor() with multiple columns", {
     d = factor(c(1, 0, NA, 1, 0), levels = c(0, 1), labels = c("Not_d", "d"), ordered = TRUE),
     e = c(1, 2, 3, 4, 5)
   )
-  expect_equal(binary2factor(df, a, b:d), ep)
-  expect_equal(df %>% binary2factor(-e), ep)
+  expect_identical(binary2factor(df, a, b:d), ep)
+  expect_identical(df %>% binary2factor(-e), ep)
 })
 
 test_that("combine_date_time_cols() for multiple columns", {
@@ -182,6 +206,6 @@ test_that("combine_date_time_cols() for multiple columns", {
     DateTime_b = as.POSIXct(c("2020-02-01 01:01:01", "2020-02-02 02:02:02"))
   )
 
-  expect_equal(combine_date_time_cols(df1, tz = "UTC"), o1)
-  expect_equal(combine_date_time_cols(df2), o2)
+  expect_identical(combine_date_time_cols(df1, tz = "UTC"), o1)
+  expect_identical(combine_date_time_cols(df2), o2)
 })

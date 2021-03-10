@@ -16,6 +16,7 @@
 ^\.png$
 ^README_cache/
 ^codecov\.yml$
+.covrignore
 ^resources$
 ^_pkgdown\.yml$
 ^docs$

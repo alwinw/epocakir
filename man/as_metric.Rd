@@ -4,7 +4,7 @@
 \alias{as_metric}
 \title{Convert a measured value to metric units}
 \usage{
-as_metric(param = NULL, meas = NULL, ...)
+as_metric(param = NULL, meas = NULL, ..., value_only = FALSE)
 }
 \arguments{
 \item{param}{(character) Name of measurement, e.g. param = "SCr"}
@@ -14,9 +14,12 @@ as_metric(param = NULL, meas = NULL, ...)
 \item{...}{(units) One of conversion_factors$parameter,
 e.g. SCr = units::set_units(88.4, "umol/l").
 Case insensitive.}
+
+\item{value_only}{(logical) Return as value only without units}
 }
 \value{
-(units) Converted measured value or vector of measured values
+(units) Converted measured value or vector of measured values,
+unless \code{value_only = TRUE}
 }
 \description{
 Convert a measured value to metric units

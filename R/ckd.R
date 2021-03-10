@@ -42,56 +42,77 @@ eGFR <- function(SCr = NULL,
 #' @rdname eGFR
 #' @export
 eGFR.adult.SCr <- function(SCr, Age, male, black) {
-  # convert units here
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  Age <- as_metric(Age = Age, value_only = TRUE)
+  male <- as.logical(male)
+  black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.329, -0.411)
-  141 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-1.209 * 0.993^Age *
+  eGFR <- 141 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-1.209 * 0.993^Age *
     dplyr::if_else(male, 1, 1.018) *
     dplyr::if_else(black, 1.159, 1)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.adult.SCysC <- function(SCysC, Age, male) {
-  # convert units here
-  133 * min(SCysC / 0.8, 1)^-0.499 * max(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
+  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  Age <- as_metric(Age = Age, value_only = TRUE)
+  male <- as.logical(male)
+  eGFR <- 133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
     dplyr::if_else(male, 1, 0.932)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.adult.SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
-  # convert units here
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  Age <- as_metric(Age = Age, value_only = TRUE)
+  male <- as.logical(male)
+  black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.248, -0.207)
-  135 * min(SCr / kappa, 1)^alpha * max(SCr / kappa, 1)^-0.601 *
-    min(SCysC / 0.8, 1)^-0.375 * max(SCysC / 0.8, 1)^-0.711 *
+  eGFR <- 135 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-0.601 *
+    pmin(SCysC / 0.8, 1)^-0.375 * pmax(SCysC / 0.8, 1)^-0.711 *
     0.995^Age *
     dplyr::if_else(male, 1, 0.969) *
     dplyr::if_else(black, 1.08, 1)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.child.SCr <- function(SCr, height) {
-  41.3 * (height / SCr)
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  height <- as_metric(height = height, value_only = TRUE)
+  eGFR <- 41.3 * (height / SCr)
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.child.SCr_BUN <- function(SCr, height, BUN) {
-  40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
+  SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  height <- as_metric(height = height, value_only = TRUE)
+  BUN <- as_metric(BUN = BUN, value_only = TRUE)
+  eGFR <- 40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
 #' @rdname eGFR
 #' @export
 eGFR.child.SCysC <- function(SCysC) {
-  70.69 * (SCysC)^-0.931
+  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  eGFR <- 70.69 * (SCysC)^-0.931
+  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
@@ -107,9 +128,20 @@ GFR.levels <- function() {
   )
 }
 
-Albuminuria <- function() {
+Albuminuria.levels.AER <- function() {
   dplyr::case_when(
-    AER < units::set_units(30, "mg/day") ~ "A1"
-    # Add other cases
+    AER > units::set_units(300, "mg/day") ~ "A3",
+    AER > units::set_units(30, "mg/day") ~ "A2",
+    AER > units::set_units(0, "mg/day") ~ "A1",
+    TRUE ~ NA_real_
+  )
+}
+
+Albuminuria.levels.ACR <- function() {
+  dplyr::case_when(
+    ACR > units::set_units(30, "mg/g") ~ "A3",
+    ACR > units::set_units(3, "mg/g") ~ "A2",
+    ACR > units::set_units(0, "mg/g") ~ "A1",
+    TRUE ~ NA_real_
   )
 }
