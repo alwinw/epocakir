@@ -28,11 +28,11 @@ eGFR <- function(SCr = NULL,
                  black = FALSE,
                  pediatric = FALSE) {
   dplyr::case_when(
-    !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR.adult.SCr(SCr, Age, male, black),
-    !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR.adult.SCysC(SCysC, Age, male),
-    !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black),
-    pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR.child.SCr(SCr, height),
-    pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR.child.SCr_BUN(SCr, height, BUN),
+    !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
+    !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
+    !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
+    pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr(SCr, height),
+    pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
     pediatric & is.null(SCr) & !is.null(SCysC) ~ GFR.child.SCysC(SCysC),
     TRUE ~ NA_real_
   )
@@ -41,7 +41,7 @@ eGFR <- function(SCr = NULL,
 
 #' @rdname eGFR
 #' @export
-eGFR.adult.SCr <- function(SCr, Age, male, black) {
+eGFR_adult_SCr <- function(SCr, Age, male, black) {
   SCr <- as_metric(SCr = SCr, value_only = TRUE)
   Age <- as_metric(Age = Age, value_only = TRUE)
   male <- as.logical(male)
@@ -57,7 +57,7 @@ eGFR.adult.SCr <- function(SCr, Age, male, black) {
 
 #' @rdname eGFR
 #' @export
-eGFR.adult.SCysC <- function(SCysC, Age, male) {
+eGFR_adult_SCysC <- function(SCysC, Age, male) {
   SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
   Age <- as_metric(Age = Age, value_only = TRUE)
   male <- as.logical(male)
@@ -69,7 +69,7 @@ eGFR.adult.SCysC <- function(SCysC, Age, male) {
 
 #' @rdname eGFR
 #' @export
-eGFR.adult.SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
+eGFR_adult_SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
   SCr <- as_metric(SCr = SCr, value_only = TRUE)
   SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
   Age <- as_metric(Age = Age, value_only = TRUE)
@@ -88,7 +88,7 @@ eGFR.adult.SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
 
 #' @rdname eGFR
 #' @export
-eGFR.child.SCr <- function(SCr, height) {
+eGFR_child_SCr <- function(SCr, height) {
   SCr <- as_metric(SCr = SCr, value_only = TRUE)
   height <- as_metric(height = height, value_only = TRUE)
   eGFR <- 41.3 * (height / SCr)
@@ -98,7 +98,7 @@ eGFR.child.SCr <- function(SCr, height) {
 
 #' @rdname eGFR
 #' @export
-eGFR.child.SCr_BUN <- function(SCr, height, BUN) {
+eGFR_child_SCr_BUN <- function(SCr, height, BUN) {
   SCr <- as_metric(SCr = SCr, value_only = TRUE)
   height <- as_metric(height = height, value_only = TRUE)
   BUN <- as_metric(BUN = BUN, value_only = TRUE)
@@ -109,7 +109,7 @@ eGFR.child.SCr_BUN <- function(SCr, height, BUN) {
 
 #' @rdname eGFR
 #' @export
-eGFR.child.SCysC <- function(SCysC) {
+eGFR_child_SCysC <- function(SCysC) {
   SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
   eGFR <- 70.69 * (SCysC)^-0.931
   units::set_units(eGFR, "mL/min/1.73m2")
@@ -131,7 +131,7 @@ GFR_staging <- function() {
 
 Albuminuria_stages <- factor(c("A1", "A2", "A3"), ordered = TRUE)
 
-Albuminuria.levels.AER <- function() {
+Albuminuria_levels_AER <- function() {
   dplyr::case_when(
     AER > units::set_units(300, "mg/day") ~ Albuminuria_stages[3],
     AER > units::set_units(30, "mg/day") ~ Albuminuria_stages[2],
@@ -140,7 +140,7 @@ Albuminuria.levels.AER <- function() {
   )
 }
 
-Albuminuria.levels.ACR <- function() {
+Albuminuria_levels_ACR <- function() {
   dplyr::case_when(
     ACR > units::set_units(30, "mg/g") ~ Albuminuria_stages[3],
     ACR > units::set_units(3, "mg/g") ~ Albuminuria_stages[2],

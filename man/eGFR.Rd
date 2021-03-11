@@ -2,12 +2,12 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR}
 \alias{eGFR}
-\alias{eGFR.adult.SCr}
-\alias{eGFR.adult.SCysC}
-\alias{eGFR.adult.SCr_SCysC}
-\alias{eGFR.child.SCr}
-\alias{eGFR.child.SCr_BUN}
-\alias{eGFR.child.SCysC}
+\alias{eGFR_adult_SCr}
+\alias{eGFR_adult_SCysC}
+\alias{eGFR_adult_SCr_SCysC}
+\alias{eGFR_child_SCr}
+\alias{eGFR_child_SCr_BUN}
+\alias{eGFR_child_SCysC}
 \title{GFR Estimation}
 \usage{
 eGFR(
@@ -21,17 +21,17 @@ eGFR(
   pediatric = FALSE
 )
 
-eGFR.adult.SCr(SCr, Age, male, black)
+eGFR_adult_SCr(SCr, Age, male, black)
 
-eGFR.adult.SCysC(SCysC, Age, male)
+eGFR_adult_SCysC(SCysC, Age, male)
 
-eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black)
+eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)
 
-eGFR.child.SCr(SCr, height)
+eGFR_child_SCr(SCr, height)
 
-eGFR.child.SCr_BUN(SCr, height, BUN)
+eGFR_child_SCr_BUN(SCr, height, BUN)
 
-eGFR.child.SCysC(SCysC)
+eGFR_child_SCysC(SCysC)
 }
 \arguments{
 \item{SCr}{(units) Serum creatinine, converted to mg/dl}

@@ -26,9 +26,9 @@ eGFR.adult.df <- function(env = parent.frame()) {
 }
 
 
-test_that("eGFR.adult.SCr()", {
+test_that("eGFR_adult_SCr()", {
   df <- eGFR.adult.df() %>%
-    dplyr::mutate(eGFR = eGFR.adult.SCr(SCr, Age, male, black)) %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCr(SCr, Age, male, black)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(c(
@@ -54,9 +54,9 @@ test_that("eGFR.adult.SCr()", {
 })
 
 
-test_that("eGFR.adult.SCysC()", {
+test_that("eGFR_adult_SCysC()", {
   df <- eGFR.adult.df() %>%
-    dplyr::mutate(eGFR = eGFR.adult.SCysC(SCysC, Age, male)) %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCysC(SCysC, Age, male)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(c(
@@ -78,9 +78,9 @@ test_that("eGFR.adult.SCysC()", {
 })
 
 
-test_that("eGFR.adult.SCr_SCysC()", {
+test_that("eGFR_adult_SCr_SCysC()", {
   df <- eGFR.adult.df() %>%
-    dplyr::mutate(eGFR = eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black)) %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(c(
@@ -106,12 +106,12 @@ test_that("eGFR.adult.SCr_SCysC()", {
 })
 
 
-test_that("eGFR.child.SCr()", {
+test_that("eGFR_child_SCr()", {
   df <- tibble::tibble(
     SCr = units::set_units(0.5, "mg/dl"),
     height = units::set_units(1.2, "m")
   ) %>%
-    dplyr::mutate(eGFR = eGFR.child.SCr(SCr, height)) %>%
+    dplyr::mutate(eGFR = eGFR_child_SCr(SCr, height)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(41.3 * (1.2 / 0.5), "mL/min/1.73m2")
@@ -119,13 +119,13 @@ test_that("eGFR.child.SCr()", {
 })
 
 
-test_that("eGFR.child.SCr_BUN", {
+test_that("eGFR_child_SCr_BUN", {
   df <- tibble::tibble(
     SCr = units::set_units(0.5, "mg/dl"),
     height = units::set_units(1.2, "m"),
     BUN = units::set_units(0.8, "mg/dl")
   ) %>%
-    dplyr::mutate(eGFR = eGFR.child.SCr_BUN(SCr, height, BUN)) %>%
+    dplyr::mutate(eGFR = eGFR_child_SCr_BUN(SCr, height, BUN)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(40.7 * (1.2 / 0.5)^0.64 * (30 / 0.8)^0.202, "mL/min/1.73m2")
@@ -133,11 +133,11 @@ test_that("eGFR.child.SCr_BUN", {
 })
 
 
-test_that("eGFR.child.SCysC", {
+test_that("eGFR_child_SCysC", {
   df <- tibble::tibble(
     SCysC = units::set_units(0.4, "mg/l"),
   ) %>%
-    dplyr::mutate(eGFR = eGFR.child.SCysC(SCysC)) %>%
+    dplyr::mutate(eGFR = eGFR_child_SCysC(SCysC)) %>%
     dplyr::pull(eGFR)
 
   ep <- units::set_units(70.69 * (0.4)^-0.931, "mL/min/1.73m2")
