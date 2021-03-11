@@ -18,11 +18,13 @@ aki_bCr(...)
 \arguments{
 \item{...}{Further optional arguments}
 
-\item{.data}{(data.frame) A data frame containing SCr and bCr, optional}
+\item{.data}{(data.frame) A data.frame, optional}
 
-\item{SCr}{Serum creatinine column name, or vector if data not provided}
+\item{SCr}{Serum creatinine
+column name, or vector if \code{.data} not provided}
 
-\item{bCr}{Baseline creatinine column name, or vector if data not provided}
+\item{bCr}{Baseline creatinine
+column name, or vector if \code{.data} not provided}
 }
 \value{
 (ordered factor) AKI stages

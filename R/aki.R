@@ -6,9 +6,11 @@ aki_staging <- function() {}
 
 #' AKI Staging based on baseline creatinine
 #'
-#' @param .data (data.frame) A data frame containing SCr and bCr, optional
-#' @param SCr Serum creatinine column name, or vector if data not provided
-#' @param bCr Baseline creatinine column name, or vector if data not provided
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param bCr Baseline creatinine
+#'   column name, or vector if `.data` not provided
 #' @param ... Further optional arguments
 #'
 #' @return (ordered factor) AKI stages

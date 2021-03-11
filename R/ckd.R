@@ -39,19 +39,64 @@ eGFR <- function(SCr = NULL,
 }
 
 
-#' @rdname eGFR
+
+#' 2009 CKD-EPI creatinine equation
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param Age Age of patient
+#'   column name, or vector if `.data` not provided
+#' @param male Male or not
+#'   column name, or vector if `.data` not provided
+#' @param black Black race or not
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
 #' @export
-eGFR_adult_SCr <- function(SCr, Age, male, black) {
-  SCr <- as_metric(SCr = SCr, value_only = TRUE)
-  Age <- as_metric(Age = Age, value_only = TRUE)
+#'
+#' @examples
+#' print("todo")
+eGFR_adult_SCr <- function(...) {
+  UseMethod("eGFR_adult_SCr")
+}
+
+#' @rdname eGFR_adult_SCr
+#' @export
+eGFR_adult_SCr.default <- function(.data, SCr, Age, male, black, ...) {
+  ellipsis::check_dots_used()
+  eGFR_adult_SCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(Age))]],
+    .data[[rlang::as_name(rlang::enquo(male))]],
+    .data[[rlang::as_name(rlang::enquo(black))]],
+  )
+}
+
+#' @rdname eGFR_adult_SCr
+#' @export
+eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
+  eGFR <- eGFR_adult_SCr(
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
+    male,
+    black
+  )
+  units::set_units(eGFR, "mL/min/1.73m2")
+}
+
+#' @rdname eGFR_adult_SCr
+#' @export
+eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
   alpha <- dplyr::if_else(!male, -0.329, -0.411)
-  eGFR <- 141 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-1.209 * 0.993^Age *
+  141 * pmin(SCr / kappa, 1)^alpha * pmax(SCr / kappa, 1)^-1.209 * 0.993^Age *
     dplyr::if_else(male, 1, 1.018) *
     dplyr::if_else(black, 1.159, 1)
-  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
