@@ -2,8 +2,6 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR}
 \alias{eGFR}
-\alias{eGFR_adult_SCysC}
-\alias{eGFR_adult_SCr_SCysC}
 \alias{eGFR_child_SCr}
 \alias{eGFR_child_SCr_BUN}
 \alias{eGFR_child_SCysC}
@@ -19,10 +17,6 @@ eGFR(
   black = FALSE,
   pediatric = FALSE
 )
-
-eGFR_adult_SCysC(SCysC, Age, male)
-
-eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)
 
 eGFR_child_SCr(SCr, height)
 

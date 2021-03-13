@@ -39,7 +39,6 @@ eGFR <- function(SCr = NULL,
 }
 
 
-
 #' 2009 CKD-EPI creatinine equation
 #'
 #' @param .data (data.frame) A data.frame, optional
@@ -100,24 +99,112 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 }
 
 
-#' @rdname eGFR
+#' 2012 CKD-EPI cystatin C equation
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCysC Serum Cystatin C
+#'   column name, or vector if `.data` not provided
+#' @param Age Age of patient
+#'   column name, or vector if `.data` not provided
+#' @param male Male or not
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
 #' @export
-eGFR_adult_SCysC <- function(SCysC, Age, male) {
-  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
-  Age <- as_metric(Age = Age, value_only = TRUE)
-  male <- as.logical(male)
-  eGFR <- 133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
-    dplyr::if_else(male, 1, 0.932)
+#'
+#' @examples
+#' print("todo")
+eGFR_adult_SCysC <- function(...) {
+  UseMethod("eGFR_adult_SCysC")
+}
+
+#' @rdname eGFR_adult_SCysC
+#' @export
+eGFR_adult_SCysC.default <- function(.data, SCysC, Age, male, ...) {
+  ellipsis::check_dots_used()
+  eGFR_adult_SCysC(
+    .data[[rlang::as_name(rlang::enquo(SCysC))]],
+    .data[[rlang::as_name(rlang::enquo(Age))]],
+    .data[[rlang::as_name(rlang::enquo(male))]]
+  )
+}
+
+#' @rdname eGFR_adult_SCysC
+#' @export
+eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
+  eGFR <- eGFR_adult_SCysC(
+    as_metric(SCysC = SCysC, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
+    male
+  )
   units::set_units(eGFR, "mL/min/1.73m2")
 }
 
-
-#' @rdname eGFR
+#' @rdname eGFR_adult_SCysC
 #' @export
-eGFR_adult_SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
-  SCr <- as_metric(SCr = SCr, value_only = TRUE)
-  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
-  Age <- as_metric(Age = Age, value_only = TRUE)
+eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
+  male <- as.logical(male)
+  133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
+    dplyr::if_else(male, 1, 0.932)
+}
+
+
+#' 2012 CKD-EPI creatinine-cystatin C equation
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param SCysC Serum Cystatin C
+#'   column name, or vector if `.data` not provided
+#' @param Age Age of patient
+#'   column name, or vector if `.data` not provided
+#' @param male Male or not
+#'   column name, or vector if `.data` not provided
+#' @param black Black race or not
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
+#' @export
+#'
+#' @examples
+#' print("todo")
+eGFR_adult_SCr_SCysC <- function(...) {
+  UseMethod("eGFR_adult_SCr_SCysC")
+}
+
+#' @rdname eGFR_adult_SCr_SCysC
+#' @export
+eGFR_adult_SCr_SCysC.default <- function(.data, SCr, SCysC, Age, male, black, ...) {
+  ellipsis::check_dots_used()
+  eGFR_adult_SCysC(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(SCysC))]],
+    .data[[rlang::as_name(rlang::enquo(Age))]],
+    .data[[rlang::as_name(rlang::enquo(male))]],
+    .data[[rlang::as_name(rlang::enquo(black))]]
+  )
+}
+
+#' @rdname eGFR_adult_SCr_SCysC
+#' @export
+eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
+  eGFR <- eGFR_adult_SCr_SCysC(
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(SCysC = SCysC, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
+    male,
+    black
+  )
+  units::set_units(eGFR, "mL/min/1.73m2")
+}
+
+#' @rdname eGFR_adult_SCr_SCysC
+#' @export
+eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
@@ -127,7 +214,6 @@ eGFR_adult_SCr_SCysC <- function(SCr, SCysC, Age, male, black) {
     0.995^Age *
     dplyr::if_else(male, 1, 0.969) *
     dplyr::if_else(black, 1.08, 1)
-  units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
