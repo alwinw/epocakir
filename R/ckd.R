@@ -77,6 +77,7 @@ eGFR_adult_SCr.default <- function(.data, SCr, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr
 #' @export
 eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
+  ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCr(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(Age = Age, value_only = TRUE),
@@ -89,6 +90,7 @@ eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr
 #' @export
 eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
+  ellipsis::check_dots_used()
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
@@ -134,6 +136,7 @@ eGFR_adult_SCysC.default <- function(.data, SCysC, Age, male, ...) {
 #' @rdname eGFR_adult_SCysC
 #' @export
 eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
+  ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCysC(
     as_metric(SCysC = SCysC, value_only = TRUE),
     as_metric(Age = Age, value_only = TRUE),
@@ -145,6 +148,7 @@ eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
 #' @rdname eGFR_adult_SCysC
 #' @export
 eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
+  ellipsis::check_dots_used()
   male <- as.logical(male)
   133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
     dplyr::if_else(male, 1, 0.932)
@@ -192,6 +196,7 @@ eGFR_adult_SCr_SCysC.default <- function(.data, SCr, SCysC, Age, male, black, ..
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
 eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
+  ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCr_SCysC(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(SCysC = SCysC, value_only = TRUE),
@@ -205,6 +210,7 @@ eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
 eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
+  ellipsis::check_dots_used()
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
@@ -217,33 +223,148 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 }
 
 
-#' @rdname eGFR
+#' Pediatric SCr and Height
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param height Height of patient
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
 #' @export
-eGFR_child_SCr <- function(SCr, height) {
-  SCr <- as_metric(SCr = SCr, value_only = TRUE)
-  height <- as_metric(height = height, value_only = TRUE)
-  eGFR <- 41.3 * (height / SCr)
+#'
+#' @examples
+#' print("todo")
+eGFR_child_SCr <- function(...) {
+  UseMethod("eGFR_child_SCr")
+}
+
+#' @rdname eGFR_child_SCr
+#' @export
+eGFR_child_SCr.default <- function(.data, SCr, height, ...) {
+  ellipsis::check_dots_used()
+  eGFR_child_SCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(height))]]
+  )
+}
+
+#' @rdname eGFR_child_SCr
+#' @export
+eGFR_child_SCr.units <- function(SCr, height, ...) {
+  ellipsis::check_dots_used()
+  eGFR <- eGFR_child_SCr(
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(height = height, value_only = TRUE),
+  )
+  units::set_units(eGFR, "mL/min/1.73m2")
+}
+
+#' @rdname eGFR_child_SCr
+#' @export
+eGFR_child_SCr.numeric <- function(SCr, height, ...) {
+  ellipsis::check_dots_used()
+  41.3 * (height / SCr)
+}
+
+
+#' Pediatric SCr, Height and BUN
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param height Height of patient
+#'   column name, or vector if `.data` not provided
+#' @param BUN Blood urea nitrogen
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
+#' @export
+#'
+#' @examples
+#' print("todo")
+eGFR_child_SCr_BUN <- function(...) {
+  UseMethod("eGFR_child_SCr_BUN")
+}
+
+#' @rdname eGFR_child_SCr_BUN
+#' @export
+eGFR_child_SCr_BUN.default <- function(.data, SCr, height, BUN, ...) {
+  ellipsis::check_dots_used()
+  eGFR_child_SCr_BUN(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(height))]],
+    .data[[rlang::as_name(rlang::enquo(BUN))]]
+  )
+}
+
+#' @rdname eGFR_child_SCr_BUN
+#' @export
+eGFR_child_SCr_BUN.units <- function(SCr, height, BUN, ...) {
+  ellipsis::check_dots_used()
+  eGFR <- eGFR_child_SCr_BUN(
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(height = height, value_only = TRUE),
+    as_metric(BUN = BUN, value_only = TRUE)
+  )
   units::set_units(eGFR, "mL/min/1.73m2")
 }
 
 
-#' @rdname eGFR
+#' @rdname eGFR_child_SCr_BUN
 #' @export
-eGFR_child_SCr_BUN <- function(SCr, height, BUN) {
-  SCr <- as_metric(SCr = SCr, value_only = TRUE)
-  height <- as_metric(height = height, value_only = TRUE)
-  BUN <- as_metric(BUN = BUN, value_only = TRUE)
-  eGFR <- 40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
-  units::set_units(eGFR, "mL/min/1.73m2")
+eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
+  ellipsis::check_dots_used()
+  40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
 }
 
 
-#' @rdname eGFR
+#' Pediatric SCysC
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCysC Serum Cystatin C
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Estimated GFR
+#'   of the same type provided (numeric or units)
 #' @export
-eGFR_child_SCysC <- function(SCysC) {
-  SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
-  eGFR <- 70.69 * (SCysC)^-0.931
+#'
+#' @examples
+#' print("todo")
+eGFR_child_SCysC <- function(...) {
+  UseMethod("eGFR_child_SCysC")
+}
+
+#' @rdname eGFR_child_SCysC
+#' @export
+eGFR_child_SCysC.default <- function(.data, SCysC, ...) {
+  ellipsis::check_dots_used()
+  eGFR_child_SCysC(
+    .data[[rlang::as_name(rlang::enquo(SCysC))]]
+  )
+}
+
+#' @rdname eGFR_child_SCysC
+#' @export
+eGFR_child_SCysC.units <- function(SCysC, ...) {
+  ellipsis::check_dots_used()
+  eGFR <- eGFR_child_SCysC(
+    as_metric(SCysC = SCysC, value_only = TRUE)
+  )
   units::set_units(eGFR, "mL/min/1.73m2")
+}
+
+#' @rdname eGFR_child_SCysC
+#' @export
+eGFR_child_SCysC.numeric <- function(SCysC, ...) {
+  ellipsis::check_dots_used()
+  70.69 * (SCysC)^-0.931
 }
 
 GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
