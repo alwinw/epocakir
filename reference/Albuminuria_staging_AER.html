@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conversion Factors — conversion_factors • epocakir</title>
+<title>Albuminuria Staging based on AER — Albuminuria_staging_AER • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Conversion Factors — conversion_factors" />
-<meta property="og:description" content="List of conversion factors based on tables in  KDIGO Clinical Practice
-Guidelines." />
+<meta property="og:title" content="Albuminuria Staging based on AER — Albuminuria_staging_AER" />
+<meta property="og:description" content="Albuminuria Staging based on AER" />
 
 
 
@@ -109,59 +108,51 @@ Guidelines." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conversion Factors</h1>
-    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>conversion_factors.Rd</code></div>
+    <h1>Albuminuria Staging based on AER</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/ckd.R'><code>R/ckd.R</code></a></small>
+    <div class="hidden name"><code>Albuminuria_staging_AER.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>List of conversion factors based on tables in  KDIGO Clinical Practice
-Guidelines.</p>
+    <p>Albuminuria Staging based on AER</p>
     </div>
 
-    <pre class="usage"><span class='va'>conversion_factors</span></pre>
+    <pre class="usage"><span class='fu'>Albuminuria_staging_AER</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for default</span>
+<span class='fu'>Albuminuria_staging_AER</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>AER</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+<span class='co'># S3 method for units</span>
+<span class='fu'>Albuminuria_staging_AER</span><span class='op'>(</span><span class='va'>AER</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 20 rows and 4 columns.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>Albuminuria_staging_AER</span><span class='op'>(</span><span class='va'>AER</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
-    
-<dl>
-<dt>parameter</dt><dd><p>Name of the measurement</p></dd>
-<dt>metric_units</dt><dd><p>Metric units for the parameter</p></dd>
-<dt>mol_weight</dt><dd><p>Molecular weight (where required)</p></dd>
-<dt>description</dt><dd><p>Full name</p></dd>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Further optional arguments</p></td>
+    </tr>
+    <tr>
+      <th>.data</th>
+      <td><p>(data.frame) A data.frame, optional</p></td>
+    </tr>
+    <tr>
+      <th>AER</th>
+      <td><p>Albumin excretion rate
+column name, or vector if <code>.data</code> not provided</p></td>
+    </tr>
+    </table>
 
-</dl>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>Albuminuria category</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>epocakir</span><span class='fu'>:::</span><span class='va'>conversion_factors</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 20 x 4</span><span>
-#&gt;    parameter metric_units  mol_weight description                         
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;'>[g/mol]</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                               
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Age       years                 NA Age                                 
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> height    m                     NA Height                              
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> SAmk      ug/ml            585.600 Amikacin (serum, plasma)            
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> BUN       mg/dl             28.014 Blood urea nitrogen                 
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> SiCa      mg/dl             40.080 Calcium, ionized (serum)            
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> SCr       mg/dl            113.120 Creatinine (serum)                  
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> CLcr      ml/min                NA Creatinine clearance                
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> CGen      ug/ml            477.596 Gentamicin (serum)                  
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Glc       mg/dl            180.156 Glucose                             
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Lac       mg/dl             90.080 Lactate (plasma)                    
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> STob      ug/ml            467.500 Tobramycin (serum, plasma)          
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> Urea      mg/dl             60.060 Urea (plasma)                       
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> SAlb      g/dl                  NA Albumin (serum)                     
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> Hb        g/dl                  NA Hemoglobin                          
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> UA        mg/dl            168.110 Uric acid                           
-#&gt; </span><span style='color: #BCBCBC;'>16</span><span> GFR       mL/min                NA Glomerular filtration rate          
-#&gt; </span><span style='color: #BCBCBC;'>17</span><span> eGFR      mL/min/1.73m2         NA Estimated glomerular filtration rate
-#&gt; </span><span style='color: #BCBCBC;'>18</span><span> SCysC     mg/l                  NA Cystatin C (serum)                  
-#&gt; </span><span style='color: #BCBCBC;'>19</span><span> AER       mg/day                NA Albumin excretion rate              
-#&gt; </span><span style='color: #BCBCBC;'>20</span><span> ACR       mg/g                  NA Albumin-to-creatinine ratio         </div></span></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"todo"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "todo"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
