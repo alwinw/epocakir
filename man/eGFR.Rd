@@ -2,12 +2,6 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR}
 \alias{eGFR}
-\alias{eGFR.adult.SCr}
-\alias{eGFR.adult.SCysC}
-\alias{eGFR.adult.SCr_SCysC}
-\alias{eGFR.child.SCr}
-\alias{eGFR.child.SCr_BUN}
-\alias{eGFR.child.SCysC}
 \title{GFR Estimation}
 \usage{
 eGFR(
@@ -20,18 +14,6 @@ eGFR(
   black = FALSE,
   pediatric = FALSE
 )
-
-eGFR.adult.SCr(SCr, Age, male, black)
-
-eGFR.adult.SCysC(SCysC, Age, male)
-
-eGFR.adult.SCr_SCysC(SCr, SCysC, Age, male, black)
-
-eGFR.child.SCr(SCr, height)
-
-eGFR.child.SCr_BUN(SCr, height, BUN)
-
-eGFR.child.SCysC(SCysC)
 }
 \arguments{
 \item{SCr}{(units) Serum creatinine, converted to mg/dl}
