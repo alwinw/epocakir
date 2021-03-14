@@ -22,7 +22,11 @@ test_that("as_metric() conversions are correct", {
     # "SPTH", 0.106, "pmol/l",
     "UA", 59.485, "umol/l",
     # "VitD", 2.496, "nmol/l"
-    "SCysC", 1, "mg/l"
+    "GFR", 1, "mL/min",
+    "eGFR", 1, "mL/min/1.73m2",
+    "SCysC", 1, "mg/l",
+    "AER", 1, "mg/day",
+    "ACR", 1, "mg/g"
   ) %>%
     dplyr::left_join(conversion_factors, ., by = "parameter") %>%
     dplyr::filter(!is.na(factor))
