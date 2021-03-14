@@ -52,6 +52,8 @@ conversion_factors <- tibble::tribble(
   "UA", "mg/dl", 168.11, "Uric acid",
   # "VitD", "ng/ml", 384.6, "Vitamin D, 25-hydroxyvitamin D"
   # Additional
+  "GFR", "mL/min", NA, "Glomerular filtration rate",
+  "eGFR", "mL/min/1.73m2", NA, "Estimated glomerular filtration rate",
   "SCysC", "mg/l", NA, "Cystatin C (serum)",
   "AER", "mg/day", NA, "Albumin excretion rate",
   "ACR", "mg/g", NA, "Albumin-to-creatinine ratio"

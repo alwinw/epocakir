@@ -38,6 +38,7 @@ eGFR_tol <- function(env = parent.frame()) {
   units::set_units(0.05, "mL/min/1.73m2")
 }
 
+
 test_that("eGFR_adult_SCr()", {
   ep <- units::set_units(c(
     rep(c(
@@ -244,4 +245,70 @@ test_that("eGFR_child_SCysC()", {
   lapply(abs(df_mut - ep), expect_lte, eGFR_tol())
   lapply(abs(df_uvec - ep), expect_lte, eGFR_tol())
   lapply(abs(df_nvec - as.numeric(ep)), expect_lte, as.numeric(eGFR_tol()))
+})
+
+
+test_that("GFR_staging()", {
+  ep <- vctrs::vec_c(NA, NA, GFR_stages)
+
+  df <- tibble::tibble(
+    eGFR = units::set_units(c(-1, NA, 100, 70, 50, 35, 20, 10), "mL/min/1.73m2")
+  )
+  df_str <- GFR_staging(df, "eGFR")
+  df_sym <- GFR_staging(df, eGFR)
+  df_mut <- df %>%
+    dplyr::mutate(GFR_level = GFR_staging(eGFR)) %>%
+    dplyr::pull(GFR_level)
+  df_uvec <- GFR_staging(df$eGFR)
+  df_nvec <- GFR_staging(as.numeric(df$eGFR))
+
+  expect_identical(df_str, ep)
+  expect_identical(df_sym, ep)
+  expect_identical(df_mut, ep)
+  expect_identical(df_uvec, ep)
+  expect_identical(df_nvec, ep)
+})
+
+
+test_that("Albuminuria_staging_AER()", {
+  ep <- vctrs::vec_c(NA, NA, Albuminuria_stages)
+
+  df <- tibble::tibble(
+    AER = units::set_units(c(-1, NA, 15, 100, 500), "mg/day")
+  )
+  df_str <- Albuminuria_staging_AER(df, "AER")
+  df_sym <- Albuminuria_staging_AER(df, AER)
+  df_mut <- df %>%
+    dplyr::mutate(GFR_level = Albuminuria_staging_AER(AER)) %>%
+    dplyr::pull(GFR_level)
+  df_uvec <- Albuminuria_staging_AER(df$AER)
+  df_nvec <- Albuminuria_staging_AER(as.numeric(df$AER))
+
+  expect_identical(df_str, ep)
+  expect_identical(df_sym, ep)
+  expect_identical(df_mut, ep)
+  expect_identical(df_uvec, ep)
+  expect_identical(df_nvec, ep)
+})
+
+
+test_that("Albuminuria_staging_ACR()", {
+  ep <- vctrs::vec_c(NA, NA, Albuminuria_stages)
+
+  df <- tibble::tibble(
+    ACR = units::set_units(c(-1, NA, 1, 10, 50), "mg/g")
+  )
+  df_str <- Albuminuria_staging_ACR(df, "ACR")
+  df_sym <- Albuminuria_staging_ACR(df, ACR)
+  df_mut <- df %>%
+    dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR)) %>%
+    dplyr::pull(GFR_level)
+  df_uvec <- Albuminuria_staging_ACR(df$ACR)
+  df_nvec <- Albuminuria_staging_ACR(as.numeric(df$ACR))
+
+  expect_identical(df_str, ep)
+  expect_identical(df_sym, ep)
+  expect_identical(df_mut, ep)
+  expect_identical(df_uvec, ep)
+  expect_identical(df_nvec, ep)
 })

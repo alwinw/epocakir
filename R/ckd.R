@@ -315,7 +315,6 @@ eGFR_child_SCr_BUN.units <- function(SCr, height, BUN, ...) {
   units::set_units(eGFR, "mL/min/1.73m2")
 }
 
-
 #' @rdname eGFR_child_SCr_BUN
 #' @export
 eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
@@ -422,8 +421,8 @@ GFR_staging.numeric <- function(GFR, ...) {
     GFR >= 45 ~ GFR_stages[3],
     GFR >= 30 ~ GFR_stages[4],
     GFR >= 15 ~ GFR_stages[5],
-    GFR >= 0 ~ GFR_stages[5],
-    TRUE ~ NA_real_
+    GFR >= 0 ~ GFR_stages[6],
+    TRUE ~ NA_integer_
   )
 }
 
@@ -477,9 +476,10 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
     AER > 300 ~ Albuminuria_stages[3],
     AER > 30 ~ Albuminuria_stages[2],
     AER > 0 ~ Albuminuria_stages[1],
-    TRUE ~ NA_real_
+    TRUE ~ NA_integer_
   )
 }
+
 
 #' Albuminuria Staging based on ACR
 #'
@@ -493,33 +493,33 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
 #'
 #' @examples
 #' print("todo")
-Albuminuria_levels_ACR <- function(...) {
-  UseMethod("Albuminuria_levels_ACR")
+Albuminuria_staging_ACR <- function(...) {
+  UseMethod("Albuminuria_staging_ACR")
 }
 
-#' @rdname Albuminuria_levels_ACR
+#' @rdname Albuminuria_staging_ACR
 #' @export
-Albuminuria_levels_ACR.default <- function(.data, ACR, ...) {
-  Albuminuria_levels_ACR(
+Albuminuria_staging_ACR.default <- function(.data, ACR, ...) {
+  Albuminuria_staging_ACR(
     .data[[rlang::as_name(rlang::enquo(ACR))]]
   )
 }
 
-#' @rdname Albuminuria_levels_ACR
+#' @rdname Albuminuria_staging_ACR
 #' @export
-Albuminuria_levels_ACR.units <- function(ACR, ...) {
-  Albuminuria_levels_ACR(
+Albuminuria_staging_ACR.units <- function(ACR, ...) {
+  Albuminuria_staging_ACR(
     as_metric(ACR = ACR, value_only = TRUE)
   )
 }
 
-#' @rdname Albuminuria_levels_ACR
+#' @rdname Albuminuria_staging_ACR
 #' @export
-Albuminuria_levels_ACR.numeric <- function(ACR, ...) {
+Albuminuria_staging_ACR.numeric <- function(ACR, ...) {
   dplyr::case_when(
     ACR > 30 ~ Albuminuria_stages[3],
     ACR > 3 ~ Albuminuria_stages[2],
     ACR > 0 ~ Albuminuria_stages[1],
-    TRUE ~ NA_real_
+    TRUE ~ NA_integer_
   )
 }
