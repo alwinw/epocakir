@@ -20,7 +20,7 @@ aki_SCr_exp_df <- function(env = parent.frame()) {
 
 test_that("aki_bCr() for data.frame", {
   expect_equal(aki_bCr(aki_SCr_test_df(), "SCr_measured", "bCr_measured"), aki_SCr_exp_df())
-  expect_equal(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())
+  expect_equal(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())  # TODO change to expect_identical
 })
 
 test_that("aki_bCr() for units vector", {

@@ -31,7 +31,7 @@ column name, or vector if \code{.data} not provided}
 }
 \value{
 Anemia
-as logical TRUE or FALSE
+as logical \code{TRUE} or \code{FALSE}
 }
 \description{
 Diagnosis of anemia from Hb concentration

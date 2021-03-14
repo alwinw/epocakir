@@ -25,7 +25,8 @@ anemia.default <- function(.data, Hb, age, male, ...) {
   ellipsis::check_dots_used()
   anemia(
     .data[[rlang::as_name(rlang::enquo(Hb))]],
-    .data[[rlang::as_name(rlang::enquo(age))]]
+    .data[[rlang::as_name(rlang::enquo(age))]],
+    .data[[rlang::as_name(rlang::enquo(male))]]
   )
 }
 
@@ -35,7 +36,8 @@ anemia.units <- function(Hb, age, male, ...) {
   ellipsis::check_dots_used()
   anemia(
     as_metric(Hb = Hb, value_only = TRUE),
-    as_metric(Age = Age, value_only = TRUE)
+    as_metric(age = age, value_only = TRUE),
+    male
   )
 }
 
@@ -46,9 +48,9 @@ anemia.numeric <- function(Hb, age, male, ...) {
   dplyr::case_when(
     age > 15 & male & Hb < 13.0 ~ TRUE,
     age > 15 & !male & Hb < 12.0 ~ TRUE,
-    age > 12 & age <= 15 & Hb < 12.0 ~ 2,
-    age > 5 & age <= 12 & Hb < 11.5 ~ 3,
-    age > 0 & age <= 0.5 & Hb < 11.0 ~ TRUE,
-    TRUE ~ 0
+    age > 12 & age <= 15 & Hb < 12.0 ~ TRUE,
+    age > 5 & age <= 12 & Hb < 11.5 ~ TRUE,
+    age > 0.5 & age <= 5 & Hb < 11.0 ~ TRUE,
+    TRUE ~ FALSE
   )
 }
