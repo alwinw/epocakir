@@ -194,7 +194,6 @@ test_that("eGFR_child_SCr()", {
   lapply(abs(df_mut - ep), expect_lte, eGFR_tol())
   lapply(abs(df_uvec - ep), expect_lte, eGFR_tol())
   lapply(abs(df_nvec - as.numeric(ep)), expect_lte, as.numeric(eGFR_tol()))
-
 })
 
 

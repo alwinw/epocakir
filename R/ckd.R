@@ -367,36 +367,159 @@ eGFR_child_SCysC.numeric <- function(SCysC, ...) {
   70.69 * (SCysC)^-0.931
 }
 
+
+#' GFR Stages
+#'
+#' Ordered factor of GFR stages
+#'
+#' @export
+#' @examples
+#' GFR_stages
 GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
 
-GFR_staging <- function() {
+
+#' GFR Staging
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param GFR Glomerular filtration rate
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return GFR category
+#' @export
+#'
+#' @examples
+#' print("todo")
+GFR_staging <- function(...) {
+  UseMethod("GFR_staging")
+}
+
+#' @rdname GFR_staging
+#' @export
+GFR_staging.default <- function(.data, GFR, ...) {
+  GFR_staging(
+    .data[[rlang::as_name(rlang::enquo(GFR))]]
+  )
+}
+
+#' @rdname GFR_staging
+#' @export
+GFR_staging.units <- function(GFR, ...) {
+  if (grepl("1.73m2-1", units::deparse_unit(GFR))) {
+    GFR <- GFR * units::set_units(1, "1.73m2")
+  }
+  GFR_staging(
+    as_metric(GFR = GFR, value_only = TRUE)
+  )
+}
+
+#' @rdname GFR_staging
+#' @export
+GFR_staging.numeric <- function(GFR, ...) {
   dplyr::case_when(
-    GFR >= units::set_units(90, "ml/min") ~ GFR_stages[1],
-    GFR >= units::set_units(60, "ml/min") ~ GFR_stages[2],
-    GFR >= units::set_units(45, "ml/min") ~ GFR_stages[3],
-    GFR >= units::set_units(30, "ml/min") ~ GFR_stages[4],
-    GFR >= units::set_units(15, "ml/min") ~ GFR_stages[5],
-    GFR >= units::set_units(0, "ml/min") ~ GFR_stages[5],
+    GFR >= 90 ~ GFR_stages[1],
+    GFR >= 60 ~ GFR_stages[2],
+    GFR >= 45 ~ GFR_stages[3],
+    GFR >= 30 ~ GFR_stages[4],
+    GFR >= 15 ~ GFR_stages[5],
+    GFR >= 0 ~ GFR_stages[5],
     TRUE ~ NA_real_
   )
 }
 
+
+#' Albuminuria Stages
+#'
+#' Ordered factor of Albuminuria stages
+#'
+#' @export
+#' @examples
+#' Albuminuria_stages
 Albuminuria_stages <- factor(c("A1", "A2", "A3"), ordered = TRUE)
 
-Albuminuria_levels_AER <- function() {
+
+#' Albuminuria Staging based on AER
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param AER Albumin excretion rate
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Albuminuria category
+#' @export
+#'
+#' @examples
+#' print("todo")
+Albuminuria_staging_AER <- function(...) {
+  UseMethod("Albuminuria_staging_AER")
+}
+
+#' @rdname Albuminuria_staging_AER
+#' @export
+Albuminuria_staging_AER.default <- function(.data, AER, ...) {
+  Albuminuria_staging_AER(
+    .data[[rlang::as_name(rlang::enquo(AER))]]
+  )
+}
+
+#' @rdname Albuminuria_staging_AER
+#' @export
+Albuminuria_staging_AER.units <- function(AER, ...) {
+  Albuminuria_staging_AER(
+    as_metric(AER = AER, value_only = TRUE)
+  )
+}
+
+#' @rdname Albuminuria_staging_AER
+#' @export
+Albuminuria_staging_AER.numeric <- function(AER, ...) {
   dplyr::case_when(
-    AER > units::set_units(300, "mg/day") ~ Albuminuria_stages[3],
-    AER > units::set_units(30, "mg/day") ~ Albuminuria_stages[2],
-    AER > units::set_units(0, "mg/day") ~ Albuminuria_stages[1],
+    AER > 300 ~ Albuminuria_stages[3],
+    AER > 30 ~ Albuminuria_stages[2],
+    AER > 0 ~ Albuminuria_stages[1],
     TRUE ~ NA_real_
   )
 }
 
-Albuminuria_levels_ACR <- function() {
+#' Albuminuria Staging based on ACR
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param ACR Albumin-to-creatinine ratio
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Albuminuria category
+#' @export
+#'
+#' @examples
+#' print("todo")
+Albuminuria_levels_ACR <- function(...) {
+  UseMethod("Albuminuria_levels_ACR")
+}
+
+#' @rdname Albuminuria_levels_ACR
+#' @export
+Albuminuria_levels_ACR.default <- function(.data, ACR, ...) {
+  Albuminuria_levels_ACR(
+    .data[[rlang::as_name(rlang::enquo(ACR))]]
+  )
+}
+
+#' @rdname Albuminuria_levels_ACR
+#' @export
+Albuminuria_levels_ACR.units <- function(ACR, ...) {
+  Albuminuria_levels_ACR(
+    as_metric(ACR = ACR, value_only = TRUE)
+  )
+}
+
+#' @rdname Albuminuria_levels_ACR
+#' @export
+Albuminuria_levels_ACR.numeric <- function(ACR, ...) {
   dplyr::case_when(
-    ACR > units::set_units(30, "mg/g") ~ Albuminuria_stages[3],
-    ACR > units::set_units(3, "mg/g") ~ Albuminuria_stages[2],
-    ACR > units::set_units(0, "mg/g") ~ Albuminuria_stages[1],
+    ACR > 30 ~ Albuminuria_stages[3],
+    ACR > 3 ~ Albuminuria_stages[2],
+    ACR > 0 ~ Albuminuria_stages[1],
     TRUE ~ NA_real_
   )
 }
