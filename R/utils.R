@@ -51,8 +51,10 @@ conversion_factors <- tibble::tribble(
   # "SPTH", "pg/ml", 3333.9, "Parathyroid Hormone (serum)",
   "UA", "mg/dl", 168.11, "Uric acid",
   # "VitD", "ng/ml", 384.6, "Vitamin D, 25-hydroxyvitamin D"
-  "SCysC", "mg/l", NA, "Cystatin C (serum)" # Not in guideline
-  # ACR required albumin-to-creatinine ratio
+  # Additional
+  "SCysC", "mg/l", NA, "Cystatin C (serum)",
+  "AER", "mg/day", NA, "Albumin excretion rate",
+  "ACR", "mg/g", NA, "Albumin-to-creatinine ratio"
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
