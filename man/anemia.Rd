@@ -2,36 +2,40 @@
 % Please edit documentation in R/anemia.R
 \name{anemia}
 \alias{anemia}
-\alias{anemia.numeric}
-\alias{anemia.units}
 \alias{anemia.default}
+\alias{anemia.units}
+\alias{anemia.numeric}
 \title{Diagnosis of anemia from Hb concentration}
 \usage{
 anemia(...)
 
-\method{anemia}{numeric}(Hb, age, gender, ...)
+\method{anemia}{default}(.data, Hb, age, male, ...)
 
-\method{anemia}{units}(Hb, age, gender, ...)
+\method{anemia}{units}(Hb, age, male, ...)
 
-\method{anemia}{default}(data = NULL, Hb, age, gender, ...)
+\method{anemia}{numeric}(Hb, age, male, ...)
 }
 \arguments{
-\item{...}{Further optional arguments that will be passed to method.}
+\item{...}{Further optional arguments}
 
-\item{Hb}{The variable name e.g. "Hb" or X}
+\item{.data}{(data.frame) A data.frame, optional}
 
-\item{age}{The variable name, e.g. "age" or X}
+\item{Hb}{Hemoglobin concenration
+column name, or vector if \code{.data} not provided}
 
-\item{gender}{The variable name, e.g. "gender" or X}
+\item{male}{Male or not
+column name, or vector if \code{.data} not provided}
 
-\item{data}{A data.frame X}
+\item{Age}{Age of patient
+column name, or vector if \code{.data} not provided}
 }
 \value{
-A dataframe or X
+Anemia
+as logical TRUE or FALSE
 }
 \description{
-TODO Make consistent with other files
+Diagnosis of anemia from Hb concentration
 }
 \examples{
-anemia(1:10)
+print("todo")
 }
