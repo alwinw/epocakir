@@ -184,7 +184,7 @@ eGFR_adult_SCr_SCysC <- function(...) {
 #' @export
 eGFR_adult_SCr_SCysC.default <- function(.data, SCr, SCysC, Age, male, black, ...) {
   ellipsis::check_dots_used()
-  eGFR_adult_SCysC(
+  eGFR_adult_SCr_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(SCysC))]],
     .data[[rlang::as_name(rlang::enquo(Age))]],

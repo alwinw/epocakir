@@ -27,10 +27,6 @@ eGFR.adult.df <- function(env = parent.frame()) {
 
 
 test_that("eGFR_adult_SCr()", {
-  df <- eGFR.adult.df() %>%
-    dplyr::mutate(eGFR = eGFR_adult_SCr(SCr, Age, male, black)) %>%
-    dplyr::pull(eGFR)
-
   ep <- units::set_units(c(
     rep(c(
       143.5 * (0.5 / 0.7)^-0.329 * 0.993^20,
@@ -50,15 +46,33 @@ test_that("eGFR_adult_SCr()", {
     ), 2)
   ), "mL/min/1.73m2")
 
-  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  df_str <- eGFR_adult_SCr(eGFR.adult.df(), "SCr", "Age", "male", "black")
+  df_sym <- eGFR_adult_SCr(eGFR.adult.df(), SCr, Age, male, black)
+  df_mut <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCr(SCr, Age, male, black)) %>%
+    dplyr::pull(eGFR)
+  df_uvec <- eGFR_adult_SCr(
+    eGFR.adult.df()$SCr,
+    eGFR.adult.df()$Age,
+    eGFR.adult.df()$male,
+    eGFR.adult.df()$black
+  )
+  df_nvec <- eGFR_adult_SCr(
+    as.numeric(eGFR.adult.df()$SCr),
+    as.numeric(eGFR.adult.df()$Age),
+    as.numeric(eGFR.adult.df()$male),
+    as.numeric(eGFR.adult.df()$black)
+  )
+
+  lapply(abs(df_str - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_sym - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_mut - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_uvec - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_nvec - as.numeric(ep)), expect_lte, 0.2)
 })
 
 
 test_that("eGFR_adult_SCysC()", {
-  df <- eGFR.adult.df() %>%
-    dplyr::mutate(eGFR = eGFR_adult_SCysC(SCysC, Age, male)) %>%
-    dplyr::pull(eGFR)
-
   ep <- units::set_units(c(
     rep(c(
       133 * (0.4 / 0.8)^-0.499 * 0.996^20 * 0.932,
@@ -74,7 +88,27 @@ test_that("eGFR_adult_SCysC()", {
     ), 2)
   ), "mL/min/1.73m2")
 
-  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  df_str <- eGFR_adult_SCysC(eGFR.adult.df(), "SCysC", "Age", "male")
+  df_sym <- eGFR_adult_SCysC(eGFR.adult.df(), SCysC, Age, male)
+  df_mut <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCysC(SCysC, Age, male)) %>%
+    dplyr::pull(eGFR)
+  df_uvec <- eGFR_adult_SCysC(
+    eGFR.adult.df()$SCysC,
+    eGFR.adult.df()$Age,
+    eGFR.adult.df()$male
+  )
+  df_nvec <- eGFR_adult_SCysC(
+    as.numeric(eGFR.adult.df()$SCysC),
+    as.numeric(eGFR.adult.df()$Age),
+    as.numeric(eGFR.adult.df()$male)
+  )
+
+  lapply(abs(df_str - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_sym - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_mut - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_uvec - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_nvec - as.numeric(ep)), expect_lte, 0.2)
 })
 
 
@@ -102,7 +136,31 @@ test_that("eGFR_adult_SCr_SCysC()", {
     135 * (1.5 / 0.9)^-0.601 * (1.2 / 0.8)^-0.711 * 0.995^30 * 1.08
   ), "mL/min/1.73m2")
 
-  lapply(abs(df - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  df_str <- eGFR_adult_SCr_SCysC(eGFR.adult.df(), "SCr", "SCysC", "Age", "male", "black")
+  df_sym <- eGFR_adult_SCr_SCysC(eGFR.adult.df(), SCr, SCysC, Age, male, black)
+  df_mut <- eGFR.adult.df() %>%
+    dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)) %>%
+    dplyr::pull(eGFR)
+  df_uvec <- eGFR_adult_SCr_SCysC(
+    eGFR.adult.df()$SCr,
+    eGFR.adult.df()$SCysC,
+    eGFR.adult.df()$Age,
+    eGFR.adult.df()$male,
+    eGFR.adult.df()$black
+  )
+  df_nvec <- eGFR_adult_SCr_SCysC(
+    as.numeric(eGFR.adult.df()$SCr),
+    as.numeric(eGFR.adult.df()$SCysC),
+    as.numeric(eGFR.adult.df()$Age),
+    as.numeric(eGFR.adult.df()$male),
+    as.numeric(eGFR.adult.df()$black)
+  )
+
+  lapply(abs(df_str - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_sym - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_mut - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_uvec - ep), expect_lte, units::set_units(0.2, "mL/min/1.73m2"))
+  lapply(abs(df_nvec - as.numeric(ep)), expect_lte, 0.2)
 })
 
 
