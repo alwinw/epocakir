@@ -19,27 +19,27 @@ aki_SCr_exp_df <- function(env = parent.frame()) {
 }
 
 test_that("aki_bCr() for data.frame", {
-  expect_equal(aki_bCr(aki_SCr_test_df(), "SCr_measured", "bCr_measured"), aki_SCr_exp_df())
-  expect_equal(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())
+  expect_identical(aki_bCr(aki_SCr_test_df(), "SCr_measured", "bCr_measured"), aki_SCr_exp_df())
+  expect_identical(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for units vector", {
   SCr_measured <- aki_SCr_test_df()$SCr_measured
   bCr_measured <- aki_SCr_test_df()$bCr_measured
-  expect_equal(aki_bCr(SCr_measured, bCr_measured), aki_SCr_exp_df())
+  expect_identical(aki_bCr(SCr_measured, bCr_measured), aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on units", {
   df <- aki_SCr_test_df() %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_equal(df$aki, aki_SCr_exp_df())
+  expect_identical(df$aki, aki_SCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
   df <- aki_SCr_test_df() %>%
     dplyr::mutate(dplyr::across(everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_equal(df$aki, aki_SCr_exp_df())
+  expect_identical(df$aki, aki_SCr_exp_df())
 })
 
 
@@ -91,7 +91,7 @@ test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
   expect_equal(
     generate_cr_ch(data_gr, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
     cr_ch_gr
-  )
+  ) # TODO change to expect_identical
 
   # Test without grouping
   data_ngr <- dplyr::filter(data_gr, .data$pt_id_ == "pt1")
@@ -100,7 +100,7 @@ test_that(".generate_cr_ch() for dataframe with and without pt_id grouping", {
   expect_equal(
     generate_cr_ch(data_ngr, SCr = "SCr_", dttm = "dttm_"),
     cr_ch_ngr
-  )
+  ) # TODO change to expect_identical
 })
 
 test_that("aki() for dataframe of SCr and bCr only", {

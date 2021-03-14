@@ -1,55 +1,56 @@
-
 #' Diagnosis of anemia from Hb concentration
 #'
-#' TODO Make consistent with other files
+#' @param .data (data.frame) A data.frame, optional
+#' @param Hb Hemoglobin concenration
+#'   column name, or vector if `.data` not provided
+#' @param age Age of patient
+#'   column name, or vector if `.data` not provided
+#' @param male Male or not
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
 #'
-#' @param data A data.frame X
-#' @param age The variable name, e.g. "age" or X
-#' @param gender The variable name, e.g. "gender" or X
-#' @param Hb The variable name e.g. "Hb" or X
-#' @param ... Further optional arguments that will be passed to method.
-#'
-#' @return A dataframe or X
+#' @return Anemia
+#'   as logical `TRUE` or `FALSE`
 #' @export
 #'
 #' @examples
-#' anemia(1:10)
+#' print("todo")
 anemia <- function(...) {
+  UseMethod("anemia")
+}
+
+#' @rdname anemia
+#' @export
+anemia.default <- function(.data, Hb, age, male, ...) {
   ellipsis::check_dots_used()
-  elli <- list(...)
-  if ("data" %in% names(elli)) {
-    UseMethod("anemia", elli$data)
-  } else if ("Hb" %in% names(elli)) {
-    UseMethod("anemia", elli$Hb)
-  } else {
-    UseMethod("anemia")
-  }
-}
-
-
-#' @rdname anemia
-#' @export
-anemia.numeric <- function(Hb, age, gender, ...) {
-  print("numeric!")
-  print(Hb)
-}
-
-#' @rdname anemia
-#' @export
-anemia.units <- function(Hb, age, gender, ...) {
-  dplyr::case_when(
-    age > lubridate::duration(years = 15) & Hb < units::set_units(13.0, "g/dl") ~ 1,
-    age > lubridate::duration(years = 12) & Hb < units::set_units(12.0, "g/dl") ~ 2,
-    age > lubridate::duration(years = 5) & Hb < units::set_units(11.5, "g/dl") ~ 3,
-    age > lubridate::duration(years = 0.5) & Hb < units::set_units(11.0, "g/dl") ~ 4,
-    TRUE ~ 0
+  anemia(
+    .data[[rlang::as_name(rlang::enquo(Hb))]],
+    .data[[rlang::as_name(rlang::enquo(age))]],
+    .data[[rlang::as_name(rlang::enquo(male))]]
   )
 }
 
 #' @rdname anemia
 #' @export
-anemia.default <- function(data = NULL, Hb, age, gender, ...) {
-  print("default!")
-  print(data)
-  # print(Hb)
+anemia.units <- function(Hb, age, male, ...) {
+  ellipsis::check_dots_used()
+  anemia(
+    as_metric(Hb = Hb, value_only = TRUE),
+    as_metric(age = age, value_only = TRUE),
+    male
+  )
+}
+
+#' @rdname anemia
+#' @export
+anemia.numeric <- function(Hb, age, male, ...) {
+  male <- as.logical(male)
+  dplyr::case_when(
+    age > 15 & male & Hb < 13.0 ~ TRUE,
+    age > 15 & !male & Hb < 12.0 ~ TRUE,
+    age > 12 & age <= 15 & Hb < 12.0 ~ TRUE,
+    age > 5 & age <= 12 & Hb < 11.5 ~ TRUE,
+    age > 0.5 & age <= 5 & Hb < 11.0 ~ TRUE,
+    TRUE ~ FALSE
+  )
 }

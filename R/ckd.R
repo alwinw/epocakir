@@ -38,6 +38,10 @@ eGFR <- function(SCr = NULL,
   )
 }
 
+# Overall GFR staging
+
+# Overall Albuminuria staging
+
 
 #' 2009 CKD-EPI creatinine equation
 #'
