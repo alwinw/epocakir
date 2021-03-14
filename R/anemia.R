@@ -3,7 +3,7 @@
 #' @param .data (data.frame) A data.frame, optional
 #' @param Hb Hemoglobin concenration
 #'   column name, or vector if `.data` not provided
-#' @param Age Age of patient
+#' @param age Age of patient
 #'   column name, or vector if `.data` not provided
 #' @param male Male or not
 #'   column name, or vector if `.data` not provided

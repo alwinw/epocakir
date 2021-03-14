@@ -23,10 +23,10 @@ anemia(...)
 \item{Hb}{Hemoglobin concenration
 column name, or vector if \code{.data} not provided}
 
-\item{male}{Male or not
+\item{age}{Age of patient
 column name, or vector if \code{.data} not provided}
 
-\item{Age}{Age of patient
+\item{male}{Male or not
 column name, or vector if \code{.data} not provided}
 }
 \value{
