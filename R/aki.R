@@ -64,7 +64,7 @@ aki_UO.default <- function(.data, dttm, UO, ...) {
   ellipsis::check_dots_used()
   aki_UO(
     .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(UO))]],
+    .data[[rlang::as_name(rlang::enquo(UO))]]
   )
 }
 
@@ -267,4 +267,33 @@ generate_cr_ch <- function(data, SCr, dttm, pt_id = NULL) {
     data_c <- dplyr::rename(data_c, !!pt_id := .data$pt_id)
   }
   return(data_c)
+}
+
+combn_changes <- function(...) {
+  UseMethod("combn_changes")
+}
+
+combn_changes.default <- function(.data, dttm, col, pt_id = NULL, ...) {
+  if (is.null(pt_id)) {
+    combn_changes(
+      col,
+      dttm,
+      "pt"
+    )
+  } else {
+    combn_changes(
+      col,
+      dttm,
+      .data[[rlang::as_name(rlang::enquo(pt_id))]]
+    )
+  }
+}
+
+combn_changes.POSIXt <- function(dttm, col, pt_id, ...) {
+  tibble::tibble(
+    dttm = dttm,
+    col = col,
+    pt_id = pt_id
+  ) %>%
+    dplyr::count()
 }
