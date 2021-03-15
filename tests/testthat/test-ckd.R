@@ -38,7 +38,7 @@ eGFR_tol <- function(env = parent.frame()) {
   units::set_units(0.05, "mL/min/1.73m2")
 }
 
-
+# TODO consider adding a check for unequal vec lengths
 test_that("eGFR_adult_SCr()", {
   ep <- units::set_units(c(
     rep(c(
