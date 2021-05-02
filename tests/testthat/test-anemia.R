@@ -60,7 +60,7 @@ test_that("anemia() for dplyr::mutate on units", {
 test_that("anemia() for dplyr::mutate on numeric", {
   expect_identical(
     anemia_df() %>%
-      dplyr::mutate(across(c(Hb, age), as.numeric)) %>%
+      dplyr::mutate(dplyr::across(c(Hb, age), as.numeric)) %>%
       dplyr::mutate(anemia = anemia(Hb, age, male)) %>%
       dplyr::pull(anemia),
     anemia_ep()

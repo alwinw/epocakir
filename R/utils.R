@@ -262,3 +262,54 @@ combine_date_time_cols <- function(.data, tz = NULL) {
     ) %>%
     dplyr::select(dplyr::all_of(new_col_names))
 }
+
+
+#' Combinatorics changes
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param col Variable
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return Combinatorics changes
+#'   of the same type provided (numeric or units)
+#' @export
+#'
+#' @examples
+#' print("todo")
+combn_changes <- function(...) {
+  UseMethod("combn_changes")
+}
+
+#' @rdname combn_changes
+#' @export
+combn_changes.default <- function(.data, dttm, col, pt_id = NULL, ...) {
+  if (is.null(pt_id)) {
+    combn_changes(
+      dttm,
+      col,
+      "pt"
+    )
+  } else {
+    combn_changes(
+      dttm,
+      col,
+      .data[[rlang::as_name(rlang::enquo(pt_id))]]
+    )
+  }
+}
+
+#' @rdname combn_changes
+#' @export
+combn_changes.POSIXct <- function(dttm, col, pt_id, ...) {
+  tibble::tibble(
+    dttm = dttm,
+    col = col,
+    pt_id = pt_id
+  ) %>%
+    dplyr::count()
+}
