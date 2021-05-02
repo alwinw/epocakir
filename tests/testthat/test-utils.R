@@ -230,7 +230,7 @@ changes_df <- function(env = parent.frame()) {
 
 # TODO similar to test-anemia.R
 test_that("combn_changes for data.frame", {
-  # combn_changes(changes_df(), "dt", "val", "id")
+  combn_changes(changes_df(), "dt", "val", "id")
 
   # changes_df() %>%
   #   combn_changes(dt, val, id)

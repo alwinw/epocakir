@@ -288,16 +288,17 @@ combn_changes <- function(...) {
 #' @rdname combn_changes
 #' @export
 combn_changes.default <- function(.data, dttm, col, pt_id = NULL, ...) {
+  ellipsis::check_dots_used()
   if (is.null(pt_id)) {
     combn_changes(
-      dttm,
-      col,
+      .data[[rlang::as_name(rlang::enquo(dttm))]],
+      .data[[rlang::as_name(rlang::enquo(col))]],
       "pt"
     )
   } else {
     combn_changes(
-      dttm,
-      col,
+      .data[[rlang::as_name(rlang::enquo(dttm))]],
+      .data[[rlang::as_name(rlang::enquo(col))]],
       .data[[rlang::as_name(rlang::enquo(pt_id))]]
     )
   }
