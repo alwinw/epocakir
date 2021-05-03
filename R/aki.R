@@ -56,6 +56,58 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 }
 
 
+#' AKI Staging based on changes in creatinine
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
+aki_SCr <- function(...) {
+  UseMethod("aki_SCr")
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.default <- function(.data, SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  aki_SCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(dttm))]],
+    .data[[rlang::as_name(rlang::enquo(pt_id))]]
+  )
+  # TODO: Add column names back in
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  aki_SCr(
+    as_metric(SCr = SCr, value_only = T),
+    dttm,
+    pt_id
+  )
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+
+  combn_changes(dttm, SCr, pt_id)
+}
+
+
 aki_UO <- function(...) {
   UseMethod("aki_UO")
 }
