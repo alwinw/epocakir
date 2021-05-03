@@ -8,9 +8,9 @@
 \usage{
 combn_changes(...)
 
-\method{combn_changes}{default}(.data, dttm, col, pt_id, ...)
+\method{combn_changes}{default}(.data, dttm, val, pt_id, ...)
 
-\method{combn_changes}{POSIXct}(dttm, col, pt_id, ...)
+\method{combn_changes}{POSIXct}(dttm, val, pt_id, ...)
 }
 \arguments{
 \item{...}{Further optional arguments}
@@ -20,7 +20,7 @@ combn_changes(...)
 \item{dttm}{DateTime
 column name, or vector if \code{.data} not provided}
 
-\item{col}{Variable
+\item{val}{Variable
 column name, or vector if \code{.data} not provided}
 
 \item{pt_id}{Patient ID
