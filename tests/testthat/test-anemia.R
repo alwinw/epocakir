@@ -31,6 +31,10 @@ test_that("anemia() for data.frame", {
     anemia(anemia_df(), Hb, age, male),
     anemia_ep()
   )
+  expect_identical( # TODO add this to all cases
+    anemia_df() %>% anemia(Hb, age, male),
+    anemia_ep()
+  )
 })
 
 test_that("anemia() for units vector", {
@@ -56,7 +60,7 @@ test_that("anemia() for dplyr::mutate on units", {
 test_that("anemia() for dplyr::mutate on numeric", {
   expect_identical(
     anemia_df() %>%
-      dplyr::mutate(across(c(Hb, age), as.numeric)) %>%
+      dplyr::mutate(dplyr::across(c(Hb, age), as.numeric)) %>%
       dplyr::mutate(anemia = anemia(Hb, age, male)) %>%
       dplyr::pull(anemia),
     anemia_ep()

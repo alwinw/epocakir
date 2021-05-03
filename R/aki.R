@@ -64,7 +64,7 @@ aki_UO.default <- function(.data, dttm, UO, ...) {
   ellipsis::check_dots_used()
   aki_UO(
     .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(UO))]],
+    .data[[rlang::as_name(rlang::enquo(UO))]]
   )
 }
 

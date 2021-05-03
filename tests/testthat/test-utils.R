@@ -213,3 +213,35 @@ test_that("combine_date_time_cols() for multiple columns", {
   expect_identical(combine_date_time_cols(df1, tz = "UTC"), o1)
   expect_identical(combine_date_time_cols(df2), o2)
 })
+
+
+changes_df <- function(env = parent.frame()) {
+  tibble::tribble(
+    ~dt, ~val, ~id,
+    "2020-01-01 01:01:01", 2, "A",
+    "2020-01-01 01:02:01", 4, "A",
+    "2020-01-01 01:01:01", 5, "B",
+    "2020-01-02 01:03:01", 8, "B",
+    "2020-01-04 01:01:01", 2, "A",
+    "2020-01-04 01:02:01", 4, "A",
+  ) %>%
+    dplyr::mutate(
+      dt = as.POSIXct(dt)
+    )
+}
+
+# TODO similar to test-anemia.R
+test_that("combn_changes for data.frame", {
+  combn_changes(changes_df(), "dt", "val", "id")
+
+  changes_df() %>%
+    combn_changes(dt, val, id)
+})
+
+test_that("combn_changes for POSIXct", {
+  combn_changes(
+    changes_df()$dt,
+    changes_df()$val,
+    changes_df()$id
+  )
+})
