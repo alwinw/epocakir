@@ -289,11 +289,19 @@ combn_changes <- function(...) {
 #' @export
 combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
   ellipsis::check_dots_used()
-  combn_changes(
-    .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(val))]],
-    .data[[rlang::as_name(rlang::enquo(pt_id))]]
+  val_name <- rlang::as_name(rlang::enquo(val))
+  dttm_name <- rlang::as_name(rlang::enquo(dttm))
+  pt_id_name <- rlang::as_name(rlang::enquo(pt_id))
+  data_n <- combn_changes(
+    .data[[dttm_name]],
+    .data[[val_name]],
+    .data[[pt_id_name]]
   )
+  colnames(data_n) <- c(
+    pt_id_name, dttm_name, val_name,
+    paste0("D.", val_name), paste0("D.", dttm_name)
+  )
+  return(data_n)
 }
 
 # TODO: The group_by could be done outside of the function?
@@ -343,9 +351,55 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
     dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm) # %>%
-    # dplyr::rename(
-    #   !!dttm := .data$dttm,
-    #   !!val := .data$val,
-    #   !!pt_id := .data$pt_id
-    # )
 }
+
+# #' @rdname combn_changes
+# #' @export
+# combn_changes.data.frame <- function(.data, dttm, val, pt_id, ...) {
+#   ellipsis::check_dots_used()
+#   df_gr <- .data %>%
+#     dplyr::group_by(.data[[pt_id]], .add = FALSE) %>%
+#     dplyr::arrange(.data[[pt_id]], .data[[dttm]]) %>%
+#     dplyr::distinct() %>%
+#     dplyr::mutate(
+#       admin = cumsum(
+#         (.data[[dttm]] - dplyr::lag(.data[[dttm]], default = lubridate::as_date(0))) >=
+#           lubridate::duration(hours = 48)
+#       )
+#     ) %>%
+#     dplyr::group_by(.data$admin, .add = TRUE)
+#   # TODO: check for nrow < 2
+#   df_n <- df_gr %>%
+#     dplyr::count() %>%
+#     dplyr::ungroup() %>%
+#     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
+#     dplyr::rowwise() %>%
+#     dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%
+#     dplyr::arrange(.data$X2, dplyr::desc(.data$X1))
+#   # TODO: rewrite forcombn_changes.data.frame
+#   # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
+#   T1 <- df_gr[df_n$X1, ]
+#   T2 <- df_gr[df_n$X2, ]
+#   # The patient id should also match, remove after testing
+#   val_name <- rlang::as_name(rlang::enquo(val))
+#   dttm_name <- rlang::as_name(rlang::enquo(dttm))
+#   pt_id_name <- rlang::as_name(rlang::enquo(pt_id))
+#
+#   if (!all.equal(
+#     T1[c(pt_id_name, "admin")],
+#     T2[c(pt_id_name, "admin")]
+#   )
+#   ) {
+#     warning("Unexpected mismatch in patient ids")
+#   }
+#   data.frame(
+#     pt_id = T1[[pt_id_name]],
+#     admin = T1$admin,
+#     dttm = T2[[dttm_name]],
+#     val = T2[[val_name]],
+#     D.val = T2[[val_name]] - T1[[val_name]],
+#     D.dttm = T2[[dttm_name]] - T1[[dttm_name]]
+#   ) %>%
+#     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
+#     dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm)
+# }
