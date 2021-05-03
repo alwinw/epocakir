@@ -8,7 +8,7 @@
 \usage{
 combn_changes(...)
 
-\method{combn_changes}{default}(.data, dttm, col, pt_id = NULL, ...)
+\method{combn_changes}{default}(.data, dttm, col, pt_id, ...)
 
 \method{combn_changes}{POSIXct}(dttm, col, pt_id, ...)
 }

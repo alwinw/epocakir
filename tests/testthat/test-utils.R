@@ -232,8 +232,8 @@ changes_df <- function(env = parent.frame()) {
 test_that("combn_changes for data.frame", {
   combn_changes(changes_df(), "dt", "val", "id")
 
-  # changes_df() %>%
-  #   combn_changes(dt, val, id)
+  changes_df() %>%
+    combn_changes(dt, val, id)
 })
 
 test_that("combn_changes for POSIXct", {
