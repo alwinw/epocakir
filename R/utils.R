@@ -289,11 +289,19 @@ combn_changes <- function(...) {
 #' @export
 combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
   ellipsis::check_dots_used()
-  combn_changes(
-    .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(val))]],
-    .data[[rlang::as_name(rlang::enquo(pt_id))]]
+  val_name <- rlang::as_name(rlang::enquo(val))
+  dttm_name <- rlang::as_name(rlang::enquo(dttm))
+  pt_id_name <- rlang::as_name(rlang::enquo(pt_id))
+  data_n <- combn_changes(
+    .data[[dttm_name]],
+    .data[[val_name]],
+    .data[[pt_id_name]]
   )
+  colnames(data_n) <- c(
+    pt_id_name, dttm_name, val_name,
+    paste0("D.", val_name), paste0("D.", dttm_name)
+  )
+  return(data_n)
 }
 
 # TODO: The group_by could be done outside of the function?
@@ -343,9 +351,4 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
     dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm) # %>%
-    # dplyr::rename(
-    #   !!dttm := .data$dttm,
-    #   !!val := .data$val,
-    #   !!pt_id := .data$pt_id
-    # )
 }
