@@ -104,22 +104,22 @@ aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
 #' @export
 aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
-  # Hard coded colnames since vecotrs, not data.frame passed to combn_changes
   SCr_changes <- combn_changes(dttm, SCr, pt_id) %>%
     dplyr::mutate(
       .aki = dplyr::case_when(
-        D.val >= 0.3 ~ aki_stages[1],
+        D.val >= 0.3 & D.dttm < lubridate::duration(hours = 48) ~ aki_stages[1],
         TRUE ~ NA_integer_
       )
     ) %>%
     dplyr::select(.data$pt_id, .data$dttm, .data$.aki)
+  # Do I need a summarise here?
 
   dplyr::left_join(
     tibble::tibble(pt_id = pt_id, dttm = dttm),
     SCr_changes,
     by = c("pt_id", "dttm")
-  ) %>%
-    dplyr::pull(.data$.aki)
+  ) #%>%
+    #dplyr::pull(.data$.aki)
 }
 
 

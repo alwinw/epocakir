@@ -251,7 +251,7 @@ changes_rand_df <- function(env = parent.frame()) {
   changes_raw_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5), ]
 }
 
-changes_df <- function(env = parent.frame()) {
+changes_exp_df <- function(env = parent.frame()) {
   cbind(
     changes_raw_df()[
       c(2, 3, 3, 5, 6, 8, 9, 9),
@@ -268,14 +268,14 @@ changes_df <- function(env = parent.frame()) {
 
 test_that("combn_changes for data.frame", {
   df <- combn_changes(changes_rand_df(), "dttm_", "SCr_", "pt_id_")
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 
   df <- combn_changes(changes_rand_df(), dttm_, SCr_, pt_id_)
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 
   df <- changes_rand_df() %>%
     combn_changes(dttm_, SCr_, pt_id_)
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 })
 
 test_that("combn_changes for POSIXct", {
@@ -285,5 +285,5 @@ test_that("combn_changes for POSIXct", {
     changes_rand_df()$pt_id_
   )
   colnames(df) <- c("pt_id_", "dttm_", "SCr_", "D.SCr_", "D.dttm_")
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 })

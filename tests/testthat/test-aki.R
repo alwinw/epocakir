@@ -79,7 +79,21 @@ aki_SCr_test_rand_df <- function(env = parent.frame()) {
   aki_SCr_test_raw_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5), ]
 }
 
+aki_SCr_exp_df <- function(env = parent.frame()) {
+  # TODO: DOUBLE CHECK THIS
+  vctrs::vec_c(
+    NA,
+    rep(aki_stages[1], 3),
+    rep(NA, 5)
+  )
+}
+
+aki_SCr_exp_rand_df <- function(env = parent.frame()) {
+  aki_SCr_exp_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5)]
+}
+
 
 test_that("aki_SCr() for data.frame", {
-  aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_")
+  aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_") %>%
+    dplyr::arrange(pt_id, dttm)
 })
