@@ -1,13 +1,13 @@
 # consider using Table 7 as the test cases
 
-aki_SCr_test_df <- function(env = parent.frame()) {
+aki_bCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(
     SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
     bCr_measured = units::set_units(1.5, "mg/dl")
   )
 }
 
-aki_SCr_exp_df <- function(env = parent.frame()) {
+aki_bCr_exp_df <- function(env = parent.frame()) {
   vctrs::vec_c(
     NA,
     aki_stages[1],
@@ -19,65 +19,67 @@ aki_SCr_exp_df <- function(env = parent.frame()) {
 }
 
 test_that("aki_bCr() for data.frame", {
-  expect_identical(aki_bCr(aki_SCr_test_df(), "SCr_measured", "bCr_measured"), aki_SCr_exp_df())
-  expect_identical(aki_bCr(aki_SCr_test_df(), SCr_measured, bCr_measured), aki_SCr_exp_df())
+  expect_identical(aki_bCr(aki_bCr_test_df(), "SCr_measured", "bCr_measured"), aki_bCr_exp_df())
+  expect_identical(aki_bCr(aki_bCr_test_df(), SCr_measured, bCr_measured), aki_bCr_exp_df())
 })
 
 test_that("aki_bCr() for units vector", {
-  SCr_measured <- aki_SCr_test_df()$SCr_measured
-  bCr_measured <- aki_SCr_test_df()$bCr_measured
-  expect_identical(aki_bCr(SCr_measured, bCr_measured), aki_SCr_exp_df())
+  SCr_measured <- aki_bCr_test_df()$SCr_measured
+  bCr_measured <- aki_bCr_test_df()$bCr_measured
+  expect_identical(aki_bCr(SCr_measured, bCr_measured), aki_bCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on units", {
-  df <- aki_SCr_test_df() %>%
+  df <- aki_bCr_test_df() %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_identical(df$aki, aki_SCr_exp_df())
+  expect_identical(df$aki, aki_bCr_exp_df())
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
-  df <- aki_SCr_test_df() %>%
+  df <- aki_bCr_test_df() %>%
     dplyr::mutate(dplyr::across(everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
-  expect_identical(df$aki, aki_SCr_exp_df())
+  expect_identical(df$aki, aki_bCr_exp_df())
 })
 
 
-test_that("aki() for dataframe of SCr and bCr only", {
-  pt_id <- "pt_id_"
-  dttm <- "dttm_"
-  SCr <- "SCr_"
-  bCr <- "bCr_"
-  aki <- "aki"
-  data_ <- data.frame(
-    pt_id_ = c(rep("pt1", 11 + 7), rep("pt2", 13)),
+aki_SCr_test_raw_df <- function(env = parent.frame()) {
+  tibble::tibble(
+    pt_id_ = c(rep("pt1", 3 + 3), rep("pt2", 3)),
     dttm_ = c(
       seq(
         lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
         lubridate::as_datetime("2020-10-20 09:00:00", tz = "Australia/Melbourne"),
-        length.out = 11
+        length.out = 3
       ),
       seq(
         lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
-        lubridate::as_datetime("2020-10-25 09:00:00", tz = "Australia/Melbourne"),
-        length.out = 7
+        lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
+        length.out = 3
       ),
       seq(
         lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
-        lubridate::as_datetime("2020-10-29 10:00:00", tz = "Australia/Melbourne"),
-        length.out = 13
+        lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
+        length.out = 3
       )
     ),
     SCr_ = c(
-      units::set_units(seq(2.0, 4.5, by = 0.25), "mg/dl"),
-      units::set_units(seq(2.5, 4.0, by = 0.25), "mg/dl"),
-      units::set_units(seq(3.0, 4.2, by = 0.10), "mg/dl")
+      units::set_units(seq(2.0, 3.0, by = 0.5), "mg/dl"),
+      units::set_units(seq(3.5, 4.0, by = 0.25), "mg/dl"),
+      units::set_units(seq(3.3, 3.5, by = 0.10), "mg/dl")
     ),
     bCr_ = c(
-      rep(units::set_units(1.8, "mg/dl"), 11 + 7),
-      rep(units::set_units(3.0, "mg/dl"), 13)
+      rep(units::set_units(1.8, "mg/dl"), 3 + 3),
+      rep(units::set_units(3.0, "mg/dl"), 3)
     )
   )
+}
 
-  data <- data_[sample(nrow(data_)), ]
+aki_SCr_test_rand_df <- function(env = parent.frame()) {
+  aki_SCr_test_raw_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5), ]
+}
+
+
+test_that("aki_SCr() for data.frame", {
+  aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_")
 })
