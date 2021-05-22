@@ -266,6 +266,8 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 
 #' Combinatorics changes
 #'
+#' Compares a value with previous values
+#'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
 #'   column name, or vector if `.data` not provided
