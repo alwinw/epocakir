@@ -26,7 +26,8 @@ test_that("as_metric() conversions are correct", {
     "eGFR", 1, "mL/min/1.73m2",
     "SCysC", 1, "mg/l",
     "AER", 1, "mg/day",
-    "ACR", 1, "mg/g"
+    "ACR", 1, "mg/g",
+    "UO", 1, "ml/kg"
   ) %>%
     dplyr::left_join(conversion_factors, ., by = "parameter") %>%
     dplyr::filter(!is.na(factor))
