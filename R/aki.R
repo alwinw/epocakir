@@ -170,7 +170,15 @@ aki_UO.units <- function(UO, dttm, pt_id, ...) {
 #' @export
 aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
-  SCr_changes <- combn_changes(dttm, cumsum(UO), pt_id)
+
+  # TODO: Need to sort by pt_id and dttm first
+  # This cumsum represents the cumulative total fluid output
+  # Taking the difference between two points in time
+  # should give the amount of fluid output
+  # Then I can divide it by the duration of the period
+  cumsum(UO)
+
+  SCr_changes <- combn_changes(dttm, UO, pt_id)
   return(SCr_changes)
 }
 
