@@ -56,6 +56,75 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 }
 
 
+#' AKI Staging based on changes in creatinine
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
+aki_SCr <- function(...) {
+  UseMethod("aki_SCr")
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.default <- function(.data, SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  aki_SCr(
+    .data[[rlang::as_name(rlang::enquo(SCr))]],
+    .data[[rlang::as_name(rlang::enquo(dttm))]],
+    .data[[rlang::as_name(rlang::enquo(pt_id))]]
+  )
+  # TODO: Add column names back in.
+  # Not sure if this is required if just returning a vector
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  aki_SCr(
+    as_metric(SCr = SCr, value_only = T),
+    dttm,
+    pt_id
+  )
+}
+
+#' @rdname aki_SCr
+#' @export
+aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  SCr_changes <- combn_changes(dttm, SCr, pt_id) %>%
+    dplyr::mutate(
+      .aki = dplyr::case_when(
+        D.val >= 0.3 & D.dttm < lubridate::duration(hours = 48) ~ aki_stages[1],
+        TRUE ~ NA_integer_
+      )
+    ) %>%
+    dplyr::select(.data$pt_id, .data$dttm, .data$.aki) %>%
+    dplyr::group_by(.data$pt_id, .data$dttm) %>%
+    dplyr::slice_max(.data$.aki, with_ties = FALSE) %>%
+    dplyr::ungroup()
+
+  dplyr::left_join(
+    tibble::tibble(pt_id = pt_id, dttm = dttm),
+    SCr_changes,
+    by = c("pt_id", "dttm")
+  ) %>%
+    dplyr::pull(.data$.aki)
+}
+
+
 aki_UO <- function(...) {
   UseMethod("aki_UO")
 }

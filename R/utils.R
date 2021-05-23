@@ -266,6 +266,8 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 
 #' Combinatorics changes
 #'
+#' Compares a value with previous values
+#'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
 #'   column name, or vector if `.data` not provided
@@ -341,7 +343,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   if (!all.equal(T1[c("pt_id", "admin")], T2[c("pt_id", "admin")])) {
     warning("Unexpected mismatch in patient ids")
   }
-  data.frame(
+  tibble::tibble(
     pt_id = T1$pt_id,
     admin = T1$admin,
     dttm = T2$dttm,

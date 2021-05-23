@@ -251,30 +251,31 @@ changes_rand_df <- function(env = parent.frame()) {
   changes_raw_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5), ]
 }
 
-changes_df <- function(env = parent.frame()) {
+changes_exp_df <- function(env = parent.frame()) {
   cbind(
     changes_raw_df()[
       c(2, 3, 3, 5, 6, 8, 9, 9),
       c("pt_id_", "dttm_", "SCr_")
     ],
-    data.frame(
+    tibble::tibble(
       D.SCr_ = units::set_units(c(0.5, 0.5, 1.0, 0.25, 0.25, 0.1, 0.1, 0.2), "mg/dl"),
       D.dttm_ = lubridate::make_difftime(hours = c(24, 24, 48, 30, 30, 12, 12, 24))
     )
   ) %>%
-    tibble::remove_rownames()
+    tibble::remove_rownames() %>%
+    tibble::tibble()
 }
 
 test_that("combn_changes for data.frame", {
   df <- combn_changes(changes_rand_df(), "dttm_", "SCr_", "pt_id_")
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 
   df <- combn_changes(changes_rand_df(), dttm_, SCr_, pt_id_)
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 
   df <- changes_rand_df() %>%
     combn_changes(dttm_, SCr_, pt_id_)
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 })
 
 test_that("combn_changes for POSIXct", {
@@ -284,5 +285,5 @@ test_that("combn_changes for POSIXct", {
     changes_rand_df()$pt_id_
   )
   colnames(df) <- c("pt_id_", "dttm_", "SCr_", "D.SCr_", "D.dttm_")
-  expect_equal(df, changes_df())
+  expect_equal(df, changes_exp_df())
 })
