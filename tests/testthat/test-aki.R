@@ -37,7 +37,7 @@ test_that("aki_bCr() for dplyr::mutate on units", {
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
   df <- aki_bCr_test_df() %>%
-    dplyr::mutate(dplyr::across(everything(), as.numeric)) %>%
+    dplyr::mutate(dplyr::across(tidyselect::everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
   expect_identical(df$aki, aki_bCr_exp_df())
 })
@@ -83,8 +83,8 @@ aki_SCr_exp_df <- function(env = parent.frame()) {
   # TODO: DOUBLE CHECK THIS
   vctrs::vec_c(
     NA,
-    rep(aki_stages[1], 3),
-    rep(NA, 5)
+    rep(aki_stages[1], 2),
+    rep(NA, 6)
   )
 }
 
@@ -94,6 +94,26 @@ aki_SCr_exp_rand_df <- function(env = parent.frame()) {
 
 
 test_that("aki_SCr() for data.frame", {
-  aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_") %>%
-    dplyr::arrange(pt_id, dttm)
+  expect_identical(aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_"), aki_SCr_exp_rand_df())
+  expect_identical(aki_SCr(aki_SCr_test_rand_df(), SCr_, dttm_, pt_id_), aki_SCr_exp_rand_df())
+})
+
+test_that("aki_SCr() for units vector", {
+  SCr_ <- aki_SCr_test_rand_df()$SCr_
+  dttm_ <- aki_SCr_test_rand_df()$dttm_
+  pt_id_ <- aki_SCr_test_rand_df()$pt_id_
+  expect_identical(aki_SCr(SCr_, dttm_, pt_id_), aki_SCr_exp_rand_df())
+})
+
+test_that("aki_SCr() for dplyr::mutate on units", {
+  df <- aki_SCr_test_rand_df() %>%
+    dplyr::mutate(aki = aki_SCr(SCr_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_SCr_exp_rand_df())
+})
+
+test_that("aki_bCr() for dplyr::mutate on numeric", {
+  df <- aki_SCr_test_rand_df() %>%
+    dplyr::mutate(dplyr::across(where(is.numeric), as.numeric)) %>%
+    dplyr::mutate(aki = aki_SCr(SCr_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_SCr_exp_rand_df())
 })

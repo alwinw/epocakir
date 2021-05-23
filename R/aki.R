@@ -111,15 +111,17 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
         TRUE ~ NA_integer_
       )
     ) %>%
-    dplyr::select(.data$pt_id, .data$dttm, .data$.aki)
-  # Do I need a summarise here?
+    dplyr::select(.data$pt_id, .data$dttm, .data$.aki) %>%
+    dplyr::group_by(.data$pt_id, .data$dttm) %>%
+    dplyr::slice_max(.data$.aki, with_ties = FALSE) %>%
+    dplyr::ungroup()
 
   dplyr::left_join(
     tibble::tibble(pt_id = pt_id, dttm = dttm),
     SCr_changes,
     by = c("pt_id", "dttm")
-  ) #%>%
-    #dplyr::pull(.data$.aki)
+  ) %>%
+    dplyr::pull(.data$.aki)
 }
 
 
