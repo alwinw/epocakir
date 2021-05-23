@@ -124,12 +124,29 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     dplyr::pull(.data$.aki)
 }
 
-
+#' AKI Staging based on urine output
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param UO Urine output
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
 aki_UO <- function(...) {
   UseMethod("aki_UO")
 }
 
-aki_UO.default <- function(.data, dttm, UO, ...) {
+#' @rdname aki_UO
+#' @export
+aki_UO.default <- function(.data, UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_UO(
     .data[[rlang::as_name(rlang::enquo(dttm))]],
@@ -137,17 +154,22 @@ aki_UO.default <- function(.data, dttm, UO, ...) {
   )
 }
 
-aki_UO.units <- function(dttm, UO, ...) {
+#' @rdname aki_UO
+#' @export
+aki_UO.units <- function(UO, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
   aki_UO(
+    as_metric(UO = UO, value_only = T),
     dttm,
-    as_metric(UO = UO, value_only = T)
+    pt_id
   )
 }
 
-aki_UO.numeric <- function(dttm, UO, ...) {
-  print("todo")
-  # TODO need to generate individual UO changes
-  # then determine average urine output
+#' @rdname aki_UO
+#' @export
+aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  SCr_changes <- combn_changes(dttm, UO, pt_id)
 }
 
 
