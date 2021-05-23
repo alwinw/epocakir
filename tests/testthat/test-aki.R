@@ -117,3 +117,36 @@ test_that("aki_bCr() for dplyr::mutate on numeric", {
     dplyr::mutate(aki = aki_SCr(SCr_, dttm_, pt_id_))
   expect_identical(df$aki, aki_SCr_exp_rand_df())
 })
+
+
+aki_UO_test_raw_df <- function(env = parent.frame()) {
+  tibble::tibble(
+    pt_id_ = c(rep("pt1", 7 + 3), rep("pt2", 3)),
+    dttm_ = c(
+      seq(
+        lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
+        lubridate::as_datetime("2020-10-19 09:00:00", tz = "Australia/Melbourne"),
+        length.out = 7
+      ),
+      seq(
+        lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
+        lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
+        length.out = 3
+      ),
+      seq(
+        lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
+        lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
+        length.out = 3
+      )
+    ),
+    UO_ = c(
+      units::set_units(rep(0.4, 7), "ml/kg"),
+      units::set_units(seq(3.5, 4.0, by = 0.25), "ml/kg"),
+      units::set_units(seq(3.3, 3.5, by = 0.10), "ml/kg")
+    )
+  )
+}
+
+test_that("aki_UO() for data.frame", {
+  aki_UO(aki_UO_test_raw_df(), UO_, dttm_, pt_id_)
+})

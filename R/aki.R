@@ -149,8 +149,9 @@ aki_UO <- function(...) {
 aki_UO.default <- function(.data, UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_UO(
+    .data[[rlang::as_name(rlang::enquo(UO))]],
     .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(UO))]]
+    .data[[rlang::as_name(rlang::enquo(pt_id))]]
   )
 }
 
@@ -169,7 +170,8 @@ aki_UO.units <- function(UO, dttm, pt_id, ...) {
 #' @export
 aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
-  SCr_changes <- combn_changes(dttm, UO, pt_id)
+  SCr_changes <- combn_changes(dttm, cumsum(UO), pt_id)
+  return(SCr_changes)
 }
 
 
