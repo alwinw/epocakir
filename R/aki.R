@@ -170,16 +170,32 @@ aki_UO.units <- function(UO, dttm, pt_id, ...) {
 #' @export
 aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
-
   # TODO: Need to sort by pt_id and dttm first
   # This cumsum represents the cumulative total fluid output
   # Taking the difference between two points in time
-  # should give the amount of fluid output
+  # should give the amount of fluid output in that period
   # Then I can divide it by the duration of the period
-  cumsum(UO)
 
-  SCr_changes <- combn_changes(dttm, UO, pt_id)
-  return(SCr_changes)
+  UO_df <- data.frame(UO = UO, dttm = dttm, pt_id = pt_id) %>%
+    dplyr::arrange(.data$pt_id, .data$dttm) %>%
+    dplyr::group_by(.data$pt_id) %>%
+    dplyr::mutate(c_UO = cumsum(.data$UO))
+  UO_changes <- combn_changes(UO_df, "dttm", "c_UO", "pt_id") %>%
+    dplyr::mutate(
+      UOph = .data$D.c_UO / as.numeric(.data$D.dttm, units = "hours"),
+      .aki = dplyr::case_when(
+        UOph == 0 & D.dttm >= lubridate::duration(hours = 12) ~ aki_stages[3],
+        UOph < 0.3 & D.dttm >= lubridate::duration(hours = 24) ~ aki_stages[3],
+        UOph < 0.5 & D.dttm >= lubridate::duration(hours = 12) ~ aki_stages[2],
+        UOph < 0.5 & D.dttm >= lubridate::duration(hours = 6) ~ aki_stages[1],
+        TRUE ~ NA_integer_
+      )
+    ) %>%
+    dplyr::group_by(.data$pt_id, .data$dttm) %>%
+    dplyr::slice_max(.data$.aki, with_ties = FALSE) %>%
+    dplyr::ungroup()
+
+  return(UO_changes)
 }
 
 
