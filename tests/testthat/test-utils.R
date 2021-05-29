@@ -288,3 +288,5 @@ test_that("combn_changes for POSIXct", {
   colnames(df) <- c("pt_id_", "dttm_", "SCr_", "D.SCr_", "D.dttm_")
   expect_equal(df, changes_exp_df())
 })
+
+# Add error test case where only 1 row for a pt_id

@@ -110,40 +110,21 @@ test_that("aki_bCr() for dplyr::mutate on numeric", {
 })
 
 
-aki_UO_test_raw_df_ <- function(env = parent.frame()) {
-  tibble::tibble(
-    pt_id_ = c(rep("pt1", 7 + 3), rep("pt2", 3)),
-    dttm_ = c(
-      seq(
-        lubridate::as_datetime("2020-10-18 09:00:00", tz = "Australia/Melbourne"),
-        lubridate::as_datetime("2020-10-19 09:00:00", tz = "Australia/Melbourne"),
-        length.out = 7
-      ),
-      seq(
-        lubridate::as_datetime("2020-10-23 09:00:00", tz = "Australia/Melbourne"),
-        lubridate::as_datetime("2020-10-25 21:00:00", tz = "Australia/Melbourne"),
-        length.out = 3
-      ),
-      seq(
-        lubridate::as_datetime("2020-10-18 10:00:00", tz = "Australia/Melbourne"),
-        lubridate::as_datetime("2020-10-19 10:00:00", tz = "Australia/Melbourne"),
-        length.out = 3
-      )
-    ),
-    UO_ = c(
-      units::set_units(rep(0.4, 7), "ml/kg"),
-      units::set_units(seq(3.5, 4.0, by = 0.25), "ml/kg"),
-      units::set_units(seq(3.3, 3.5, by = 0.10), "ml/kg")
-    )
-  )
-}
-
 aki_UO_test_raw_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~pt_id_, ~dttm_, ~UO_, ~exp_aki,
-    1, "2020-10-18 09:00:00", 1, NA_integer_,
-    1, "2020-10-18 15:00:00", 4, NA_integer_,
+    1, "2020-10-18 09:00:00", 8, NA_integer_,
+    1, "2020-10-18 15:00:00", 5, NA_integer_,
     1, "2020-10-18 21:00:00", 2, 1,
+    1, "2020-10-19 01:00:00", 1, 1,
+    1, "2020-10-19 03:00:00", 1, 2,
+    1, "2020-10-19 09:00:00", 1, 2,
+    1, "2020-10-19 15:00:00", 1, 3,
+    1, "2020-10-19 21:00:00", 1, 3,
+    2, "2020-10-18 12:00:00", 2, NA_integer_,
+    2, "2020-10-18 18:00:00", 0, 1,
+    2, "2020-10-19 00:00:00", 0, 3,
+    2, "2020-10-19 06:00:00", 0, 3,
   ) %>%
     dplyr::mutate(
       dttm_ = lubridate::as_datetime(dttm_, tz = "Australia/Melbourne"),
@@ -152,8 +133,12 @@ aki_UO_test_raw_df <- function(env = parent.frame()) {
     )
 }
 
+aki_UO_test_rand_df <- function(env = parent.frame()) {
+  aki_UO_test_raw_df()[c(10, 9, 5, 8, 3, 11, 6, 2, 4, 12, 7, 1), ]
+}
 
 
 test_that("aki_UO() for data.frame", {
-  aki_UO(aki_UO_test_raw_df(), UO_, dttm_, pt_id_)
+  expect_identical(aki_UO(aki_UO_test_rand_df(), "UO_", "dttm_", "pt_id_"), aki_UO_test_rand_df()$exp_aki)
+  expect_identical(aki_UO(aki_UO_test_rand_df(), UO_, dttm_, pt_id_), aki_UO_test_rand_df()$exp_aki)
 })
