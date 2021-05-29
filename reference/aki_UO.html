@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AKI Staging based on baseline creatinine — aki_bCr • epocakir</title>
+<title>AKI Staging based on urine output — aki_UO • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="AKI Staging based on baseline creatinine — aki_bCr" />
-<meta property="og:description" content="AKI Staging based on baseline creatinine" />
+<meta property="og:title" content="AKI Staging based on urine output — aki_UO" />
+<meta property="og:description" content="AKI Staging based on urine output" />
 
 
 
@@ -108,25 +108,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>AKI Staging based on baseline creatinine</h1>
+    <h1>AKI Staging based on urine output</h1>
     <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/aki.R'><code>R/aki.R</code></a></small>
-    <div class="hidden name"><code>aki_bCr.Rd</code></div>
+    <div class="hidden name"><code>aki_UO.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>AKI Staging based on baseline creatinine</p>
+    <p>AKI Staging based on urine output</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aki_bCr</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>aki_UO</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>aki_bCr</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>SCr</span>, <span class='va'>bCr</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>aki_UO</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>UO</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for units</span>
-<span class='fu'>aki_bCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>bCr</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>aki_UO</span><span class='op'>(</span><span class='va'>UO</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>aki_bCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>bCr</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>aki_UO</span><span class='op'>(</span><span class='va'>UO</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,13 +140,18 @@
       <td><p>(data.frame) A data.frame, optional</p></td>
     </tr>
     <tr>
-      <th>SCr</th>
-      <td><p>Serum creatinine
+      <th>UO</th>
+      <td><p>Urine output
 column name, or vector if <code>.data</code> not provided</p></td>
     </tr>
     <tr>
-      <th>bCr</th>
-      <td><p>Baseline creatinine
+      <th>dttm</th>
+      <td><p>DateTime
+column name, or vector if <code>.data</code> not provided</p></td>
+    </tr>
+    <tr>
+      <th>pt_id</th>
+      <td><p>Patient ID
 column name, or vector if <code>.data</code> not provided</p></td>
     </tr>
     </table>
