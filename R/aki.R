@@ -176,7 +176,7 @@ aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
     dplyr::arrange(.data$pt_id, .data$dttm) %>%
     dplyr::group_by(.data$pt_id) %>%
     dplyr::mutate(c_UO = cumsum(.data$UO)) %>%
-    combn_changes(dttm, c_UO, pt_id) %>%
+    combn_changes("dttm", "c_UO", "pt_id") %>%
     dplyr::mutate(
       UOph = .data$D.c_UO / as.numeric(.data$D.dttm, units = "hours"),
       .aki = dplyr::case_when(

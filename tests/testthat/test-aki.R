@@ -142,3 +142,23 @@ test_that("aki_UO() for data.frame", {
   expect_identical(aki_UO(aki_UO_test_rand_df(), "UO_", "dttm_", "pt_id_"), aki_UO_test_rand_df()$exp_aki)
   expect_identical(aki_UO(aki_UO_test_rand_df(), UO_, dttm_, pt_id_), aki_UO_test_rand_df()$exp_aki)
 })
+
+test_that("aki_UO() for units vector", {
+  UO_ <- aki_UO_test_rand_df()$UO_
+  dttm_ <- aki_UO_test_rand_df()$dttm_
+  pt_id_ <- aki_UO_test_rand_df()$pt_id_
+  expect_identical(aki_UO(UO_, dttm_, pt_id_), aki_UO_test_rand_df()$exp_aki)
+})
+
+test_that("aki_UO() for dplyr::mutate on units", {
+  df <- aki_UO_test_rand_df() %>%
+    dplyr::mutate(aki = aki_UO(UO_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_UO_test_rand_df()$exp_aki)
+})
+
+test_that("aki_UO() for dplyr::mutate on numeric", {
+  df <- aki_UO_test_rand_df() %>%
+    dplyr::mutate(dplyr::across(where(is.numeric), as.numeric)) %>%
+    dplyr::mutate(aki = aki_UO(UO_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_UO_test_rand_df()$exp_aki)
+})
