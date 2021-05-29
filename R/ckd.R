@@ -101,28 +101,34 @@ eGFR.numeric <- function(
                          black = NULL,
                          pediatric = NULL,
                          ...) {
-  print("hi")
+  ellipsis::check_dots_used()
+  if (is.null(Age) & is.null(pediatric)) {
+    warning("Either Age or pediatric should be provided. Assuming adult patients.")
+    pediatric <- FALSE
+  } else if (!is.null(Age) & is.null(pediatric)) {
+    pediatric <- Age < 18
+  } else if (is.null(Age) & !is.null(pediatric)) {
+
+  } else {
+    if (!all.equal(pediatric, Age < 18)) {
+      stop(paste("Consistencies found between pediatric and age colums.", all.equal(pediatric, Age < 18)))
+    }
+  }
+
+  # FIXME: Can't use case_when since it will try to evaluate all outcomes...
+
+  return(pediatric)
+
+  dplyr::case_when(
+    !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
+    !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
+    !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
+    pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr(SCr, height),
+    pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
+    pediatric & is.null(SCr) & !is.null(SCysC) ~ GFR.child.SCysC(SCysC),
+    TRUE ~ NA_real_
+  )
 }
-
-
-# eGFR <- function(SCr = NULL,
-#                  SCysC = NULL,
-#                  Age = NULL,
-#                  height = NULL,
-#                  BUN = NULL,
-#                  male = FALSE,
-#                  black = FALSE,
-#                  pediatric = FALSE) {
-#   dplyr::case_when(
-#     !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
-#     !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
-#     !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
-#     pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr(SCr, height),
-#     pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
-#     pediatric & is.null(SCr) & !is.null(SCysC) ~ GFR.child.SCysC(SCysC),
-#     TRUE ~ NA_real_
-#   )
-# }
 
 # Overall GFR staging
 
