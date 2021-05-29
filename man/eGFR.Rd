@@ -3,6 +3,8 @@
 \name{eGFR}
 \alias{eGFR}
 \alias{eGFR.default}
+\alias{eGFR.units}
+\alias{eGFR.numeric}
 \title{GFR Estimation}
 \usage{
 eGFR(...)
@@ -16,7 +18,32 @@ eGFR(...)
   BUN = NULL,
   male = NULL,
   black = NULL,
-  pediatric = NULL
+  pediatric = NULL,
+  ...
+)
+
+\method{eGFR}{units}(
+  SCr = NULL,
+  SCysC = NULL,
+  Age = NULL,
+  height = NULL,
+  BUN = NULL,
+  male = NULL,
+  black = NULL,
+  pediatric = NULL,
+  ...
+)
+
+\method{eGFR}{numeric}(
+  SCr = NULL,
+  SCysC = NULL,
+  Age = NULL,
+  height = NULL,
+  BUN = NULL,
+  male = NULL,
+  black = NULL,
+  pediatric = NULL,
+  ...
 )
 }
 \arguments{
