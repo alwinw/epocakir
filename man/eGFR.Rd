@@ -2,38 +2,55 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR}
 \alias{eGFR}
+\alias{eGFR.default}
 \title{GFR Estimation}
 \usage{
-eGFR(
+eGFR(...)
+
+\method{eGFR}{default}(
+  .data,
   SCr = NULL,
   SCysC = NULL,
   Age = NULL,
   height = NULL,
   BUN = NULL,
-  male = FALSE,
-  black = FALSE,
-  pediatric = FALSE
+  male = NULL,
+  black = NULL,
+  pediatric = NULL
 )
 }
 \arguments{
-\item{SCr}{(units) Serum creatinine, converted to mg/dl}
+\item{...}{Further optional arguments}
 
-\item{SCysC}{(units) Serum cystatin C, converted to mg/l}
+\item{.data}{(data.frame) A data.frame, optional}
 
-\item{Age}{(units) Age of patient, converted to years}
+\item{SCr}{Serum creatinine
+column name, or vector if \code{.data} not provided}
 
-\item{height}{(units) Height of patient, converted to m}
+\item{SCysC}{Serum Cystatin C
+column name, or vector if \code{.data} not provided}
 
-\item{BUN}{(units) Blood urea nitrogen, converted to mg/dl}
+\item{Age}{Age of patient
+column name, or vector if \code{.data} not provided}
 
-\item{male}{(logical) Male or not}
+\item{height}{Height of patient
+column name, or vector if \code{.data} not provided}
 
-\item{black}{(logical) Black race or not}
+\item{BUN}{Blood urea nitrogen
+column name, or vector if \code{.data} not provided}
 
-\item{pediatric}{(logical) Paediatric or not}
+\item{male}{Male or not
+column name, or vector if \code{.data} not provided}
+
+\item{black}{Black race or not
+column name, or vector if \code{.data} not provided}
+
+\item{pediatric}{(logical) Paediatric or not
+column name, or vector if \code{.data} not provided}
 }
 \value{
-(units) Estimated glomerular filtration rate (eGFR) in ml/min/1.73m2
+(units) Estimated glomerular filtration rate (eGFR)
+of the same type provided (numeric or units in ml/min/1.73m2)
 }
 \description{
 \itemize{
