@@ -124,30 +124,78 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     dplyr::pull(.data$.aki)
 }
 
-
+#' AKI Staging based on urine output
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param UO Urine output
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return (ordered factor) AKI stages
+#' @export
+#'
+#' @examples
+#' print("todo")
 aki_UO <- function(...) {
   UseMethod("aki_UO")
 }
 
-aki_UO.default <- function(.data, dttm, UO, ...) {
+#' @rdname aki_UO
+#' @export
+aki_UO.default <- function(.data, UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_UO(
+    .data[[rlang::as_name(rlang::enquo(UO))]],
     .data[[rlang::as_name(rlang::enquo(dttm))]],
-    .data[[rlang::as_name(rlang::enquo(UO))]]
+    .data[[rlang::as_name(rlang::enquo(pt_id))]]
   )
 }
 
-aki_UO.units <- function(dttm, UO, ...) {
+#' @rdname aki_UO
+#' @export
+aki_UO.units <- function(UO, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
   aki_UO(
+    as_metric(UO = UO, value_only = T),
     dttm,
-    as_metric(UO = UO, value_only = T)
+    pt_id
   )
 }
 
-aki_UO.numeric <- function(dttm, UO, ...) {
-  print("todo")
-  # TODO need to generate individual UO changes
-  # then determine average urine output
+#' @rdname aki_UO
+#' @export
+aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
+  ellipsis::check_dots_used()
+  UO_df <- data.frame(UO = UO, dttm = dttm, pt_id = pt_id)
+
+  UO_changes <- UO_df %>%
+    dplyr::arrange(.data$pt_id, .data$dttm) %>%
+    dplyr::group_by(.data$pt_id) %>%
+    dplyr::mutate(c_UO = cumsum(.data$UO)) %>%
+    combn_changes("dttm", "c_UO", "pt_id") %>%
+    dplyr::mutate(
+      UOph = .data$D.c_UO / as.numeric(.data$D.dttm, units = "hours"),
+      .aki = dplyr::case_when(
+        UOph == 0 & D.dttm >= lubridate::duration(hours = 12) ~ aki_stages[3],
+        UOph < 0.3 & D.dttm >= lubridate::duration(hours = 24) ~ aki_stages[3],
+        UOph < 0.5 & D.dttm >= lubridate::duration(hours = 12) ~ aki_stages[2],
+        UOph < 0.5 & D.dttm >= lubridate::duration(hours = 6) ~ aki_stages[1],
+        TRUE ~ NA_integer_
+      )
+    ) %>%
+    dplyr::group_by(.data$pt_id, .data$dttm) %>%
+    dplyr::slice_max(.data$.aki, with_ties = FALSE) %>%
+    dplyr::ungroup()
+
+  dplyr::left_join(
+    UO_df, UO_changes,
+    by = c("pt_id", "dttm")
+  ) %>%
+    dplyr::pull(".aki")
 }
 
 

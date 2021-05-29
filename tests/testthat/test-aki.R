@@ -71,6 +71,11 @@ aki_SCr_test_raw_df <- function(env = parent.frame()) {
     bCr_ = c(
       rep(units::set_units(1.8, "mg/dl"), 3 + 3),
       rep(units::set_units(3.0, "mg/dl"), 3)
+    ),
+    exp_aki = vctrs::vec_c(
+      NA,
+      rep(aki_stages[1], 2),
+      rep(NA, 6)
     )
   )
 }
@@ -79,41 +84,81 @@ aki_SCr_test_rand_df <- function(env = parent.frame()) {
   aki_SCr_test_raw_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5), ]
 }
 
-aki_SCr_exp_df <- function(env = parent.frame()) {
-  # TODO: DOUBLE CHECK THIS
-  vctrs::vec_c(
-    NA,
-    rep(aki_stages[1], 2),
-    rep(NA, 6)
-  )
-}
-
-aki_SCr_exp_rand_df <- function(env = parent.frame()) {
-  aki_SCr_exp_df()[c(4, 6, 3, 8, 1, 2, 7, 9, 5)]
-}
-
-
 test_that("aki_SCr() for data.frame", {
-  expect_identical(aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_"), aki_SCr_exp_rand_df())
-  expect_identical(aki_SCr(aki_SCr_test_rand_df(), SCr_, dttm_, pt_id_), aki_SCr_exp_rand_df())
+  expect_identical(aki_SCr(aki_SCr_test_rand_df(), "SCr_", "dttm_", "pt_id_"), aki_SCr_test_rand_df()$exp_aki)
+  expect_identical(aki_SCr(aki_SCr_test_rand_df(), SCr_, dttm_, pt_id_), aki_SCr_test_rand_df()$exp_aki)
 })
 
 test_that("aki_SCr() for units vector", {
   SCr_ <- aki_SCr_test_rand_df()$SCr_
   dttm_ <- aki_SCr_test_rand_df()$dttm_
   pt_id_ <- aki_SCr_test_rand_df()$pt_id_
-  expect_identical(aki_SCr(SCr_, dttm_, pt_id_), aki_SCr_exp_rand_df())
+  expect_identical(aki_SCr(SCr_, dttm_, pt_id_), aki_SCr_test_rand_df()$exp_aki)
 })
 
 test_that("aki_SCr() for dplyr::mutate on units", {
   df <- aki_SCr_test_rand_df() %>%
     dplyr::mutate(aki = aki_SCr(SCr_, dttm_, pt_id_))
-  expect_identical(df$aki, aki_SCr_exp_rand_df())
+  expect_identical(df$aki, aki_SCr_test_rand_df()$exp_aki)
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
   df <- aki_SCr_test_rand_df() %>%
     dplyr::mutate(dplyr::across(where(is.numeric), as.numeric)) %>%
     dplyr::mutate(aki = aki_SCr(SCr_, dttm_, pt_id_))
-  expect_identical(df$aki, aki_SCr_exp_rand_df())
+  expect_identical(df$aki, aki_SCr_test_rand_df()$exp_aki)
+})
+
+
+aki_UO_test_raw_df <- function(env = parent.frame()) {
+  tibble::tribble(
+    ~pt_id_, ~dttm_, ~UO_, ~exp_aki,
+    1, "2020-10-18 09:00:00", 8, NA_integer_,
+    1, "2020-10-18 15:00:00", 5, NA_integer_,
+    1, "2020-10-18 21:00:00", 2, 1,
+    1, "2020-10-19 01:00:00", 1, 1,
+    1, "2020-10-19 03:00:00", 1, 2,
+    1, "2020-10-19 09:00:00", 1, 2,
+    1, "2020-10-19 15:00:00", 1, 3,
+    1, "2020-10-19 21:00:00", 1, 3,
+    2, "2020-10-18 12:00:00", 2, NA_integer_,
+    2, "2020-10-18 18:00:00", 0, 1,
+    2, "2020-10-19 00:00:00", 0, 3,
+    2, "2020-10-19 06:00:00", 0, 3,
+  ) %>%
+    dplyr::mutate(
+      dttm_ = lubridate::as_datetime(dttm_, tz = "Australia/Melbourne"),
+      UO_ = units::set_units(UO_, "ml/kg"),
+      exp_aki = aki_stages[exp_aki]
+    )
+}
+
+aki_UO_test_rand_df <- function(env = parent.frame()) {
+  aki_UO_test_raw_df()[c(10, 9, 5, 8, 3, 11, 6, 2, 4, 12, 7, 1), ]
+}
+
+
+test_that("aki_UO() for data.frame", {
+  expect_identical(aki_UO(aki_UO_test_rand_df(), "UO_", "dttm_", "pt_id_"), aki_UO_test_rand_df()$exp_aki)
+  expect_identical(aki_UO(aki_UO_test_rand_df(), UO_, dttm_, pt_id_), aki_UO_test_rand_df()$exp_aki)
+})
+
+test_that("aki_UO() for units vector", {
+  UO_ <- aki_UO_test_rand_df()$UO_
+  dttm_ <- aki_UO_test_rand_df()$dttm_
+  pt_id_ <- aki_UO_test_rand_df()$pt_id_
+  expect_identical(aki_UO(UO_, dttm_, pt_id_), aki_UO_test_rand_df()$exp_aki)
+})
+
+test_that("aki_UO() for dplyr::mutate on units", {
+  df <- aki_UO_test_rand_df() %>%
+    dplyr::mutate(aki = aki_UO(UO_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_UO_test_rand_df()$exp_aki)
+})
+
+test_that("aki_UO() for dplyr::mutate on numeric", {
+  df <- aki_UO_test_rand_df() %>%
+    dplyr::mutate(dplyr::across(where(is.numeric), as.numeric)) %>%
+    dplyr::mutate(aki = aki_UO(UO_, dttm_, pt_id_))
+  expect_identical(df$aki, aki_UO_test_rand_df()$exp_aki)
 })

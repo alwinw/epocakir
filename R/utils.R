@@ -43,7 +43,7 @@ conversion_factors <- tibble::tribble(
   "Glc", "mg/dl", 180.156, "Glucose",
   "Lac", "mg/dl", 90.08, "Lactate (plasma)",
   "STob", "ug/ml", 467.5, "Tobramycin (serum, plasma)",
-  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline mg/ml. Correct in CKD
+  "Urea", "mg/dl", 60.06, "Urea (plasma)", # changed from AKI 2012 Guideline mg/ml. Correct in CKD Guideline
   # 2012 CKD Guideline
   "SAlb", "g/dl", NA, "Albumin (serum)",
   "Hb", "g/dl", NA, "Hemoglobin",
@@ -56,7 +56,8 @@ conversion_factors <- tibble::tribble(
   "eGFR", "mL/min/1.73m2", NA, "Estimated glomerular filtration rate",
   "SCysC", "mg/l", NA, "Cystatin C (serum)",
   "AER", "mg/day", NA, "Albumin excretion rate",
-  "ACR", "mg/g", NA, "Albumin-to-creatinine ratio"
+  "ACR", "mg/g", NA, "Albumin-to-creatinine ratio",
+  "UO", "ml/kg", NA, "Urine Output"
 ) %>%
   dplyr::mutate(mol_weight = units::set_units(mol_weight, "g/mol"))
 
