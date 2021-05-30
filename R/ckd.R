@@ -5,37 +5,163 @@
 #' - 2012 CKD-EPI creatinine-cystatin C equation
 #' - Pediatric equations
 #'
-#' @param SCr (units) Serum creatinine, converted to mg/dl
-#' @param SCysC (units) Serum cystatin C, converted to mg/l
-#' @param Age (units) Age of patient, converted to years
-#' @param height (units) Height of patient, converted to m
-#' @param BUN (units) Blood urea nitrogen, converted to mg/dl
-#' @param male (logical) Male or not
-#' @param black (logical) Black race or not
-#' @param pediatric (logical) Paediatric or not
+#' - Automatic selection of the best equation to use
 #'
-#' @return (units) Estimated glomerular filtration rate (eGFR) in ml/min/1.73m2
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param SCysC Serum Cystatin C
+#'   column name, or vector if `.data` not provided
+#' @param Age Age of patient
+#'   column name, or vector if `.data` not provided
+#' @param height Height of patient
+#'   column name, or vector if `.data` not provided
+#' @param BUN Blood urea nitrogen
+#'   column name, or vector if `.data` not provided
+#' @param male Male or not
+#'   column name, or vector if `.data` not provided
+#' @param black Black race or not
+#'   column name, or vector if `.data` not provided
+#' @param pediatric (logical) Paediatric or not
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @return (units) Estimated glomerular filtration rate (eGFR)
+#'   of the same type provided (numeric or units in ml/min/1.73m2)
 #' @export
 #'
 #' @examples
 #' print("todo")
-eGFR <- function(SCr = NULL,
-                 SCysC = NULL,
-                 Age = NULL,
-                 height = NULL,
-                 BUN = NULL,
-                 male = FALSE,
-                 black = FALSE,
-                 pediatric = FALSE) {
-  dplyr::case_when(
-    !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
-    !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
-    !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
-    pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr(SCr, height),
-    pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
-    pediatric & is.null(SCr) & !is.null(SCysC) ~ GFR.child.SCysC(SCysC),
-    TRUE ~ NA_real_
+eGFR <- function(...) {
+  UseMethod("eGFR")
+}
+
+
+eGFR_internal <- function(
+                          SCr,
+                          SCysC,
+                          Age,
+                          height,
+                          BUN,
+                          male,
+                          black,
+                          pediatric) {
+  if (!is.na(SCr) & is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCr(SCr, Age, male, black)
+  } else if (is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCysC(SCysC, Age, male)
+  } else if (!is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)
+  } else if (!is.na(SCr) & !is.na(height) & is.na(BUN) & pediatric) {
+    eGFR_child_SCr(SCr, height)
+  } else if (!is.na(SCr) & !is.na(height) & !is.na(BUN) & pediatric) {
+    eGFR_child_SCr_BUN(SCr, height, BUN)
+  } else if (!is.na(SCysC) & pediatric) {
+    eGFR_child_SCysC(SCysC)
+  } else {
+    warning("Could not find an appropriate eGFR() formula to use")
+    NA_real_
+  }
+}
+
+
+#' @rdname eGFR
+#' @export
+eGFR.default <- function(.data,
+                         SCr = NULL,
+                         SCysC = NULL,
+                         Age = NULL,
+                         height = NULL,
+                         BUN = NULL,
+                         male = NULL,
+                         black = NULL,
+                         pediatric = NULL,
+                         ...) {
+  ellipsis::check_dots_used()
+  # FIXME !is.null won't work if SCr is a symbol...
+  if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
+  if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
+  if (!is.null(Age)) Age <- .data[[rlang::as_name(rlang::enquo(Age))]]
+  if (!is.null(height)) height <- .data[[rlang::as_name(rlang::enquo(height))]]
+  if (!is.null(BUN)) BUN <- .data[[rlang::as_name(rlang::enquo(BUN))]]
+  if (!is.null(male)) male <- .data[[rlang::as_name(rlang::enquo(male))]]
+  if (!is.null(black)) black <- .data[[rlang::as_name(rlang::enquo(black))]]
+  if (!is.null(pediatric)) pediatric <- .data[[rlang::as_name(rlang::enquo(pediatric))]]
+
+  eGFR(
+    SCr = SCr, SCysC = SCysC,
+    Age = Age, height = height, BUN = BUN,
+    male = male, black = black, pediatric = pediatric
   )
+}
+
+#' @rdname eGFR
+#' @export
+eGFR.units <- function(
+                       SCr = NULL,
+                       SCysC = NULL,
+                       Age = NULL,
+                       height = NULL,
+                       BUN = NULL,
+                       male = NULL,
+                       black = NULL,
+                       pediatric = NULL,
+                       ...) {
+  ellipsis::check_dots_used()
+  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  if (!is.null(SCysC)) SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  if (!is.null(Age)) Age <- as_metric(Age = Age, value_only = TRUE)
+  if (!is.null(height)) height <- as_metric(height = height, value_only = TRUE)
+  if (!is.null(BUN)) BUN <- as_metric(BUN = BUN, value_only = TRUE)
+
+  units::set_units(
+    eGFR(
+      SCr = SCr, SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    ), "mL/min/1.73m2"
+  )
+}
+
+#' @rdname eGFR
+#' @export
+eGFR.numeric <- function(
+                         SCr = NULL,
+                         SCysC = NULL,
+                         Age = NULL,
+                         height = NULL,
+                         BUN = NULL,
+                         male = NULL,
+                         black = NULL,
+                         pediatric = NULL,
+                         ...) {
+  ellipsis::check_dots_used()
+  cols <- c(SCr = NA, SCysC = NA, Age = NA, height = NA, BUN = NA, male = NA, black = NA, pediatric = NA)
+  df <- cbind(SCr, SCysC, Age, height, BUN, male, black, pediatric) %>%
+    tibble::as_tibble(.data)
+  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)]) %>%
+    dplyr::mutate(dplyr::across(c(male, black, pediatric), as.logical))
+  # Unsure why add_column can't be %>% chained in with names(.data)
+
+  if (is.null(Age) & is.null(pediatric)) {
+    warning("Either Age or pediatric should be provided. Assuming adult patients.")
+    df <- dplyr::mutate(df, pediatric = FALSE)
+  } else if (!is.null(Age) & is.null(pediatric)) {
+    df <- dplyr::mutate(df, pediatric = Age < 18)
+  } else if (is.null(Age) & !is.null(pediatric)) {
+    df <- dplyr::mutate(df, pediatric = !!pediatric)
+  } else {
+    check_ped_ok <- all.equal(df$Age < 18, df$pediatric)
+    if (is.character(check_ped_ok)) {
+      stop(paste("Inconsistencies found between pediatric and age colums:", check_ped_ok))
+    }
+    df <- dplyr::mutate(df, pediatric = !!pediatric)
+  }
+
+  df %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(eGFR = eGFR_internal(SCr, SCysC, Age, height, BUN, male, black, pediatric)) %>%
+    dplyr::pull(eGFR)
 }
 
 # Overall GFR staging
