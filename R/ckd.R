@@ -5,6 +5,8 @@
 #' - 2012 CKD-EPI creatinine-cystatin C equation
 #' - Pediatric equations
 #'
+#' - Automatic selection of the best equation to use
+#'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
 #'   column name, or vector if `.data` not provided
@@ -44,18 +46,22 @@ eGFR_internal <- function(
                           male,
                           black,
                           pediatric) {
-  dplyr::case_when(
-    !pediatric & !is.na(SCr) & is.na(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
-    !pediatric & is.na(SCr) & !is.na(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
-    !pediatric & !is.na(SCr) & !is.na(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
-    pediatric & !is.na(SCr) & !is.na(height) & is.na(BUN) & is.na(SCysC) ~ eGFR_child_SCr(SCr, height),
-    pediatric & !is.na(SCr) & !is.na(height) & !is.na(BUN) & is.na(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
-    pediatric & is.na(SCr) & !is.na(SCysC) ~ GFR.child.SCysC(SCysC),
-    TRUE ~ {
-      warning("Could not find an appropriate eGFR() formulat to use")
-      NA_real_
-    }
-  )
+  if (!is.na(SCr) & is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCr(SCr, Age, male, black)
+  } else if (is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCysC(SCysC, Age, male)
+  } else if (!is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+    eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)
+  } else if (!is.na(SCr) & !is.na(height) & is.na(BUN) & pediatric) {
+    eGFR_child_SCr(SCr, height)
+  } else if (!is.na(SCr) & !is.na(height) & !is.na(BUN) & pediatric) {
+    eGFR_child_SCr_BUN(SCr, height, BUN)
+  } else if (!is.na(SCysC) & pediatric) {
+    eGFR_child_SCysC(SCysC)
+  } else {
+    warning("Could not find an appropriate eGFR() formula to use")
+    NA_real_
+  }
 }
 
 
@@ -131,6 +137,7 @@ eGFR.numeric <- function(
   df <- cbind(SCr, SCysC, Age, height, BUN, male, black, pediatric) %>%
     tibble::as_tibble(.data)
   df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)])
+  # Unsure why add_column can't be %>% chained in with names(.data)
 
   if (is.null(Age) & is.null(pediatric)) {
     warning("Either Age or pediatric should be provided. Assuming adult patients.")

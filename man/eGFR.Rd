@@ -87,6 +87,11 @@ of the same type provided (numeric or units in ml/min/1.73m2)
 \item Pediatric equations
 }
 }
+\details{
+\itemize{
+\item Automatic selection of the best equation to use
+}
+}
 \examples{
 print("todo")
 }
