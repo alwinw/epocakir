@@ -34,33 +34,46 @@ eGFR <- function(...) {
   UseMethod("eGFR")
 }
 
-#' @rdname eGFR
-#' @export
-eGFR.default <- function(.data,
-                         SCr = NULL,
-                         SCysC = NULL,
-                         Age = NULL,
-                         height = NULL,
-                         BUN = NULL,
-                         male = NULL,
-                         black = NULL,
-                         pediatric = NULL,
-                         ...) {
-  ellipsis::check_dots_used()
-  if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
-  if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
-  if (!is.null(Age)) Age <- .data[[rlang::as_name(rlang::enquo(Age))]]
-  if (!is.null(height)) height <- .data[[rlang::as_name(rlang::enquo(height))]]
-  if (!is.null(BUN)) BUN <- .data[[rlang::as_name(rlang::enquo(BUN))]]
-  if (!is.null(male)) male <- .data[[rlang::as_name(rlang::enquo(male))]]
-  if (!is.null(black)) black <- .data[[rlang::as_name(rlang::enquo(black))]]
-  if (!is.null(pediatric)) pediatric <- .data[[rlang::as_name(rlang::enquo(pediatric))]]
 
-  eGFR(
-    SCr = SCr, SCysC = SCysC,
-    Age = Age, height = height, BUN = BUN,
-    male = male, black = black, pediatric = pediatric
-  )
+eGFR_internal <- function(
+                          SCr = NULL,
+                          SCysC = NULL,
+                          Age = NULL,
+                          height = NULL,
+                          BUN = NULL,
+                          male = NULL,
+                          black = NULL,
+                          pediatric = NULL) {
+
+
+                            #' @rdname eGFR
+  #' @export
+  eGFR.default <- function(.data,
+                           SCr = NULL,
+                           SCysC = NULL,
+                           Age = NULL,
+                           height = NULL,
+                           BUN = NULL,
+                           male = NULL,
+                           black = NULL,
+                           pediatric = NULL,
+                           ...) {
+    ellipsis::check_dots_used()
+    if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
+    if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
+    if (!is.null(Age)) Age <- .data[[rlang::as_name(rlang::enquo(Age))]]
+    if (!is.null(height)) height <- .data[[rlang::as_name(rlang::enquo(height))]]
+    if (!is.null(BUN)) BUN <- .data[[rlang::as_name(rlang::enquo(BUN))]]
+    if (!is.null(male)) male <- .data[[rlang::as_name(rlang::enquo(male))]]
+    if (!is.null(black)) black <- .data[[rlang::as_name(rlang::enquo(black))]]
+    if (!is.null(pediatric)) pediatric <- .data[[rlang::as_name(rlang::enquo(pediatric))]]
+
+    eGFR(
+      SCr = SCr, SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    )
+  }
 }
 
 #' @rdname eGFR
@@ -89,6 +102,9 @@ eGFR.units <- function(
   )
 }
 
+# Instead, maybe consider sending everything to eGFR.dataframe
+# With dataframe, at least I can use rowwise()
+
 #' @rdname eGFR
 #' @export
 eGFR.numeric <- function(
@@ -102,20 +118,54 @@ eGFR.numeric <- function(
                          pediatric = NULL,
                          ...) {
   ellipsis::check_dots_used()
+
+  # FIXME: Age < 18 only works on numeric vectors, so can only work in eGFR.numeric
+  # FIXME: how to create .df from lots of NULLs...
+
   if (is.null(Age) & is.null(pediatric)) {
     warning("Either Age or pediatric should be provided. Assuming adult patients.")
-    pediatric <- FALSE
+    df <- .data %>%
+      dplyr::mutate(pediatric = FALSE)
   } else if (!is.null(Age) & is.null(pediatric)) {
-    pediatric <- Age < 18
+    df <- .data %>%
+      dplyr::mutate(pediatric = Age < 18)
   } else if (is.null(Age) & !is.null(pediatric)) {
-
+    df <- .data %>%
+      dplyr::mutate(pediatric = pediatric)
   } else {
-    if (!all.equal(pediatric, Age < 18)) {
-      stop(paste("Consistencies found between pediatric and age colums.", all.equal(pediatric, Age < 18)))
+    check_ped_ok <- all.equal(.data[[Age]] < 18, .data[[pediatric]])
+    if (check_ped_ok != TRUE) {
+      stop(paste("Inconsistencies found between pediatric and age colums:", check_ped_ok))
     }
+    df <- .data %>%
+      dplyr::mutate(pediatric = pediatric)
   }
 
-  # FIXME: Can't use case_when since it will try to evaluate all outcomes...
+  df %>%
+    dplyr::select(dplyr::any_of(c(SCr, SCysC, Age, height, BUN, male, black, pediatric))) %>%
+    dplyr::rowwise() %>%
+    {
+      if (!.data & !is.null(SCr) & is.null(SCysC)) {
+        dplyr::mutate(eGFR = 1)
+      } else {
+        dplyr::mutate(eGFR = 2)
+      }
+    }
+
+
+    dplyr::mutate(
+      eGFR = {
+        if (!pediatric & !is.null(SCr) & is.null(SCysC)) {
+          1 # eGFR_adult_SCr(SCr, Age, male, black)
+        } else if (!pediatric & is.null(SCr) & !is.null(SCysC)) {
+          2 # eGFR_adult_SCysC(SCysC, Age, male)
+        } else {
+          NA_real_
+        }
+      }
+    )
+
+
 
   return(pediatric)
 

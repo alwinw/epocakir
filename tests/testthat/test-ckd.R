@@ -1,3 +1,10 @@
+eGFR_df <- function(env = parent.frame()) {
+  tibble::tribble(
+    ~SCr_, ~ScysC_, ~Age_, ~height_, ~BUN_, ~male_, ~black_, ~pediatric_,
+    0.5, 0.4, 20, NA, NA, FALSE, FALSE, NA
+  )
+}
+
 eGFR_adult_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~SCr, ~SCysC, ~Age, ~male, ~black,
@@ -37,6 +44,11 @@ eGFR_child_df <- function(env = parent.frame()) {
 eGFR_tol <- function(env = parent.frame()) {
   units::set_units(0.05, "mL/min/1.73m2")
 }
+
+test_that("eGFR", {
+  eGFR(eGFR_df(), SCr = "SCr_", Age = "Age_", male = "male_", black = "black_")
+})
+
 
 # TODO consider adding a check for unequal vec lengths
 test_that("eGFR_adult_SCr()", {
