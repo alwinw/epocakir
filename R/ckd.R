@@ -78,6 +78,7 @@ eGFR.default <- function(.data,
                          pediatric = NULL,
                          ...) {
   ellipsis::check_dots_used()
+  # FIXME !is.null won't work if SCr is a symbol...
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
   if (!is.null(Age)) Age <- .data[[rlang::as_name(rlang::enquo(Age))]]
@@ -113,10 +114,12 @@ eGFR.units <- function(
   if (!is.null(height)) height <- as_metric(height = height, value_only = TRUE)
   if (!is.null(BUN)) BUN <- as_metric(BUN = BUN, value_only = TRUE)
 
-  eGFR(
-    SCr = SCr, SCysC = SCysC,
-    Age = Age, height = height, BUN = BUN,
-    male = male, black = black, pediatric = pediatric
+  units::set_units(
+    eGFR(
+      SCr = SCr, SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    ), "mL/min/1.73m2"
   )
 }
 
@@ -136,7 +139,8 @@ eGFR.numeric <- function(
   cols <- c(SCr = NA, SCysC = NA, Age = NA, height = NA, BUN = NA, male = NA, black = NA, pediatric = NA)
   df <- cbind(SCr, SCysC, Age, height, BUN, male, black, pediatric) %>%
     tibble::as_tibble(.data)
-  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)])
+  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)]) %>%
+    dplyr::mutate(dplyr::across(c(male, black, pediatric), as.logical))
   # Unsure why add_column can't be %>% chained in with names(.data)
 
   if (is.null(Age) & is.null(pediatric)) {
@@ -147,8 +151,8 @@ eGFR.numeric <- function(
   } else if (is.null(Age) & !is.null(pediatric)) {
     df <- dplyr::mutate(df, pediatric = !!pediatric)
   } else {
-    check_ped_ok <- all.equal(.data[[Age]] < 18, .data[[pediatric]])
-    if (check_ped_ok != TRUE) {
+    check_ped_ok <- all.equal(df$Age < 18, df$pediatric)
+    if (is.character(check_ped_ok)) {
       stop(paste("Inconsistencies found between pediatric and age colums:", check_ped_ok))
     }
     df <- dplyr::mutate(df, pediatric = !!pediatric)
@@ -156,7 +160,8 @@ eGFR.numeric <- function(
 
   df %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(eGFR = eGFR_internal(SCr, SCysC, Age, height, BUN, male, black, pediatric))
+    dplyr::mutate(eGFR = eGFR_internal(SCr, SCysC, Age, height, BUN, male, black, pediatric)) %>%
+    dplyr::pull(eGFR)
 }
 
 # Overall GFR staging

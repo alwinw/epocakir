@@ -1,10 +1,3 @@
-eGFR_df <- function(env = parent.frame()) {
-  tibble::tribble(
-    ~SCr_, ~ScysC_, ~Age_, ~height_, ~BUN_, ~male_, ~black_, ~pediatric_,
-    0.5, 0.4, 20, NA, NA, FALSE, FALSE, NA
-  )
-}
-
 eGFR_adult_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~SCr, ~SCysC, ~Age, ~male, ~black,
@@ -104,16 +97,77 @@ eGFR_child_df <- function(env = parent.frame()) {
     ))
 }
 
+eGFR_df <- function(env = parent.frame()) {
+  dplyr::bind_rows(eGFR_adult_df(), eGFR_child_df()) %>%
+    tidyr::pivot_longer(
+      dplyr::starts_with("eGFR"),
+      names_to = "eGFR_calc_type",
+      values_to = "eGFR"
+    ) %>%
+    dplyr::mutate(
+      pediatric = grepl("child", eGFR_calc_type),
+      SCr = dplyr::if_else(grepl("SCr", eGFR_calc_type), SCr, NA_real_),
+      SCysC = dplyr::if_else(grepl("SCysC", eGFR_calc_type), SCysC, NA_real_),
+      BUN = dplyr::if_else(grepl("BUN", eGFR_calc_type), BUN, NA_real_),
+      Age = dplyr::if_else(pediatric, units::set_units(10, "years"), Age)
+    ) %>%
+    dplyr::filter(!is.na(eGFR)) %>%
+    dplyr::rename_with(~ paste0(.x, "_"))
+}
+
 eGFR_tol <- function(env = parent.frame()) {
   units::set_units(0.05, "mL/min/1.73m2")
 }
 
-test_that("eGFR", {
-  eGFR(eGFR_df(), SCr = "SCr_", Age = "Age_", male = "male_", black = "black_")
+test_that("eGFR() on full eGFR_df()", {
+  ep <- eGFR_df()$eGFR_
+
+  df_str <- eGFR(eGFR_df(),
+    SCr = "SCr_", SCysC = "SCysC_",
+    Age = "Age_", height = "height_", BUN = "BUN_",
+    male = "male_", black = "black_", pediatric = "pediatric_"
+  )
+  # df_sym <- eGFR(eGFR_df(),
+  #   SCr = SCr_, SCysC = SCysC_,
+  #   Age = Age_, height = height_, BUN = BUN_,
+  #   male = male_, black = black_, pediatric = pediatric_
+  # )
+  df_mut <- eGFR_df() %>%
+    dplyr::mutate(eGFR = eGFR(
+      SCr = SCr_, SCysC = SCysC_,
+      Age = Age_, height = height_, BUN = BUN_,
+      male = male_, black = black_, pediatric = pediatric_
+    )) %>%
+    dplyr::pull(eGFR)
+  df_uvec <- eGFR(
+    eGFR_df()$SCr_,
+    eGFR_df()$SCysC_,
+    eGFR_df()$Age_,
+    eGFR_df()$height_,
+    eGFR_df()$BUN_,
+    eGFR_df()$male_,
+    eGFR_df()$black_,
+    eGFR_df()$pediatric_
+  )
+  df_nvec <- eGFR(
+    as.numeric(eGFR_df()$SCr_),
+    as.numeric(eGFR_df()$SCysC_),
+    as.numeric(eGFR_df()$Age_),
+    as.numeric(eGFR_df()$height_),
+    as.numeric(eGFR_df()$BUN_),
+    as.numeric(eGFR_df()$male_),
+    as.numeric(eGFR_df()$black_),
+    as.numeric(eGFR_df()$pediatric_)
+  )
+
+  lapply(abs(df_str - ep), expect_lte, eGFR_tol())
+  # lapply(abs(df_sym - ep), expect_lte, eGFR_tol())
+  lapply(abs(df_mut - ep), expect_lte, eGFR_tol())
+  lapply(abs(df_uvec - ep), expect_lte, eGFR_tol())
+  lapply(abs(df_nvec - as.numeric(ep)), expect_lte, as.numeric(eGFR_tol()))
 })
 
 
-# TODO consider adding a check for unequal vec lengths
 test_that("eGFR_adult_SCr()", {
   ep <- eGFR_adult_df()$eGFR_adult_SCr
 
