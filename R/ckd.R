@@ -36,14 +36,26 @@ eGFR <- function(...) {
 
 
 eGFR_internal <- function(
-                          SCr = NULL,
-                          SCysC = NULL,
-                          Age = NULL,
-                          height = NULL,
-                          BUN = NULL,
-                          male = NULL,
-                          black = NULL,
-                          pediatric = NULL) {
+                          SCr,
+                          SCysC,
+                          Age,
+                          height,
+                          BUN,
+                          male,
+                          black,
+                          pediatric) {
+  dplyr::case_when(
+    !pediatric & !is.na(SCr) & is.na(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
+    !pediatric & is.na(SCr) & !is.na(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
+    !pediatric & !is.na(SCr) & !is.na(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
+    pediatric & !is.na(SCr) & !is.na(height) & is.na(BUN) & is.na(SCysC) ~ eGFR_child_SCr(SCr, height),
+    pediatric & !is.na(SCr) & !is.na(height) & !is.na(BUN) & is.na(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
+    pediatric & is.na(SCr) & !is.na(SCysC) ~ GFR.child.SCysC(SCysC),
+    TRUE ~ {
+      warning("Could not find an appropriate eGFR() formulat to use")
+      NA_real_
+    }
+  )
 }
 
 
@@ -102,9 +114,6 @@ eGFR.units <- function(
   )
 }
 
-# Instead, maybe consider sending everything to eGFR.dataframe
-# With dataframe, at least I can use rowwise()
-
 #' @rdname eGFR
 #' @export
 eGFR.numeric <- function(
@@ -118,15 +127,10 @@ eGFR.numeric <- function(
                          pediatric = NULL,
                          ...) {
   ellipsis::check_dots_used()
-
-  # FIXME: Age < 18 only works on numeric vectors, so can only work in eGFR.numeric
-  # FIXME: how to create .df from lots of NULLs...
-
   cols <- c(SCr = NA, SCysC = NA, Age = NA, height = NA, BUN = NA, male = NA, black = NA, pediatric = NA)
-
   df <- cbind(SCr, SCysC, Age, height, BUN, male, black, pediatric) %>%
-    tibble::as_tibble(.data) %>%
-    tibble::add_column(!!!cols[!names(cols) %in% names(.data)])
+    tibble::as_tibble(.data)
+  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)])
 
   if (is.null(Age) & is.null(pediatric)) {
     warning("Either Age or pediatric should be provided. Assuming adult patients.")
@@ -144,42 +148,8 @@ eGFR.numeric <- function(
   }
 
   df %>%
-    dplyr::select(dplyr::any_of(c(SCr, SCysC, Age, height, BUN, male, black, pediatric))) %>%
     dplyr::rowwise() %>%
-    {
-      if (!.data & !is.null(SCr) & is.null(SCysC)) {
-        dplyr::mutate(eGFR = 1)
-      } else {
-        dplyr::mutate(eGFR = 2)
-      }
-    }
-
-
-  dplyr::mutate(
-    eGFR = {
-      if (!pediatric & !is.null(SCr) & is.null(SCysC)) {
-        1 # eGFR_adult_SCr(SCr, Age, male, black)
-      } else if (!pediatric & is.null(SCr) & !is.null(SCysC)) {
-        2 # eGFR_adult_SCysC(SCysC, Age, male)
-      } else {
-        NA_real_
-      }
-    }
-  )
-
-
-
-  return(pediatric)
-
-  dplyr::case_when(
-    !pediatric & !is.null(SCr) & is.null(SCysC) ~ eGFR_adult_SCr(SCr, Age, male, black),
-    !pediatric & is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCysC(SCysC, Age, male),
-    !pediatric & !is.null(SCr) & !is.null(SCysC) ~ eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black),
-    pediatric & !is.null(SCr) & !is.null(height) & is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr(SCr, height),
-    pediatric & !is.null(SCr) & !is.null(height) & !is.null(BUN) & is.null(SCysC) ~ eGFR_child_SCr_BUN(SCr, height, BUN),
-    pediatric & is.null(SCr) & !is.null(SCysC) ~ GFR.child.SCysC(SCysC),
-    TRUE ~ NA_real_
-  )
+    dplyr::mutate(eGFR = eGFR_internal(SCr, SCysC, Age, height, BUN, male, black, pediatric))
 }
 
 # Overall GFR staging
