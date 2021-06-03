@@ -35,8 +35,8 @@ anemia.default <- function(.data, Hb, age, male, ...) {
 anemia.units <- function(Hb, age, male, ...) {
   ellipsis::check_dots_used()
   anemia(
-    as_metric(Hb = Hb, value_only = TRUE),
-    as_metric(age = age, value_only = TRUE),
+    as_metric(Hb = Hb, value_only = T),
+    as_metric(age = age, value_only = T),
     male
   )
 }

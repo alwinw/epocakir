@@ -72,7 +72,7 @@ conversion_factors <- tibble::tribble(
 #' @param value_only (logical) Return as value only without units
 #'
 #' @return (units) Converted measured value or vector of measured values,
-#'   unless `value_only = TRUE`
+#'   unless `value_only = T`
 #' @export
 #'
 #' @examples
