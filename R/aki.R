@@ -35,17 +35,6 @@ aki <- function(...) {
   UseMethod("aki")
 }
 
-aki_internal <- function(
-                         SCr,
-                         bCr,
-                         UO,
-                         dttm,
-                         pt_id) {
-  if (!is.na(SCr) & !is.na(bCr) & is.na(dttm)) {
-    aki_bCr(SCr, bCr)
-  }
-}
-
 #' @rdname aki
 #' @export
 aki.default <- function(.data,
@@ -68,6 +57,11 @@ aki.units <- function(
                       pt_id = NULL,
                       ...) {
   ellipsis::check_dots_used()
+  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = T)
+  if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = T)
+  if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = T)
+
+  aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
 }
 
 #' @rdname aki
@@ -80,6 +74,26 @@ aki.numeric <- function(
                         pt_id = NULL,
                         ...) {
   ellipsis::check_dots_used()
+  cols <- c(SCr = NA, bCr = NA, UO = NA, dttm = NA, pt_id = NA)
+  df <- cbind(SCr, bCr, UO, dttm, pt_id) %>%
+    tibble::as_tibble(.data)
+  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)])
+
+  if (!is.null(dttm) & is.null(pt_id)) {
+    warning("Assuming provided data is for a single patient")
+    df$pt_id = "pt"
+  }
+
+  if (!is.null(SCr) & !is.null(bCr)) {
+    aki_bCr <- aki_bCr(SCr)
+  } else {
+    aki_bCr <- aki_stages[0]
+  }
+  if (!is.null(SCr) & !is.null(dttm)) {
+    df$aki_SCr = aki_SCr()
+  }
+
+  return(NULL)
 }
 
 
