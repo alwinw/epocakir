@@ -1,5 +1,8 @@
 
-aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = TRUE)
+aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"),
+  levels = c("No AKI", "AKI Stage 1", "AKI Stage 2", "AKI Stage 3"),
+  ordered = TRUE
+)
 
 aki_staging <- function() {}
 
@@ -83,7 +86,7 @@ aki.numeric <- function(
   if (!is.null(SCr) & !is.null(bCr)) {
     aki_bCr <- aki_bCr(SCr)
   } else {
-    aki_bCr <- NA
+    aki_bCr <- dplyr::last(aki_stages)
   }
   if (!is.null(SCr) & !is.null(dttm)) {
     aki_SCr <- aki_SCr(SCr, dttm, pt_id)
@@ -145,7 +148,7 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
     SCr >= 3.0 * bCr ~ aki_stages[3],
     SCr >= 2.0 * bCr ~ aki_stages[2],
     SCr >= 1.5 * bCr ~ aki_stages[1],
-    TRUE ~ NA_integer_
+    TRUE ~ dplyr::last(aki_stages)
   )
 }
 
@@ -276,7 +279,7 @@ aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
         UOph < 0.3 & D.dttm >= lubridate::duration(hours = 24) ~ aki_stages[3],
         UOph < 0.5 & D.dttm >= lubridate::duration(hours = 12) ~ aki_stages[2],
         UOph < 0.5 & D.dttm >= lubridate::duration(hours = 6) ~ aki_stages[1],
-        TRUE ~ NA_integer_
+        TRUE ~ dplyr::last(aki_stages)
       )
     ) %>%
     dplyr::group_by(.data$pt_id, .data$dttm) %>%
@@ -287,5 +290,6 @@ aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
     UO_df, UO_changes,
     by = c("pt_id", "dttm")
   ) %>%
+    dplyr::mutate(.aki = dplyr::if_else(is.na(.data$.aki), dplyr::last(aki_stages), .data$.aki)) %>%
     dplyr::pull(".aki")
 }

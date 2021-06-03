@@ -9,7 +9,7 @@ aki_bCr_test_df <- function(env = parent.frame()) {
 
 aki_bCr_exp_df <- function(env = parent.frame()) {
   vctrs::vec_c(
-    NA,
+    dplyr::last(aki_stages),
     aki_stages[1],
     aki_stages[2],
     aki_stages[2],
@@ -113,15 +113,15 @@ test_that("aki_bCr() for dplyr::mutate on numeric", {
 aki_UO_test_raw_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~pt_id_, ~dttm_, ~UO_, ~exp_aki,
-    1, "2020-10-18 09:00:00", 8, NA_integer_,
-    1, "2020-10-18 15:00:00", 5, NA_integer_,
+    1, "2020-10-18 09:00:00", 8, 4,
+    1, "2020-10-18 15:00:00", 5, 4,
     1, "2020-10-18 21:00:00", 2, 1,
     1, "2020-10-19 01:00:00", 1, 1,
     1, "2020-10-19 03:00:00", 1, 2,
     1, "2020-10-19 09:00:00", 1, 2,
     1, "2020-10-19 15:00:00", 1, 3,
     1, "2020-10-19 21:00:00", 1, 3,
-    2, "2020-10-18 12:00:00", 2, NA_integer_,
+    2, "2020-10-18 12:00:00", 2, 4,
     2, "2020-10-18 18:00:00", 0, 1,
     2, "2020-10-19 00:00:00", 0, 3,
     2, "2020-10-19 06:00:00", 0, 3,
