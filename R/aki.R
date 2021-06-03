@@ -74,24 +74,25 @@ aki.numeric <- function(
                         pt_id = NULL,
                         ...) {
   ellipsis::check_dots_used()
-  cols <- c(SCr = NA, bCr = NA, UO = NA, dttm = NA, pt_id = NA)
-  df <- cbind(SCr, bCr, UO, dttm, pt_id) %>%
-    tibble::as_tibble(.data)
-  df <- tibble::add_column(df, !!!cols[!names(cols) %in% names(df)])
 
   if (!is.null(dttm) & is.null(pt_id)) {
     warning("Assuming provided data is for a single patient")
-    df$pt_id = "pt"
+    pt_id <- "pt"
   }
 
   if (!is.null(SCr) & !is.null(bCr)) {
     aki_bCr <- aki_bCr(SCr)
   } else {
-    aki_bCr <- aki_stages[0]
+    aki_bCr <- NA
   }
   if (!is.null(SCr) & !is.null(dttm)) {
-    df$aki_SCr = aki_SCr()
+    aki_SCr <- aki_SCr(SCr, dttm, pt_id)
   }
+
+  # FIXME: Consider re-writting aki_stages to include no AKI
+  # Will make pmax and other methods easier
+
+  aki <- pmax(aki_bCr, aki_SCr, na.rm = TRUE)
 
   return(NULL)
 }
