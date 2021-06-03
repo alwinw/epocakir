@@ -3,6 +3,85 @@ aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3"), ordered = T
 
 aki_staging <- function() {}
 
+#' Codify AKI from Serum Creatinine and/or Urine Output
+#'
+#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Volume 2 | Issue 1 | March 2012
+#'
+#' Provided a series of Serum Creatinine readings and/or Urine Output, aki()
+#' calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
+#' also calculated
+#'
+#' @param .data (data.frame) A data.frame, optional
+#' @param SCr Serum creatinine
+#'   column name, or vector if `.data` not provided
+#' @param bCr Baseline creatinine
+#'   column name, or vector if `.data` not provided
+#' @param UO Urine output
+#'   column name, or vector if `.data` not provided
+#' @param dttm DateTime
+#'   column name, or vector if `.data` not provided
+#' @param pt_id Patient ID
+#'   column name, or vector if `.data` not provided
+#' @param ... Further optional arguments
+#'
+#' @examples
+#' print("todo")
+#' @importFrom rlang .data
+#' @importFrom rlang `:=`
+#' @export
+aki <- function(...) {
+  ellipsis::check_dots_used()
+  UseMethod("aki")
+}
+
+aki_internal <- function(
+                         SCr,
+                         bCr,
+                         UO,
+                         dttm,
+                         pt_id) {
+  if (!is.na(SCr) & !is.na(bCr) & is.na(dttm)) {
+    aki_bCr(SCr, bCr)
+  }
+}
+
+#' @rdname aki
+#' @export
+aki.default <- function(.data,
+                        SCr = NULL,
+                        bCr = NULL,
+                        UO = NULL,
+                        dttm = NULL,
+                        pt_id = NULL,
+                        ...) {
+  ellipsis::check_dots_used()
+}
+
+#' @rdname aki
+#' @export
+aki.units <- function(
+                      SCr = NULL,
+                      bCr = NULL,
+                      UO = NULL,
+                      dttm = NULL,
+                      pt_id = NULL,
+                      ...) {
+  ellipsis::check_dots_used()
+}
+
+#' @rdname aki
+#' @export
+aki.numeric <- function(
+                        SCr = NULL,
+                        bCr = NULL,
+                        UO = NULL,
+                        dttm = NULL,
+                        pt_id = NULL,
+                        ...) {
+  ellipsis::check_dots_used()
+}
+
 
 #' AKI Staging based on baseline creatinine
 #'
@@ -85,8 +164,6 @@ aki_SCr.default <- function(.data, SCr, dttm, pt_id, ...) {
     .data[[rlang::as_name(rlang::enquo(dttm))]],
     .data[[rlang::as_name(rlang::enquo(pt_id))]]
   )
-  # TODO: Add column names back in.
-  # Not sure if this is required if just returning a vector
 }
 
 #' @rdname aki_SCr
@@ -196,88 +273,4 @@ aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
     by = c("pt_id", "dttm")
   ) %>%
     dplyr::pull(".aki")
-}
-
-
-#' Codify AKI from Serum Creatinine and/or Urine Output
-#'
-#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
-#' Volume 2 | Issue 1 | March 2012
-#'
-#' Provided a series of Serum Creatinine readings and/or Urine Output, aki()
-#' calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
-#' also calculated
-#'
-#' @param data A data.frame with the data needed for serum creatinine (SCr)
-#'   and/or urine output (UO)
-#' @param SCr The variable name, e.g. "cr", to be used for determining
-#'   AKI based on creatinine level. A numeric vector or time series of
-#'   serum creatinine values if the data argument is unused
-#' @param UO The variable name, e.g. "urine", to be used for determining
-#'   AKI based on urine output. A numeric vector or time series of
-#'   urine output values if the data argument is unused
-#' @param bCr The variable name, e.g. "baseline_cr", to be used for determining
-#'   AKI based on urine output. A single numeric value of
-#'   baseline creatinine if the data argument is unused
-#' @param aki the variable name e.g. "aki_stages" to be used for the output
-#' @param units (character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
-#'   #TOFIX, consider changing to a list
-#' @param na.rm (logical) If TRUE, missing values are removed
-#' @param ... Further optional arguments that will be passed to method.
-#'
-#' @examples
-#' # aki(seq(60, 200, by = 20))
-#' # aki(SCr = seq(60, 200, by = 20), bCr = 50)
-#' @importFrom rlang .data
-#' @importFrom rlang `:=`
-#' @export
-aki <- function(...) {
-  ellipsis::check_dots_used()
-  UseMethod("aki")
-}
-
-#' @rdname aki
-#' @export
-aki.numeric <- function(SCr,
-                        bCr = NULL,
-                        units = "umol/l", na.rm = FALSE, ...) {
-  SCr <- units::as_units(SCr, units)
-  if (is.null(bCr)) {
-    bCr <- min(SCr, na.rm = na.rm) # Must be run after as_units(SCr, ...)
-  }
-  else {
-    bCr <- units::as_units(bCr, units)
-  }
-  aki_bCr(SCr, bCr)
-}
-
-#' @rdname aki
-#' @export
-aki.units <- function(SCr,
-                      bCr = NULL,
-                      na.rm = FALSE, ...) {
-  if (is.null(bCr)) bCr <- min(SCr, na.rm = na.rm)
-  aki_bCr(SCr, bCr)
-}
-
-# TODO Consider adding aki.ts
-
-#' @rdname aki
-#' @export
-aki.default <- function(data,
-                        SCr = NULL, bCr = NULL, UO = NULL,
-                        aki = "aki",
-                        units = list("SCr" = "umol/l"), na.rm = FALSE, ...) {
-  # TODO check if aki is an existing company
-  # Check SCr or bCr are given!
-  # Calc bCr if not given
-  # TODO consider fuctionalising aki.bCr, etc
-
-  data %>%
-    dplyr::mutate(
-      "{aki}.bCr" := aki_bCr(!!as.name(SCr), !!as.name(bCr))
-    ) %>%
-    dplyr::mutate(
-      "{aki}.cr_ch" := !!as.name(SCr) * 2
-    )
 }
