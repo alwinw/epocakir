@@ -72,7 +72,7 @@ conversion_factors <- tibble::tribble(
 #' @param value_only (logical) Return as value only without units
 #'
 #' @return (units) Converted measured value or vector of measured values,
-#'   unless `value_only = TRUE`
+#'   unless `value_only = T`
 #' @export
 #'
 #' @examples
@@ -328,6 +328,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
           lubridate::duration(hours = 48)
       )
     ) %>%
+    tidyr::drop_na() %>%
     dplyr::group_by(.data$admin, .add = TRUE)
   # check for nrow < 2
   data_n <- data_gr %>%

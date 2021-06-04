@@ -19,7 +19,7 @@ Case insensitive.}
 }
 \value{
 (units) Converted measured value or vector of measured values,
-unless \code{value_only = TRUE}
+unless \code{value_only = T}
 }
 \description{
 Convert a measured value to metric units
