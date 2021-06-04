@@ -328,6 +328,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
           lubridate::duration(hours = 48)
       )
     ) %>%
+    tidyr::drop_na() %>%
     dplyr::group_by(.data$admin, .add = TRUE)
   # check for nrow < 2
   data_n <- data_gr %>%
