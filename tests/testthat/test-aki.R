@@ -37,7 +37,7 @@ aki_SCr_test_raw_df <- function(env = parent.frame()) {
     ),
     SCr_ = c(
       units::set_units(seq(2.0, 3.0, by = 0.5), "mg/dl"),
-      units::set_units(seq(3.5, 4.0, by = 0.25), "mg/dl"),
+      units::set_units(seq(3.4, 3.9, by = 0.25), "mg/dl"),
       units::set_units(seq(3.3, 3.5, by = 0.10), "mg/dl")
     ),
     bCr_ = c(
@@ -59,18 +59,18 @@ aki_SCr_test_rand_df <- function(env = parent.frame()) {
 aki_UO_test_raw_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~pt_id_, ~dttm_, ~UO_, ~aki_UO,
-    2, "2020-10-18 09:00:00", 8, 4,
-    2, "2020-10-18 15:00:00", 5, 4,
-    2, "2020-10-18 21:00:00", 2, 1,
-    2, "2020-10-19 01:00:00", 1, 1,
-    2, "2020-10-19 03:00:00", 1, 2,
-    2, "2020-10-19 09:00:00", 1, 2,
-    2, "2020-10-19 15:00:00", 1, 3,
-    2, "2020-10-19 21:00:00", 1, 3,
-    3, "2020-10-18 12:00:00", 2, 4,
-    3, "2020-10-18 18:00:00", 0, 1,
-    3, "2020-10-19 00:00:00", 0, 3,
-    3, "2020-10-19 06:00:00", 0, 3,
+    3, "2020-10-18 09:00:00", 8, 4,
+    3, "2020-10-18 15:00:00", 5, 4,
+    3, "2020-10-18 21:00:00", 2, 1,
+    3, "2020-10-19 01:00:00", 1, 1,
+    3, "2020-10-19 03:00:00", 1, 2,
+    3, "2020-10-19 09:00:00", 1, 2,
+    3, "2020-10-19 15:00:00", 1, 3,
+    3, "2020-10-19 21:00:00", 1, 3,
+    4, "2020-10-18 12:00:00", 2, 4,
+    4, "2020-10-18 18:00:00", 0, 1,
+    4, "2020-10-19 00:00:00", 0, 3,
+    4, "2020-10-19 06:00:00", 0, 3,
   ) %>%
     dplyr::mutate(
       pt_id_ = paste0("pt", pt_id_),
@@ -106,8 +106,30 @@ test_that("aki() on full aki_test_df()", {
   df_str <- aki(aki_test_df(),
     SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"
   )
+  df_mut <- aki_test_df() %>%
+    dplyr::mutate(aki = aki(
+      SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_
+    )) %>%
+    dplyr::pull(aki)
+  df_uvec <- aki(
+    aki_test_df()$SCr_,
+    aki_test_df()$bCr_,
+    aki_test_df()$UO_,
+    aki_test_df()$dttm_,
+    aki_test_df()$pt_id_
+  )
+  df_nvec <- aki(
+    as.numeric(aki_test_df()$SCr_),
+    as.numeric(aki_test_df()$bCr_),
+    as.numeric(aki_test_df()$UO_),
+    aki_test_df()$dttm_,
+    aki_test_df()$pt_id_
+  )
 
   expect_identical(df_str, ep)
+  expect_identical(df_mut, ep)
+  expect_identical(df_uvec, ep)
+  expect_identical(df_nvec, ep)
 })
 
 
