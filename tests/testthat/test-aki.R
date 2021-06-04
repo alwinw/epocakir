@@ -2,8 +2,8 @@
 
 aki_bCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(
-    SCr_measured = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
-    bCr_measured = units::set_units(1.5, "mg/dl"),
+    SCr_ = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
+    bCr_ = units::set_units(1.5, "mg/dl"),
     aki_bCr = vctrs::vec_c(
       dplyr::last(aki_stages),
       aki_stages[1],
@@ -45,9 +45,9 @@ aki_SCr_test_raw_df <- function(env = parent.frame()) {
       rep(units::set_units(3.0, "mg/dl"), 3)
     ),
     aki_SCr = vctrs::vec_c(
-      NA,
+      dplyr::last(aki_stages),
       rep(aki_stages[1], 2),
-      rep(NA, 6)
+      rep(dplyr::last(aki_stages), 6)
     )
   )
 }
@@ -59,20 +59,21 @@ aki_SCr_test_rand_df <- function(env = parent.frame()) {
 aki_UO_test_raw_df <- function(env = parent.frame()) {
   tibble::tribble(
     ~pt_id_, ~dttm_, ~UO_, ~aki_UO,
-    1, "2020-10-18 09:00:00", 8, 4,
-    1, "2020-10-18 15:00:00", 5, 4,
-    1, "2020-10-18 21:00:00", 2, 1,
-    1, "2020-10-19 01:00:00", 1, 1,
-    1, "2020-10-19 03:00:00", 1, 2,
-    1, "2020-10-19 09:00:00", 1, 2,
-    1, "2020-10-19 15:00:00", 1, 3,
-    1, "2020-10-19 21:00:00", 1, 3,
-    2, "2020-10-18 12:00:00", 2, 4,
-    2, "2020-10-18 18:00:00", 0, 1,
-    2, "2020-10-19 00:00:00", 0, 3,
-    2, "2020-10-19 06:00:00", 0, 3,
+    2, "2020-10-18 09:00:00", 8, 4,
+    2, "2020-10-18 15:00:00", 5, 4,
+    2, "2020-10-18 21:00:00", 2, 1,
+    2, "2020-10-19 01:00:00", 1, 1,
+    2, "2020-10-19 03:00:00", 1, 2,
+    2, "2020-10-19 09:00:00", 1, 2,
+    2, "2020-10-19 15:00:00", 1, 3,
+    2, "2020-10-19 21:00:00", 1, 3,
+    3, "2020-10-18 12:00:00", 2, 4,
+    3, "2020-10-18 18:00:00", 0, 1,
+    3, "2020-10-19 00:00:00", 0, 3,
+    3, "2020-10-19 06:00:00", 0, 3,
   ) %>%
     dplyr::mutate(
+      pt_id_ = paste0("pt", pt_id_),
       dttm_ = lubridate::as_datetime(dttm_, tz = "Australia/Melbourne"),
       UO_ = units::set_units(UO_, "ml/kg"),
       aki_UO = aki_stages[aki_UO]
@@ -83,28 +84,54 @@ aki_UO_test_rand_df <- function(env = parent.frame()) {
   aki_UO_test_raw_df()[c(10, 9, 5, 8, 3, 11, 6, 2, 4, 12, 7, 1), ]
 }
 
+aki_test_df <- function(env = parent.frame()) {
+  dplyr::bind_rows(aki_bCr_test_df(), aki_SCr_test_rand_df(), aki_UO_test_rand_df()) %>%
+    tidyr::pivot_longer(
+      dplyr::starts_with("aki_"),
+      names_to = "aki_staging_type",
+      values_to = "aki_"
+    ) %>%
+    dplyr::mutate(
+      SCr_ = dplyr::if_else(grepl("bCr|SCr", aki_staging_type), SCr_, NA_real_),
+      bCr_ = dplyr::if_else(grepl("bCr", aki_staging_type), bCr_, NA_real_),
+      UO_ = dplyr::if_else(grepl("UO", aki_staging_type), UO_, NA_real_)
+    ) %>%
+    dplyr::filter(!is.na(aki_))
+}
+
+
+test_that("aki() on full aki_test_df()", {
+  ep <- aki_test_df()$aki_
+
+  df_str <- aki(aki_test_df(),
+    SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"
+  )
+
+  expect_identical(df_str, ep)
+})
+
 
 test_that("aki_bCr() for data.frame", {
-  expect_identical(aki_bCr(aki_bCr_test_df(), "SCr_measured", "bCr_measured"), aki_bCr_test_df()$aki_bCr)
-  expect_identical(aki_bCr(aki_bCr_test_df(), SCr_measured, bCr_measured), aki_bCr_test_df()$aki_bCr)
+  expect_identical(aki_bCr(aki_bCr_test_df(), "SCr_", "bCr_"), aki_bCr_test_df()$aki_bCr)
+  expect_identical(aki_bCr(aki_bCr_test_df(), SCr_, bCr_), aki_bCr_test_df()$aki_bCr)
 })
 
 test_that("aki_bCr() for units vector", {
-  SCr_measured <- aki_bCr_test_df()$SCr_measured
-  bCr_measured <- aki_bCr_test_df()$bCr_measured
-  expect_identical(aki_bCr(SCr_measured, bCr_measured), aki_bCr_test_df()$aki_bCr)
+  SCr_ <- aki_bCr_test_df()$SCr_
+  bCr_ <- aki_bCr_test_df()$bCr_
+  expect_identical(aki_bCr(SCr_, bCr_), aki_bCr_test_df()$aki_bCr)
 })
 
 test_that("aki_bCr() for dplyr::mutate on units", {
   df <- aki_bCr_test_df() %>%
-    dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
+    dplyr::mutate(aki = aki_bCr(SCr_, bCr_))
   expect_identical(df$aki, aki_bCr_test_df()$aki_bCr)
 })
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
   df <- aki_bCr_test_df() %>%
     dplyr::mutate(dplyr::across(tidyselect::everything(), as.numeric)) %>%
-    dplyr::mutate(aki = aki_bCr(SCr_measured, bCr_measured))
+    dplyr::mutate(aki = aki_bCr(SCr_, bCr_))
   expect_identical(df$aki, aki_bCr_test_df()$aki_bCr)
 })
 

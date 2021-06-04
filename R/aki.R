@@ -48,6 +48,13 @@ aki.default <- function(.data,
                         pt_id = NULL,
                         ...) {
   ellipsis::check_dots_used()
+  if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
+  if (!is.null(bCr)) bCr <- .data[[rlang::as_name(rlang::enquo(bCr))]]
+  if (!is.null(UO)) UO <- .data[[rlang::as_name(rlang::enquo(UO))]]
+  if (!is.null(dttm)) dttm <- .data[[rlang::as_name(rlang::enquo(dttm))]]
+  if (!is.null(pt_id)) pt_id <- .data[[rlang::as_name(rlang::enquo(pt_id))]]
+
+  aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
 }
 
 #' @rdname aki
@@ -84,7 +91,7 @@ aki.numeric <- function(
   }
 
   if (!is.null(SCr) & !is.null(bCr)) {
-    aki_bCr <- aki_bCr(SCr)
+    aki_bCr <- aki_bCr(SCr, bCr)
   } else {
     aki_bCr <- dplyr::last(aki_stages)
   }
@@ -93,12 +100,12 @@ aki.numeric <- function(
   } else {
     aki_SCr <- dplyr::last(aki_stages)
   }
-  if (!is.null (aki_UO) & !is.null(dttm)) {
+  if (!is.null(UO) & !is.null(dttm)) {
     aki_UO <- aki_UO(UO, dttm, pt_id)
-  } else{
+  } else {
     aki_UO <- dplyr::last(aki_stages)
   }
-  return(pmax(aki_bCr, aki_SCr, na.rm = TRUE))
+  return(pmax(aki_bCr, aki_SCr, aki_UO, na.rm = TRUE))
 }
 
 
@@ -204,7 +211,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     dplyr::mutate(
       .aki = dplyr::case_when(
         D.val >= 0.3 & D.dttm < lubridate::duration(hours = 48) ~ aki_stages[1],
-        TRUE ~ NA_integer_
+        TRUE ~ dplyr::last(aki_stages)
       )
     ) %>%
     dplyr::select(.data$pt_id, .data$dttm, .data$.aki) %>%
@@ -217,6 +224,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     SCr_changes,
     by = c("pt_id", "dttm")
   ) %>%
+    dplyr::mutate(.aki = dplyr::if_else(is.na(.data$.aki), dplyr::last(aki_stages), .data$.aki)) %>%
     dplyr::pull(.data$.aki)
 }
 

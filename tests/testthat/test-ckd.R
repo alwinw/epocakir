@@ -100,7 +100,7 @@ eGFR_child_df <- function(env = parent.frame()) {
 eGFR_df <- function(env = parent.frame()) {
   dplyr::bind_rows(eGFR_adult_df(), eGFR_child_df()) %>%
     tidyr::pivot_longer(
-      dplyr::starts_with("eGFR"),
+      dplyr::starts_with("eGFR_"),
       names_to = "eGFR_calc_type",
       values_to = "eGFR"
     ) %>%
