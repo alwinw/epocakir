@@ -54,7 +54,11 @@ aki.default <- function(.data,
   if (!is.null(dttm)) dttm <- .data[[rlang::as_name(rlang::enquo(dttm))]]
   if (!is.null(pt_id)) pt_id <- .data[[rlang::as_name(rlang::enquo(pt_id))]]
 
-  aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+  if (!is.null(SCr)) {
+    aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+  } else {
+    aki(UO = UO, dttm = dttm, pt_id = pt_id)
+  }
 }
 
 #' @rdname aki
@@ -71,7 +75,11 @@ aki.units <- function(
   if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = T)
   if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = T)
 
-  aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+  if (!is.null(SCr)) {
+    aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+  } else {
+    aki(UO = UO, dttm = dttm, pt_id = pt_id)
+  }
 }
 
 #' @rdname aki
