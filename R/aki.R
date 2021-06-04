@@ -90,14 +90,15 @@ aki.numeric <- function(
   }
   if (!is.null(SCr) & !is.null(dttm)) {
     aki_SCr <- aki_SCr(SCr, dttm, pt_id)
+  } else {
+    aki_SCr <- dplyr::last(aki_stages)
   }
-
-  # FIXME: Consider re-writting aki_stages to include no AKI
-  # Will make pmax and other methods easier
-
-  aki <- pmax(aki_bCr, aki_SCr, na.rm = TRUE)
-
-  return(NULL)
+  if (!is.null (aki_UO) & !is.null(dttm)) {
+    aki_UO <- aki_UO(UO, dttm, pt_id)
+  } else{
+    aki_UO <- dplyr::last(aki_stages)
+  }
+  return(pmax(aki_bCr, aki_SCr, na.rm = TRUE))
 }
 
 
