@@ -398,7 +398,7 @@ test_that("GFR_staging()", {
 
 
 test_that("Albuminuria_staging_AER()", {
-  ep <- vctrs::vec_c(NA, NA, Albuminuria_stages)
+  ep <- Albuminuria_stages[c(4, 4, 1:3)]
 
   df <- tibble::tibble(
     AER = units::set_units(c(-1, NA, 15, 100, 500), "mg/day")
@@ -420,7 +420,7 @@ test_that("Albuminuria_staging_AER()", {
 
 
 test_that("Albuminuria_staging_ACR()", {
-  ep <- vctrs::vec_c(NA, NA, Albuminuria_stages)
+  ep <- Albuminuria_stages[c(4, 4, 1:3)]
 
   df <- tibble::tibble(
     ACR = units::set_units(c(-1, NA, 1, 10, 50), "mg/g")

@@ -568,7 +568,7 @@ GFR_staging.numeric <- function(GFR, ...) {
     GFR >= 30 ~ GFR_stages[4],
     GFR >= 15 ~ GFR_stages[5],
     GFR >= 0 ~ GFR_stages[6],
-    TRUE ~ NA_integer_
+    TRUE ~ NA_integer_ # GFR should be positive
   )
 }
 
@@ -580,7 +580,11 @@ GFR_staging.numeric <- function(GFR, ...) {
 #' @export
 #' @examples
 #' Albuminuria_stages
-Albuminuria_stages <- factor(c("A1", "A2", "A3"), ordered = TRUE)
+Albuminuria_stages <- factor(
+  c("A1", "A2", "A3", "No Albuminuria"),
+  levels = c("No Albuminuria", "A1", "A2", "A3"),
+  ordered = TRUE
+)
 
 
 #' Albuminuria Staging based on AER
@@ -622,7 +626,7 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
     AER > 300 ~ Albuminuria_stages[3],
     AER > 30 ~ Albuminuria_stages[2],
     AER > 0 ~ Albuminuria_stages[1],
-    TRUE ~ NA_integer_
+    TRUE ~ dplyr::last(Albuminuria_stages)
   )
 }
 
@@ -666,6 +670,6 @@ Albuminuria_staging_ACR.numeric <- function(ACR, ...) {
     ACR > 30 ~ Albuminuria_stages[3],
     ACR > 3 ~ Albuminuria_stages[2],
     ACR > 0 ~ Albuminuria_stages[1],
-    TRUE ~ NA_integer_
+    TRUE ~ dplyr::last(Albuminuria_stages)
   )
 }

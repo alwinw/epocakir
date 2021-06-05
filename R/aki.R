@@ -1,5 +1,6 @@
 
-aki_stages <- factor(c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"),
+aki_stages <- factor(
+  c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"),
   levels = c("No AKI", "AKI Stage 1", "AKI Stage 2", "AKI Stage 3"),
   ordered = TRUE
 )
