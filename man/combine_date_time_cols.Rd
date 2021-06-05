@@ -19,5 +19,12 @@ object x)}
 Combine date and time columns into a single DateTime column
 }
 \examples{
-print("todo")
+df <- data.frame(
+  date_a = as.Date(c("2020-01-01", "2020-01-02")),
+  date_b = as.POSIXct(c("2020-02-01", "2020-02-02")),
+  time_a = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02")),
+  time_b = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02"))
+)
+
+combine_date_time_cols(df)
 }

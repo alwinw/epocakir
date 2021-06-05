@@ -3,7 +3,6 @@ resources/
 renv/
 renv.lock
 docs
-.Rprofile
 
 # History files
 .Rhistory

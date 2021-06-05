@@ -1,11 +1,22 @@
 #' GFR Estimation
 #'
-#' - 2009 CKD-EPI creatinine equation
-#' - 2012 CKD-EPI cystatin C equation
-#' - 2012 CKD-EPI creatinine-cystatin C equation
-#' - Pediatric equations
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
 #'
-#' - Automatic selection of the best equation to use
+#' Automatic selection of equation to estimation the
+#' Glomerular Filtration Rate (eGFR), based on input data
+#'
+#' \itemize{
+#'   \item{[`eGFR_adult_SCr()`]: 2009 CKD-EPI creatinine equation}
+#'   \item{[`eGFR_adult_SCysC()`]: 2012 CKD-EPI cystatin C equation}
+#'   \item{[`eGFR_adult_SCr_SCysC()`]: 2012 CKD-EPI creatinine-cystatin C equation}
+#'   \item{[`eGFR_child_SCr()`]: Pediatric creatinine-based equation}
+#'   \item{[`eGFR_child_SCr_BUN()`]: Pediatric creatinine-BUN equation}
+#'   \item{[`eGFR_child_SCysC()`]: Pediatric cystatin C-based equation}
+#' }
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -31,7 +42,18 @@
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR(eGFR_pt_data,
+#'   SCr = "SCr_", SCysC = "SCysC_",
+#'   Age = "Age_", height = "height_", BUN = "BUN_",
+#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR(
+#'     SCr = SCr_, SCysC = SCysC_,
+#'     Age = Age_, height = height_, BUN = BUN_,
+#'     male = male_, black = black_, pediatric = pediatric_
+#'   ))
 eGFR <- function(...) {
   UseMethod("eGFR")
 }
@@ -65,16 +87,16 @@ eGFR_internal <- function(
 
 #' @rdname eGFR
 #' @export
-eGFR.default <- function(.data,
-                         SCr = NULL,
-                         SCysC = NULL,
-                         Age = NULL,
-                         height = NULL,
-                         BUN = NULL,
-                         male = NULL,
-                         black = NULL,
-                         pediatric = NULL,
-                         ...) {
+eGFR.data.frame <- function(.data,
+                            SCr = NULL,
+                            SCysC = NULL,
+                            Age = NULL,
+                            height = NULL,
+                            BUN = NULL,
+                            male = NULL,
+                            black = NULL,
+                            pediatric = NULL,
+                            ...) {
   ellipsis::check_dots_used()
   # [ ] !is.null won't work if SCr is a symbol...
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
@@ -179,7 +201,13 @@ eGFR.numeric <- function(
 }
 
 
-#' 2009 CKD-EPI creatinine equation
+#' eGFR 2009 CKD-EPI creatinine equation
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -197,14 +225,21 @@ eGFR.numeric <- function(
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_adult_SCr(eGFR_pt_data,
+#'   SCr = "SCr_", Age = "Age_", male = "male_", black = "black_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_adult_SCr(
+#'     SCr = SCr_, Age = Age_, male = male_, black = black_
+#'   ))
 eGFR_adult_SCr <- function(...) {
   UseMethod("eGFR_adult_SCr")
 }
 
 #' @rdname eGFR_adult_SCr
 #' @export
-eGFR_adult_SCr.default <- function(.data, SCr, Age, male, black, ...) {
+eGFR_adult_SCr.data.frame <- function(.data, SCr, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -241,7 +276,13 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 }
 
 
-#' 2012 CKD-EPI cystatin C equation
+#' eGFR 2012 CKD-EPI cystatin C equation
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCysC Serum Cystatin C
@@ -257,14 +298,21 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_adult_SCysC(eGFR_pt_data,
+#'   SCysC = "SCysC_", Age = "Age_", male = "male_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_adult_SCysC(
+#'     SCysC = SCysC_, Age = Age_, male = male_
+#'   ))
 eGFR_adult_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCysC")
 }
 
 #' @rdname eGFR_adult_SCysC
 #' @export
-eGFR_adult_SCysC.default <- function(.data, SCysC, Age, male, ...) {
+eGFR_adult_SCysC.data.frame <- function(.data, SCysC, Age, male, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]],
@@ -295,7 +343,13 @@ eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
 }
 
 
-#' 2012 CKD-EPI creatinine-cystatin C equation
+#' eGFR 2012 CKD-EPI creatinine-cystatin C equation
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -315,14 +369,23 @@ eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_adult_SCr_SCysC(eGFR_pt_data,
+#'   SCr = "SCr_", SCysC = "SCysC_",
+#'   Age = "Age_", male = "male_", black = "black_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(
+#'     SCr = SCr_, SCysC = SCysC_,
+#'     Age = Age_, male = male_, black = black_
+#'   ))
 eGFR_adult_SCr_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCr_SCysC")
 }
 
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
-eGFR_adult_SCr_SCysC.default <- function(.data, SCr, SCysC, Age, male, black, ...) {
+eGFR_adult_SCr_SCysC.data.frame <- function(.data, SCr, SCysC, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCr_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -363,7 +426,13 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 }
 
 
-#' Pediatric SCr and Height
+#' eGFR Pediatric SCr and Height
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -377,14 +446,21 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_child_SCr(eGFR_pt_data,
+#'   SCr = "SCr_", height = "height_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_child_SCr(
+#'     SCr = SCr_, height = height_,
+#'   ))
 eGFR_child_SCr <- function(...) {
   UseMethod("eGFR_child_SCr")
 }
 
 #' @rdname eGFR_child_SCr
 #' @export
-eGFR_child_SCr.default <- function(.data, SCr, height, ...) {
+eGFR_child_SCr.data.frame <- function(.data, SCr, height, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -411,7 +487,13 @@ eGFR_child_SCr.numeric <- function(SCr, height, ...) {
 }
 
 
-#' Pediatric SCr, Height and BUN
+#' eGFR Pediatric SCr, Height and BUN
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -427,14 +509,21 @@ eGFR_child_SCr.numeric <- function(SCr, height, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_child_SCr_BUN(eGFR_pt_data,
+#'   SCr = "SCr_", height = "height_", BUN = "BUN_",
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_child_SCr_BUN(
+#'     SCr = SCr_, height = height_, BUN = BUN_,
+#'   ))
 eGFR_child_SCr_BUN <- function(...) {
   UseMethod("eGFR_child_SCr_BUN")
 }
 
 #' @rdname eGFR_child_SCr_BUN
 #' @export
-eGFR_child_SCr_BUN.default <- function(.data, SCr, height, BUN, ...) {
+eGFR_child_SCr_BUN.data.frame <- function(.data, SCr, height, BUN, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCr_BUN(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -463,7 +552,13 @@ eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
 }
 
 
-#' Pediatric SCysC
+#' eGFR Pediatric SCysC
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCysC Serum Cystatin C
@@ -475,14 +570,21 @@ eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' eGFR_child_SCysC(eGFR_pt_data,
+#'   SCysC = "SCysC_"
+#' )
+#'
+#' eGFR_pt_data %>%
+#'   dplyr::mutate(eGFR = eGFR_child_SCysC(
+#'     SCysC = SCysC_
+#'   ))
 eGFR_child_SCysC <- function(...) {
   UseMethod("eGFR_child_SCysC")
 }
 
 #' @rdname eGFR_child_SCysC
 #' @export
-eGFR_child_SCysC.default <- function(.data, SCysC, ...) {
+eGFR_child_SCysC.data.frame <- function(.data, SCysC, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]]
@@ -511,6 +613,8 @@ eGFR_child_SCysC.numeric <- function(SCysC, ...) {
 #'
 #' Ordered factor of GFR stages
 #'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
+#'
 #' @export
 #' @examples
 #' GFR_stages
@@ -518,6 +622,21 @@ GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
 
 
 #' GFR Staging
+#'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' \itemize{
+#'   \item{G1: Normal or high GFR, \eqn{\ge}90}
+#'   \item{G2: Mildly decreased, 60-89}
+#'   \item{G3a: Mildly to moderately decreased, 45-59}
+#'   \item{G3b: Moderately  to severely decreased, 30-44}
+#'   \item{G4: Severely decreased, 15-29}
+#'   \item{G5: Kidney failure, <15}
+#' }
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param GFR Glomerular filtration rate
@@ -528,14 +647,21 @@ GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' df <- tibble::tibble(
+#'   eGFR = units::set_units(c(-1, NA, 100, 70, 50, 35, 20, 10), "mL/min/1.73m2")
+#' )
+#'
+#' GFR_staging(df, "eGFR")
+#'
+#' df %>%
+#'   dplyr::mutate(GFR_level = GFR_staging(eGFR))
 GFR_staging <- function(...) {
   UseMethod("GFR_staging")
 }
 
 #' @rdname GFR_staging
 #' @export
-GFR_staging.default <- function(.data, GFR, ...) {
+GFR_staging.data.frame <- function(.data, GFR, ...) {
   GFR_staging(
     .data[[rlang::as_name(rlang::enquo(GFR))]]
   )
@@ -571,6 +697,14 @@ GFR_staging.numeric <- function(GFR, ...) {
 #'
 #' Ordered factor of Albuminuria stages
 #'
+#' \itemize{
+#'   \item{A1: Normal to mildly increased}
+#'   \item{A2: Moderately increased}
+#'   \item{A3: Severely increased}
+#' }
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
+#'
 #' @export
 #' @examples
 #' Albuminuria_stages
@@ -583,6 +717,18 @@ Albuminuria_stages <- factor(
 
 #' Albuminuria Staging based on AER
 #'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' \itemize{
+#'   \item{A1: Normal to mildly increased}
+#'   \item{A2: Moderately increased}
+#'   \item{A3: Severely increased}
+#' }
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
+#'
 #' @param .data (data.frame) A data.frame, optional
 #' @param AER Albumin excretion rate
 #'   column name, or vector if `.data` not provided
@@ -592,14 +738,21 @@ Albuminuria_stages <- factor(
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' df <- tibble::tibble(
+#'   AER = units::set_units(c(-1, NA, 15, 100, 500), "mg/day")
+#' )
+#'
+#' Albuminuria_staging_AER(df, "AER")
+#'
+#' df %>%
+#'   dplyr::mutate(GFR_level = Albuminuria_staging_AER(AER))
 Albuminuria_staging_AER <- function(...) {
   UseMethod("Albuminuria_staging_AER")
 }
 
 #' @rdname Albuminuria_staging_AER
 #' @export
-Albuminuria_staging_AER.default <- function(.data, AER, ...) {
+Albuminuria_staging_AER.data.frame <- function(.data, AER, ...) {
   Albuminuria_staging_AER(
     .data[[rlang::as_name(rlang::enquo(AER))]]
   )
@@ -627,6 +780,18 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
 
 #' Albuminuria Staging based on ACR
 #'
+#' Using KDIGO 2012 Clinical Practice Guideline for
+#' the Evaluation and Management of Chronic Kidney Disease
+#' Volume 3 | Issue 1 | January 2013
+#'
+#' \itemize{
+#'   \item{A1: Normal to mildly increased}
+#'   \item{A2: Moderately increased}
+#'   \item{A3: Severely increased}
+#' }
+#'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
+#'
 #' @param .data (data.frame) A data.frame, optional
 #' @param ACR Albumin-to-creatinine ratio
 #'   column name, or vector if `.data` not provided
@@ -636,14 +801,21 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' df <- tibble::tibble(
+#'   ACR = units::set_units(c(-1, NA, 1, 10, 50), "mg/g")
+#' )
+#'
+#' Albuminuria_staging_ACR(df, "ACR")
+#'
+#' df %>%
+#'   dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
 Albuminuria_staging_ACR <- function(...) {
   UseMethod("Albuminuria_staging_ACR")
 }
 
 #' @rdname Albuminuria_staging_ACR
 #' @export
-Albuminuria_staging_ACR.default <- function(.data, ACR, ...) {
+Albuminuria_staging_ACR.data.frame <- function(.data, ACR, ...) {
   Albuminuria_staging_ACR(
     .data[[rlang::as_name(rlang::enquo(ACR))]]
   )

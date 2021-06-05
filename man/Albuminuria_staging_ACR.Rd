@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{Albuminuria_staging_ACR}
 \alias{Albuminuria_staging_ACR}
-\alias{Albuminuria_staging_ACR.default}
+\alias{Albuminuria_staging_ACR.data.frame}
 \alias{Albuminuria_staging_ACR.units}
 \alias{Albuminuria_staging_ACR.numeric}
 \title{Albuminuria Staging based on ACR}
 \usage{
 Albuminuria_staging_ACR(...)
 
-\method{Albuminuria_staging_ACR}{default}(.data, ACR, ...)
+\method{Albuminuria_staging_ACR}{data.frame}(.data, ACR, ...)
 
 \method{Albuminuria_staging_ACR}{units}(ACR, ...)
 
@@ -27,8 +27,26 @@ column name, or vector if \code{.data} not provided}
 Albuminuria category
 }
 \description{
-Albuminuria Staging based on ACR
+Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013
+}
+\details{
+\itemize{
+\item{A1: Normal to mildly increased}
+\item{A2: Moderately increased}
+\item{A3: Severely increased}
+}
+
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
 }
 \examples{
-print("todo")
+df <- tibble::tibble(
+  ACR = units::set_units(c(-1, NA, 1, 10, 50), "mg/g")
+)
+
+Albuminuria_staging_ACR(df, "ACR")
+
+df \%>\%
+  dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
 }

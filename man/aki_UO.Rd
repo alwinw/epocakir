@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_UO}
 \alias{aki_UO}
-\alias{aki_UO.default}
+\alias{aki_UO.data.frame}
 \alias{aki_UO.units}
 \alias{aki_UO.numeric}
-\title{AKI Staging based on urine output}
+\title{AKI Staging based on Urine Output}
 \usage{
 aki_UO(...)
 
-\method{aki_UO}{default}(.data, UO, dttm, pt_id, ...)
+\method{aki_UO}{data.frame}(.data, UO, dttm, pt_id, ...)
 
 \method{aki_UO}{units}(UO, dttm, pt_id, ...)
 
@@ -33,8 +33,22 @@ column name, or vector if \code{.data} not provided}
 (ordered factor) AKI stages
 }
 \description{
-AKI Staging based on urine output
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
+Volume 2 | Issue 1 | March 2012
+}
+\details{
+\itemize{
+\item{AKI Stage 1: <0.5 ml/kg/h for 6–12 hours}
+\item{AKI Stage 2: <0.5 ml/kg/h for \eqn{\ge}12 hours}
+\item{AKI Stage 3: <0.3 ml/kg/h for \eqn{\ge}24 hours OR Anuria for \eqn{\ge}12 hours}
+}
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
-print("todo")
+aki_UO(aki_pt_data, UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  dplyr::mutate(aki = aki_UO(UO = UO_, dttm = dttm_, pt_id = pt_id_))
 }

@@ -13,6 +13,9 @@ aki_stages
 \description{
 Ordered factor of AKI stages
 }
+\details{
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
+}
 \examples{
 aki_stages
 }

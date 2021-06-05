@@ -439,3 +439,5 @@ test_that("Albuminuria_staging_ACR()", {
   expect_identical(df_uvec, ep)
   expect_identical(df_nvec, ep)
 })
+
+# TODO: change from x.default to x.data.frame
