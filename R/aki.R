@@ -17,8 +17,12 @@ aki_stages <- factor(
 #' Volume 2 | Issue 1 | March 2012
 #'
 #' Provided a series of Serum Creatinine readings and/or Urine Output,
-#' #' aki_staging() calculates whether or not a patient has AKI.
+#' `aki_staging()` calculates whether or not a patient has AKI.
 #' The staging (1, 2, 3) of AKI is returned
+#'
+#' When multiple columns are provided, `aki_staging()` will automatically
+#' calculate whether or not AKI has occurred using each KDIGIO definition.
+#' The most severe AKI stage is then returned.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -34,7 +38,10 @@ aki_stages <- factor(
 #' @param ... Further optional arguments
 #'
 #' @examples
-#' print("todo")
+#' aki_staging(aki_pt_data, SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
+#'
+#' aki_pt_data %>%
+#'   dplyr::mutate(aki = aki_staging(SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_))
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
 #' @export
@@ -122,7 +129,16 @@ aki_staging.numeric <- function(
 }
 
 
-#' AKI Staging based on baseline creatinine
+#' AKI Staging based on Baseline Serum Creatinine
+#'
+#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Volume 2 | Issue 1 | March 2012
+#'
+#' \itemize{
+#'   \item{AKI Stage 1: 1.5-1.9 times baseline}
+#'   \item{AKI Stage 2: 2.0-2.9 times baseline}
+#'   \item{AKI Stage 3: 3.0 times baseline}
+#' }
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -135,7 +151,10 @@ aki_staging.numeric <- function(
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' aki_bCr(aki_pt_data, SCr = "SCr_", bCr = "bCr_")
+#'
+#' aki_pt_data %>%
+#'   dplyr::mutate(aki = aki_bCr(SCr = SCr_, bCr = bCr_))
 aki_bCr <- function(...) {
   UseMethod("aki_bCr")
 }
@@ -174,7 +193,16 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 }
 
 
-#' AKI Staging based on changes in creatinine
+#' AKI Staging based on Changes in Serum Creatinine
+#'
+#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Volume 2 | Issue 1 | March 2012
+#'
+#' \itemize{
+#'   \item{AKI Stage 1: \eqn{\ge}0.3 mg/dl (\eqn{\ge}26.5 mmol/l) increase}
+#'   \item{AKI Stage 2: N/A}
+#'   \item{AKI Stage 3: \eqn{\ge}4.0 mg/dl (\eqn{\ge}353.6 mmol/l)}
+#' }
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
@@ -189,7 +217,10 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' aki_SCr(aki_pt_data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
+#'
+#' aki_pt_data %>%
+#'   dplyr::mutate(aki = aki_SCr(SCr = SCr_, dttm = dttm_, pt_id = pt_id_))
 aki_SCr <- function(...) {
   UseMethod("aki_SCr")
 }
@@ -224,6 +255,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     dplyr::mutate(
       .aki = dplyr::case_when(
         D.val >= 0.3 & D.dttm < lubridate::duration(hours = 48) ~ aki_stages[1],
+        D.val >= 4.0 ~ aki_stages[3],
         TRUE ~ dplyr::last(aki_stages)
       )
     ) %>%
@@ -242,7 +274,16 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
 }
 
 
-#' AKI Staging based on urine output
+#' AKI Staging based on Urine Output
+#'
+#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Volume 2 | Issue 1 | March 2012
+#'
+#' \itemize{
+#'   \item{AKI Stage 1: <0.5 ml/kg/h for 6–12 hours}
+#'   \item{AKI Stage 2: <0.5 ml/kg/h for \eqn{\ge}12 hours}
+#'   \item{AKI Stage 3: <0.3 ml/kg/h for \eqn{\ge}24 hours OR Anuria for \eqn{\ge}12 hours}
+#' }
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
@@ -257,7 +298,10 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' aki_UO(aki_pt_data, UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
+#'
+#' aki_pt_data %>%
+#'   dplyr::mutate(aki = aki_UO(UO = UO_, dttm = dttm_, pt_id = pt_id_))
 aki_UO <- function(...) {
   UseMethod("aki_UO")
 }

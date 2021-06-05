@@ -5,7 +5,7 @@
 \alias{aki_SCr.default}
 \alias{aki_SCr.units}
 \alias{aki_SCr.numeric}
-\title{AKI Staging based on changes in creatinine}
+\title{AKI Staging based on Changes in Serum Creatinine}
 \usage{
 aki_SCr(...)
 
@@ -33,8 +33,19 @@ column name, or vector if \code{.data} not provided}
 (ordered factor) AKI stages
 }
 \description{
-AKI Staging based on changes in creatinine
+Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Volume 2 | Issue 1 | March 2012
+}
+\details{
+\itemize{
+\item{AKI Stage 1: \eqn{\ge}0.3 mg/dl (\eqn{\ge}26.5 mmol/l) increase}
+\item{AKI Stage 2: N/A}
+\item{AKI Stage 3: \eqn{\ge}4.0 mg/dl (\eqn{\ge}353.6 mmol/l)}
+}
 }
 \examples{
-print("todo")
+aki_SCr(aki_pt_data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  dplyr::mutate(aki = aki_SCr(SCr = SCr_, dttm = dttm_, pt_id = pt_id_))
 }

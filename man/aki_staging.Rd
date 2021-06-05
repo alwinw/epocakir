@@ -49,9 +49,16 @@ Volume 2 | Issue 1 | March 2012
 }
 \details{
 Provided a series of Serum Creatinine readings and/or Urine Output,
-#' aki_staging() calculates whether or not a patient has AKI.
+\code{aki_staging()} calculates whether or not a patient has AKI.
 The staging (1, 2, 3) of AKI is returned
+
+When multiple columns are provided, \code{aki_staging()} will automatically
+calculate whether or not AKI has occurred using each KDIGIO definition.
+The most severe AKI stage is then returned.
 }
 \examples{
-print("todo")
+aki_staging(aki_pt_data, SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  dplyr::mutate(aki = aki_staging(SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_))
 }
