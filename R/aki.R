@@ -38,15 +38,15 @@ aki_stages <- factor(
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param bCr Baseline creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param UO Urine output
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param dttm DateTime
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of POSIXct if `.data` is not provided
 #' @param pt_id Patient ID
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @examples
@@ -156,9 +156,9 @@ aki_staging.numeric <- function(
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param bCr Baseline creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return (ordered factor) AKI stages
@@ -223,11 +223,11 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of POSIXct if `.data` is not provided
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param pt_id Patient ID
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return (ordered factor) AKI stages
@@ -307,11 +307,11 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of POSIXct if `.data` is not provided
 #' @param UO Urine output
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param pt_id Patient ID
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return (ordered factor) AKI stages

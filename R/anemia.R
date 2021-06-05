@@ -18,11 +18,11 @@
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param Hb Hemoglobin concenration
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param age Age of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param male Male or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Anemia

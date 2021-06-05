@@ -18,13 +18,13 @@ combn_changes(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{dttm}{DateTime
-column name, or vector if \code{.data} not provided}
+column name, or vector of POSIXct if \code{.data} is not provided}
 
 \item{val}{Variable
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{pt_id}{Patient ID
-column name, or vector if \code{.data} not provided}
+column name, or vector of characters or factors if \code{.data} is not provided}
 }
 \value{
 Combinatorics changes

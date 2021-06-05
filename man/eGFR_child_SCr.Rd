@@ -21,10 +21,10 @@ eGFR_child_SCr(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{height}{Height of patient
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 Estimated GFR

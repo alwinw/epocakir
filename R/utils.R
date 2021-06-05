@@ -275,11 +275,11 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of POSIXct if `.data` is not provided
 #' @param val Variable
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param pt_id Patient ID
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Combinatorics changes

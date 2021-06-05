@@ -21,10 +21,10 @@ aki_bCr(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{bCr}{Baseline creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 (ordered factor) AKI stages
