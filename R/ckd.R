@@ -53,7 +53,7 @@
 #'     SCr = SCr_, SCysC = SCysC_,
 #'     Age = Age_, height = height_, BUN = BUN_,
 #'     male = male_, black = black_, pediatric = pediatric_
-#' ))
+#'   ))
 eGFR <- function(...) {
   UseMethod("eGFR")
 }
@@ -232,7 +232,7 @@ eGFR.numeric <- function(
 #' eGFR_pt_data %>%
 #'   dplyr::mutate(eGFR = eGFR_adult_SCr(
 #'     SCr = SCr_, Age = Age_, male = male_, black = black_
-#' ))
+#'   ))
 eGFR_adult_SCr <- function(...) {
   UseMethod("eGFR_adult_SCr")
 }
@@ -304,8 +304,8 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 #'
 #' eGFR_pt_data %>%
 #'   dplyr::mutate(eGFR = eGFR_adult_SCysC(
-#'     SCysC = SCysC_,Age = Age_, male = male_
-#' ))
+#'     SCysC = SCysC_, Age = Age_, male = male_
+#'   ))
 eGFR_adult_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCysC")
 }
@@ -378,7 +378,7 @@ eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
 #'   dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(
 #'     SCr = SCr_, SCysC = SCysC_,
 #'     Age = Age_, male = male_, black = black_
-#' ))
+#'   ))
 eGFR_adult_SCr_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCr_SCysC")
 }
@@ -453,7 +453,7 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 #' eGFR_pt_data %>%
 #'   dplyr::mutate(eGFR = eGFR_child_SCr(
 #'     SCr = SCr_, height = height_,
-#' ))
+#'   ))
 eGFR_child_SCr <- function(...) {
   UseMethod("eGFR_child_SCr")
 }
@@ -516,7 +516,7 @@ eGFR_child_SCr.numeric <- function(SCr, height, ...) {
 #' eGFR_pt_data %>%
 #'   dplyr::mutate(eGFR = eGFR_child_SCr_BUN(
 #'     SCr = SCr_, height = height_, BUN = BUN_,
-#' ))
+#'   ))
 eGFR_child_SCr_BUN <- function(...) {
   UseMethod("eGFR_child_SCr_BUN")
 }
@@ -577,7 +577,7 @@ eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
 #' eGFR_pt_data %>%
 #'   dplyr::mutate(eGFR = eGFR_child_SCysC(
 #'     SCysC = SCysC_
-#' ))
+#'   ))
 eGFR_child_SCysC <- function(...) {
   UseMethod("eGFR_child_SCysC")
 }
@@ -807,8 +807,8 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
 #'
 #' Albuminuria_staging_ACR(df, "ACR")
 #'
-#'df %>%
-#'  dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
+#' df %>%
+#'   dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
 Albuminuria_staging_ACR <- function(...) {
   UseMethod("Albuminuria_staging_ACR")
 }
