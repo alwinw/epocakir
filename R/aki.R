@@ -63,13 +63,13 @@ aki_staging <- function(...) {
 
 #' @rdname aki_staging
 #' @export
-aki_staging.default <- function(.data,
-                                SCr = NULL,
-                                bCr = NULL,
-                                UO = NULL,
-                                dttm = NULL,
-                                pt_id = NULL,
-                                ...) {
+aki_staging.data.frame <- function(.data,
+                                   SCr = NULL,
+                                   bCr = NULL,
+                                   UO = NULL,
+                                   dttm = NULL,
+                                   pt_id = NULL,
+                                   ...) {
   ellipsis::check_dots_used()
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(bCr)) bCr <- .data[[rlang::as_name(rlang::enquo(bCr))]]
@@ -175,7 +175,7 @@ aki_bCr <- function(...) {
 
 #' @rdname aki_bCr
 #' @export
-aki_bCr.default <- function(.data, SCr, bCr, ...) {
+aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
   ellipsis::check_dots_used()
   aki_bCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -244,7 +244,7 @@ aki_SCr <- function(...) {
 
 #' @rdname aki_SCr
 #' @export
-aki_SCr.default <- function(.data, SCr, dttm, pt_id, ...) {
+aki_SCr.data.frame <- function(.data, SCr, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -328,7 +328,7 @@ aki_UO <- function(...) {
 
 #' @rdname aki_UO
 #' @export
-aki_UO.default <- function(.data, UO, dttm, pt_id, ...) {
+aki_UO.data.frame <- function(.data, UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_UO(
     .data[[rlang::as_name(rlang::enquo(UO))]],

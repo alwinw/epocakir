@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR_child_SCr_BUN}
 \alias{eGFR_child_SCr_BUN}
-\alias{eGFR_child_SCr_BUN.default}
+\alias{eGFR_child_SCr_BUN.data.frame}
 \alias{eGFR_child_SCr_BUN.units}
 \alias{eGFR_child_SCr_BUN.numeric}
 \title{eGFR Pediatric SCr, Height and BUN}
 \usage{
 eGFR_child_SCr_BUN(...)
 
-\method{eGFR_child_SCr_BUN}{default}(.data, SCr, height, BUN, ...)
+\method{eGFR_child_SCr_BUN}{data.frame}(.data, SCr, height, BUN, ...)
 
 \method{eGFR_child_SCr_BUN}{units}(SCr, height, BUN, ...)
 

@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR}
 \alias{eGFR}
-\alias{eGFR.default}
+\alias{eGFR.data.frame}
 \alias{eGFR.units}
 \alias{eGFR.numeric}
 \title{GFR Estimation}
 \usage{
 eGFR(...)
 
-\method{eGFR}{default}(
+\method{eGFR}{data.frame}(
   .data,
   SCr = NULL,
   SCysC = NULL,

@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR_adult_SCr}
 \alias{eGFR_adult_SCr}
-\alias{eGFR_adult_SCr.default}
+\alias{eGFR_adult_SCr.data.frame}
 \alias{eGFR_adult_SCr.units}
 \alias{eGFR_adult_SCr.numeric}
 \title{eGFR 2009 CKD-EPI creatinine equation}
 \usage{
 eGFR_adult_SCr(...)
 
-\method{eGFR_adult_SCr}{default}(.data, SCr, Age, male, black, ...)
+\method{eGFR_adult_SCr}{data.frame}(.data, SCr, Age, male, black, ...)
 
 \method{eGFR_adult_SCr}{units}(SCr, Age, male, black, ...)
 

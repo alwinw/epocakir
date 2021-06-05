@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_UO}
 \alias{aki_UO}
-\alias{aki_UO.default}
+\alias{aki_UO.data.frame}
 \alias{aki_UO.units}
 \alias{aki_UO.numeric}
 \title{AKI Staging based on Urine Output}
 \usage{
 aki_UO(...)
 
-\method{aki_UO}{default}(.data, UO, dttm, pt_id, ...)
+\method{aki_UO}{data.frame}(.data, UO, dttm, pt_id, ...)
 
 \method{aki_UO}{units}(UO, dttm, pt_id, ...)
 

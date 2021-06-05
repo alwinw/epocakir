@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{combn_changes}
 \alias{combn_changes}
-\alias{combn_changes.default}
+\alias{combn_changes.data.frame}
 \alias{combn_changes.POSIXct}
 \title{Combinatorics changes}
 \usage{
 combn_changes(...)
 
-\method{combn_changes}{default}(.data, dttm, val, pt_id, ...)
+\method{combn_changes}{data.frame}(.data, dttm, val, pt_id, ...)
 
 \method{combn_changes}{POSIXct}(dttm, val, pt_id, ...)
 }

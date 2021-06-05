@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR_adult_SCysC}
 \alias{eGFR_adult_SCysC}
-\alias{eGFR_adult_SCysC.default}
+\alias{eGFR_adult_SCysC.data.frame}
 \alias{eGFR_adult_SCysC.units}
 \alias{eGFR_adult_SCysC.numeric}
 \title{eGFR 2012 CKD-EPI cystatin C equation}
 \usage{
 eGFR_adult_SCysC(...)
 
-\method{eGFR_adult_SCysC}{default}(.data, SCysC, Age, male, ...)
+\method{eGFR_adult_SCysC}{data.frame}(.data, SCysC, Age, male, ...)
 
 \method{eGFR_adult_SCysC}{units}(SCysC, Age, male, ...)
 

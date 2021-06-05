@@ -87,16 +87,16 @@ eGFR_internal <- function(
 
 #' @rdname eGFR
 #' @export
-eGFR.default <- function(.data,
-                         SCr = NULL,
-                         SCysC = NULL,
-                         Age = NULL,
-                         height = NULL,
-                         BUN = NULL,
-                         male = NULL,
-                         black = NULL,
-                         pediatric = NULL,
-                         ...) {
+eGFR.data.frame <- function(.data,
+                            SCr = NULL,
+                            SCysC = NULL,
+                            Age = NULL,
+                            height = NULL,
+                            BUN = NULL,
+                            male = NULL,
+                            black = NULL,
+                            pediatric = NULL,
+                            ...) {
   ellipsis::check_dots_used()
   # [ ] !is.null won't work if SCr is a symbol...
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
@@ -239,7 +239,7 @@ eGFR_adult_SCr <- function(...) {
 
 #' @rdname eGFR_adult_SCr
 #' @export
-eGFR_adult_SCr.default <- function(.data, SCr, Age, male, black, ...) {
+eGFR_adult_SCr.data.frame <- function(.data, SCr, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -312,7 +312,7 @@ eGFR_adult_SCysC <- function(...) {
 
 #' @rdname eGFR_adult_SCysC
 #' @export
-eGFR_adult_SCysC.default <- function(.data, SCysC, Age, male, ...) {
+eGFR_adult_SCysC.data.frame <- function(.data, SCysC, Age, male, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]],
@@ -385,7 +385,7 @@ eGFR_adult_SCr_SCysC <- function(...) {
 
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
-eGFR_adult_SCr_SCysC.default <- function(.data, SCr, SCysC, Age, male, black, ...) {
+eGFR_adult_SCr_SCysC.data.frame <- function(.data, SCr, SCysC, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR_adult_SCr_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -460,7 +460,7 @@ eGFR_child_SCr <- function(...) {
 
 #' @rdname eGFR_child_SCr
 #' @export
-eGFR_child_SCr.default <- function(.data, SCr, height, ...) {
+eGFR_child_SCr.data.frame <- function(.data, SCr, height, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -523,7 +523,7 @@ eGFR_child_SCr_BUN <- function(...) {
 
 #' @rdname eGFR_child_SCr_BUN
 #' @export
-eGFR_child_SCr_BUN.default <- function(.data, SCr, height, BUN, ...) {
+eGFR_child_SCr_BUN.data.frame <- function(.data, SCr, height, BUN, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCr_BUN(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
@@ -584,7 +584,7 @@ eGFR_child_SCysC <- function(...) {
 
 #' @rdname eGFR_child_SCysC
 #' @export
-eGFR_child_SCysC.default <- function(.data, SCysC, ...) {
+eGFR_child_SCysC.data.frame <- function(.data, SCysC, ...) {
   ellipsis::check_dots_used()
   eGFR_child_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]]
@@ -661,7 +661,7 @@ GFR_staging <- function(...) {
 
 #' @rdname GFR_staging
 #' @export
-GFR_staging.default <- function(.data, GFR, ...) {
+GFR_staging.data.frame <- function(.data, GFR, ...) {
   GFR_staging(
     .data[[rlang::as_name(rlang::enquo(GFR))]]
   )
@@ -752,7 +752,7 @@ Albuminuria_staging_AER <- function(...) {
 
 #' @rdname Albuminuria_staging_AER
 #' @export
-Albuminuria_staging_AER.default <- function(.data, AER, ...) {
+Albuminuria_staging_AER.data.frame <- function(.data, AER, ...) {
   Albuminuria_staging_AER(
     .data[[rlang::as_name(rlang::enquo(AER))]]
   )
@@ -815,7 +815,7 @@ Albuminuria_staging_ACR <- function(...) {
 
 #' @rdname Albuminuria_staging_ACR
 #' @export
-Albuminuria_staging_ACR.default <- function(.data, ACR, ...) {
+Albuminuria_staging_ACR.data.frame <- function(.data, ACR, ...) {
   Albuminuria_staging_ACR(
     .data[[rlang::as_name(rlang::enquo(ACR))]]
   )

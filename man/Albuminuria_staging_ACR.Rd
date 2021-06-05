@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{Albuminuria_staging_ACR}
 \alias{Albuminuria_staging_ACR}
-\alias{Albuminuria_staging_ACR.default}
+\alias{Albuminuria_staging_ACR.data.frame}
 \alias{Albuminuria_staging_ACR.units}
 \alias{Albuminuria_staging_ACR.numeric}
 \title{Albuminuria Staging based on ACR}
 \usage{
 Albuminuria_staging_ACR(...)
 
-\method{Albuminuria_staging_ACR}{default}(.data, ACR, ...)
+\method{Albuminuria_staging_ACR}{data.frame}(.data, ACR, ...)
 
 \method{Albuminuria_staging_ACR}{units}(ACR, ...)
 

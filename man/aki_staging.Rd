@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_staging}
 \alias{aki_staging}
-\alias{aki_staging.default}
+\alias{aki_staging.data.frame}
 \alias{aki_staging.units}
 \alias{aki_staging.numeric}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
 aki_staging(...)
 
-\method{aki_staging}{default}(
+\method{aki_staging}{data.frame}(
   .data,
   SCr = NULL,
   bCr = NULL,

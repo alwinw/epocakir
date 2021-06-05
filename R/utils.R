@@ -297,7 +297,7 @@ combn_changes <- function(...) {
 
 #' @rdname combn_changes
 #' @export
-combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
+combn_changes.data.frame <- function(.data, dttm, val, pt_id, ...) {
   ellipsis::check_dots_used()
   val_name <- rlang::as_name(rlang::enquo(val))
   dttm_name <- rlang::as_name(rlang::enquo(dttm))

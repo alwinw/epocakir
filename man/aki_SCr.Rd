@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_SCr}
 \alias{aki_SCr}
-\alias{aki_SCr.default}
+\alias{aki_SCr.data.frame}
 \alias{aki_SCr.units}
 \alias{aki_SCr.numeric}
 \title{AKI Staging based on Changes in Serum Creatinine}
 \usage{
 aki_SCr(...)
 
-\method{aki_SCr}{default}(.data, SCr, dttm, pt_id, ...)
+\method{aki_SCr}{data.frame}(.data, SCr, dttm, pt_id, ...)
 
 \method{aki_SCr}{units}(SCr, dttm, pt_id, ...)
 

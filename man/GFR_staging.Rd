@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{GFR_staging}
 \alias{GFR_staging}
-\alias{GFR_staging.default}
+\alias{GFR_staging.data.frame}
 \alias{GFR_staging.units}
 \alias{GFR_staging.numeric}
 \title{GFR Staging}
 \usage{
 GFR_staging(...)
 
-\method{GFR_staging}{default}(.data, GFR, ...)
+\method{GFR_staging}{data.frame}(.data, GFR, ...)
 
 \method{GFR_staging}{units}(GFR, ...)
 

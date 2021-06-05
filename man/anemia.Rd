@@ -2,14 +2,14 @@
 % Please edit documentation in R/anemia.R
 \name{anemia}
 \alias{anemia}
-\alias{anemia.default}
+\alias{anemia.data.frame}
 \alias{anemia.units}
 \alias{anemia.numeric}
 \title{Diagnosis of anemia from Hb concentration}
 \usage{
 anemia(...)
 
-\method{anemia}{default}(.data, Hb, age, male, ...)
+\method{anemia}{data.frame}(.data, Hb, age, male, ...)
 
 \method{anemia}{units}(Hb, age, male, ...)
 

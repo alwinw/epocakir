@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{Albuminuria_staging_AER}
 \alias{Albuminuria_staging_AER}
-\alias{Albuminuria_staging_AER.default}
+\alias{Albuminuria_staging_AER.data.frame}
 \alias{Albuminuria_staging_AER.units}
 \alias{Albuminuria_staging_AER.numeric}
 \title{Albuminuria Staging based on AER}
 \usage{
 Albuminuria_staging_AER(...)
 
-\method{Albuminuria_staging_AER}{default}(.data, AER, ...)
+\method{Albuminuria_staging_AER}{data.frame}(.data, AER, ...)
 
 \method{Albuminuria_staging_AER}{units}(AER, ...)
 

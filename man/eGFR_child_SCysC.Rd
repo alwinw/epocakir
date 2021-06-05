@@ -2,14 +2,14 @@
 % Please edit documentation in R/ckd.R
 \name{eGFR_child_SCysC}
 \alias{eGFR_child_SCysC}
-\alias{eGFR_child_SCysC.default}
+\alias{eGFR_child_SCysC.data.frame}
 \alias{eGFR_child_SCysC.units}
 \alias{eGFR_child_SCysC.numeric}
 \title{eGFR Pediatric SCysC}
 \usage{
 eGFR_child_SCysC(...)
 
-\method{eGFR_child_SCysC}{default}(.data, SCysC, ...)
+\method{eGFR_child_SCysC}{data.frame}(.data, SCysC, ...)
 
 \method{eGFR_child_SCysC}{units}(SCysC, ...)
 

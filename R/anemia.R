@@ -40,7 +40,7 @@ anemia <- function(...) {
 
 #' @rdname anemia
 #' @export
-anemia.default <- function(.data, Hb, age, male, ...) {
+anemia.data.frame <- function(.data, Hb, age, male, ...) {
   ellipsis::check_dots_used()
   anemia(
     .data[[rlang::as_name(rlang::enquo(Hb))]],
