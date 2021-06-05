@@ -132,6 +132,34 @@ test_that("aki() on full aki_test_df()", {
   expect_identical(df_nvec, ep)
 })
 
+test_that("aki() on individual data.frames", {
+  expect_identical(
+    aki(aki_bCr_test_df(), SCr = "SCr_", bCr = "bCr_"),
+    aki_bCr_test_df()$aki_bCr
+  )
+  expect_identical(
+    aki(aki_SCr_test_rand_df(), SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
+    aki_SCr_test_rand_df()$aki_SCr
+  )
+  expect_identical(
+    aki(aki_UO_test_rand_df(), UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"),
+    aki_UO_test_rand_df()$aki_UO
+  )
+})
+
+test_that("aki() warnings", {
+  df_no_pt_id <- aki_SCr_test_raw_df() %>%
+    dplyr::filter(pt_id_ == "pt1")
+  expect_warning(
+    aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_"),
+    ".*Assuming provided data is for a single patient"
+  )
+  expect_identical(
+    suppressWarnings(aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_")),
+    df_no_pt_id$aki_SCr
+  )
+})
+
 
 test_that("aki_bCr() for data.frame", {
   expect_identical(aki_bCr(aki_bCr_test_df(), "SCr_", "bCr_"), aki_bCr_test_df()$aki_bCr)
