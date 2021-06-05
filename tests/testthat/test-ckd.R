@@ -119,6 +119,7 @@ eGFR_tol <- function(env = parent.frame()) {
   units::set_units(0.05, "mL/min/1.73m2")
 }
 
+
 test_that("eGFR() on full eGFR_df()", {
   ep <- eGFR_df()$eGFR_
 
@@ -167,7 +168,6 @@ test_that("eGFR() on full eGFR_df()", {
   lapply(abs(df_nvec - as.numeric(ep)), expect_lte, as.numeric(eGFR_tol()))
 })
 
-
 test_that("eGFR() on individual data.frames", {
   df_adult_SCr <- eGFR(eGFR_adult_df(), SCr = "SCr", Age = "Age", male = "male", black = "black")
   lapply(abs(df_adult_SCr - eGFR_adult_df()$eGFR_adult_SCr), expect_lte, eGFR_tol())
@@ -178,10 +178,6 @@ test_that("eGFR() on individual data.frames", {
   df_adult_SCr_SCysC <- eGFR(eGFR_adult_df(), SCr = "SCr", SCysC = "SCysC", Age = "Age", male = "male", black = "black")
   lapply(abs(df_adult_SCr_SCysC - eGFR_adult_df()$eGFR_adult_SCr_SCysC), expect_lte, eGFR_tol())
 
-  testthat::expect_warning(
-    eGFR(eGFR_child_df(), SCr = "SCr", height = "height"),
-    ".*Assuming pediatric patients as Age must be provided for adults."
-  )
   df_child_SCr <- suppressWarnings(eGFR(eGFR_child_df(), SCr = "SCr", height = "height"))
   lapply(abs(df_child_SCr - eGFR_child_df()$eGFR_child_SCr), expect_lte, eGFR_tol())
 
@@ -190,6 +186,30 @@ test_that("eGFR() on individual data.frames", {
 
   df_child_SCysC <- suppressWarnings(eGFR(eGFR_child_df(), SCysC = "SCysC"))
   lapply(abs(df_child_SCysC - eGFR_child_df()$eGFR_child_SCysC), expect_lte, eGFR_tol())
+})
+
+test_that("eGFR() warnings", {
+  testthat::expect_warning(
+    eGFR(eGFR_child_df(), SCr = "SCr", height = "height"),
+    "Assuming pediatric patients as Age must be provided for adults."
+  )
+
+  df_no_age <- eGFR_child_df() %>%
+    dplyr::mutate(pediatric = TRUE)
+  df_child_SCr <- eGFR(df_no_age, SCr = "SCr", height = "height", pediatric = "pediatric")
+  lapply(abs(df_child_SCr - eGFR_child_df()$eGFR_child_SCr), expect_lte, eGFR_tol())
+
+  df_wrong_ped <- eGFR_adult_df() %>%
+    dplyr::mutate(pediatric = TRUE)
+
+  testthat::expect_error(
+    eGFR(df_wrong_ped, SCr = "SCr", Age = "Age", male = "male", black = "black", pediatric = "pediatric"),
+    "Inconsistencies found between pediatric and age colums"
+  )
+
+  testthat::expect_warning(
+    eGFR(eGFR_adult_df()[1, ], SCr = "SCr", Age = "Age", male = "male"),
+  )
 })
 
 
