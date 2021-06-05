@@ -5,8 +5,6 @@ aki_stages <- factor(
   ordered = TRUE
 )
 
-aki_staging <- function() {}
-
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury

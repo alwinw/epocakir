@@ -1,3 +1,9 @@
+aki_stages <- factor(
+  c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"),
+  levels = c("No AKI", "AKI Stage 1", "AKI Stage 2", "AKI Stage 3"),
+  ordered = TRUE
+)
+
 aki_bCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(
     SCr_ = units::set_units(seq(2.0, 4.5, by = 0.5), "mg/dl"),
