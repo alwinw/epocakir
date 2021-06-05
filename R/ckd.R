@@ -36,7 +36,6 @@ eGFR <- function(...) {
   UseMethod("eGFR")
 }
 
-
 eGFR_internal <- function(
                           SCr,
                           SCysC,
@@ -64,7 +63,6 @@ eGFR_internal <- function(
   }
 }
 
-
 #' @rdname eGFR
 #' @export
 eGFR.default <- function(.data,
@@ -78,7 +76,7 @@ eGFR.default <- function(.data,
                          pediatric = NULL,
                          ...) {
   ellipsis::check_dots_used()
-  # FIXME !is.null won't work if SCr is a symbol...
+  # [ ] !is.null won't work if SCr is a symbol...
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
   if (!is.null(Age)) Age <- .data[[rlang::as_name(rlang::enquo(Age))]]
@@ -179,10 +177,6 @@ eGFR.numeric <- function(
     dplyr::mutate(eGFR = eGFR_internal(SCr, SCysC, Age, height, BUN, male, black, pediatric)) %>%
     dplyr::pull(eGFR)
 }
-
-# Overall GFR staging
-
-# Overall Albuminuria staging
 
 
 #' 2009 CKD-EPI creatinine equation

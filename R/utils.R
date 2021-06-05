@@ -11,10 +11,6 @@
 NULL
 
 
-# TODO consider adding a set_metric() and set_SI() which are simple
-# wrappers to convert data.frame columns into units
-
-
 #' Conversion Factors
 #'
 #' List of conversion factors based on tables in  KDIGO Clinical Practice
@@ -186,6 +182,7 @@ binary2factor <- function(.data, ...) {
   )
 }
 
+# Internal helper functions for combine_date_time_cols
 set_names <- function(.data, names) {
   names(.data) <- names
   .data
@@ -267,7 +264,7 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 
 #' Combinatorics changes
 #'
-#' Compares a value with previous values
+#' Compares a value with all previous values
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
@@ -307,10 +304,6 @@ combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
   return(data_n)
 }
 
-# TODO: The group_by could be done outside of the function?
-# e.g. df %>% group_by(pt_id) %>% combn_changes(dttm, val)
-# TODO: Consider making .data.frame as the function. POSIXct creates a
-# tibble and then sends it to combn_changes
 #' @rdname combn_changes
 #' @export
 combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
@@ -330,7 +323,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     ) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(.data$admin, .add = TRUE)
-  # check for nrow < 2
+  # [ ]: check for nrow < 2
   data_n <- data_gr %>%
     dplyr::count() %>%
     dplyr::ungroup() %>%
@@ -338,7 +331,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     dplyr::rowwise() %>%
     dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%
     dplyr::arrange(.data$X2, dplyr::desc(.data$X1))
-  # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
+  # [ ]: consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_gr[data_n$X1, ]
   T2 <- data_gr[data_n$X2, ]
   # The patient id should also match, remove after testing
@@ -354,5 +347,5 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     D.dttm = T2$dttm - T1$dttm
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
-    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm) # %>%
+    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm)
 }

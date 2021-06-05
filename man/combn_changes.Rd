@@ -31,7 +31,7 @@ Combinatorics changes
 of the same type provided (numeric or units)
 }
 \description{
-Compares a value with previous values
+Compares a value with all previous values
 }
 \examples{
 print("todo")

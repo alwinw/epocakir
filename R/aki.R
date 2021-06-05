@@ -1,4 +1,10 @@
-
+#' AKI Stages
+#'
+#' Ordered factor of AKI stages
+#'
+#' @export
+#' @examples
+#' aki_stages
 aki_stages <- factor(
   c("AKI Stage 1", "AKI Stage 2", "AKI Stage 3", "No AKI"),
   levels = c("No AKI", "AKI Stage 1", "AKI Stage 2", "AKI Stage 3"),
@@ -234,6 +240,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     dplyr::mutate(.aki = dplyr::if_else(is.na(.data$.aki), dplyr::last(aki_stages), .data$.aki)) %>%
     dplyr::pull(.data$.aki)
 }
+
 
 #' AKI Staging based on urine output
 #'
