@@ -44,17 +44,27 @@ column name, or vector if \code{.data} not provided}
 column name, or vector if \code{.data} not provided}
 }
 \description{
-Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012
 }
 \details{
-Provided a series of Serum Creatinine readings and/or Urine Output,
-\code{aki_staging()} calculates whether or not a patient has AKI.
-The staging (1, 2, 3) of AKI is returned
+Provided a baseline creatinine, series of Serum Creatinine readings and/or
+Urine Output, \code{aki_staging()} calculates whether or not a patient has AKI.
+The staging (1, 2, 3) of AKI is returned.
 
 When multiple columns are provided, \code{aki_staging()} will automatically
 calculate whether or not AKI has occurred using each KDIGIO definition.
+
+\itemize{
+\item{\code{\link[=aki_bCr]{aki_bCr()}}: Staging of AKI based on baseline serum creatinine}
+\item{\code{\link[=aki_SCr]{aki_SCr()}}: Staging of AKI based on changes in serum creatinine}
+\item{\code{\link[=aki_UO]{aki_UO()}}: Staging of AKI based on urine output}
+}
+
 The most severe AKI stage is then returned.
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
 aki_staging(aki_pt_data, SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")

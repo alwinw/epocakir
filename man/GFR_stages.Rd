@@ -13,6 +13,9 @@ GFR_stages
 \description{
 Ordered factor of GFR stages
 }
+\details{
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
+}
 \examples{
 GFR_stages
 }

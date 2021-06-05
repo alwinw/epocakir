@@ -27,8 +27,29 @@ column name, or vector if \code{.data} not provided}
 GFR category
 }
 \description{
-GFR Staging
+Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013
+}
+\details{
+\itemize{
+\item{G1: Normal or high GFR, \eqn{\ge}90}
+\item{G2: Mildly decreased, 60-89}
+\item{G3a: Mildly to moderately decreased, 45-59}
+\item{G3b: Moderately  to severely decreased, 30-44}
+\item{G4: Severely decreased, 15-29}
+\item{G5: Kidney failure, <15}
+}
+
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
 }
 \examples{
-print("todo")
+df <- tibble::tibble(
+  eGFR = units::set_units(c(-1, NA, 100, 70, 50, 35, 20, 10), "mL/min/1.73m2")
+)
+
+GFR_staging(df, "eGFR")
+
+df \%>\%
+  dplyr::mutate(GFR_level = GFR_staging(eGFR))
 }

@@ -2,6 +2,8 @@
 #'
 #' Ordered factor of AKI stages
 #'
+#' See <https://kdigo.org/guidelines/ckd-evaluation-and-management/> for more details
+#'
 #' @export
 #' @examples
 #' aki_stages
@@ -13,16 +15,26 @@ aki_stages <- factor(
 
 #' Codify AKI from Serum Creatinine and/or Urine Output
 #'
-#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Using KDIGO Clinical Practice Guideline for
+#' Acute Kidney Injury
 #' Volume 2 | Issue 1 | March 2012
 #'
-#' Provided a series of Serum Creatinine readings and/or Urine Output,
-#' `aki_staging()` calculates whether or not a patient has AKI.
-#' The staging (1, 2, 3) of AKI is returned
+#' Provided a baseline creatinine, series of Serum Creatinine readings and/or
+#' Urine Output, `aki_staging()` calculates whether or not a patient has AKI.
+#' The staging (1, 2, 3) of AKI is returned.
 #'
 #' When multiple columns are provided, `aki_staging()` will automatically
 #' calculate whether or not AKI has occurred using each KDIGIO definition.
+#'
+#' \itemize{
+#'   \item{[`aki_bCr()`]: Staging of AKI based on baseline serum creatinine}
+#'   \item{[`aki_SCr()`]: Staging of AKI based on changes in serum creatinine}
+#'   \item{[`aki_UO()`]: Staging of AKI based on urine output}
+#' }
+#'
 #' The most severe AKI stage is then returned.
+#'
+#' See <https://kdigo.org/guidelines/acute-kidney-injury/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -131,7 +143,8 @@ aki_staging.numeric <- function(
 
 #' AKI Staging based on Baseline Serum Creatinine
 #'
-#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Using KDIGO Clinical Practice Guideline for
+#' Acute Kidney Injury
 #' Volume 2 | Issue 1 | March 2012
 #'
 #' \itemize{
@@ -139,6 +152,8 @@ aki_staging.numeric <- function(
 #'   \item{AKI Stage 2: 2.0-2.9 times baseline}
 #'   \item{AKI Stage 3: 3.0 times baseline}
 #' }
+#'
+#' See <https://kdigo.org/guidelines/acute-kidney-injury/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -195,7 +210,8 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 
 #' AKI Staging based on Changes in Serum Creatinine
 #'
-#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Using KDIGO Clinical Practice Guideline for
+#' Acute Kidney Injury
 #' Volume 2 | Issue 1 | March 2012
 #'
 #' \itemize{
@@ -203,6 +219,8 @@ aki_bCr.numeric <- function(SCr, bCr, ...) {
 #'   \item{AKI Stage 2: N/A}
 #'   \item{AKI Stage 3: \eqn{\ge}4.0 mg/dl (\eqn{\ge}353.6 mmol/l)}
 #' }
+#'
+#' See <https://kdigo.org/guidelines/acute-kidney-injury/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
@@ -276,7 +294,8 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
 
 #' AKI Staging based on Urine Output
 #'
-#' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+#' Using KDIGO Clinical Practice Guideline for
+#' Acute Kidney Injury
 #' Volume 2 | Issue 1 | March 2012
 #'
 #' \itemize{
@@ -284,6 +303,8 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
 #'   \item{AKI Stage 2: <0.5 ml/kg/h for \eqn{\ge}12 hours}
 #'   \item{AKI Stage 3: <0.3 ml/kg/h for \eqn{\ge}24 hours OR Anuria for \eqn{\ge}12 hours}
 #' }
+#'
+#' See <https://kdigo.org/guidelines/acute-kidney-injury/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime

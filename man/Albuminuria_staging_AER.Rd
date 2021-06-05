@@ -27,8 +27,26 @@ column name, or vector if \code{.data} not provided}
 Albuminuria category
 }
 \description{
-Albuminuria Staging based on AER
+Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013
+}
+\details{
+\itemize{
+\item{A1: Normal to mildly increased}
+\item{A2: Moderately increased}
+\item{A3: Severely increased}
+}
+
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
 }
 \examples{
-print("todo")
+df <- tibble::tibble(
+  AER = units::set_units(c(-1, NA, 15, 100, 500), "mg/day")
+)
+
+Albuminuria_staging_AER(df, "AER")
+
+df \%>\%
+  dplyr::mutate(GFR_level = Albuminuria_staging_AER(AER))
 }

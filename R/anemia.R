@@ -1,6 +1,7 @@
 #' Diagnosis of anemia from Hb concentration
 #'
-#' KDIGO Clinical Practice Guideline for Anemia in Chronic Kidney Disease
+#' KDIGO Clinical Practice Guideline for
+#' Anemia in Chronic Kidney Disease
 #' Volume 2 | Issue 4 | August (2) 2012
 #'
 #' \itemize{
@@ -12,6 +13,8 @@
 #'   <11.5 g/dl (115 g/l) in children 5-12 years,
 #'   and <12.0 g/dl (120 g/l) in children 12-15 years.}
 #' }
+#'
+#' See <https://kdigo.org/guidelines/anemia-in-ckd/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param Hb Hemoglobin concenration

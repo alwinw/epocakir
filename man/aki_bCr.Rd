@@ -30,7 +30,8 @@ column name, or vector if \code{.data} not provided}
 (ordered factor) AKI stages
 }
 \description{
-Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012
 }
 \details{
@@ -39,6 +40,8 @@ Volume 2 | Issue 1 | March 2012
 \item{AKI Stage 2: 2.0-2.9 times baseline}
 \item{AKI Stage 3: 3.0 times baseline}
 }
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
 aki_bCr(aki_pt_data, SCr = "SCr_", bCr = "bCr_")

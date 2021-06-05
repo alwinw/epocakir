@@ -33,7 +33,8 @@ column name, or vector if \code{.data} not provided}
 (ordered factor) AKI stages
 }
 \description{
-Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012
 }
 \details{
@@ -42,6 +43,8 @@ Volume 2 | Issue 1 | March 2012
 \item{AKI Stage 2: N/A}
 \item{AKI Stage 3: \eqn{\ge}4.0 mg/dl (\eqn{\ge}353.6 mmol/l)}
 }
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
 aki_SCr(aki_pt_data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")

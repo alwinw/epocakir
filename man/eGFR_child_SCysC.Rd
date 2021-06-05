@@ -5,7 +5,7 @@
 \alias{eGFR_child_SCysC.default}
 \alias{eGFR_child_SCysC.units}
 \alias{eGFR_child_SCysC.numeric}
-\title{Pediatric SCysC}
+\title{eGFR Pediatric SCysC}
 \usage{
 eGFR_child_SCysC(...)
 
@@ -28,8 +28,24 @@ Estimated GFR
 of the same type provided (numeric or units)
 }
 \description{
-Pediatric SCysC
+Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013
+}
+\details{
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
 }
 \examples{
-print("todo")
+eGFR(eGFR_pt_data,
+  SCr = "SCr_", SCysC = "SCysC_",
+  Age = "Age_", height = "height_", BUN = "BUN_",
+  male = "male_", black = "black_", pediatric = "pediatric_"
+)
+
+eGFR_pt_data \%>\%
+  dplyr::mutate(eGFR = eGFR(
+    SCr = SCr_, SCysC = SCysC_,
+    Age = Age_, height = height_, BUN = BUN_,
+    male = male_, black = black_, pediatric = pediatric_
+    ))
 }

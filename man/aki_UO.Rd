@@ -33,7 +33,8 @@ column name, or vector if \code{.data} not provided}
 (ordered factor) AKI stages
 }
 \description{
-Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012
 }
 \details{
@@ -42,6 +43,8 @@ Volume 2 | Issue 1 | March 2012
 \item{AKI Stage 2: <0.5 ml/kg/h for \eqn{\ge}12 hours}
 \item{AKI Stage 3: <0.3 ml/kg/h for \eqn{\ge}24 hours OR Anuria for \eqn{\ge}12 hours}
 }
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
 aki_UO(aki_pt_data, UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
