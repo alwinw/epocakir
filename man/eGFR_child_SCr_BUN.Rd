@@ -49,5 +49,5 @@ eGFR_child_SCr_BUN(eGFR_pt_data,
 eGFR_pt_data \%>\%
   dplyr::mutate(eGFR = eGFR_child_SCr_BUN(
     SCr = SCr_, height = height_, BUN = BUN_,
-))
+  ))
 }

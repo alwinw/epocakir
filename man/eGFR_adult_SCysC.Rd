@@ -48,6 +48,6 @@ eGFR_adult_SCysC(eGFR_pt_data,
 
 eGFR_pt_data \%>\%
   dplyr::mutate(eGFR = eGFR_adult_SCysC(
-    SCysC = SCysC_,Age = Age_, male = male_
-))
+    SCysC = SCysC_, Age = Age_, male = male_
+  ))
 }

@@ -48,5 +48,5 @@ df <- tibble::tibble(
 Albuminuria_staging_ACR(df, "ACR")
 
 df \%>\%
- dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
+  dplyr::mutate(GFR_level = Albuminuria_staging_ACR(ACR))
 }

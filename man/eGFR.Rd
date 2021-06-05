@@ -111,5 +111,5 @@ eGFR_pt_data \%>\%
     SCr = SCr_, SCysC = SCysC_,
     Age = Age_, height = height_, BUN = BUN_,
     male = male_, black = black_, pediatric = pediatric_
-))
+  ))
 }

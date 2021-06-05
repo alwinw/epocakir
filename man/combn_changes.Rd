@@ -34,5 +34,8 @@ of the same type provided (numeric or units)
 Compares a value with all previous values
 }
 \examples{
-print("todo")
+combn_changes(aki_pt_data, dttm = "dttm_", val = "SCr_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  combn_changes(dttm_, SCr_, pt_id_)
 }

@@ -57,5 +57,5 @@ eGFR_pt_data \%>\%
   dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(
     SCr = SCr_, SCysC = SCysC_,
     Age = Age_, male = male_, black = black_
-))
+  ))
 }

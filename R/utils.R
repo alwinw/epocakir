@@ -209,7 +209,14 @@ find_cols <- function(text, replace, colnames) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' df <- data.frame(
+#'   date_a = as.Date(c("2020-01-01", "2020-01-02")),
+#'   date_b = as.POSIXct(c("2020-02-01", "2020-02-02")),
+#'   time_a = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02")),
+#'   time_b = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02"))
+#' )
+#'
+#' combine_date_time_cols(df)
 combine_date_time_cols <- function(.data, tz = NULL) {
   dttm_col <- dplyr::inner_join(
     find_cols("date", "DateTime", colnames(.data)),
@@ -280,7 +287,10 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' combn_changes(aki_pt_data, dttm = "dttm_", val = "SCr_", pt_id = "pt_id_")
+#'
+#' aki_pt_data %>%
+#'   combn_changes(dttm_, SCr_, pt_id_)
 combn_changes <- function(...) {
   UseMethod("combn_changes")
 }
