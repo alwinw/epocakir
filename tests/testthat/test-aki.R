@@ -147,6 +147,20 @@ test_that("aki() on individual data.frames", {
   )
 })
 
+test_that("aki() warnings", {
+  df_no_pt_id <- aki_SCr_test_raw_df() %>%
+    dplyr::filter(pt_id_ == "pt1")
+  expect_warning(
+    aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_"),
+    ".*Assuming provided data is for a single patient"
+  )
+  expect_identical(
+    suppressWarnings(aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_")),
+    df_no_pt_id$aki_SCr
+  )
+})
+
+
 test_that("aki_bCr() for data.frame", {
   expect_identical(aki_bCr(aki_bCr_test_df(), "SCr_", "bCr_"), aki_bCr_test_df()$aki_bCr)
   expect_identical(aki_bCr(aki_bCr_test_df(), SCr_, bCr_), aki_bCr_test_df()$aki_bCr)
