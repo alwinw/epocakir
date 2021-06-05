@@ -5,7 +5,7 @@
 \alias{Albuminuria_stages}
 \title{Albuminuria Stages}
 \format{
-An object of class \code{ordered} (inherits from \code{factor}) of length 3.
+An object of class \code{ordered} (inherits from \code{factor}) of length 4.
 }
 \usage{
 Albuminuria_stages
