@@ -48,7 +48,7 @@ eGFR_internal <- function(
                           pediatric) {
   if (!is.na(SCr) & is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
     eGFR_adult_SCr(SCr, Age, male, black)
-  } else if (is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
+  } else if (is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !pediatric) {
     eGFR_adult_SCysC(SCysC, Age, male)
   } else if (!is.na(SCr) & !is.na(SCysC) & !is.na(Age) & !is.na(male) & !is.na(black) & !pediatric) {
     eGFR_adult_SCr_SCysC(SCr, SCysC, Age, male, black)
@@ -88,11 +88,19 @@ eGFR.default <- function(.data,
   if (!is.null(black)) black <- .data[[rlang::as_name(rlang::enquo(black))]]
   if (!is.null(pediatric)) pediatric <- .data[[rlang::as_name(rlang::enquo(pediatric))]]
 
-  eGFR(
-    SCr = SCr, SCysC = SCysC,
-    Age = Age, height = height, BUN = BUN,
-    male = male, black = black, pediatric = pediatric
-  )
+  if (!is.null(SCr)) {
+    eGFR(
+      SCr = SCr, SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    )
+  } else if (!is.null(SCysC)) {
+    eGFR(
+      SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    )
+  }
 }
 
 #' @rdname eGFR
@@ -114,13 +122,21 @@ eGFR.units <- function(
   if (!is.null(height)) height <- as_metric(height = height, value_only = T)
   if (!is.null(BUN)) BUN <- as_metric(BUN = BUN, value_only = T)
 
-  units::set_units(
-    eGFR(
+  if (!is.null(SCr)) {
+    eGFR_calc <- eGFR(
       SCr = SCr, SCysC = SCysC,
       Age = Age, height = height, BUN = BUN,
       male = male, black = black, pediatric = pediatric
-    ), "mL/min/1.73m2"
-  )
+    )
+  } else if (!is.null(SCysC)) {
+    eGFR_calc <- eGFR(
+      SCysC = SCysC,
+      Age = Age, height = height, BUN = BUN,
+      male = male, black = black, pediatric = pediatric
+    )
+  }
+
+  units::set_units(eGFR_calc, "mL/min/1.73m2")
 }
 
 #' @rdname eGFR
@@ -144,8 +160,8 @@ eGFR.numeric <- function(
   # Unsure why add_column can't be %>% chained in with names(.data)
 
   if (is.null(Age) & is.null(pediatric)) {
-    warning("Either Age or pediatric should be provided. Assuming adult patients.")
-    df <- dplyr::mutate(df, pediatric = FALSE)
+    warning("Either Age or pediatric should be provided. Assuming pediatric patients as Age must be provided for adults.")
+    df <- dplyr::mutate(df, pediatric = TRUE)
   } else if (!is.null(Age) & is.null(pediatric)) {
     df <- dplyr::mutate(df, pediatric = Age < 18)
   } else if (is.null(Age) & !is.null(pediatric)) {

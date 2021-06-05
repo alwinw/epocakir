@@ -168,6 +168,28 @@ test_that("eGFR() on full eGFR_df()", {
 })
 
 
+test_that("eGFR() on individual data.frames", {
+  df_adult_SCr <- eGFR(eGFR_adult_df(), SCr = "SCr", Age = "Age", male = "male", black = "black")
+  lapply(abs(df_adult_SCr - eGFR_adult_df()$eGFR_adult_SCr), expect_lte, eGFR_tol())
+
+  df_adult_SCysC <- eGFR(eGFR_adult_df(), SCysC = "SCysC", Age = "Age", male = "male")
+  lapply(abs(df_adult_SCysC - eGFR_adult_df()$eGFR_adult_SCysC), expect_lte, eGFR_tol())
+
+  df_adult_SCr_SCysC <- eGFR(eGFR_adult_df(), SCr = "SCr", SCysC = "SCysC", Age = "Age", male = "male", black = "black")
+  lapply(abs(df_adult_SCr_SCysC - eGFR_adult_df()$eGFR_adult_SCr_SCysC), expect_lte, eGFR_tol())
+
+  testthat::expect_warning(eGFR(eGFR_child_df(), SCr = "SCr", height = "height"))
+  df_child_SCr <- suppressWarnings(eGFR(eGFR_child_df(), SCr = "SCr", height = "height"))
+  lapply(abs(df_child_SCr - eGFR_child_df()$eGFR_child_SCr), expect_lte, eGFR_tol())
+
+  df_child_SCr_BUN <- suppressWarnings(eGFR(eGFR_child_df(), SCr = "SCr", height = "height", BUN = "BUN"))
+  lapply(abs(df_child_SCr_BUN - eGFR_child_df()$eGFR_child_SCr_BUN), expect_lte, eGFR_tol())
+
+  df_child_SCysC <- suppressWarnings(eGFR(eGFR_child_df(), SCysC = "SCysC"))
+  lapply(abs(df_child_SCysC - eGFR_child_df()$eGFR_child_SCysC), expect_lte, eGFR_tol())
+})
+
+
 test_that("eGFR_adult_SCr()", {
   ep <- eGFR_adult_df()$eGFR_adult_SCr
 
