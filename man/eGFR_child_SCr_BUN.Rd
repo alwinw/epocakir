@@ -42,16 +42,12 @@ Volume 3 | Issue 1 | January 2013
 See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
 }
 \examples{
-eGFR(eGFR_pt_data,
-  SCr = "SCr_", SCysC = "SCysC_",
-  Age = "Age_", height = "height_", BUN = "BUN_",
-  male = "male_", black = "black_", pediatric = "pediatric_"
+eGFR_child_SCr_BUN(eGFR_pt_data,
+  SCr = "SCr_", height = "height_", BUN = "BUN_",
 )
 
 eGFR_pt_data \%>\%
-  dplyr::mutate(eGFR = eGFR(
-    SCr = SCr_, SCysC = SCysC_,
-    Age = Age_, height = height_, BUN = BUN_,
-    male = male_, black = black_, pediatric = pediatric_
-    ))
+  dplyr::mutate(eGFR = eGFR_child_SCr_BUN(
+    SCr = SCr_, height = height_, BUN = BUN_,
+))
 }

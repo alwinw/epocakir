@@ -53,7 +53,7 @@
 #'     SCr = SCr_, SCysC = SCysC_,
 #'     Age = Age_, height = height_, BUN = BUN_,
 #'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#' ))
 eGFR <- function(...) {
   UseMethod("eGFR")
 }
@@ -225,18 +225,14 @@ eGFR.numeric <- function(
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
-#'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' eGFR_adult_SCr(eGFR_pt_data,
+#'   SCr = "SCr_", Age = "Age_", male = "male_", black = "black_"
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
-#'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'   dplyr::mutate(eGFR = eGFR_adult_SCr(
+#'     SCr = SCr_, Age = Age_, male = male_, black = black_
+#' ))
 eGFR_adult_SCr <- function(...) {
   UseMethod("eGFR_adult_SCr")
 }
@@ -302,18 +298,14 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
-#'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' eGFR_adult_SCysC(eGFR_pt_data,
+#'   SCysC = "SCysC_", Age = "Age_", male = "male_"
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
-#'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'   dplyr::mutate(eGFR = eGFR_adult_SCysC(
+#'     SCysC = SCysC_,Age = Age_, male = male_
+#' ))
 eGFR_adult_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCysC")
 }
@@ -377,18 +369,16 @@ eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
+#' eGFR_adult_SCr_SCysC(eGFR_pt_data,
 #'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#'   Age = "Age_", male = "male_", black = "black_"
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
+#'   dplyr::mutate(eGFR = eGFR_adult_SCr_SCysC(
 #'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'     Age = Age_, male = male_, black = black_
+#' ))
 eGFR_adult_SCr_SCysC <- function(...) {
   UseMethod("eGFR_adult_SCr_SCysC")
 }
@@ -456,18 +446,14 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
-#'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' eGFR_child_SCr(eGFR_pt_data,
+#'   SCr = "SCr_", height = "height_"
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
-#'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'   dplyr::mutate(eGFR = eGFR_child_SCr(
+#'     SCr = SCr_, height = height_,
+#' ))
 eGFR_child_SCr <- function(...) {
   UseMethod("eGFR_child_SCr")
 }
@@ -523,18 +509,14 @@ eGFR_child_SCr.numeric <- function(SCr, height, ...) {
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
-#'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' eGFR_child_SCr_BUN(eGFR_pt_data,
+#'   SCr = "SCr_", height = "height_", BUN = "BUN_",
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
-#'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'   dplyr::mutate(eGFR = eGFR_child_SCr_BUN(
+#'     SCr = SCr_, height = height_, BUN = BUN_,
+#' ))
 eGFR_child_SCr_BUN <- function(...) {
   UseMethod("eGFR_child_SCr_BUN")
 }
@@ -588,18 +570,14 @@ eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
 #' @export
 #'
 #' @examples
-#' eGFR(eGFR_pt_data,
-#'   SCr = "SCr_", SCysC = "SCysC_",
-#'   Age = "Age_", height = "height_", BUN = "BUN_",
-#'   male = "male_", black = "black_", pediatric = "pediatric_"
+#' eGFR_child_SCysC(eGFR_pt_data,
+#'   SCysC = "SCysC_"
 #' )
 #'
 #' eGFR_pt_data %>%
-#'   dplyr::mutate(eGFR = eGFR(
-#'     SCr = SCr_, SCysC = SCysC_,
-#'     Age = Age_, height = height_, BUN = BUN_,
-#'     male = male_, black = black_, pediatric = pediatric_
-#'     ))
+#'   dplyr::mutate(eGFR = eGFR_child_SCysC(
+#'     SCysC = SCysC_
+#' ))
 eGFR_child_SCysC <- function(...) {
   UseMethod("eGFR_child_SCysC")
 }
