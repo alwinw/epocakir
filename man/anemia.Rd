@@ -34,8 +34,23 @@ Anemia
 as logical \code{TRUE} or \code{FALSE}
 }
 \description{
-Diagnosis of anemia from Hb concentration
+KDIGO Clinical Practice Guideline for Anemia in Chronic Kidney Disease
+Volume 2 | Issue 4 | August (2) 2012
+}
+\details{
+\itemize{
+\item{Adults and children >15 years with CKD when the Hb concentration is
+<13.0 g/dl (<130 g/l) in males and
+<12.0 g/dl (<120 g/l) in females.}
+\item{Children with CKD if Hb concentration is
+<11.0 g/dl (<110 g/l) in children 0.5-5 years,
+<11.5 g/dl (115 g/l) in children 5-12 years,
+and <12.0 g/dl (120 g/l) in children 12-15 years.}
+}
 }
 \examples{
-print("todo")
+anemia(anemia_pt_data, Hb = "Hb", age = "age", male = "male")
+
+anemia_pt_data \%>\%
+  dplyr::mutate(anemia = anemia(Hb = Hb, age = age, male = male))
 }
