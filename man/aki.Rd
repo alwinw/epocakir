@@ -2,52 +2,38 @@
 % Please edit documentation in R/aki.R
 \name{aki}
 \alias{aki}
-\alias{aki.numeric}
-\alias{aki.units}
 \alias{aki.default}
+\alias{aki.units}
+\alias{aki.numeric}
 \title{Codify AKI from Serum Creatinine and/or Urine Output}
 \usage{
 aki(...)
 
-\method{aki}{numeric}(SCr, bCr = NULL, units = "umol/l", na.rm = FALSE, ...)
+\method{aki}{default}(.data, SCr = NULL, bCr = NULL, UO = NULL, dttm = NULL, pt_id = NULL, ...)
 
-\method{aki}{units}(SCr, bCr = NULL, na.rm = FALSE, ...)
+\method{aki}{units}(SCr = NULL, bCr = NULL, UO = NULL, dttm = NULL, pt_id = NULL, ...)
 
-\method{aki}{default}(
-  data,
-  SCr = NULL,
-  bCr = NULL,
-  UO = NULL,
-  aki = "aki",
-  units = list(SCr = "umol/l"),
-  na.rm = FALSE,
-  ...
-)
+\method{aki}{numeric}(SCr = NULL, bCr = NULL, UO = NULL, dttm = NULL, pt_id = NULL, ...)
 }
 \arguments{
-\item{...}{Further optional arguments that will be passed to method.}
+\item{...}{Further optional arguments}
 
-\item{SCr}{The variable name, e.g. "cr", to be used for determining
-AKI based on creatinine level. A numeric vector or time series of
-serum creatinine values if the data argument is unused}
+\item{.data}{(data.frame) A data.frame, optional}
 
-\item{bCr}{The variable name, e.g. "baseline_cr", to be used for determining
-AKI based on urine output. A single numeric value of
-baseline creatinine if the data argument is unused}
+\item{SCr}{Serum creatinine
+column name, or vector if \code{.data} not provided}
 
-\item{units}{(character) Units of SCr and UO metric (mg/dl) or SI (umol/l)
-#TOFIX, consider changing to a list}
+\item{bCr}{Baseline creatinine
+column name, or vector if \code{.data} not provided}
 
-\item{na.rm}{(logical) If TRUE, missing values are removed}
+\item{UO}{Urine output
+column name, or vector if \code{.data} not provided}
 
-\item{data}{A data.frame with the data needed for serum creatinine (SCr)
-and/or urine output (UO)}
+\item{dttm}{DateTime
+column name, or vector if \code{.data} not provided}
 
-\item{UO}{The variable name, e.g. "urine", to be used for determining
-AKI based on urine output. A numeric vector or time series of
-urine output values if the data argument is unused}
-
-\item{aki}{the variable name e.g. "aki_stages" to be used for the output}
+\item{pt_id}{Patient ID
+column name, or vector if \code{.data} not provided}
 }
 \description{
 Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
@@ -59,6 +45,5 @@ calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
 also calculated
 }
 \examples{
-# aki(seq(60, 200, by = 20))
-# aki(SCr = seq(60, 200, by = 20), bCr = 50)
+print("todo")
 }
