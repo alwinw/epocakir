@@ -16,9 +16,9 @@ aki_stages <- factor(
 #' Using KDIGO Clinical Practice Guideline for Acute Kidney Injury
 #' Volume 2 | Issue 1 | March 2012
 #'
-#' Provided a series of Serum Creatinine readings and/or Urine Output, aki()
-#' calculates whether or not a patient has AKI. The staging (1, 2, 3) of AKI is
-#' also calculated
+#' Provided a series of Serum Creatinine readings and/or Urine Output,
+#' #' aki_staging() calculates whether or not a patient has AKI.
+#' The staging (1, 2, 3) of AKI is returned
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
@@ -38,20 +38,20 @@ aki_stages <- factor(
 #' @importFrom rlang .data
 #' @importFrom rlang `:=`
 #' @export
-aki <- function(...) {
+aki_staging <- function(...) {
   ellipsis::check_dots_used()
-  UseMethod("aki")
+  UseMethod("aki_staging")
 }
 
-#' @rdname aki
+#' @rdname aki_staging
 #' @export
-aki.default <- function(.data,
-                        SCr = NULL,
-                        bCr = NULL,
-                        UO = NULL,
-                        dttm = NULL,
-                        pt_id = NULL,
-                        ...) {
+aki_staging.default <- function(.data,
+                                SCr = NULL,
+                                bCr = NULL,
+                                UO = NULL,
+                                dttm = NULL,
+                                pt_id = NULL,
+                                ...) {
   ellipsis::check_dots_used()
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(bCr)) bCr <- .data[[rlang::as_name(rlang::enquo(bCr))]]
@@ -60,42 +60,42 @@ aki.default <- function(.data,
   if (!is.null(pt_id)) pt_id <- .data[[rlang::as_name(rlang::enquo(pt_id))]]
 
   if (!is.null(SCr)) {
-    aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+    aki_staging(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
   } else {
-    aki(UO = UO, dttm = dttm, pt_id = pt_id)
+    aki_staging(UO = UO, dttm = dttm, pt_id = pt_id)
   }
 }
 
-#' @rdname aki
+#' @rdname aki_staging
 #' @export
-aki.units <- function(
-                      SCr = NULL,
-                      bCr = NULL,
-                      UO = NULL,
-                      dttm = NULL,
-                      pt_id = NULL,
-                      ...) {
+aki_staging.units <- function(
+                              SCr = NULL,
+                              bCr = NULL,
+                              UO = NULL,
+                              dttm = NULL,
+                              pt_id = NULL,
+                              ...) {
   ellipsis::check_dots_used()
   if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = T)
   if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = T)
   if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = T)
 
   if (!is.null(SCr)) {
-    aki(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
+    aki_staging(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
   } else {
-    aki(UO = UO, dttm = dttm, pt_id = pt_id)
+    aki_staging(UO = UO, dttm = dttm, pt_id = pt_id)
   }
 }
 
-#' @rdname aki
+#' @rdname aki_staging
 #' @export
-aki.numeric <- function(
-                        SCr = NULL,
-                        bCr = NULL,
-                        UO = NULL,
-                        dttm = NULL,
-                        pt_id = NULL,
-                        ...) {
+aki_staging.numeric <- function(
+                                SCr = NULL,
+                                bCr = NULL,
+                                UO = NULL,
+                                dttm = NULL,
+                                pt_id = NULL,
+                                ...) {
   ellipsis::check_dots_used()
 
   if (!is.null(dttm) & is.null(pt_id)) {
