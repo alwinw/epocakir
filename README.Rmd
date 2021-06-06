@@ -21,16 +21,49 @@ knitr::opts_chunk$set(
 
 [![R build status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
 [![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 
 <!-- badges: end -->
 
 ## Clinical Coding of Patients with Kidney Disease
 
-The *epocakir* package makes clinical coding of patients with kidney disease
-using clinical practice guidelines easy. The guidelines used are the
-evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/).
-This package covers acute kidney injury (AKI), anemia,
-and chronic liver disease(CKD).
+The *epocakir* package makes clinical coding of patients with kidney disease using clinical practice guidelines easy.
+The guidelines used are the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/).
+This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD):
+
+- `aki_staging()`: Classification of AKI staging (`aki_stages`) with automatic selection of:
+
+  - `aki_bCr()`: AKI based on baseline creatinine
+  - `aki_SCr()`: AKI based on changes in serum creatinine
+  - `aki_UO()`: AKI based on urine output
+
+- `anemia()`: Classification of anemia
+
+- Classification of albuminuria (`Albuminuria_stages`)
+
+  - `Albuminuria_staging_ACR()`: Albuminuria based on Albumin excretion rate
+  - `Albuminuria_staging_AER()`: Albuminuria based on Albumin-to-creatinine ratio
+
+- `eGFR()`: Estimation of glomerular filtration rate with automatic selection of:
+
+  - `eGFR_adult_SCr()`: eGFR based on the 2009 CKD-EPI creatinine equation
+  - `eGFR_adult_SCysC()`: eGFR based on the 2012 CKD-EPI cystatin C equation
+  - `eGFR_adult_SCr_SCysC()`: eGFR based on the 2012 CKD-EPI creatinine-cystatin C equation
+  - `eGFR_child_SCr()`: eGFR based on the pediatric creatinine-based equation
+  - `eGFR_child_SCr_BUN()`: eGFR based on the pediatric creatinine-BUN equation
+  - `eGFR_child_SCysC()`: eGFR based on the pediatric cystatin C-based equation
+
+- `GFR_staging()`: Staging of GFR (`GFR_stages`)
+  
+- Multiple utility functions including:
+
+  - `conversion_factors`: Conversion factors used throughout the KDIGO guidelines
+  - `as_metric()`: Conversion of a measured value into metric units
+  - `dob2age()`: Calculation of age from a date of birth
+  - `binary2factor()`: Conversion of binary data into factors based on a column name
+  - `combine_date_time_cols()`: Combining separate date and time columns into a single date and time column
+  - `combn_changes`: Generating changes between measurements
+
 
 ## Installation
 
@@ -42,7 +75,7 @@ install.packages("epocakir")
 ```
 -->
 
-You can install the **development** version from [GitHub](https://github.com/) with:
+You can install the **development** version from [GitHub](https://github.com/alwinw/epocakir) with:
 
 ``` r
 # install.packages("devtools")
@@ -51,11 +84,86 @@ devtools::install_github("alwinw/epocakir")
 
 ## Getting Started
 
-Instructions to come
+```{r pkgs, message = FALSE, warning=FALSE}
+library(epocakir)
+library(dplyr)
+library(units)
+```
+
+Often clinical data must be cleansed and tidied before analysis can begin.
+To assist in this, several utility functions have been included.
+To explore these, consider a sample clinical dataset `clinical_obvs`:
+
+```{r clinical_data}
+glimpse(clinical_obvs)
+
+tidy_obvs <- clinical_obvs %>%
+  combine_date_time_cols() %>%
+  mutate(
+    Age = dob2age(`Date of Birth`),
+    Height = as_metric(height = set_units(as.numeric(Height), "cm"))
+  ) %>%
+  binary2factor(Male, Surgery)
+
+glimpse(tidy_obvs)
+```
+
+Make sure to use `set_units()` from the `units` package to convert all measurements into unit objects for automatic unit conversion in epocakir.
 
 ## Examples
 
-Examples to come
+It is possible to use `aki_staging()` to automatically classify the presence and staging of AKI.
+If a particular method is required, it is possible to classify AKI using `aki_bCr()`, `aki_SCr()` or `aki_UO().`
+
+```{r aki}
+head(aki_pt_data)
+
+aki_staging(aki_pt_data,
+  SCr = "SCr_", bCr = "bCr_", UO = "UO_",
+  dttm = "dttm_", pt_id = "pt_id_"
+)
+
+aki_pt_data %>%
+  mutate(aki = aki_staging(
+    SCr = SCr_, bCr = bCr_, UO = UO_,
+    dttm = dttm_, pt_id = pt_id_
+  )) %>%
+  select(pt_id_, SCr_:dttm_, aki)
+
+aki_pt_data %>%
+  mutate(aki = aki_SCr(
+    SCr = SCr_, dttm = dttm_, pt_id = pt_id_
+  )) %>%
+  select(pt_id_, SCr_:dttm_, aki)
+```
+
+
+Similarly, `eGFR()` offers the ability to automatically select the appropriate formula to estimate the glomerular filtration rate.
+If a particular formula is required, then `eGFR_adult_SCr`, `eGFR_adult_SCysC`, `eGFR_adult_SCr_SCysC`, `eGFR_child_SCr`, `eGFR_child_SCr_BUN`, or `eGFR_child_SCysC` can be used.
+
+```{r eGFR}
+head(eGFR_pt_data)
+
+eGFR(eGFR_pt_data,
+  SCr = "SCr_", SCysC = "SCysC_",
+  Age = "Age_", height = "height_", BUN = "BUN_",
+  male = "male_", black = "black_", pediatric = "pediatric_"
+)
+
+eGFR_pt_data %>%
+  dplyr::mutate(eGFR = eGFR(
+    SCr = SCr_, SCysC = SCysC_,
+    Age = Age_, height = height_, BUN = BUN_,
+    male = male_, black = black_, pediatric = pediatric_
+  )) %>%
+  select(SCr_:pediatric_, eGFR)
+
+eGFR_pt_data %>%
+  dplyr::mutate(eGFR = eGFR_adult_SCr(
+    SCr = SCr_, Age = Age_, male = male_, black = black_
+  )) %>%
+  select(SCr_:pediatric_, eGFR)
+```
 
 ## References
 
@@ -68,3 +176,7 @@ KDIGO Guidelines - <https://kdigo.org/guidelines/>
 ![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits)
 ![GitHub repo size in bytes](https://img.shields.io/github/repo-size/alwinw/epocakir)
 ![Total Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
+
+----
+
+See <https://alwinw.github.io/epocakir/reference/index.html> for more usage details and package reference.
