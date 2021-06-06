@@ -1,6 +1,6 @@
 #' Clinical Patient Data
 #'
-#' A sample dataset to demonstrate ulitiy functions in `epocakir`
+#' A sample dataset to demonstrate utility functions in `epocakir`
 #'
 #' @examples
 #' clinical_obvs

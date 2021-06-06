@@ -72,7 +72,7 @@ column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 \item{black}{Black race or not
 column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 
-\item{pediatric}{(logical) Paediatric or not
+\item{pediatric}{(logical) Pediatric or not
 column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 }
 \value{

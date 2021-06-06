@@ -61,7 +61,7 @@ Initial full-featured release of epocakir methods
 ## Bug fixes
 
 - Used `tibble::tibble()` instead of `data.frame()` to prevent issue with `stringsasfactors` difference between R 3.x and R 4.x
-- FIxed sorting error in `aki_UO()
+- Fixed sorting error in `aki_UO()
 
 # epocakir 0.7.0
 

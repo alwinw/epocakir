@@ -11,7 +11,7 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 clinical_obvs
 }
 \description{
-A sample dataset to demonstrate ulitiy functions in \code{epocakir}
+A sample dataset to demonstrate utility functions in \code{epocakir}
 }
 \examples{
 clinical_obvs

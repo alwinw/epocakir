@@ -24,7 +24,7 @@ aki_stages <- factor(
 #' The staging (1, 2, 3) of AKI is returned.
 #'
 #' When multiple columns are provided, `aki_staging()` will automatically
-#' calculate whether or not AKI has occurred using each KDIGIO definition.
+#' calculate whether or not AKI has occurred using each KDIGO definition.
 #'
 #' \itemize{
 #'   \item{[`aki_bCr()`]: Staging of AKI based on baseline serum creatinine}
