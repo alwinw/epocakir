@@ -83,7 +83,7 @@ as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
     elli <- list(...)
     if (length(elli) == 0) {
       return(NULL)
-    } # as_metric(1) will return NULL, no warning
+    } # as_metric(1) will return NULL with no warning
     param <- names(elli)[1]
     meas <- elli[[1]]
   }
@@ -336,7 +336,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
 
   data_n <- data_gr %>%
     dplyr::count() %>%
-    dplyr::filter(n > 1) %>% # prevent n < m error in combn
+    dplyr::filter(.data$n > 1) %>% # prevent n < m error in combn
     dplyr::ungroup() %>%
     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%

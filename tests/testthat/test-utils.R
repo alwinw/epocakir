@@ -269,7 +269,7 @@ changes_exp_df <- function(env = parent.frame()) {
 
 test_that("combn_changes for data.frame", {
   df <- combn_changes(changes_rand_df(), "dttm_", "SCr_", "pt_id_")
-  expect_equal(df, changes_exp_df())
+  expect_identical(df, changes_exp_df())
 
   df <- combn_changes(changes_rand_df(), dttm_, SCr_, pt_id_)
   expect_equal(df, changes_exp_df())
