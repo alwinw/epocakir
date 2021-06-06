@@ -1,8 +1,9 @@
 pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
-articles: {}
-last_built: 2021-06-06T01:01Z
+articles:
+  epocakir: epocakir.html
+last_built: 2021-06-06T07:21Z
 urls:
   reference: https://alwinw.github.io/epocakir/reference
   article: https://alwinw.github.io/epocakir/articles

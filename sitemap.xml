@@ -49,6 +49,9 @@
     <loc>https://alwinw.github.io/epocakir/reference/binary2factor.html</loc>
   </url>
   <url>
+    <loc>https://alwinw.github.io/epocakir/reference/clinical_obvs.html</loc>
+  </url>
+  <url>
     <loc>https://alwinw.github.io/epocakir/reference/combine_date_time_cols.html</loc>
   </url>
   <url>
@@ -86,5 +89,8 @@
   </url>
   <url>
     <loc>https://alwinw.github.io/epocakir/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/articles/epocakir.html</loc>
   </url>
 </urlset>
