@@ -289,4 +289,9 @@ test_that("combn_changes for POSIXct", {
   expect_equal(df, changes_exp_df())
 })
 
-# Add error test case where only 1 row for a pt_id
+test_that("combn_changes with n < m", {
+  df <- changes_raw_df()[1:7, ]
+  ep <- changes_exp_df()[1:5, ]
+  ep$D.dttm_ <- as.difftime(as.numeric(ep$D.dttm_, units = "days"), units = "days")
+  expect_equal(combn_changes(df, "dttm_", "SCr_", "pt_id_"), ep)
+})

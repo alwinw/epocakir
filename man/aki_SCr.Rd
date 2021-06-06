@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_SCr}
 \alias{aki_SCr}
-\alias{aki_SCr.default}
+\alias{aki_SCr.data.frame}
 \alias{aki_SCr.units}
 \alias{aki_SCr.numeric}
-\title{AKI Staging based on changes in creatinine}
+\title{AKI Staging based on Changes in Serum Creatinine}
 \usage{
 aki_SCr(...)
 
-\method{aki_SCr}{default}(.data, SCr, dttm, pt_id, ...)
+\method{aki_SCr}{data.frame}(.data, SCr, dttm, pt_id, ...)
 
 \method{aki_SCr}{units}(SCr, dttm, pt_id, ...)
 
@@ -21,20 +21,34 @@ aki_SCr(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{dttm}{DateTime
-column name, or vector if \code{.data} not provided}
+column name, or vector of POSIXct if \code{.data} is not provided}
 
 \item{pt_id}{Patient ID
-column name, or vector if \code{.data} not provided}
+column name, or vector of characters or factors if \code{.data} is not provided}
 }
 \value{
 (ordered factor) AKI stages
 }
 \description{
-AKI Staging based on changes in creatinine
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
+Volume 2 | Issue 1 | March 2012
+}
+\details{
+\itemize{
+\item{AKI Stage 1: \eqn{\ge}0.3 mg/dl (\eqn{\ge}26.5 mmol/l) increase}
+\item{AKI Stage 2: N/A}
+\item{AKI Stage 3: \eqn{\ge}4.0 mg/dl (\eqn{\ge}353.6 mmol/l)}
+}
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
-print("todo")
+aki_SCr(aki_pt_data, SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  dplyr::mutate(aki = aki_SCr(SCr = SCr_, dttm = dttm_, pt_id = pt_id_))
 }

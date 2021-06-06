@@ -2,14 +2,14 @@
 % Please edit documentation in R/aki.R
 \name{aki_bCr}
 \alias{aki_bCr}
-\alias{aki_bCr.default}
+\alias{aki_bCr.data.frame}
 \alias{aki_bCr.units}
 \alias{aki_bCr.numeric}
-\title{AKI Staging based on baseline creatinine}
+\title{AKI Staging based on Baseline Serum Creatinine}
 \usage{
 aki_bCr(...)
 
-\method{aki_bCr}{default}(.data, SCr, bCr, ...)
+\method{aki_bCr}{data.frame}(.data, SCr, bCr, ...)
 
 \method{aki_bCr}{units}(SCr, bCr, ...)
 
@@ -21,17 +21,31 @@ aki_bCr(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{bCr}{Baseline creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 (ordered factor) AKI stages
 }
 \description{
-AKI Staging based on baseline creatinine
+Using KDIGO Clinical Practice Guideline for
+Acute Kidney Injury
+Volume 2 | Issue 1 | March 2012
+}
+\details{
+\itemize{
+\item{AKI Stage 1: 1.5-1.9 times baseline}
+\item{AKI Stage 2: 2.0-2.9 times baseline}
+\item{AKI Stage 3: 3.0 times baseline}
+}
+
+See \url{https://kdigo.org/guidelines/acute-kidney-injury/} for more details.
 }
 \examples{
-print("todo")
+aki_bCr(aki_pt_data, SCr = "SCr_", bCr = "bCr_")
+
+aki_pt_data \%>\%
+  dplyr::mutate(aki = aki_bCr(SCr = SCr_, bCr = bCr_))
 }

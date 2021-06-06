@@ -31,7 +31,7 @@ test_that("anemia() for data.frame", {
     anemia(anemia_df(), Hb, age, male),
     anemia_ep()
   )
-  expect_identical( # TODO add this to all cases
+  expect_identical(
     anemia_df() %>% anemia(Hb, age, male),
     anemia_ep()
   )

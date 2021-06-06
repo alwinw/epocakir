@@ -128,11 +128,6 @@ test_that("eGFR() on full eGFR_df()", {
     Age = "Age_", height = "height_", BUN = "BUN_",
     male = "male_", black = "black_", pediatric = "pediatric_"
   )
-  # df_sym <- eGFR(eGFR_df(),
-  #   SCr = SCr_, SCysC = SCysC_,
-  #   Age = Age_, height = height_, BUN = BUN_,
-  #   male = male_, black = black_, pediatric = pediatric_
-  # )
   df_mut <- eGFR_df() %>%
     dplyr::mutate(eGFR = eGFR(
       SCr = SCr_, SCysC = SCysC_,
@@ -162,7 +157,6 @@ test_that("eGFR() on full eGFR_df()", {
   )
 
   lapply(abs(df_str - ep), expect_lte, eGFR_tol())
-  # lapply(abs(df_sym - ep), expect_lte, eGFR_tol())
   lapply(abs(df_mut - ep), expect_lte, eGFR_tol())
   lapply(abs(df_uvec - ep), expect_lte, eGFR_tol())
   lapply(abs(df_nvec - as.numeric(ep)), expect_lte, as.numeric(eGFR_tol()))

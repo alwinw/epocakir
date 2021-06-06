@@ -13,6 +13,15 @@ Albuminuria_stages
 \description{
 Ordered factor of Albuminuria stages
 }
+\details{
+\itemize{
+\item{A1: Normal to mildly increased}
+\item{A2: Moderately increased}
+\item{A3: Severely increased}
+}
+
+See \url{https://kdigo.org/guidelines/ckd-evaluation-and-management/} for more details
+}
 \examples{
 Albuminuria_stages
 }

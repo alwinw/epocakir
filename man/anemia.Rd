@@ -2,14 +2,14 @@
 % Please edit documentation in R/anemia.R
 \name{anemia}
 \alias{anemia}
-\alias{anemia.default}
+\alias{anemia.data.frame}
 \alias{anemia.units}
 \alias{anemia.numeric}
 \title{Diagnosis of anemia from Hb concentration}
 \usage{
 anemia(...)
 
-\method{anemia}{default}(.data, Hb, age, male, ...)
+\method{anemia}{data.frame}(.data, Hb, age, male, ...)
 
 \method{anemia}{units}(Hb, age, male, ...)
 
@@ -21,21 +21,39 @@ anemia(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{Hb}{Hemoglobin concenration
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{age}{Age of patient
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{male}{Male or not
-column name, or vector if \code{.data} not provided}
+column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 }
 \value{
 Anemia
 as logical \code{TRUE} or \code{FALSE}
 }
 \description{
-Diagnosis of anemia from Hb concentration
+KDIGO Clinical Practice Guideline for
+Anemia in Chronic Kidney Disease
+Volume 2 | Issue 4 | August (2) 2012
+}
+\details{
+\itemize{
+\item{Adults and children >15 years with CKD when the Hb concentration is
+<13.0 g/dl (<130 g/l) in males and
+<12.0 g/dl (<120 g/l) in females.}
+\item{Children with CKD if Hb concentration is
+<11.0 g/dl (<110 g/l) in children 0.5-5 years,
+<11.5 g/dl (115 g/l) in children 5-12 years,
+and <12.0 g/dl (120 g/l) in children 12-15 years.}
+}
+
+See \url{https://kdigo.org/guidelines/anemia-in-ckd/} for more details.
 }
 \examples{
-print("todo")
+anemia(anemia_pt_data, Hb = "Hb", age = "age", male = "male")
+
+anemia_pt_data \%>\%
+  dplyr::mutate(anemia = anemia(Hb = Hb, age = age, male = male))
 }

@@ -1,4 +1,4 @@
-# consider using Table 7 as the test cases
+# consider adding KDIGO Table 7 as the test cases
 
 aki_bCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(
@@ -100,25 +100,25 @@ aki_test_df <- function(env = parent.frame()) {
 }
 
 
-test_that("aki() on full aki_test_df()", {
+test_that("aki_staging() on full aki_test_df()", {
   ep <- aki_test_df()$aki_
 
-  df_str <- aki(aki_test_df(),
+  df_str <- aki_staging(aki_test_df(),
     SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"
   )
   df_mut <- aki_test_df() %>%
-    dplyr::mutate(aki = aki(
+    dplyr::mutate(aki = aki_staging(
       SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_
     )) %>%
     dplyr::pull(aki)
-  df_uvec <- aki(
+  df_uvec <- aki_staging(
     aki_test_df()$SCr_,
     aki_test_df()$bCr_,
     aki_test_df()$UO_,
     aki_test_df()$dttm_,
     aki_test_df()$pt_id_
   )
-  df_nvec <- aki(
+  df_nvec <- aki_staging(
     as.numeric(aki_test_df()$SCr_),
     as.numeric(aki_test_df()$bCr_),
     as.numeric(aki_test_df()$UO_),
@@ -132,30 +132,30 @@ test_that("aki() on full aki_test_df()", {
   expect_identical(df_nvec, ep)
 })
 
-test_that("aki() on individual data.frames", {
+test_that("aki_staging() on individual data.frames", {
   expect_identical(
-    aki(aki_bCr_test_df(), SCr = "SCr_", bCr = "bCr_"),
+    aki_staging(aki_bCr_test_df(), SCr = "SCr_", bCr = "bCr_"),
     aki_bCr_test_df()$aki_bCr
   )
   expect_identical(
-    aki(aki_SCr_test_rand_df(), SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
+    aki_staging(aki_SCr_test_rand_df(), SCr = "SCr_", dttm = "dttm_", pt_id = "pt_id_"),
     aki_SCr_test_rand_df()$aki_SCr
   )
   expect_identical(
-    aki(aki_UO_test_rand_df(), UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"),
+    aki_staging(aki_UO_test_rand_df(), UO = "UO_", dttm = "dttm_", pt_id = "pt_id_"),
     aki_UO_test_rand_df()$aki_UO
   )
 })
 
-test_that("aki() warnings", {
+test_that("aki_staging() warnings", {
   df_no_pt_id <- aki_SCr_test_raw_df() %>%
     dplyr::filter(pt_id_ == "pt1")
   expect_warning(
-    aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_"),
+    aki_staging(df_no_pt_id, SCr = "SCr_", dttm = "dttm_"),
     ".*Assuming provided data is for a single patient"
   )
   expect_identical(
-    suppressWarnings(aki(df_no_pt_id, SCr = "SCr_", dttm = "dttm_")),
+    suppressWarnings(aki_staging(df_no_pt_id, SCr = "SCr_", dttm = "dttm_")),
     df_no_pt_id$aki_SCr
   )
 })

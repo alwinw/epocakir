@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{combn_changes}
 \alias{combn_changes}
-\alias{combn_changes.default}
+\alias{combn_changes.data.frame}
 \alias{combn_changes.POSIXct}
 \title{Combinatorics changes}
 \usage{
 combn_changes(...)
 
-\method{combn_changes}{default}(.data, dttm, val, pt_id, ...)
+\method{combn_changes}{data.frame}(.data, dttm, val, pt_id, ...)
 
 \method{combn_changes}{POSIXct}(dttm, val, pt_id, ...)
 }
@@ -18,21 +18,24 @@ combn_changes(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{dttm}{DateTime
-column name, or vector if \code{.data} not provided}
+column name, or vector of POSIXct if \code{.data} is not provided}
 
 \item{val}{Variable
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{pt_id}{Patient ID
-column name, or vector if \code{.data} not provided}
+column name, or vector of characters or factors if \code{.data} is not provided}
 }
 \value{
 Combinatorics changes
 of the same type provided (numeric or units)
 }
 \description{
-Compares a value with previous values
+Compares a value with all previous values
 }
 \examples{
-print("todo")
+combn_changes(aki_pt_data, dttm = "dttm_", val = "SCr_", pt_id = "pt_id_")
+
+aki_pt_data \%>\%
+  combn_changes(dttm_, SCr_, pt_id_)
 }

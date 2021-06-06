@@ -11,10 +11,6 @@
 NULL
 
 
-# TODO consider adding a set_metric() and set_SI() which are simple
-# wrappers to convert data.frame columns into units
-
-
 #' Conversion Factors
 #'
 #' List of conversion factors based on tables in  KDIGO Clinical Practice
@@ -87,7 +83,7 @@ as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
     elli <- list(...)
     if (length(elli) == 0) {
       return(NULL)
-    } # as_metric(1) will return NULL, no warning
+    } # as_metric(1) will return NULL with no warning
     param <- names(elli)[1]
     meas <- elli[[1]]
   }
@@ -186,6 +182,7 @@ binary2factor <- function(.data, ...) {
   )
 }
 
+# Internal helper functions for combine_date_time_cols
 set_names <- function(.data, names) {
   names(.data) <- names
   .data
@@ -212,7 +209,14 @@ find_cols <- function(text, replace, colnames) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' df <- data.frame(
+#'   date_a = as.Date(c("2020-01-01", "2020-01-02")),
+#'   date_b = as.POSIXct(c("2020-02-01", "2020-02-02")),
+#'   time_a = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02")),
+#'   time_b = as.POSIXct(c("1900-01-01 01:01:01", "1900-01-01 02:02:02"))
+#' )
+#'
+#' combine_date_time_cols(df)
 combine_date_time_cols <- function(.data, tz = NULL) {
   dttm_col <- dplyr::inner_join(
     find_cols("date", "DateTime", colnames(.data)),
@@ -267,15 +271,15 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 
 #' Combinatorics changes
 #'
-#' Compares a value with previous values
+#' Compares a value with all previous values
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param dttm DateTime
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of POSIXct if `.data` is not provided
 #' @param val Variable
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param pt_id Patient ID
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Combinatorics changes
@@ -283,14 +287,17 @@ combine_date_time_cols <- function(.data, tz = NULL) {
 #' @export
 #'
 #' @examples
-#' print("todo")
+#' combn_changes(aki_pt_data, dttm = "dttm_", val = "SCr_", pt_id = "pt_id_")
+#'
+#' aki_pt_data %>%
+#'   combn_changes(dttm_, SCr_, pt_id_)
 combn_changes <- function(...) {
   UseMethod("combn_changes")
 }
 
 #' @rdname combn_changes
 #' @export
-combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
+combn_changes.data.frame <- function(.data, dttm, val, pt_id, ...) {
   ellipsis::check_dots_used()
   val_name <- rlang::as_name(rlang::enquo(val))
   dttm_name <- rlang::as_name(rlang::enquo(dttm))
@@ -307,10 +314,6 @@ combn_changes.default <- function(.data, dttm, val, pt_id, ...) {
   return(data_n)
 }
 
-# TODO: The group_by could be done outside of the function?
-# e.g. df %>% group_by(pt_id) %>% combn_changes(dttm, val)
-# TODO: Consider making .data.frame as the function. POSIXct creates a
-# tibble and then sends it to combn_changes
 #' @rdname combn_changes
 #' @export
 combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
@@ -321,7 +324,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   ) %>%
     dplyr::group_by(.data$pt_id, .add = FALSE) %>%
     dplyr::arrange(.data$pt_id, .data$dttm) %>%
-    unique() %>%
+    dplyr::distinct() %>%
     dplyr::mutate(
       admin = cumsum(
         (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >=
@@ -330,18 +333,19 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     ) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(.data$admin, .add = TRUE)
-  # check for nrow < 2
+
   data_n <- data_gr %>%
     dplyr::count() %>%
+    dplyr::filter(.data$n > 1) %>% # prevent n < m error in combn
     dplyr::ungroup() %>%
     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%
     dplyr::do(data.frame(.data$n_1 + t(utils::combn(.data$n, 2)))) %>%
     dplyr::arrange(.data$X2, dplyr::desc(.data$X1))
-  # consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
+  # [ ]: consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_gr[data_n$X1, ]
   T2 <- data_gr[data_n$X2, ]
-  # The patient id should also match, remove after testing
+  # The patient id should also match, remove in future if warning never raised
   if (!all.equal(T1[c("pt_id", "admin")], T2[c("pt_id", "admin")])) {
     warning("Unexpected mismatch in patient ids") # nocov
   }
@@ -354,5 +358,5 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     D.dttm = T2$dttm - T1$dttm
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
-    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm) # %>%
+    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm)
 }
