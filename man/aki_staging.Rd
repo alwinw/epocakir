@@ -29,19 +29,19 @@ aki_staging(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{bCr}{Baseline creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{UO}{Urine output
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{dttm}{DateTime
-column name, or vector if \code{.data} not provided}
+column name, or vector of POSIXct if \code{.data} is not provided}
 
 \item{pt_id}{Patient ID
-column name, or vector if \code{.data} not provided}
+column name, or vector of characters or factors if \code{.data} is not provided}
 }
 \description{
 Using KDIGO Clinical Practice Guideline for

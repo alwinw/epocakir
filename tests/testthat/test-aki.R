@@ -1,4 +1,4 @@
-# consider using Table 7 as the test cases
+# consider adding KDIGO Table 7 as the test cases
 
 aki_bCr_test_df <- function(env = parent.frame()) {
   tibble::tibble(

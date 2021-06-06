@@ -21,19 +21,19 @@ eGFR_adult_SCr_SCysC(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{SCr}{Serum creatinine
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{SCysC}{Serum Cystatin C
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{Age}{Age of patient
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{male}{Male or not
-column name, or vector if \code{.data} not provided}
+column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 
 \item{black}{Black race or not
-column name, or vector if \code{.data} not provided}
+column name, or vector of logical (TRUE/FALSE) if \code{.data} is not provided}
 }
 \value{
 Estimated GFR

@@ -21,7 +21,7 @@ GFR_staging(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{GFR}{Glomerular filtration rate
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 GFR category

@@ -21,7 +21,7 @@ Albuminuria_staging_ACR(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{ACR}{Albumin-to-creatinine ratio
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 Albuminuria category

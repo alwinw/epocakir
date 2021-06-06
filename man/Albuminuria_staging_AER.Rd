@@ -21,7 +21,7 @@ Albuminuria_staging_AER(...)
 \item{.data}{(data.frame) A data.frame, optional}
 
 \item{AER}{Albumin excretion rate
-column name, or vector if \code{.data} not provided}
+column name, or vector of units or numeric if \code{.data} is not provided}
 }
 \value{
 Albuminuria category

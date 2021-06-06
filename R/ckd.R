@@ -20,21 +20,21 @@
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param SCysC Serum Cystatin C
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param Age Age of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param height Height of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param BUN Blood urea nitrogen
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param male Male or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param black Black race or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param pediatric (logical) Paediatric or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return (units) Estimated glomerular filtration rate (eGFR)
@@ -211,13 +211,13 @@ eGFR.numeric <- function(
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param Age Age of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param male Male or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param black Black race or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -286,11 +286,11 @@ eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCysC Serum Cystatin C
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param Age Age of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param male Male or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -353,15 +353,15 @@ eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param SCysC Serum Cystatin C
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param Age Age of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param male Male or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param black Black race or not
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -436,9 +436,9 @@ eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param height Height of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -497,11 +497,11 @@ eGFR_child_SCr.numeric <- function(SCr, height, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCr Serum creatinine
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param height Height of patient
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param BUN Blood urea nitrogen
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -562,7 +562,7 @@ eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param SCysC Serum Cystatin C
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Estimated GFR
@@ -640,7 +640,7 @@ GFR_stages <- factor(c("G1", "G2", "G3a", "G3b", "G4", "G5"), ordered = TRUE)
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param GFR Glomerular filtration rate
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return GFR category
@@ -731,7 +731,7 @@ Albuminuria_stages <- factor(
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param AER Albumin excretion rate
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Albuminuria category
@@ -794,7 +794,7 @@ Albuminuria_staging_AER.numeric <- function(AER, ...) {
 #'
 #' @param .data (data.frame) A data.frame, optional
 #' @param ACR Albumin-to-creatinine ratio
-#'   column name, or vector if `.data` not provided
+#'   column name, or vector of units or numeric if `.data` is not provided
 #' @param ... Further optional arguments
 #'
 #' @return Albuminuria category
