@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="GFR Staging — GFR_staging" />
-<meta property="og:description" content="GFR Staging" />
+<meta property="og:description" content="Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013" />
 
 
 
@@ -72,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epocakir</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -114,12 +116,14 @@
     </div>
 
     <div class="ref-description">
-    <p>GFR Staging</p>
+    <p>Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013</p>
     </div>
 
     <pre class="usage"><span class='fu'>GFR_staging</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for default</span>
+<span class='co'># S3 method for data.frame</span>
 <span class='fu'>GFR_staging</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>GFR</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for units</span>
@@ -142,17 +146,48 @@
     <tr>
       <th>GFR</th>
       <td><p>Glomerular filtration rate
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>GFR category</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    
+<ul>
+<li><p>G1: Normal or high GFR, \(\ge\)90</p></li>
+<li><p>G2: Mildly decreased, 60-89</p></li>
+<li><p>G3a: Mildly to moderately decreased, 45-59</p></li>
+<li><p>G3b: Moderately  to severely decreased, 30-44</p></li>
+<li><p>G4: Severely decreased, 15-29</p></li>
+<li><p>G5: Kidney failure, &lt;15</p></li>
+</ul>
+
+<p>See <a href='https://kdigo.org/guidelines/ckd-evaluation-and-management/'>https://kdigo.org/guidelines/ckd-evaluation-and-management/</a> for more details</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"todo"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "todo"</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  eGFR <span class='op'>=</span> <span class='fu'>units</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/units/man/units.html'>set_units</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='cn'>NA</span>, <span class='fl'>100</span>, <span class='fl'>70</span>, <span class='fl'>50</span>, <span class='fl'>35</span>, <span class='fl'>20</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='st'>"mL/min/1.73m2"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='fu'>GFR_staging</span><span class='op'>(</span><span class='va'>df</span>, <span class='st'>"eGFR"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] &lt;NA&gt; &lt;NA&gt; G1   G2   G3a  G3b  G4   G5  
+#&gt; Levels: G1 &lt; G2 &lt; G3a &lt; G3b &lt; G4 &lt; G5</div><div class='input'>
+<span class='va'>df</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>GFR_level <span class='op'>=</span> <span class='fu'>GFR_staging</span><span class='op'>(</span><span class='va'>eGFR</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 2</span>
+#&gt;              eGFR GFR_level
+#&gt;   <span style='color: #949494;'>[mL/1.73m2/min]</span> <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>    
+#&gt; <span style='color: #BCBCBC;'>1</span>              -1 <span style='color: #BB0000;'>NA</span>       
+#&gt; <span style='color: #BCBCBC;'>2</span>              NA <span style='color: #BB0000;'>NA</span>       
+#&gt; <span style='color: #BCBCBC;'>3</span>             100 G1       
+#&gt; <span style='color: #BCBCBC;'>4</span>              70 G2       
+#&gt; <span style='color: #BCBCBC;'>5</span>              50 G3a      
+#&gt; <span style='color: #BCBCBC;'>6</span>              35 G3b      
+#&gt; <span style='color: #BCBCBC;'>7</span>              20 G4       
+#&gt; <span style='color: #BCBCBC;'>8</span>              10 G5       </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

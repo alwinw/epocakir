@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AKI Staging based on Changes in Serum Creatinine — aki_SCr • epocakir</title>
+<title>Codify AKI from Serum Creatinine and/or Urine Output — aki_staging • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="AKI Staging based on Changes in Serum Creatinine — aki_SCr" />
+<meta property="og:title" content="Codify AKI from Serum Creatinine and/or Urine Output — aki_staging" />
 <meta property="og:description" content="Using KDIGO Clinical Practice Guideline for
 Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012" />
@@ -110,9 +110,9 @@ Volume 2 | Issue 1 | March 2012" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>AKI Staging based on Changes in Serum Creatinine</h1>
+    <h1>Codify AKI from Serum Creatinine and/or Urine Output</h1>
     <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/aki.R'><code>R/aki.R</code></a></small>
-    <div class="hidden name"><code>aki_SCr.Rd</code></div>
+    <div class="hidden name"><code>aki_staging.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -121,16 +121,24 @@ Acute Kidney Injury
 Volume 2 | Issue 1 | March 2012</p>
     </div>
 
-    <pre class="usage"><span class='fu'>aki_SCr</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>aki_staging</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>aki_SCr</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>SCr</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>aki_staging</span><span class='op'>(</span>
+  <span class='va'>.data</span>,
+  SCr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  bCr <span class='op'>=</span> <span class='cn'>NULL</span>,
+  UO <span class='op'>=</span> <span class='cn'>NULL</span>,
+  dttm <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pt_id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for units</span>
-<span class='fu'>aki_SCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>aki_staging</span><span class='op'>(</span>SCr <span class='op'>=</span> <span class='cn'>NULL</span>, bCr <span class='op'>=</span> <span class='cn'>NULL</span>, UO <span class='op'>=</span> <span class='cn'>NULL</span>, dttm <span class='op'>=</span> <span class='cn'>NULL</span>, pt_id <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for numeric</span>
-<span class='fu'>aki_SCr</span><span class='op'>(</span><span class='va'>SCr</span>, <span class='va'>dttm</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>aki_staging</span><span class='op'>(</span>SCr <span class='op'>=</span> <span class='cn'>NULL</span>, bCr <span class='op'>=</span> <span class='cn'>NULL</span>, UO <span class='op'>=</span> <span class='cn'>NULL</span>, dttm <span class='op'>=</span> <span class='cn'>NULL</span>, pt_id <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,6 +157,16 @@ Volume 2 | Issue 1 | March 2012</p>
 column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
+      <th>bCr</th>
+      <td><p>Baseline creatinine
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
+    </tr>
+    <tr>
+      <th>UO</th>
+      <td><p>Urine output
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
+    </tr>
+    <tr>
       <th>dttm</th>
       <td><p>DateTime
 column name, or vector of POSIXct if <code>.data</code> is not provided</p></td>
@@ -160,30 +178,32 @@ column name, or vector of characters or factors if <code>.data</code> is not pro
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>(ordered factor) AKI stages</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
+    <p>Provided a baseline creatinine, series of Serum Creatinine readings and/or
+Urine Output, <code>aki_staging()</code> calculates whether or not a patient has AKI.
+The staging (1, 2, 3) of AKI is returned.</p>
+<p>When multiple columns are provided, <code>aki_staging()</code> will automatically
+calculate whether or not AKI has occurred using each KDIGIO definition.</p>
 <ul>
-<li><p>AKI Stage 1: \(\ge\)0.3 mg/dl (\(\ge\)26.5 mmol/l) increase</p></li>
-<li><p>AKI Stage 2: N/A</p></li>
-<li><p>AKI Stage 3: \(\ge\)4.0 mg/dl (\(\ge\)353.6 mmol/l)</p></li>
+<li><p><code><a href='aki_bCr.html'>aki_bCr()</a></code>: Staging of AKI based on baseline serum creatinine</p></li>
+<li><p><code><a href='aki_SCr.html'>aki_SCr()</a></code>: Staging of AKI based on changes in serum creatinine</p></li>
+<li><p><code><a href='aki_UO.html'>aki_UO()</a></code>: Staging of AKI based on urine output</p></li>
 </ul>
 
+<p>The most severe AKI stage is then returned.</p>
 <p>See <a href='https://kdigo.org/guidelines/acute-kidney-injury/'>https://kdigo.org/guidelines/acute-kidney-injury/</a> for more details.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>aki_SCr</span><span class='op'>(</span><span class='va'>aki_pt_data</span>, SCr <span class='op'>=</span> <span class='st'>"SCr_"</span>, dttm <span class='op'>=</span> <span class='st'>"dttm_"</span>, pt_id <span class='op'>=</span> <span class='st'>"pt_id_"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;  [1] No AKI      No AKI      No AKI      No AKI      No AKI      No AKI     
+    <pre class="examples"><div class='input'><span class='fu'>aki_staging</span><span class='op'>(</span><span class='va'>aki_pt_data</span>, SCr <span class='op'>=</span> <span class='st'>"SCr_"</span>, bCr <span class='op'>=</span> <span class='st'>"bCr_"</span>, UO <span class='op'>=</span> <span class='st'>"UO_"</span>, dttm <span class='op'>=</span> <span class='st'>"dttm_"</span>, pt_id <span class='op'>=</span> <span class='st'>"pt_id_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3
 #&gt;  [7] No AKI      No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1
-#&gt; [13] No AKI      No AKI      No AKI      No AKI      No AKI      No AKI     
-#&gt; [19] No AKI      No AKI      No AKI      No AKI      No AKI      No AKI     
-#&gt; [25] No AKI      No AKI      No AKI     
+#&gt; [13] No AKI      No AKI      No AKI      AKI Stage 1 No AKI      AKI Stage 2
+#&gt; [19] AKI Stage 3 AKI Stage 1 AKI Stage 3 AKI Stage 2 No AKI      AKI Stage 1
+#&gt; [25] AKI Stage 3 AKI Stage 3 No AKI     
 #&gt; Levels: No AKI &lt; AKI Stage 1 &lt; AKI Stage 2 &lt; AKI Stage 3</div><div class='input'>
 <span class='va'>aki_pt_data</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>aki <span class='op'>=</span> <span class='fu'>aki_SCr</span><span class='op'>(</span>SCr <span class='op'>=</span> <span class='va'>SCr_</span>, dttm <span class='op'>=</span> <span class='va'>dttm_</span>, pt_id <span class='op'>=</span> <span class='va'>pt_id_</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>aki <span class='op'>=</span> <span class='fu'>aki_staging</span><span class='op'>(</span>SCr <span class='op'>=</span> <span class='va'>SCr_</span>, bCr <span class='op'>=</span> <span class='va'>bCr_</span>, UO <span class='op'>=</span> <span class='va'>UO_</span>, dttm <span class='op'>=</span> <span class='va'>dttm_</span>, pt_id <span class='op'>=</span> <span class='va'>pt_id_</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 27 x 8</span>
 #&gt;        SCr_     bCr_ pt_id_ dttm_                   UO_ aki_staging_type aki_   
 #&gt;     <span style='color: #949494;'>[mg/dl]</span>  <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494;'>[ml/kg]</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>  

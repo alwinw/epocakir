@@ -40,14 +40,9 @@
 
 
 <meta property="og:title" content="GFR Estimation — eGFR" />
-<meta property="og:description" content="
-
-2009 CKD-EPI creatinine equation
-2012 CKD-EPI cystatin C equation
-2012 CKD-EPI creatinine-cystatin C equation
-Pediatric equations
-
-" />
+<meta property="og:description" content="Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013" />
 
 
 
@@ -79,7 +74,7 @@ Pediatric equations
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epocakir</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -121,19 +116,14 @@ Pediatric equations
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p>2009 CKD-EPI creatinine equation</p></li>
-<li><p>2012 CKD-EPI cystatin C equation</p></li>
-<li><p>2012 CKD-EPI creatinine-cystatin C equation</p></li>
-<li><p>Pediatric equations</p></li>
-</ul>
-
+    <p>Using KDIGO 2012 Clinical Practice Guideline for
+the Evaluation and Management of Chronic Kidney Disease
+Volume 3 | Issue 1 | January 2013</p>
     </div>
 
     <pre class="usage"><span class='fu'>eGFR</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for default</span>
+<span class='co'># S3 method for data.frame</span>
 <span class='fu'>eGFR</span><span class='op'>(</span>
   <span class='va'>.data</span>,
   SCr <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -187,42 +177,42 @@ Pediatric equations
     <tr>
       <th>SCr</th>
       <td><p>Serum creatinine
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>SCysC</th>
       <td><p>Serum Cystatin C
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>Age</th>
       <td><p>Age of patient
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>height</th>
       <td><p>Height of patient
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>BUN</th>
       <td><p>Blood urea nitrogen
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>male</th>
       <td><p>Male or not
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of logical (TRUE/FALSE) if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>black</th>
       <td><p>Black race or not
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of logical (TRUE/FALSE) if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>pediatric</th>
       <td><p>(logical) Paediatric or not
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of logical (TRUE/FALSE) if <code>.data</code> is not provided</p></td>
     </tr>
     </table>
 
@@ -232,15 +222,55 @@ column name, or vector if <code>.data</code> not provided</p></td>
 of the same type provided (numeric or units in ml/min/1.73m2)</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
+    <p>Automatic selection of equation to estimation the
+Glomerular Filtration Rate (eGFR), based on input data</p>
 <ul>
-<li><p>Automatic selection of the best equation to use</p></li>
+<li><p><code><a href='eGFR_adult_SCr.html'>eGFR_adult_SCr()</a></code>: 2009 CKD-EPI creatinine equation</p></li>
+<li><p><code><a href='eGFR_adult_SCysC.html'>eGFR_adult_SCysC()</a></code>: 2012 CKD-EPI cystatin C equation</p></li>
+<li><p><code><a href='eGFR_adult_SCr_SCysC.html'>eGFR_adult_SCr_SCysC()</a></code>: 2012 CKD-EPI creatinine-cystatin C equation</p></li>
+<li><p><code><a href='eGFR_child_SCr.html'>eGFR_child_SCr()</a></code>: Pediatric creatinine-based equation</p></li>
+<li><p><code><a href='eGFR_child_SCr_BUN.html'>eGFR_child_SCr_BUN()</a></code>: Pediatric creatinine-BUN equation</p></li>
+<li><p><code><a href='eGFR_child_SCysC.html'>eGFR_child_SCysC()</a></code>: Pediatric cystatin C-based equation</p></li>
 </ul>
 
+<p>See <a href='https://kdigo.org/guidelines/ckd-evaluation-and-management/'>https://kdigo.org/guidelines/ckd-evaluation-and-management/</a> for more details</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"todo"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "todo"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>eGFR</span><span class='op'>(</span><span class='va'>eGFR_pt_data</span>,
+  SCr <span class='op'>=</span> <span class='st'>"SCr_"</span>, SCysC <span class='op'>=</span> <span class='st'>"SCysC_"</span>,
+  Age <span class='op'>=</span> <span class='st'>"Age_"</span>, height <span class='op'>=</span> <span class='st'>"height_"</span>, BUN <span class='op'>=</span> <span class='st'>"BUN_"</span>,
+  male <span class='op'>=</span> <span class='st'>"male_"</span>, black <span class='op'>=</span> <span class='st'>"black_"</span>, pediatric <span class='op'>=</span> <span class='st'>"pediatric_"</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; Units: [mL/1.73m2/min]
+#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466
+#&gt;  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446
+#&gt; [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368
+#&gt; [22]  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404 168.53768
+#&gt; [29] 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077
+#&gt; [36] 106.19167  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546
+#&gt; [43]  66.06766  71.64555  67.33849  71.37808  68.83077  69.17003  99.12000
+#&gt; [50] 148.21219 165.89761</div><div class='input'>
+<span class='va'>eGFR_pt_data</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>eGFR <span class='op'>=</span> <span class='fu'>eGFR</span><span class='op'>(</span>
+    SCr <span class='op'>=</span> <span class='va'>SCr_</span>, SCysC <span class='op'>=</span> <span class='va'>SCysC_</span>,
+    Age <span class='op'>=</span> <span class='va'>Age_</span>, height <span class='op'>=</span> <span class='va'>height_</span>, BUN <span class='op'>=</span> <span class='va'>BUN_</span>,
+    male <span class='op'>=</span> <span class='va'>male_</span>, black <span class='op'>=</span> <span class='va'>black_</span>, pediatric <span class='op'>=</span> <span class='va'>pediatric_</span>
+  <span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 51 x 11</span>
+#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     
+#&gt;    <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494;'>[mg/L]</span> <span style='color: #949494;'>[years]</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;lgl&gt;</span>      <span style='color: #949494;'>[m]</span> <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               
+#&gt; <span style='color: #BCBCBC;'> 1</span>     0.5     NA      20 FALSE FALSE       NA      NA eGFR_adult_SCr      
+#&gt; <span style='color: #BCBCBC;'> 2</span>      NA    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    
+#&gt; <span style='color: #BCBCBC;'> 3</span>     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCysC
+#&gt; <span style='color: #BCBCBC;'> 4</span>     0.5     NA      30 FALSE TRUE        NA      NA eGFR_adult_SCr      
+#&gt; <span style='color: #BCBCBC;'> 5</span>      NA    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    
+#&gt; <span style='color: #BCBCBC;'> 6</span>     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCysC
+#&gt; <span style='color: #BCBCBC;'> 7</span>     0.5     NA      20 FALSE FALSE       NA      NA eGFR_adult_SCr      
+#&gt; <span style='color: #BCBCBC;'> 8</span>      NA    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    
+#&gt; <span style='color: #BCBCBC;'> 9</span>     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCysC
+#&gt; <span style='color: #BCBCBC;'>10</span>     0.5     NA      30 FALSE TRUE        NA      NA eGFR_adult_SCr      
+#&gt; <span style='color: #949494;'># … with 41 more rows, and 3 more variables: eGFR_ [mL/1.73m2/min],</span>
+#&gt; <span style='color: #949494;'>#   pediatric_ &lt;lgl&gt;, eGFR [mL/1.73m2/min]</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

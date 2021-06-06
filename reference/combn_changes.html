@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Combinatorics changes — combn_changes" />
-<meta property="og:description" content="Compares a value with previous values" />
+<meta property="og:description" content="Compares a value with all previous values" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epocakir</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -114,12 +114,12 @@
     </div>
 
     <div class="ref-description">
-    <p>Compares a value with previous values</p>
+    <p>Compares a value with all previous values</p>
     </div>
 
     <pre class="usage"><span class='fu'>combn_changes</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S3 method for default</span>
+<span class='co'># S3 method for data.frame</span>
 <span class='fu'>combn_changes</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>dttm</span>, <span class='va'>val</span>, <span class='va'>pt_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for POSIXct</span>
@@ -139,17 +139,17 @@
     <tr>
       <th>dttm</th>
       <td><p>DateTime
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of POSIXct if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>val</th>
       <td><p>Variable
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of units or numeric if <code>.data</code> is not provided</p></td>
     </tr>
     <tr>
       <th>pt_id</th>
       <td><p>Patient ID
-column name, or vector if <code>.data</code> not provided</p></td>
+column name, or vector of characters or factors if <code>.data</code> is not provided</p></td>
     </tr>
     </table>
 
@@ -159,8 +159,31 @@ column name, or vector if <code>.data</code> not provided</p></td>
 of the same type provided (numeric or units)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='st'>"todo"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "todo"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>combn_changes</span><span class='op'>(</span><span class='va'>aki_pt_data</span>, dttm <span class='op'>=</span> <span class='st'>"dttm_"</span>, val <span class='op'>=</span> <span class='st'>"SCr_"</span>, pt_id <span class='op'>=</span> <span class='st'>"pt_id_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 5</span>
+#&gt;   pt_id_ dttm_                  SCr_  D.SCr_ D.dttm_ 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494; font-style: italic;'>&lt;drtn&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'>1</span> pt1    2020-10-19 <span style='color: #949494;'>09:00:00</span>    2.50    0.50 24 hours
+#&gt; <span style='color: #BCBCBC;'>2</span> pt1    2020-10-20 <span style='color: #949494;'>09:00:00</span>    3.00    0.50 24 hours
+#&gt; <span style='color: #BCBCBC;'>3</span> pt1    2020-10-20 <span style='color: #949494;'>09:00:00</span>    3.00    1.00 48 hours
+#&gt; <span style='color: #BCBCBC;'>4</span> pt1    2020-10-24 <span style='color: #949494;'>15:00:00</span>    3.65    0.25 30 hours
+#&gt; <span style='color: #BCBCBC;'>5</span> pt1    2020-10-25 <span style='color: #949494;'>21:00:00</span>    3.90    0.25 30 hours
+#&gt; <span style='color: #BCBCBC;'>6</span> pt2    2020-10-18 <span style='color: #949494;'>22:00:00</span>    3.40    0.10 12 hours
+#&gt; <span style='color: #BCBCBC;'>7</span> pt2    2020-10-19 <span style='color: #949494;'>10:00:00</span>    3.50    0.10 12 hours
+#&gt; <span style='color: #BCBCBC;'>8</span> pt2    2020-10-19 <span style='color: #949494;'>10:00:00</span>    3.50    0.20 24 hours</div><div class='input'>
+<span class='va'>aki_pt_data</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>combn_changes</span><span class='op'>(</span><span class='va'>dttm_</span>, <span class='va'>SCr_</span>, <span class='va'>pt_id_</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 5</span>
+#&gt;   pt_id_ dttm_                  SCr_  D.SCr_ D.dttm_ 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494;'>[mg/dl]</span> <span style='color: #949494; font-style: italic;'>&lt;drtn&gt;</span>  
+#&gt; <span style='color: #BCBCBC;'>1</span> pt1    2020-10-19 <span style='color: #949494;'>09:00:00</span>    2.50    0.50 24 hours
+#&gt; <span style='color: #BCBCBC;'>2</span> pt1    2020-10-20 <span style='color: #949494;'>09:00:00</span>    3.00    0.50 24 hours
+#&gt; <span style='color: #BCBCBC;'>3</span> pt1    2020-10-20 <span style='color: #949494;'>09:00:00</span>    3.00    1.00 48 hours
+#&gt; <span style='color: #BCBCBC;'>4</span> pt1    2020-10-24 <span style='color: #949494;'>15:00:00</span>    3.65    0.25 30 hours
+#&gt; <span style='color: #BCBCBC;'>5</span> pt1    2020-10-25 <span style='color: #949494;'>21:00:00</span>    3.90    0.25 30 hours
+#&gt; <span style='color: #BCBCBC;'>6</span> pt2    2020-10-18 <span style='color: #949494;'>22:00:00</span>    3.40    0.10 12 hours
+#&gt; <span style='color: #BCBCBC;'>7</span> pt2    2020-10-19 <span style='color: #949494;'>10:00:00</span>    3.50    0.10 12 hours
+#&gt; <span style='color: #BCBCBC;'>8</span> pt2    2020-10-19 <span style='color: #949494;'>10:00:00</span>    3.50    0.20 24 hours</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

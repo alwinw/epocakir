@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert binary data to factors based on column name — binary2factor • epocakir</title>
+<title>AKI Stages — aki_stages • epocakir</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Convert binary data to factors based on column name — binary2factor" />
-<meta property="og:description" content="Convert binary data to factors based on column name" />
+<meta property="og:title" content="AKI Stages — aki_stages" />
+<meta property="og:description" content="Ordered factor of AKI stages" />
 
 
 
@@ -108,56 +108,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert binary data to factors based on column name</h1>
-    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <div class="hidden name"><code>binary2factor.Rd</code></div>
+    <h1>AKI Stages</h1>
+    <small class="dont-index">Source: <a href='https://github.com/alwinw/epocakir/blob/master/R/aki.R'><code>R/aki.R</code></a></small>
+    <div class="hidden name"><code>aki_stages.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert binary data to factors based on column name</p>
+    <p>Ordered factor of AKI stages</p>
     </div>
 
-    <pre class="usage"><span class='fu'>binary2factor</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='va'>aki_stages</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>.data</th>
-      <td><p>(data.frame) A data frame or data frame extension (e.g. a tibble)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Name-value pairs. The names of columns to be transformed</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>(data.frame) An object of the same type as <code>.data</code></p>
+    <p>An object of class <code>ordered</code> (inherits from <code>factor</code>) of length 4.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>See <a href='https://kdigo.org/guidelines/ckd-evaluation-and-management/'>https://kdigo.org/guidelines/ckd-evaluation-and-management/</a> for more details</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
-  a <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  b <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y"</span>, <span class='st'>"n"</span>, <span class='cn'>NA</span>, <span class='st'>"Y"</span>, <span class='st'>"n"</span><span class='op'>)</span>,
-  c <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"yes"</span>, <span class='st'>"no"</span>, <span class='cn'>NA</span>, <span class='st'>"Yes"</span>, <span class='st'>"No"</span><span class='op'>)</span>,
-  d <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>TRUE</span>, <span class='cn'>FALSE</span>, <span class='cn'>NA</span>, <span class='cn'>TRUE</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  e <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span><span class='op'>)</span>
-<span class='op'>)</span>
-<span class='fu'>binary2factor</span><span class='op'>(</span><span class='va'>df</span>, <span class='va'>a</span>, <span class='va'>b</span><span class='op'>:</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       a     b     c     d e
-#&gt; 1     a     b     c     d 1
-#&gt; 2 Not_a Not_b Not_c Not_d 2
-#&gt; 3  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 3
-#&gt; 4     a     b     c     d 4
-#&gt; 5 Not_a Not_b Not_c Not_d 5</div><div class='input'><span class='va'>df</span> <span class='op'>%&gt;%</span>
-  <span class='fu'>binary2factor</span><span class='op'>(</span><span class='op'>-</span><span class='va'>e</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       a     b     c     d e
-#&gt; 1     a     b     c     d 1
-#&gt; 2 Not_a Not_b Not_c Not_d 2
-#&gt; 3  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 3
-#&gt; 4     a     b     c     d 4
-#&gt; 5 Not_a Not_b Not_c Not_d 5</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>aki_stages</span>
+</div><div class='output co'>#&gt; [1] AKI Stage 1 AKI Stage 2 AKI Stage 3 No AKI     
+#&gt; Levels: No AKI &lt; AKI Stage 1 &lt; AKI Stage 2 &lt; AKI Stage 3</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

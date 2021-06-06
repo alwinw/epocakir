@@ -19,9 +19,6 @@
     <loc>https://alwinw.github.io/epocakir/reference/GFR_staging.html</loc>
   </url>
   <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki.html</loc>
-  </url>
-  <url>
     <loc>https://alwinw.github.io/epocakir/reference/aki_SCr.html</loc>
   </url>
   <url>
@@ -31,7 +28,19 @@
     <loc>https://alwinw.github.io/epocakir/reference/aki_bCr.html</loc>
   </url>
   <url>
+    <loc>https://alwinw.github.io/epocakir/reference/aki_pt_data.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/reference/aki_stages.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/reference/aki_staging.html</loc>
+  </url>
+  <url>
     <loc>https://alwinw.github.io/epocakir/reference/anemia.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/reference/anemia_pt_data.html</loc>
   </url>
   <url>
     <loc>https://alwinw.github.io/epocakir/reference/as_metric.html</loc>
@@ -71,6 +80,9 @@
   </url>
   <url>
     <loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCysC.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/reference/eGFR_pt_data.html</loc>
   </url>
   <url>
     <loc>https://alwinw.github.io/epocakir/reference/pipe.html</loc>
