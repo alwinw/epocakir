@@ -22,8 +22,9 @@ NULL
 #' \item{mol_weight}{Molecular weight (where required)}
 #' \item{description}{Full name}
 #' }
+#' @export
 #' @examples
-#' epocakir:::conversion_factors
+#' conversion_factors
 conversion_factors <- tibble::tribble(
   ~parameter, ~metric_units, ~mol_weight, ~description,
   # General
@@ -59,6 +60,8 @@ conversion_factors <- tibble::tribble(
 
 
 #' Convert a measured value to metric units
+#'
+#' Refer to [`conversion_factors`] for a full list of available conversions
 #'
 #' @param param (character) Name of measurement, e.g. param = "SCr"
 #' @param meas (units) Measurement or vector of measurements

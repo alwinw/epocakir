@@ -22,7 +22,7 @@ Case insensitive.}
 unless \code{value_only = T}
 }
 \description{
-Convert a measured value to metric units
+Refer to \code{\link{conversion_factors}} for a full list of available conversions
 }
 \examples{
 as_metric(param = "scr", meas = units::set_units(88.4, "umol/l"))

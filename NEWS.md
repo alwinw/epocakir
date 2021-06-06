@@ -128,7 +128,3 @@ Initial release
 - Wrote `combn_changes()`
 - Wrote `conversion_factors()`
 - Wrote initial functions based on KDIGO guidelines (<https://kdigo.org/guidelines/>)
-
-# epocakir 0.0.0.9000
-
-Initial development version
