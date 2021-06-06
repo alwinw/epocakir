@@ -1,0 +1,70 @@
+---
+title: "Introduction to epocakir"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r opts, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 4,
+  fig.width = 7
+)
+```
+
+## Introduction
+
+The epocakir package makes clinical coding of patients with kidney disease using clinical practice guidelines easy. The guidelines used are the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/). This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD).
+
+## Features
+
+-   Classification of AKI staging:
+
+    -   AKI based on baseline creatinine
+    -   AKI based on changes in serum creatinine
+    -   AKI based on urine output
+
+-   Classification of anemia
+
+-   Classification of albuminuria
+
+    -   Albuminuria based on Albumin excretion rate
+    -   Albuminuria based on Albumin-to-creatinine ratio
+
+-   Estimation of glomerular filtration rate:
+
+    -   eGFR based on the 2009 CKD-EPI creatinine equation
+    -   eGFR based on the 2012 CKD-EPI cystatin C equation
+    -   eGFR based on the 2012 CKD-EPI creatinine-cystatin C equation
+    -   eGFR based on the pediatric creatinine-based equation
+    -   eGFR based on the pediatric creatinine-BUN equation
+    -   eGFR based on the pediatric cystatin C-based equation
+
+-   Multiple utility functions including:
+
+    -   Conversion factors used throughout the KDIGO guidelines
+    -   Conversion of a measured value into metric units
+    -   Calculation of age from a date of birth
+    -   Conversion of binary data into factors based on a column name
+    -   Combining seperate date and time columns into a single date and time column
+    -   Generating changes between measurements
+
+-   Automatic conversion of units class objects
+
+-   Tidy output allowing seamless integratation with functions from the tidyverse
+
+-   Tidyeval via programming with dplyr
+
+## Example
+
+```{r setup, message = FALSE, warning=FALSE}
+library(epocakir)
+library(dplyr)
+library(units)
+```
+
+Often clinical data must be cleansed and tidied before analysis can begin. To assist in this, several utility functions have been included.
