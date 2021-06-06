@@ -20,7 +20,7 @@ anemia(...)
 
 \item{.data}{(data.frame) A data.frame, optional}
 
-\item{Hb}{Hemoglobin concenration
+\item{Hb}{Hemoglobin concentration
 column name, or vector of units or numeric if \code{.data} is not provided}
 
 \item{age}{Age of patient

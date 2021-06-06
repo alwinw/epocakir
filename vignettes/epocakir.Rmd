@@ -1,35 +1,28 @@
 ---
-output: github_document
+title: "Introduction to epocakir"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to epocakir}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.height = 4,
+  fig.width = 7
 )
 ```
 
-# epocakir
+## Introduction
 
-*/ˈiːpɒk ə keɪ aɪ ɑː/*
-
-<!-- badges: start -->
-
-[![R build status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
-[![Codecov test coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-
-<!-- badges: end -->
-
-## Clinical Coding of Patients with Kidney Disease
-
-The *epocakir* package makes clinical coding of patients with kidney disease using clinical practice guidelines easy.
+The epocakir package makes clinical coding of patients with kidney disease using clinical practice guidelines easy.
 The guidelines used are the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/).
-This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD):
+This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD).
+
+## Features
 
 - `aki_staging()`: Classification of AKI staging (`aki_stages`) with automatic selection of:
 
@@ -64,25 +57,15 @@ This package covers acute kidney injury (AKI), anemia, and chronic liver disease
   - `combine_date_time_cols()`: Combining separate date and time columns into a single date and time column
   - `combn_changes`: Generating changes between measurements
 
+- Automatic conversion of units class objects
 
-## Installation
+- Tidy output allowing seamless integration with functions from the tidyverse
 
-<!-- CRAN
-You can install the **releas** version from [CRAN](https://CRAN.R-project.org) with:
+- Tidyeval via programming with dplyr
 
-``` r
-install.packages("epocakir")
-```
--->
+- Comprehensive tests and coverage
 
-You can install the **development** version from [GitHub](https://github.com/alwinw/epocakir) with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("alwinw/epocakir")
-```
-
-## Getting Started
+## Examples
 
 ```{r pkgs, message = FALSE, warning=FALSE}
 library(epocakir)
@@ -90,11 +73,14 @@ library(dplyr)
 library(units)
 ```
 
+### Clinical Data
+
 Often clinical data must be cleansed and tidied before analysis can begin.
 To assist in this, several utility functions have been included.
 To explore these, consider a sample clinical dataset `clinical_obvs`:
 
 ```{r clinical_data}
+# Example workflow: clinical_obvs <- read.csv("cohort.csv")
 glimpse(clinical_obvs)
 
 tidy_obvs <- clinical_obvs %>%
@@ -110,12 +96,14 @@ glimpse(tidy_obvs)
 
 Make sure to use `set_units()` from the `units` package to convert all measurements into unit objects for automatic unit conversion in epocakir.
 
-## Examples
+### AKI Staging
 
+Next consider the sample `aki_pt_data` dataset.
 It is possible to use `aki_staging()` to automatically classify the presence and staging of AKI.
 If a particular method is required, it is possible to classify AKI using `aki_bCr()`, `aki_SCr()` or `aki_UO().`
 
 ```{r aki}
+# Example workflow: aki_pt_data <- read.csv("aki.csv")
 head(aki_pt_data)
 
 aki_staging(aki_pt_data,
@@ -137,11 +125,13 @@ aki_pt_data %>%
   select(pt_id_, SCr_:dttm_, aki)
 ```
 
+### Estimated Glomerular Filtration Rate
 
 Similarly, `eGFR()` offers the ability to automatically select the appropriate formula to estimate the glomerular filtration rate.
 If a particular formula is required, then `eGFR_adult_SCr`, `eGFR_adult_SCysC`, `eGFR_adult_SCr_SCysC`, `eGFR_child_SCr`, `eGFR_child_SCr_BUN`, or `eGFR_child_SCysC` can be used.
 
 ```{r eGFR}
+# Example workflow: aki_pt_data <- read.csv("aki.csv")
 head(eGFR_pt_data)
 
 eGFR(eGFR_pt_data,
@@ -165,18 +155,8 @@ eGFR_pt_data %>%
   select(SCr_:pediatric_, eGFR)
 ```
 
-## References
-
-KDIGO Guidelines - <https://kdigo.org/guidelines/>
-
-## Activity
-
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir)
-![GitHub last commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
-![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits)
-![GitHub repo size in bytes](https://img.shields.io/github/repo-size/alwinw/epocakir)
-![Total Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
-
-----
+## Reference
 
 See <https://alwinw.github.io/epocakir/reference/index.html> for more usage details and package reference.
+
+See <https://kdigo.org/guidelines/> for full KDIGO guidelines.

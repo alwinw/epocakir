@@ -17,7 +17,7 @@
 #' See <https://kdigo.org/guidelines/anemia-in-ckd/> for more details.
 #'
 #' @param .data (data.frame) A data.frame, optional
-#' @param Hb Hemoglobin concenration
+#' @param Hb Hemoglobin concentration
 #'   column name, or vector of units or numeric if `.data` is not provided
 #' @param age Age of patient
 #'   column name, or vector of units or numeric if `.data` is not provided

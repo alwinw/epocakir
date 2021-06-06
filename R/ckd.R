@@ -33,7 +33,7 @@
 #'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param black Black race or not
 #'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
-#' @param pediatric (logical) Paediatric or not
+#' @param pediatric (logical) Pediatric or not
 #'   column name, or vector of logical (TRUE/FALSE) if `.data` is not provided
 #' @param ... Further optional arguments
 #'
