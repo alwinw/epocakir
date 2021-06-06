@@ -1,6 +1,16 @@
-# epocakir 0.9.6 (development version)
+# epocakir 0.9.6
 
-- Preparation for CRAN submission
+Initial CRAN submission
+
+## Improvements
+
+- Added vignette *Introduction to epocakir* with basic usage examples
+- Updated README
+- Added sample `clinical_obvs` to demonstrate utility functions
+
+## Bug fixes
+
+- Exported `conversion_factors`, similar to ordered factors like `aki_stages`
 
 # epocakir 0.9.5
 
