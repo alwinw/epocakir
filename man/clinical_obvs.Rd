@@ -5,7 +5,7 @@
 \alias{clinical_obvs}
 \title{Clinical Patient Data}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 7 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 9 columns.
 }
 \usage{
 clinical_obvs

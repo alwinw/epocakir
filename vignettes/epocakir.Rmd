@@ -59,6 +59,8 @@ The epocakir package makes clinical coding of patients with kidney disease using
 
 -   Tidyeval via programming with dplyr
 
+-   Comprehensive tests and coverage
+
 ## Example
 
 ```{r setup, message = FALSE, warning=FALSE}
@@ -67,4 +69,19 @@ library(dplyr)
 library(units)
 ```
 
-Often clinical data must be cleansed and tidied before analysis can begin. To assist in this, several utility functions have been included.
+Often clinical data must be cleansed and tidied before analysis can begin. To assist in this, several utility functions have been included. To explore these, consider a sample clinical dataset `clinical_obvs`
+
+```{r clinical_data}
+# Example workflow: clinical_obvs <- read.csv("cohort.csv")
+glimpse(clinical_obvs)
+
+tidy_obvs <- clinical_obvs %>%
+  combine_date_time_cols() %>%
+  mutate(
+    Age = dob2age(`Date of Birth`),
+    Height = as_metric(height = set_units(as.numeric(Height), "cm"))
+  ) %>%
+  binary2factor(Male, Surgery)
+
+glimpse(tidy_obvs)
+```
