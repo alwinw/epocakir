@@ -324,7 +324,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   ) %>%
     dplyr::group_by(.data$pt_id, .add = FALSE) %>%
     dplyr::arrange(.data$pt_id, .data$dttm) %>%
-    unique() %>%
+    dplyr::distinct() %>%
     dplyr::mutate(
       admin = cumsum(
         (dttm - dplyr::lag(dttm, default = lubridate::as_date(0))) >=
@@ -333,9 +333,10 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     ) %>%
     tidyr::drop_na() %>%
     dplyr::group_by(.data$admin, .add = TRUE)
-  # [ ]: check for nrow < 2
+
   data_n <- data_gr %>%
     dplyr::count() %>%
+    dplyr::filter(n > 1) %>% # prevent n < m error in combn
     dplyr::ungroup() %>%
     dplyr::mutate(n_1 = cumsum(dplyr::lag(.data$n, default = 0))) %>%
     dplyr::rowwise() %>%
@@ -344,7 +345,7 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
   # [ ]: consider a more dplyr version e.g. pivot_longer (X1, X2) then use summarise and diff
   T1 <- data_gr[data_n$X1, ]
   T2 <- data_gr[data_n$X2, ]
-  # The patient id should also match, remove after testing
+  # The patient id should also match, remove in future if warning never raised
   if (!all.equal(T1[c("pt_id", "admin")], T2[c("pt_id", "admin")])) {
     warning("Unexpected mismatch in patient ids") # nocov
   }
