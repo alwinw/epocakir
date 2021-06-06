@@ -4,19 +4,26 @@ Initial release of `epocakir` v0.9.6
 
 ## R CMD check results
 
-0 errors v | 0 warnings v | 0 notes v
+> checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Alwin Wang <alwin.wang@austin.org.au>'
 
-R CMD check succeeded
+  New submission
+
+0 errors √ | 0 warnings √ | 1 note x
+
+- Note due to new submission
+- Note possibly mis-spelled words 'AKI', 'CKD', 'KDIGO', are all medical abbreviations spelt correctly
 
 ## Test Environments
 
-- R version 4.0.3 (2020-10-10), x86_64, mingw32 (Local)
-- R version 4.1.0 (2021-05-18), macOS Catalina 10.15.7, x86_64, darwin17.0 (GitHub actions)
-- R version 4.1.0 (2021-05-18), Windows Server x64, x86_64, mingw32 (GitHub actions)
-- R version 3.6.3 (2020-02-29), Windows Server x64, x86_64, mingw32 (GitHub actions)
-- R version 4.1.0 (2021-05-18), Ubuntu 20.04.2 LTS, x86_64, linux-gnu (GitHub actions)
-- R Under development (unstable) (2021-06-03 r80452), Ubuntu 20.04.2 LTS, x86_64, linux-gnu (GitHub actions)
-- R version 3.5.3 (2019-03-11), Ubuntu 16.04.7 LTS, x86_64, linux-gnu (GitHub actions)
+- Local Windows 10 install: R 4.0.3
+
+- macOS Catalina (GitHub Actions): R 4.1.0
+- Windows Server (GitHub Actions): R 4.1.0, R 3.6.3,
+- Ubuntu 20.04.2 (GitHub Actions): R-devel, 4.1.0
+- Ubuntu 16.04.7 (GitHub Actions): R 3.5.3
+
+- win-builder: R-devel, R-release, R-oldrelease
 
 ## Revdep checks
 

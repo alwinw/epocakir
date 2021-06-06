@@ -11,6 +11,7 @@ Initial CRAN submission
 ## Bug fixes
 
 - Exported `conversion_factors`, similar to ordered factors like `aki_stages`
+- Corrected mis-spelled words
 
 # epocakir 0.9.5
 
