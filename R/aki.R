@@ -54,7 +54,6 @@ aki_stages <- factor(
 #'
 #' aki_pt_data %>%
 #'   dplyr::mutate(aki = aki_staging(SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_))
-#' @importFrom rlang .data
 #' @export
 aki_staging <- function(...) {
   ellipsis::check_dots_used()
