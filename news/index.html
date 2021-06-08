@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">epocakir</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -117,6 +117,21 @@
       <small>Source: <a href='https://github.com/alwinw/epocakir/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="epocakir-097" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.7">
+<a href="#epocakir-097" class="anchor"></a>epocakir 0.9.7</h1>
+<p>CRAN re-submission</p>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug Fixes</h2>
+<ul>
+<li>Added reference link in the description field of the DESCRIPTION file</li>
+<li>Reduced the length of the title to less than 65 characters</li>
+<li>aki_staging.Rd: Added <a href='https://github.com/return'>@return</a> value explaining the functions results</li>
+<li>pipe.Rd: Removed code that re-exported %&gt;% and used <a href='https://github.com/importFrom'>@importFrom</a> instead</li>
+</ul>
+</div>
+</div>
     <div id="epocakir-096" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.6">
 <a href="#epocakir-096" class="anchor"></a>epocakir 0.9.6</h1>
@@ -130,9 +145,9 @@
 <li>Added sample <code>clinical_obvs</code> to demonstrate utility functions</li>
 </ul>
 </div>
-<div id="bug-fixes" class="section level2">
+<div id="bug-fixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Exported <code>conversion_factors</code>, similar to ordered factors like <code>aki_stages</code>
 </li>
@@ -160,9 +175,9 @@
 <li>Renamed <code>aki()</code> to <code><a href="../reference/aki_staging.html">aki_staging()</a></code> for more consistent method names</li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug when n &lt; m for combn() in combn_changes()</li>
 <li>Changed methods from <code>method.default()</code> to <code>method.data.frame()</code> to prevent infinite recursion on incorrectly specified function arguments</li>
@@ -189,9 +204,9 @@
 <li>Added <code>No AKI</code> and <code>No Albuminuria</code> to stages ordered factors to prevent users have to handle <code>NAs</code> mixed with ordered factors</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug in <code>eGFR_internal()</code> where it was looking for <code>!is.na(black)</code> to select <code><a href="../reference/eGFR_adult_SCysC.html">eGFR_adult_SCysC()</a></code>, when <code>black</code> was not required</li>
 </ul>
@@ -210,9 +225,9 @@
 </li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Used <code><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble::tibble()</a></code> instead of <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> to prevent issue with <code>stringsasfactors</code> difference between R 3.x and R 4.x</li>
 <li>Fixed sorting error in `aki_UO()</li>
@@ -232,9 +247,9 @@
 <li>Rewrote <code><a href="../reference/anemia.html">anemia()</a></code> to make method selection consistent with other functions</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Consistent parameter naming</li>
 </ul>
