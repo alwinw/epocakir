@@ -43,6 +43,9 @@ column name, or vector of POSIXct if \code{.data} is not provided}
 \item{pt_id}{Patient ID
 column name, or vector of characters or factors if \code{.data} is not provided}
 }
+\value{
+(ordered factor) AKI stages
+}
 \description{
 Using KDIGO Clinical Practice Guideline for
 Acute Kidney Injury

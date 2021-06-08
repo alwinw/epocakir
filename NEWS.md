@@ -1,3 +1,14 @@
+# epocakir 0.9.7
+
+CRAN re-submission
+
+## Bug Fixes
+
+- Added reference link in the description field of the DESCRIPTION file
+- Reduced the length of the title to less than 65 characters
+- aki_staging.Rd: Added @return value explaining the functions results
+- pipe.Rd: Removed code that re-exported %>% and used @importFrom instead
+
 # epocakir 0.9.6
 
 Initial CRAN submission
