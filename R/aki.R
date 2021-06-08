@@ -49,6 +49,7 @@ aki_stages <- factor(
 #'   column name, or vector of characters or factors if `.data` is not provided
 #' @param ... Further optional arguments
 #'
+#' @return (ordered factor) AKI stages
 #' @examples
 #' aki_staging(aki_pt_data, SCr = "SCr_", bCr = "bCr_", UO = "UO_", dttm = "dttm_", pt_id = "pt_id_")
 #'
