@@ -1,7 +1,6 @@
 Package: epocakir
-Title: Clinical Coding of Patients with Kidney Disease using Clinical Practice
-    Guidelines
-Version: 0.9.6
+Title: Clinical Coding of Patients with Kidney Disease
+Version: 0.9.7
 Authors@R:
     c(person(given = "Alwin",
              family = "Wang",
@@ -15,8 +14,9 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5994-3666")))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
-    KDIGO guidelines. This package covers acute kidney injury (AKI), anemia,
-    and chronic liver disease (CKD).
+    KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information.
+    This package covers acute kidney injury (AKI), anemia, and
+    chronic liver disease (CKD).
 License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues

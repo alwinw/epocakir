@@ -4,6 +4,7 @@ renv/
 renv.lock
 docs
 .Rprofile
+CRAN-RELEASE
 
 # History files
 .Rhistory
