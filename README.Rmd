@@ -67,17 +67,15 @@ This package covers acute kidney injury (AKI), anemia, and chronic liver disease
 
 ## Installation
 
-<!-- CRAN
-You can install the **releas** version from [CRAN](https://CRAN.R-project.org) with:
+You can install the **released** version from [CRAN](https://cran.r-project.org/package=epocakir) with:
 
-``` r
+```{r cran, eval=FALSE}
 install.packages("epocakir")
 ```
--->
 
 You can install the **development** version from [GitHub](https://github.com/alwinw/epocakir) with:
 
-``` r
+```{r dev, eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("alwinw/epocakir")
 ```
