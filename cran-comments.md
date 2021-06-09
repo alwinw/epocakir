@@ -32,6 +32,9 @@ Resubmission of `epocakir`, version bumped to v0.9.7. In this version:
 - win-builder: R-devel, R-release, R-oldrelease
 - R-hub: Windows R-devel, Ubuntu R-release, Fedora R-devel
 
+- Checks: `devtools::spell_check()`, `devtools::check_rhub()`, `devtools::check_win_devel()`, `goodpractice::gp()`,
+          `rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")`
+
 ## Revdep Checks
 
 No published downstream dependencies

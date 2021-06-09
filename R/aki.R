@@ -94,9 +94,9 @@ aki_staging.units <- function(
                               pt_id = NULL,
                               ...) {
   ellipsis::check_dots_used()
-  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = T)
-  if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = T)
-  if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = T)
+  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = TRUE)
+  if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = TRUE)
 
   if (!is.null(SCr)) {
     aki_staging(SCr = SCr, bCr = bCr, UO = UO, dttm = dttm, pt_id = pt_id)
@@ -188,8 +188,8 @@ aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
 aki_bCr.units <- function(SCr, bCr, ...) {
   ellipsis::check_dots_used()
   aki_bCr(
-    as_metric(SCr = SCr, value_only = T),
-    as_metric(SCr = bCr, value_only = T)
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(SCr = bCr, value_only = TRUE)
   )
 }
 
@@ -258,7 +258,7 @@ aki_SCr.data.frame <- function(.data, SCr, dttm, pt_id, ...) {
 aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_SCr(
-    as_metric(SCr = SCr, value_only = T),
+    as_metric(SCr = SCr, value_only = TRUE),
     dttm,
     pt_id
   )
@@ -342,7 +342,7 @@ aki_UO.data.frame <- function(.data, UO, dttm, pt_id, ...) {
 aki_UO.units <- function(UO, dttm, pt_id, ...) {
   ellipsis::check_dots_used()
   aki_UO(
-    as_metric(UO = UO, value_only = T),
+    as_metric(UO = UO, value_only = TRUE),
     dttm,
     pt_id
   )

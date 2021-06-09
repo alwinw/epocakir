@@ -25,20 +25,19 @@ Depends:
 Imports:
     dplyr (>= 1.0.1),
     tidyr (>= 1.1.1),
-    tidyselect (>= 1.1.0),
     tibble (>= 3.0.1),
-    vctrs,
     ellipsis,
     rlang (>= 0.4.0),
     units (>= 0.7),
-    lubridate,
-    magrittr
+    lubridate (>= 1.7.0),
+    magrittr (>= 2.0.1),
 Suggests:
     usethis,
     testthat,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    vctrs,
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

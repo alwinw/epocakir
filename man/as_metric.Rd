@@ -19,7 +19,7 @@ Case insensitive.}
 }
 \value{
 (units) Converted measured value or vector of measured values,
-unless \code{value_only = T}
+unless \code{value_only = TRUE}
 }
 \description{
 Refer to \code{\link{conversion_factors}} for a full list of available conversions
