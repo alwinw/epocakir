@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   epocakir: epocakir.html
-last_built: 2021-06-09T12:04Z
+last_built: 2021-06-09T12:14Z
 urls:
   reference: https://alwinw.github.io/epocakir/reference
   article: https://alwinw.github.io/epocakir/articles
