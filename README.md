@@ -13,6 +13,9 @@ status](https://www.r-pkg.org/badges/version/epocakir)](https://cran.r-project.o
 status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Downloads](https://cranlogs.r-pkg.org/badges/epocakir)](https://cran.r-project.org/package=epocakir)
