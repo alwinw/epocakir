@@ -7,12 +7,15 @@
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/epocakir)](https://cran.r-project.org/package=epocakir)
 [![R build
 status](https://github.com/alwinw/epocakir/workflows/R-CMD-check/badge.svg)](https://github.com/alwinw/epocakir/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/alwinw/epocakir/branch/master/graph/badge.svg)](https://codecov.io/gh/alwinw/epocakir?branch=master)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Downloads](https://cranlogs.r-pkg.org/badges/epocakir)](https://cran.r-project.org/package=epocakir)
 
 <!-- badges: end -->
 
@@ -83,8 +86,8 @@ You can install the **development** version from
 [GitHub](https://github.com/alwinw/epocakir) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("alwinw/epocakir")
+# install.packages("remotes")
+remotes::install_github("alwinw/epocakir")
 ```
 
 ## Getting Started
@@ -131,7 +134,7 @@ glimpse(tidy_obvs)
 #> $ Male                 <ord> Male, Not_Male, Male
 #> $ Height               [m] 1.82 [m], 1.61 [m], 1.68 [m]
 #> $ Surgery              <ord> Not_Surgery, Not_Surgery, Surgery
-#> $ Age                  <Duration> 2064355200s (~65.42 years), 742003200s (~...
+#> $ Age                  <Duration> 2076624000s (~65.8 years), 754272000s (~2...
 ```
 
 Make sure to use `set_units()` from the `units` package to convert all
