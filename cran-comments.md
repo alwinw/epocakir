@@ -18,10 +18,10 @@ Duration: 1m 31.9s
 
 - Local Windows 10 install: R 4.0.3
 
-- macOS Catalina (GitHub Actions): R 4.1.0
-- Windows Server (GitHub Actions): R 4.1.0, R 3.6.3,
-- Ubuntu 20.04.2 (GitHub Actions): R-devel, 4.1.0
-- Ubuntu 16.04.7 (GitHub Actions): R 3.5.3
+- macOS Catalina (GitHub Actions): R 4.2.0
+- Windows Server (GitHub Actions): R 4.2.0, R 3.6.3,
+- Ubuntu 20.04.4 (GitHub Actions): R-devel, 4.2.0
+- Ubuntu 18.04.6 (GitHub Actions): R 3.5.3
 
 - win-builder: R-devel, R-release, R-oldrelease
 - R-hub: Windows R-devel, Ubuntu R-release, Fedora R-devel
