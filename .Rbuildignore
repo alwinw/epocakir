@@ -1,6 +1,6 @@
-.covrignore
 ^_pkgdown\.yml$
 ^.*\.Rproj$
+^.covrignore
 ^.pytest_cache
 ^\.github$
 ^\.png$
@@ -9,6 +9,7 @@
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^codecov\.yml$
+^codemeta.json
 ^cran-comments.md$
 ^CRAN-RELEASE$
 ^data-raw$
