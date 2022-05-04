@@ -86,8 +86,7 @@ aki_staging.data.frame <- function(.data,
 
 #' @rdname aki_staging
 #' @export
-aki_staging.units <- function(
-                              SCr = NULL,
+aki_staging.units <- function(SCr = NULL,
                               bCr = NULL,
                               UO = NULL,
                               dttm = NULL,
@@ -107,8 +106,7 @@ aki_staging.units <- function(
 
 #' @rdname aki_staging
 #' @export
-aki_staging.numeric <- function(
-                                SCr = NULL,
+aki_staging.numeric <- function(SCr = NULL,
                                 bCr = NULL,
                                 UO = NULL,
                                 dttm = NULL,

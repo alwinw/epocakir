@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 The *epocakir* package makes clinical coding of patients with kidney disease using clinical practice guidelines easy.
 The guidelines used are the evidence-based [KDIGO guidelines](https://kdigo.org/guidelines/).
-This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD):
+This package covers acute kidney injury (AKI), anemia, and chronic kidney disease (CKD):
 
 - `aki_staging()`: Classification of AKI staging (`aki_stages`) with automatic selection of:
 
@@ -57,7 +57,7 @@ This package covers acute kidney injury (AKI), anemia, and chronic liver disease
   - `eGFR_child_SCysC()`: eGFR based on the pediatric cystatin C-based equation
 
 - `GFR_staging()`: Staging of GFR (`GFR_stages`)
-  
+
 - Multiple utility functions including:
 
   - `conversion_factors`: Conversion factors used throughout the KDIGO guidelines

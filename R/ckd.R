@@ -58,8 +58,7 @@ eGFR <- function(...) {
   UseMethod("eGFR")
 }
 
-eGFR_internal <- function(
-                          SCr,
+eGFR_internal <- function(SCr,
                           SCysC,
                           Age,
                           height,
@@ -125,8 +124,7 @@ eGFR.data.frame <- function(.data,
 
 #' @rdname eGFR
 #' @export
-eGFR.units <- function(
-                       SCr = NULL,
+eGFR.units <- function(SCr = NULL,
                        SCysC = NULL,
                        Age = NULL,
                        height = NULL,
@@ -161,8 +159,7 @@ eGFR.units <- function(
 
 #' @rdname eGFR
 #' @export
-eGFR.numeric <- function(
-                         SCr = NULL,
+eGFR.numeric <- function(SCr = NULL,
                          SCysC = NULL,
                          Age = NULL,
                          height = NULL,
