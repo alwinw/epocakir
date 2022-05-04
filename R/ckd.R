@@ -58,8 +58,7 @@ eGFR <- function(...) {
   UseMethod("eGFR")
 }
 
-eGFR_internal <- function(
-                          SCr,
+eGFR_internal <- function(SCr,
                           SCysC,
                           Age,
                           height,
@@ -125,8 +124,7 @@ eGFR.data.frame <- function(.data,
 
 #' @rdname eGFR
 #' @export
-eGFR.units <- function(
-                       SCr = NULL,
+eGFR.units <- function(SCr = NULL,
                        SCysC = NULL,
                        Age = NULL,
                        height = NULL,
@@ -136,11 +134,11 @@ eGFR.units <- function(
                        pediatric = NULL,
                        ...) {
   ellipsis::check_dots_used()
-  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = T)
-  if (!is.null(SCysC)) SCysC <- as_metric(SCysC = SCysC, value_only = T)
-  if (!is.null(Age)) Age <- as_metric(Age = Age, value_only = T)
-  if (!is.null(height)) height <- as_metric(height = height, value_only = T)
-  if (!is.null(BUN)) BUN <- as_metric(BUN = BUN, value_only = T)
+  if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = TRUE)
+  if (!is.null(SCysC)) SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
+  if (!is.null(Age)) Age <- as_metric(Age = Age, value_only = TRUE)
+  if (!is.null(height)) height <- as_metric(height = height, value_only = TRUE)
+  if (!is.null(BUN)) BUN <- as_metric(BUN = BUN, value_only = TRUE)
 
   if (!is.null(SCr)) {
     eGFR_calc <- eGFR(
@@ -161,8 +159,7 @@ eGFR.units <- function(
 
 #' @rdname eGFR
 #' @export
-eGFR.numeric <- function(
-                         SCr = NULL,
+eGFR.numeric <- function(SCr = NULL,
                          SCysC = NULL,
                          Age = NULL,
                          height = NULL,
@@ -254,8 +251,8 @@ eGFR_adult_SCr.data.frame <- function(.data, SCr, Age, male, black, ...) {
 eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCr(
-    as_metric(SCr = SCr, value_only = T),
-    as_metric(Age = Age, value_only = T),
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
     male,
     black
   )
@@ -326,8 +323,8 @@ eGFR_adult_SCysC.data.frame <- function(.data, SCysC, Age, male, ...) {
 eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCysC(
-    as_metric(SCysC = SCysC, value_only = T),
-    as_metric(Age = Age, value_only = T),
+    as_metric(SCysC = SCysC, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
     male
   )
   units::set_units(eGFR, "mL/min/1.73m2")
@@ -401,9 +398,9 @@ eGFR_adult_SCr_SCysC.data.frame <- function(.data, SCr, SCysC, Age, male, black,
 eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_adult_SCr_SCysC(
-    as_metric(SCr = SCr, value_only = T),
-    as_metric(SCysC = SCysC, value_only = T),
-    as_metric(Age = Age, value_only = T),
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(SCysC = SCysC, value_only = TRUE),
+    as_metric(Age = Age, value_only = TRUE),
     male,
     black
   )
@@ -473,8 +470,8 @@ eGFR_child_SCr.data.frame <- function(.data, SCr, height, ...) {
 eGFR_child_SCr.units <- function(SCr, height, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_child_SCr(
-    as_metric(SCr = SCr, value_only = T),
-    as_metric(height = height, value_only = T),
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(height = height, value_only = TRUE),
   )
   units::set_units(eGFR, "mL/min/1.73m2")
 }
@@ -537,9 +534,9 @@ eGFR_child_SCr_BUN.data.frame <- function(.data, SCr, height, BUN, ...) {
 eGFR_child_SCr_BUN.units <- function(SCr, height, BUN, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_child_SCr_BUN(
-    as_metric(SCr = SCr, value_only = T),
-    as_metric(height = height, value_only = T),
-    as_metric(BUN = BUN, value_only = T)
+    as_metric(SCr = SCr, value_only = TRUE),
+    as_metric(height = height, value_only = TRUE),
+    as_metric(BUN = BUN, value_only = TRUE)
   )
   units::set_units(eGFR, "mL/min/1.73m2")
 }
@@ -596,7 +593,7 @@ eGFR_child_SCysC.data.frame <- function(.data, SCysC, ...) {
 eGFR_child_SCysC.units <- function(SCysC, ...) {
   ellipsis::check_dots_used()
   eGFR <- eGFR_child_SCysC(
-    as_metric(SCysC = SCysC, value_only = T)
+    as_metric(SCysC = SCysC, value_only = TRUE)
   )
   units::set_units(eGFR, "mL/min/1.73m2")
 }
@@ -674,7 +671,7 @@ GFR_staging.units <- function(GFR, ...) {
     GFR <- GFR * units::set_units(1, "1.73m2")
   }
   GFR_staging(
-    as_metric(GFR = GFR, value_only = T)
+    as_metric(GFR = GFR, value_only = TRUE)
   )
 }
 
@@ -762,7 +759,7 @@ Albuminuria_staging_AER.data.frame <- function(.data, AER, ...) {
 #' @export
 Albuminuria_staging_AER.units <- function(AER, ...) {
   Albuminuria_staging_AER(
-    as_metric(AER = AER, value_only = T)
+    as_metric(AER = AER, value_only = TRUE)
   )
 }
 
@@ -825,7 +822,7 @@ Albuminuria_staging_ACR.data.frame <- function(.data, ACR, ...) {
 #' @export
 Albuminuria_staging_ACR.units <- function(ACR, ...) {
   Albuminuria_staging_ACR(
-    as_metric(ACR = ACR, value_only = T)
+    as_metric(ACR = ACR, value_only = TRUE)
   )
 }
 

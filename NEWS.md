@@ -1,3 +1,12 @@
+# epocakir 0.9.8
+
+Update README and formatting
+
+## Bug Fixes
+
+- Update readme and description
+- Addressed comments from `goodpractice::gp()`
+
 # epocakir 0.9.7
 
 CRAN re-submission

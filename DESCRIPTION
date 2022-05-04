@@ -1,6 +1,6 @@
 Package: epocakir
 Title: Clinical Coding of Patients with Kidney Disease
-Version: 0.9.7
+Version: 0.9.8
 Authors@R:
     c(person(given = "Alwin",
              family = "Wang",
@@ -16,7 +16,7 @@ Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
     KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information.
     This package covers acute kidney injury (AKI), anemia, and
-    chronic liver disease (CKD).
+    chronic kidney disease (CKD).
 License: MIT + file LICENSE
 URL: https://github.com/alwinw/epocakir
 BugReports: https://github.com/alwinw/epocakir/issues
@@ -25,20 +25,19 @@ Depends:
 Imports:
     dplyr (>= 1.0.1),
     tidyr (>= 1.1.1),
-    tidyselect (>= 1.1.0),
     tibble (>= 3.0.1),
-    vctrs,
     ellipsis,
     rlang (>= 0.4.0),
     units (>= 0.7),
-    lubridate,
-    magrittr
+    lubridate (>= 1.7.0),
+    magrittr (>= 2.0.1),
 Suggests:
     usethis,
     testthat,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    vctrs,
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

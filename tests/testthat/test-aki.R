@@ -180,7 +180,7 @@ test_that("aki_bCr() for dplyr::mutate on units", {
 
 test_that("aki_bCr() for dplyr::mutate on numeric", {
   df <- aki_bCr_test_df() %>%
-    dplyr::mutate(dplyr::across(tidyselect::everything(), as.numeric)) %>%
+    dplyr::mutate(dplyr::across(dplyr::everything(), as.numeric)) %>%
     dplyr::mutate(aki = aki_bCr(SCr_, bCr_))
   expect_identical(df$aki, aki_bCr_test_df()$aki_bCr)
 })
