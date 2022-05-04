@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://alwinw.github.io/epocakir/404.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/articles/epocakir.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/authors.html</loc>
+  </url>
+  <url>
     <loc>https://alwinw.github.io/epocakir/index.html</loc>
+  </url>
+  <url>
+    <loc>https://alwinw.github.io/epocakir/news/index.html</loc>
   </url>
   <url>
     <loc>https://alwinw.github.io/epocakir/reference/Albuminuria_stages.html</loc>
@@ -88,9 +109,9 @@
     <loc>https://alwinw.github.io/epocakir/reference/eGFR_pt_data.html</loc>
   </url>
   <url>
-    <loc>https://alwinw.github.io/epocakir/reference/reexports.html</loc>
+    <loc>https://alwinw.github.io/epocakir/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://alwinw.github.io/epocakir/articles/epocakir.html</loc>
+    <loc>https://alwinw.github.io/epocakir/reference/reexports.html</loc>
   </url>
 </urlset>
