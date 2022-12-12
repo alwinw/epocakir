@@ -685,7 +685,7 @@ GFR_staging.numeric <- function(GFR, ...) {
     GFR >= 30 ~ GFR_stages[4],
     GFR >= 15 ~ GFR_stages[5],
     GFR >= 0 ~ GFR_stages[6],
-    TRUE ~ NA_integer_ # GFR should be positive
+    TRUE ~ GFR_stages[NA_integer_] # GFR should be positive
   )
 }
 

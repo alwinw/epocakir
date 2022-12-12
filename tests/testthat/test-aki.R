@@ -92,9 +92,9 @@ aki_test_df <- function(env = parent.frame()) {
       values_to = "aki_"
     ) %>%
     dplyr::mutate(
-      SCr_ = dplyr::if_else(grepl("bCr|SCr", aki_staging_type), SCr_, NA_real_),
-      bCr_ = dplyr::if_else(grepl("bCr", aki_staging_type), bCr_, NA_real_),
-      UO_ = dplyr::if_else(grepl("UO", aki_staging_type), UO_, NA_real_)
+      SCr_ = dplyr::if_else(grepl("bCr|SCr", aki_staging_type), SCr_, SCr_[NA_integer_]),
+      bCr_ = dplyr::if_else(grepl("bCr", aki_staging_type), bCr_, bCr_[NA_integer_]),
+      UO_ = dplyr::if_else(grepl("UO", aki_staging_type), UO_, UO_[NA_integer_])
     ) %>%
     dplyr::filter(!is.na(aki_))
 }

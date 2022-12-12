@@ -106,9 +106,9 @@ eGFR_df <- function(env = parent.frame()) {
     ) %>%
     dplyr::mutate(
       pediatric = grepl("child", eGFR_calc_type),
-      SCr = dplyr::if_else(grepl("SCr", eGFR_calc_type), SCr, NA_real_),
-      SCysC = dplyr::if_else(grepl("SCysC", eGFR_calc_type), SCysC, NA_real_),
-      BUN = dplyr::if_else(grepl("BUN", eGFR_calc_type), BUN, NA_real_),
+      SCr = dplyr::if_else(grepl("SCr", eGFR_calc_type), SCr, SCr[NA_integer_]),
+      SCysC = dplyr::if_else(grepl("SCysC", eGFR_calc_type), SCysC, SCysC[NA_integer_]),
+      BUN = dplyr::if_else(grepl("BUN", eGFR_calc_type), BUN, BUN[NA_integer_]),
       Age = dplyr::if_else(pediatric, units::set_units(10, "years"), Age)
     ) %>%
     dplyr::filter(!is.na(eGFR)) %>%
