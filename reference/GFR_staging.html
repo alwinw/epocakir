@@ -60,31 +60,38 @@ Volume 3 | Issue 1 | January 2013</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">GFR_staging</span><span class="op">(</span><span class="va">.data</span>, <span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for units</span>
-<span class="fu">GFR_staging</span><span class="op">(</span><span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for numeric</span>
-<span class="fu">GFR_staging</span><span class="op">(</span><span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">.data</span>, <span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for units</span></span>
+<span><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for numeric</span></span>
+<span><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">GFR</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>Further optional arguments</p></dd>
+
+
 <dt>.data</dt>
 <dd><p>(data.frame) A data.frame, optional</p></dd>
+
+
 <dt>GFR</dt>
 <dd><p>Glomerular filtration rate
 column name, or vector of units or numeric if <code>.data</code> is not provided</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>GFR category</p>
+    
+
+<p>GFR category</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -100,16 +107,16 @@ column name, or vector of units or numeric if <code>.data</code> is not provided
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span class="r-in">  eGFR <span class="op">=</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">100</span>, <span class="fl">70</span>, <span class="fl">50</span>, <span class="fl">35</span>, <span class="fl">20</span>, <span class="fl">10</span><span class="op">)</span>, <span class="st">"mL/min/1.73m2"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">df</span>, <span class="st">"eGFR"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  eGFR <span class="op">=</span> <span class="fu">units</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="cn">NA</span>, <span class="fl">100</span>, <span class="fl">70</span>, <span class="fl">50</span>, <span class="fl">35</span>, <span class="fl">20</span>, <span class="fl">10</span><span class="op">)</span>, <span class="st">"mL/min/1.73m2"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">GFR_staging</span><span class="op">(</span><span class="va">df</span>, <span class="st">"eGFR"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;NA&gt; &lt;NA&gt; G1   G2   G3a  G3b  G4   G5  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: G1 &lt; G2 &lt; G3a &lt; G3b &lt; G4 &lt; G5</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>GFR_level <span class="op">=</span> <span class="fu">GFR_staging</span><span class="op">(</span><span class="va">eGFR</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>GFR_level <span class="op">=</span> <span class="fu">GFR_staging</span><span class="op">(</span><span class="va">eGFR</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              eGFR GFR_level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494;">[mL/1.73m2/min]</span> <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>    </span>
@@ -135,7 +142,7 @@ column name, or vector of units or numeric if <code>.data</code> is not provided
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -51,7 +51,7 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.9.8" id="epocakir-098">epocakir 0.9.8<a class="anchor" aria-label="anchor" href="#epocakir-098"></a></h2>
+<h2 class="page-header" data-toc-text="0.9.8" id="epocakir-098">epocakir 0.9.8<small>2022-05-04</small><a class="anchor" aria-label="anchor" href="#epocakir-098"></a></h2>
 <p>Update README and formatting</p>
 <div class="section level3">
 <h3 id="bug-fixes-0-9-8">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-9-8"></a></h3>
@@ -98,7 +98,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-9-5">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-5"></a></h3>
-<ul><li>Renamed <code>aki()</code> to <code><a href="../reference/aki_staging.html">aki_staging()</a></code> for more consistent method names</li></ul></div>
+<ul><li>Renamed <code>aki()</code> to <code><a href="../reference/aki_staging.html">aki_staging()</a></code> for more consistent method names</li>
+</ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-9-5">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-9-5"></a></h3>
 <ul><li>Fixed bug when n &lt; m for combn() in combn_changes()</li>
@@ -116,10 +117,12 @@
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-9-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
-<ul><li>Added <code>No AKI</code> and <code>No Albuminuria</code> to stages ordered factors to prevent users have to handle <code>NAs</code> mixed with ordered factors</li></ul></div>
+<ul><li>Added <code>No AKI</code> and <code>No Albuminuria</code> to stages ordered factors to prevent users have to handle <code>NAs</code> mixed with ordered factors</li>
+</ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-9-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-9-0"></a></h3>
-<ul><li>Fixed bug in <code>eGFR_internal()</code> where it was looking for <code>!is.na(black)</code> to select <code><a href="../reference/eGFR_adult_SCysC.html">eGFR_adult_SCysC()</a></code>, when <code>black</code> was not required</li></ul></div>
+<ul><li>Fixed bug in <code>eGFR_internal()</code> where it was looking for <code>!is.na(black)</code> to select <code><a href="../reference/eGFR_adult_SCysC.html">eGFR_adult_SCysC()</a></code>, when <code>black</code> was not required</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.8.0" id="epocakir-080">epocakir 0.8.0<a class="anchor" aria-label="anchor" href="#epocakir-080"></a></h2>
@@ -147,14 +150,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-7-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-7-0"></a></h3>
-<ul><li>Consistent parameter naming</li></ul></div>
+<ul><li>Consistent parameter naming</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="epocakir-060">epocakir 0.6.0<a class="anchor" aria-label="anchor" href="#epocakir-060"></a></h2>
 <p>Re-wrote all eGFR functions as S3 methods</p>
 <div class="section level3">
 <h3 id="improvements-0-6-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-6-0"></a></h3>
-<ul><li>Wrote <code>eGFR_adult_SCr</code>, <code>eGFR_adult_SCysC</code>, <code>eGFR_adult_SCr_SCysC</code>, <code>eGFR_child_SCr</code>, <code>eGFR_child_SCr_BUN</code>, <code>eGFR_child_SCysC</code> methods</li></ul></div>
+<ul><li>Wrote <code>eGFR_adult_SCr</code>, <code>eGFR_adult_SCysC</code>, <code>eGFR_adult_SCr_SCysC</code>, <code>eGFR_child_SCr</code>, <code>eGFR_child_SCr_BUN</code>, <code>eGFR_child_SCysC</code> methods</li>
+</ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-6-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-6-0"></a></h3>
 <ul><li>Instead of individual functions, use methods for all low-level functions</li>
@@ -173,7 +178,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="breaking-changes-0-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-5-0"></a></h3>
-<ul><li>Added version numbers to dependencies</li></ul></div>
+<ul><li>Added version numbers to dependencies</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="epocakir-040">epocakir 0.4.0<a class="anchor" aria-label="anchor" href="#epocakir-040"></a></h2>
@@ -188,7 +194,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fix-0-4-0">Bug fix<a class="anchor" aria-label="anchor" href="#bug-fix-0-4-0"></a></h3>
-<ul><li>Correctly use <code>pmin</code> instead of <code>min</code> in eGFR calculation</li></ul></div>
+<ul><li>Correctly use <code>pmin</code> instead of <code>min</code> in eGFR calculation</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.5" id="epocakir-015">epocakir 0.1.5<a class="anchor" aria-label="anchor" href="#epocakir-015"></a></h2>
@@ -226,7 +233,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

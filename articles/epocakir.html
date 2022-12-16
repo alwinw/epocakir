@@ -82,70 +82,93 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The epocakir package makes clinical coding of patients with kidney disease using clinical practice guidelines easy. The guidelines used are the evidence-based <a href="https://kdigo.org/guidelines/" class="external-link">KDIGO guidelines</a>. This package covers acute kidney injury (AKI), anemia, and chronic liver disease(CKD).</p>
+<p>The epocakir package makes clinical coding of patients with kidney
+disease using clinical practice guidelines easy. The guidelines used are
+the evidence-based <a href="https://kdigo.org/guidelines/" class="external-link">KDIGO
+guidelines</a>. This package covers acute kidney injury (AKI), anemia,
+and chronic liver disease(CKD).</p>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
 <ul>
 <li>
-<p><code><a href="../reference/aki_staging.html">aki_staging()</a></code>: Classification of AKI staging (<code>aki_stages</code>) with automatic selection of:</p>
+<p><code><a href="../reference/aki_staging.html">aki_staging()</a></code>: Classification of AKI staging
+(<code>aki_stages</code>) with automatic selection of:</p>
 <ul>
 <li>
 <code><a href="../reference/aki_bCr.html">aki_bCr()</a></code>: AKI based on baseline creatinine</li>
 <li>
-<code><a href="../reference/aki_SCr.html">aki_SCr()</a></code>: AKI based on changes in serum creatinine</li>
+<code><a href="../reference/aki_SCr.html">aki_SCr()</a></code>: AKI based on changes in serum
+creatinine</li>
 <li>
 <code><a href="../reference/aki_UO.html">aki_UO()</a></code>: AKI based on urine output</li>
 </ul>
 </li>
 <li><p><code><a href="../reference/anemia.html">anemia()</a></code>: Classification of anemia</p></li>
 <li>
-<p>Classification of albuminuria (<code>Albuminuria_stages</code>)</p>
+<p>Classification of albuminuria
+(<code>Albuminuria_stages</code>)</p>
 <ul>
 <li>
-<code><a href="../reference/Albuminuria_staging_ACR.html">Albuminuria_staging_ACR()</a></code>: Albuminuria based on Albumin excretion rate</li>
+<code><a href="../reference/Albuminuria_staging_ACR.html">Albuminuria_staging_ACR()</a></code>: Albuminuria based on Albumin
+excretion rate</li>
 <li>
-<code><a href="../reference/Albuminuria_staging_AER.html">Albuminuria_staging_AER()</a></code>: Albuminuria based on Albumin-to-creatinine ratio</li>
+<code><a href="../reference/Albuminuria_staging_AER.html">Albuminuria_staging_AER()</a></code>: Albuminuria based on
+Albumin-to-creatinine ratio</li>
 </ul>
 </li>
 <li>
-<p><code><a href="../reference/eGFR.html">eGFR()</a></code>: Estimation of glomerular filtration rate with automatic selection of:</p>
+<p><code><a href="../reference/eGFR.html">eGFR()</a></code>: Estimation of glomerular filtration rate
+with automatic selection of:</p>
 <ul>
 <li>
-<code><a href="../reference/eGFR_adult_SCr.html">eGFR_adult_SCr()</a></code>: eGFR based on the 2009 CKD-EPI creatinine equation</li>
+<code><a href="../reference/eGFR_adult_SCr.html">eGFR_adult_SCr()</a></code>: eGFR based on the 2009 CKD-EPI
+creatinine equation</li>
 <li>
-<code><a href="../reference/eGFR_adult_SCysC.html">eGFR_adult_SCysC()</a></code>: eGFR based on the 2012 CKD-EPI cystatin C equation</li>
+<code><a href="../reference/eGFR_adult_SCysC.html">eGFR_adult_SCysC()</a></code>: eGFR based on the 2012 CKD-EPI
+cystatin C equation</li>
 <li>
-<code><a href="../reference/eGFR_adult_SCr_SCysC.html">eGFR_adult_SCr_SCysC()</a></code>: eGFR based on the 2012 CKD-EPI creatinine-cystatin C equation</li>
+<code><a href="../reference/eGFR_adult_SCr_SCysC.html">eGFR_adult_SCr_SCysC()</a></code>: eGFR based on the 2012 CKD-EPI
+creatinine-cystatin C equation</li>
 <li>
-<code><a href="../reference/eGFR_child_SCr.html">eGFR_child_SCr()</a></code>: eGFR based on the pediatric creatinine-based equation</li>
+<code><a href="../reference/eGFR_child_SCr.html">eGFR_child_SCr()</a></code>: eGFR based on the pediatric
+creatinine-based equation</li>
 <li>
-<code><a href="../reference/eGFR_child_SCr_BUN.html">eGFR_child_SCr_BUN()</a></code>: eGFR based on the pediatric creatinine-BUN equation</li>
+<code><a href="../reference/eGFR_child_SCr_BUN.html">eGFR_child_SCr_BUN()</a></code>: eGFR based on the pediatric
+creatinine-BUN equation</li>
 <li>
-<code><a href="../reference/eGFR_child_SCysC.html">eGFR_child_SCysC()</a></code>: eGFR based on the pediatric cystatin C-based equation</li>
+<code><a href="../reference/eGFR_child_SCysC.html">eGFR_child_SCysC()</a></code>: eGFR based on the pediatric
+cystatin C-based equation</li>
 </ul>
 </li>
-<li><p><code><a href="../reference/GFR_staging.html">GFR_staging()</a></code>: Staging of GFR (<code>GFR_stages</code>)</p></li>
+<li><p><code><a href="../reference/GFR_staging.html">GFR_staging()</a></code>: Staging of GFR
+(<code>GFR_stages</code>)</p></li>
 <li>
 <p>Multiple utility functions including:</p>
 <ul>
 <li>
-<code>conversion_factors</code>: Conversion factors used throughout the KDIGO guidelines</li>
+<code>conversion_factors</code>: Conversion factors used throughout
+the KDIGO guidelines</li>
 <li>
-<code><a href="../reference/as_metric.html">as_metric()</a></code>: Conversion of a measured value into metric units</li>
+<code><a href="../reference/as_metric.html">as_metric()</a></code>: Conversion of a measured value into metric
+units</li>
 <li>
 <code><a href="../reference/dob2age.html">dob2age()</a></code>: Calculation of age from a date of birth</li>
 <li>
-<code><a href="../reference/binary2factor.html">binary2factor()</a></code>: Conversion of binary data into factors based on a column name</li>
+<code><a href="../reference/binary2factor.html">binary2factor()</a></code>: Conversion of binary data into factors
+based on a column name</li>
 <li>
-<code><a href="../reference/combine_date_time_cols.html">combine_date_time_cols()</a></code>: Combining separate date and time columns into a single date and time column</li>
+<code><a href="../reference/combine_date_time_cols.html">combine_date_time_cols()</a></code>: Combining separate date and
+time columns into a single date and time column</li>
 <li>
-<code>combn_changes</code>: Generating changes between measurements</li>
+<code>combn_changes</code>: Generating changes between
+measurements</li>
 </ul>
 </li>
 <li><p>Automatic conversion of units class objects</p></li>
-<li><p>Tidy output allowing seamless integration with functions from the tidyverse</p></li>
+<li><p>Tidy output allowing seamless integration with functions from the
+tidyverse</p></li>
 <li><p>Tidyeval via programming with dplyr</p></li>
 <li><p>Comprehensive tests and coverage</p></li>
 </ul>
@@ -154,200 +177,218 @@
 <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/alwinw/epocakir" class="external-link">epocakir</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-quantities/units/" class="external-link">units</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/alwinw/epocakir" class="external-link">epocakir</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-quantities/units" class="external-link">units</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="clinical-data">Clinical Data<a class="anchor" aria-label="anchor" href="#clinical-data"></a>
 </h3>
-<p>Often clinical data must be cleansed and tidied before analysis can begin. To assist in this, several utility functions have been included. To explore these, consider a sample clinical dataset <code>clinical_obvs</code>:</p>
+<p>Often clinical data must be cleansed and tidied before analysis can
+begin. To assist in this, several utility functions have been included.
+To explore these, consider a sample clinical dataset
+<code>clinical_obvs</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Example workflow: clinical_obvs &lt;- read.csv("cohort.csv")</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">clinical_obvs</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 3</span>
-<span class="co">#&gt; Columns: 9</span>
-<span class="co">#&gt; $ `Patient Number` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "p10001", "p10002", "p10003"</span>
-<span class="co">#&gt; $ `Admission Date` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2020-03-05", "2020-03-06", "2020-03-17"</span>
-<span class="co">#&gt; $ `Admission Time` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "14:01:00", "09:10:00", "12:48:00"</span>
-<span class="co">#&gt; $ Discharge_date   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2020-03-10", "2020-03-16", "2020-03-18"</span>
-<span class="co">#&gt; $ Discharge_time   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "16:34:00", "18:51:00", "09:12:00"</span>
-<span class="co">#&gt; $ `Date of Birth`  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1956-01-09", "1997-12-04", "1973-05-28"</span>
-<span class="co">#&gt; $ Male             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE, FALSE, TRUE</span>
-<span class="co">#&gt; $ Height           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 182, 161, 168</span>
-<span class="co">#&gt; $ Surgery          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, TRUE</span>
-
-<span class="va">tidy_obvs</span> <span class="op">&lt;-</span> <span class="va">clinical_obvs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/combine_date_time_cols.html">combine_date_time_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    Age <span class="op">=</span> <span class="fu"><a href="../reference/dob2age.html">dob2age</a></span><span class="op">(</span><span class="va">`Date of Birth`</span><span class="op">)</span>,
-    Height <span class="op">=</span> <span class="fu"><a href="../reference/as_metric.html">as_metric</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">Height</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="../reference/binary2factor.html">binary2factor</a></span><span class="op">(</span><span class="va">Male</span>, <span class="va">Surgery</span><span class="op">)</span>
-
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">tidy_obvs</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 3</span>
-<span class="co">#&gt; Columns: 8</span>
-<span class="co">#&gt; $ `Patient Number`     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "p10001", "p10002", "p10003"</span>
-<span class="co">#&gt; $ `Admission DateTime` <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03…</span>
-<span class="co">#&gt; $ Discharge_DateTime   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-0…</span>
-<span class="co">#&gt; $ `Date of Birth`      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1956-01-09", "1997-12-04", "1973-05-28"</span>
-<span class="co">#&gt; $ Male                 <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> Male, Not_Male, Male</span>
-<span class="co">#&gt; $ Height               <span style="color: #949494;">[m]</span> 1.82 [m], 1.61 [m], 1.68 [m]</span>
-<span class="co">#&gt; $ Surgery              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> Not_Surgery, Not_Surgery, Surgery</span>
-<span class="co">#&gt; $ Age                  <span style="color: #949494; font-style: italic;">&lt;Duration&gt;</span> 2092780800s (~66.32 years), 770428800s (~24.41 y…</span></code></pre></div>
-<p>Make sure to use <code><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units()</a></code> from the <code>units</code> package to convert all measurements into unit objects for automatic unit conversion in epocakir.</p>
+<code class="sourceCode R"><span><span class="co"># Example workflow: clinical_obvs &lt;- read.csv("cohort.csv")</span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">clinical_obvs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 3</span></span>
+<span><span class="co">#&gt; Columns: 9</span></span>
+<span><span class="co">#&gt; $ `Patient Number` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "p10001", "p10002", "p10003"</span></span>
+<span><span class="co">#&gt; $ `Admission Date` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2020-03-05", "2020-03-06", "2020-03-17"</span></span>
+<span><span class="co">#&gt; $ `Admission Time` <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "14:01:00", "09:10:00", "12:48:00"</span></span>
+<span><span class="co">#&gt; $ Discharge_date   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2020-03-10", "2020-03-16", "2020-03-18"</span></span>
+<span><span class="co">#&gt; $ Discharge_time   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "16:34:00", "18:51:00", "09:12:00"</span></span>
+<span><span class="co">#&gt; $ `Date of Birth`  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1956-01-09", "1997-12-04", "1973-05-28"</span></span>
+<span><span class="co">#&gt; $ Male             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE, FALSE, TRUE</span></span>
+<span><span class="co">#&gt; $ Height           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 182, 161, 168</span></span>
+<span><span class="co">#&gt; $ Surgery          <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, TRUE</span></span>
+<span></span>
+<span><span class="va">tidy_obvs</span> <span class="op">&lt;-</span> <span class="va">clinical_obvs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/combine_date_time_cols.html">combine_date_time_cols</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    Age <span class="op">=</span> <span class="fu"><a href="../reference/dob2age.html">dob2age</a></span><span class="op">(</span><span class="va">`Date of Birth`</span><span class="op">)</span>,</span>
+<span>    Height <span class="op">=</span> <span class="fu"><a href="../reference/as_metric.html">as_metric</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">Height</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/binary2factor.html">binary2factor</a></span><span class="op">(</span><span class="va">Male</span>, <span class="va">Surgery</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">tidy_obvs</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 3</span></span>
+<span><span class="co">#&gt; Columns: 8</span></span>
+<span><span class="co">#&gt; $ `Patient Number`     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "p10001", "p10002", "p10003"</span></span>
+<span><span class="co">#&gt; $ `Admission DateTime` <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03…</span></span>
+<span><span class="co">#&gt; $ Discharge_DateTime   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-0…</span></span>
+<span><span class="co">#&gt; $ `Date of Birth`      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1956-01-09", "1997-12-04", "1973-05-28"</span></span>
+<span><span class="co">#&gt; $ Male                 <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> Male, Not_Male, Male</span></span>
+<span><span class="co">#&gt; $ Height               <span style="color: #949494;">[m]</span> 1.82 [m], 1.61 [m], 1.68 [m]</span></span>
+<span><span class="co">#&gt; $ Surgery              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> Not_Surgery, Not_Surgery, Surgery</span></span>
+<span><span class="co">#&gt; $ Age                  <span style="color: #949494; font-style: italic;">&lt;Duration&gt;</span> 2112307200s (~66.93 years), 789955200s (~25.03 y…</span></span></code></pre></div>
+<p>Make sure to use <code><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units()</a></code> from the <code>units</code>
+package to convert all measurements into unit objects for automatic unit
+conversion in epocakir.</p>
 </div>
 <div class="section level3">
 <h3 id="aki-staging">AKI Staging<a class="anchor" aria-label="anchor" href="#aki-staging"></a>
 </h3>
-<p>Next consider the sample <code>aki_pt_data</code> dataset. It is possible to use <code><a href="../reference/aki_staging.html">aki_staging()</a></code> to automatically classify the presence and staging of AKI. If a particular method is required, it is possible to classify AKI using <code><a href="../reference/aki_bCr.html">aki_bCr()</a></code>, <code><a href="../reference/aki_SCr.html">aki_SCr()</a></code> or <code>aki_UO().</code></p>
+<p>Next consider the sample <code>aki_pt_data</code> dataset. It is
+possible to use <code><a href="../reference/aki_staging.html">aki_staging()</a></code> to automatically classify the
+presence and staging of AKI. If a particular method is required, it is
+possible to classify AKI using <code><a href="../reference/aki_bCr.html">aki_bCr()</a></code>,
+<code><a href="../reference/aki_SCr.html">aki_SCr()</a></code> or <code>aki_UO().</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Example workflow: aki_pt_data &lt;- read.csv("aki.csv")</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aki_pt_data</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="co">#&gt;      SCr_    bCr_ pt_id_ dttm_      UO_ aki_staging_type aki_       </span>
-<span class="co">#&gt;   <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> <span style="color: #949494;">[ml/kg]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     3.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     4.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 3</span>
-
-<span class="fu"><a href="../reference/aki_staging.html">aki_staging</a></span><span class="op">(</span><span class="va">aki_pt_data</span>,
-  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, bCr <span class="op">=</span> <span class="st">"bCr_"</span>, UO <span class="op">=</span> <span class="st">"UO_"</span>,
-  dttm <span class="op">=</span> <span class="st">"dttm_"</span>, pt_id <span class="op">=</span> <span class="st">"pt_id_"</span>
-<span class="op">)</span>
-<span class="co">#&gt;  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3</span>
-<span class="co">#&gt;  [7] No AKI      No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1</span>
-<span class="co">#&gt; [13] No AKI      No AKI      No AKI      AKI Stage 1 No AKI      AKI Stage 2</span>
-<span class="co">#&gt; [19] AKI Stage 3 AKI Stage 1 AKI Stage 3 AKI Stage 2 No AKI      AKI Stage 1</span>
-<span class="co">#&gt; [25] AKI Stage 3 AKI Stage 3 No AKI     </span>
-<span class="co">#&gt; Levels: No AKI &lt; AKI Stage 1 &lt; AKI Stage 2 &lt; AKI Stage 3</span>
-
-<span class="va">aki_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>aki <span class="op">=</span> <span class="fu"><a href="../reference/aki_staging.html">aki_staging</a></span><span class="op">(</span>
-    SCr <span class="op">=</span> <span class="va">SCr_</span>, bCr <span class="op">=</span> <span class="va">bCr_</span>, UO <span class="op">=</span> <span class="va">UO_</span>,
-    dttm <span class="op">=</span> <span class="va">dttm_</span>, pt_id <span class="op">=</span> <span class="va">pt_id_</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">pt_id_</span>, <span class="va">SCr_</span><span class="op">:</span><span class="va">dttm_</span>, <span class="va">aki</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 5</span></span>
-<span class="co">#&gt;    pt_id_    SCr_    bCr_ dttm_               aki        </span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="color: #BB0000;">NA</span>         2       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>         2.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>         3       1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>         3.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 2</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>         4       1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>         4.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pt1        3.4    <span style="color: #BB0000;">NA</span>   2020-10-23 <span style="color: #949494;">09:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pt1        3.9    <span style="color: #BB0000;">NA</span>   2020-10-25 <span style="color: #949494;">21:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pt1        3      <span style="color: #BB0000;">NA</span>   2020-10-20 <span style="color: #949494;">09:00:00</span> AKI Stage 1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pt2        3.4    <span style="color: #BB0000;">NA</span>   2020-10-18 <span style="color: #949494;">22:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span>
-
-<span class="va">aki_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>aki <span class="op">=</span> <span class="fu"><a href="../reference/aki_SCr.html">aki_SCr</a></span><span class="op">(</span>
-    SCr <span class="op">=</span> <span class="va">SCr_</span>, dttm <span class="op">=</span> <span class="va">dttm_</span>, pt_id <span class="op">=</span> <span class="va">pt_id_</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">pt_id_</span>, <span class="va">SCr_</span><span class="op">:</span><span class="va">dttm_</span>, <span class="va">aki</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 5</span></span>
-<span class="co">#&gt;    pt_id_    SCr_    bCr_ dttm_               aki        </span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="color: #BB0000;">NA</span>         2       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>         2.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>         3       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>         3.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>         4       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>         4.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pt1        3.4    <span style="color: #BB0000;">NA</span>   2020-10-23 <span style="color: #949494;">09:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pt1        3.9    <span style="color: #BB0000;">NA</span>   2020-10-25 <span style="color: #949494;">21:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pt1        3      <span style="color: #BB0000;">NA</span>   2020-10-20 <span style="color: #949494;">09:00:00</span> AKI Stage 1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pt2        3.4    <span style="color: #BB0000;">NA</span>   2020-10-18 <span style="color: #949494;">22:00:00</span> No AKI     </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Example workflow: aki_pt_data &lt;- read.csv("aki.csv")</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aki_pt_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#&gt;      SCr_    bCr_ pt_id_ dttm_      UO_ aki_staging_type aki_       </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> <span style="color: #949494;">[ml/kg]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     2       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     3.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     4       1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     4.5     1.5 <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span> aki_bCr          AKI Stage 3</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/aki_staging.html">aki_staging</a></span><span class="op">(</span><span class="va">aki_pt_data</span>,</span>
+<span>  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, bCr <span class="op">=</span> <span class="st">"bCr_"</span>, UO <span class="op">=</span> <span class="st">"UO_"</span>,</span>
+<span>  dttm <span class="op">=</span> <span class="st">"dttm_"</span>, pt_id <span class="op">=</span> <span class="st">"pt_id_"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3</span></span>
+<span><span class="co">#&gt;  [7] No AKI      No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1</span></span>
+<span><span class="co">#&gt; [13] No AKI      No AKI      No AKI      AKI Stage 1 No AKI      AKI Stage 2</span></span>
+<span><span class="co">#&gt; [19] AKI Stage 3 AKI Stage 1 AKI Stage 3 AKI Stage 2 No AKI      AKI Stage 1</span></span>
+<span><span class="co">#&gt; [25] AKI Stage 3 AKI Stage 3 No AKI     </span></span>
+<span><span class="co">#&gt; Levels: No AKI &lt; AKI Stage 1 &lt; AKI Stage 2 &lt; AKI Stage 3</span></span>
+<span></span>
+<span><span class="va">aki_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>aki <span class="op">=</span> <span class="fu"><a href="../reference/aki_staging.html">aki_staging</a></span><span class="op">(</span></span>
+<span>    SCr <span class="op">=</span> <span class="va">SCr_</span>, bCr <span class="op">=</span> <span class="va">bCr_</span>, UO <span class="op">=</span> <span class="va">UO_</span>,</span>
+<span>    dttm <span class="op">=</span> <span class="va">dttm_</span>, pt_id <span class="op">=</span> <span class="va">pt_id_</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">pt_id_</span>, <span class="va">SCr_</span><span class="op">:</span><span class="va">dttm_</span>, <span class="va">aki</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 5</span></span></span>
+<span><span class="co">#&gt;    pt_id_    SCr_    bCr_ dttm_               aki        </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="color: #BB0000;">NA</span>         2       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>         2.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>         3       1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>         3.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>         4       1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>         4.5     1.5 <span style="color: #BB0000;">NA</span>                  AKI Stage 3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pt1        3.4    <span style="color: #BB0000;">NA</span>   2020-10-23 <span style="color: #949494;">09:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pt1        3.9    <span style="color: #BB0000;">NA</span>   2020-10-25 <span style="color: #949494;">21:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pt1        3      <span style="color: #BB0000;">NA</span>   2020-10-20 <span style="color: #949494;">09:00:00</span> AKI Stage 1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pt2        3.4    <span style="color: #BB0000;">NA</span>   2020-10-18 <span style="color: #949494;">22:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span></span>
+<span></span>
+<span><span class="va">aki_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>aki <span class="op">=</span> <span class="fu"><a href="../reference/aki_SCr.html">aki_SCr</a></span><span class="op">(</span></span>
+<span>    SCr <span class="op">=</span> <span class="va">SCr_</span>, dttm <span class="op">=</span> <span class="va">dttm_</span>, pt_id <span class="op">=</span> <span class="va">pt_id_</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">pt_id_</span>, <span class="va">SCr_</span><span class="op">:</span><span class="va">dttm_</span>, <span class="va">aki</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 5</span></span></span>
+<span><span class="co">#&gt;    pt_id_    SCr_    bCr_ dttm_               aki        </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> <span style="color: #BB0000;">NA</span>         2       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> <span style="color: #BB0000;">NA</span>         2.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> <span style="color: #BB0000;">NA</span>         3       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> <span style="color: #BB0000;">NA</span>         3.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> <span style="color: #BB0000;">NA</span>         4       1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> <span style="color: #BB0000;">NA</span>         4.5     1.5 <span style="color: #BB0000;">NA</span>                  No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> pt1        3.4    <span style="color: #BB0000;">NA</span>   2020-10-23 <span style="color: #949494;">09:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> pt1        3.9    <span style="color: #BB0000;">NA</span>   2020-10-25 <span style="color: #949494;">21:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> pt1        3      <span style="color: #BB0000;">NA</span>   2020-10-20 <span style="color: #949494;">09:00:00</span> AKI Stage 1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> pt2        3.4    <span style="color: #BB0000;">NA</span>   2020-10-18 <span style="color: #949494;">22:00:00</span> No AKI     </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 17 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="estimated-glomerular-filtration-rate">Estimated Glomerular Filtration Rate<a class="anchor" aria-label="anchor" href="#estimated-glomerular-filtration-rate"></a>
 </h3>
-<p>Similarly, <code><a href="../reference/eGFR.html">eGFR()</a></code> offers the ability to automatically select the appropriate formula to estimate the glomerular filtration rate. If a particular formula is required, then <code>eGFR_adult_SCr</code>, <code>eGFR_adult_SCysC</code>, <code>eGFR_adult_SCr_SCysC</code>, <code>eGFR_child_SCr</code>, <code>eGFR_child_SCr_BUN</code>, or <code>eGFR_child_SCysC</code> can be used.</p>
+<p>Similarly, <code><a href="../reference/eGFR.html">eGFR()</a></code> offers the ability to automatically
+select the appropriate formula to estimate the glomerular filtration
+rate. If a particular formula is required, then
+<code>eGFR_adult_SCr</code>, <code>eGFR_adult_SCysC</code>,
+<code>eGFR_adult_SCr_SCysC</code>, <code>eGFR_child_SCr</code>,
+<code>eGFR_child_SCr_BUN</code>, or <code>eGFR_child_SCysC</code> can be
+used.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Example workflow: aki_pt_data &lt;- read.csv("aki.csv")</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
-<span class="co">#&gt;    SCr_ SCysC_  Age_ male_ black_ height_  BUN_ eGFR_calc_type_ eGFR_ pediatric_</span>
-<span class="co">#&gt;   <span style="color: #949494;">[mg/</span>… <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[yea</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/</span>… <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494;">[mL/</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   0.5   <span style="color: #BB0000;">NA</span>      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCr   139. FALSE     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>  <span style="color: #BB0000;">NA</span>      0.4    20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCy…  162. FALSE     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   0.5    0.4    20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCr…  167. FALSE     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   0.5   <span style="color: #BB0000;">NA</span>      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCr   150. FALSE     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>  <span style="color: #BB0000;">NA</span>      0.4    30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCy…  155. FALSE     </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   0.5    0.4    30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_adult_SCr…  171. FALSE</span>
-
-<span class="fu"><a href="../reference/eGFR.html">eGFR</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span>,
-  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, SCysC <span class="op">=</span> <span class="st">"SCysC_"</span>,
-  Age <span class="op">=</span> <span class="st">"Age_"</span>, height <span class="op">=</span> <span class="st">"height_"</span>, BUN <span class="op">=</span> <span class="st">"BUN_"</span>,
-  male <span class="op">=</span> <span class="st">"male_"</span>, black <span class="op">=</span> <span class="st">"black_"</span>, pediatric <span class="op">=</span> <span class="st">"pediatric_"</span>
-<span class="op">)</span>
-<span class="co">#&gt; Units: [mL/1.73m2/min]</span>
-<span class="co">#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466</span>
-<span class="co">#&gt;  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446</span>
-<span class="co">#&gt; [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368</span>
-<span class="co">#&gt; [22]  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404 168.53768</span>
-<span class="co">#&gt; [29] 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077</span>
-<span class="co">#&gt; [36] 106.19167  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546</span>
-<span class="co">#&gt; [43]  66.06766  71.64555  67.33849  71.37808  68.83077  69.17003  99.12000</span>
-<span class="co">#&gt; [50] 148.21219 165.89761</span>
-
-<span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="../reference/eGFR.html">eGFR</a></span><span class="op">(</span>
-    SCr <span class="op">=</span> <span class="va">SCr_</span>, SCysC <span class="op">=</span> <span class="va">SCysC_</span>,
-    Age <span class="op">=</span> <span class="va">Age_</span>, height <span class="op">=</span> <span class="va">height_</span>, BUN <span class="op">=</span> <span class="va">BUN_</span>,
-    male <span class="op">=</span> <span class="va">male_</span>, black <span class="op">=</span> <span class="va">black_</span>, pediatric <span class="op">=</span> <span class="va">pediatric_</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 51 × 11</span></span>
-<span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_</span>
-<span class="co">#&gt;    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494;">[mL/</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    162. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 167. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    155. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 171. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC     66.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy…  96.4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 41 more rows, and 2 more variables: pediatric_ &lt;lgl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   eGFR [mL/1.73m2/min]</span></span>
-
-<span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="../reference/eGFR_adult_SCr.html">eGFR_adult_SCr</a></span><span class="op">(</span>
-    SCr <span class="op">=</span> <span class="va">SCr_</span>, Age <span class="op">=</span> <span class="va">Age_</span>, male <span class="op">=</span> <span class="va">male_</span>, black <span class="op">=</span> <span class="va">black_</span>
-  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 51 × 11</span></span>
-<span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_</span>
-<span class="co">#&gt;    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494;">[mL/</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    162. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 167. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    155. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 171. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC     66.8</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy…  96.4</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 41 more rows, and 2 more variables: pediatric_ &lt;lgl&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   eGFR [mL/1.73m2/min]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Example workflow: aki_pt_data &lt;- read.csv("aki.csv")</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
+<span><span class="co">#&gt;      SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_…¹ eGFR_ pedia…²</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494;">[mL/</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  139. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  162. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  167. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  150. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  155. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_…  171. FALSE  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​eGFR_calc_type_, ²​pediatric_</span></span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/eGFR.html">eGFR</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span>,</span>
+<span>  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, SCysC <span class="op">=</span> <span class="st">"SCysC_"</span>,</span>
+<span>  Age <span class="op">=</span> <span class="st">"Age_"</span>, height <span class="op">=</span> <span class="st">"height_"</span>, BUN <span class="op">=</span> <span class="st">"BUN_"</span>,</span>
+<span>  male <span class="op">=</span> <span class="st">"male_"</span>, black <span class="op">=</span> <span class="st">"black_"</span>, pediatric <span class="op">=</span> <span class="st">"pediatric_"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Units: [mL/1.73m2/min]</span></span>
+<span><span class="co">#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466</span></span>
+<span><span class="co">#&gt;  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446</span></span>
+<span><span class="co">#&gt; [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368</span></span>
+<span><span class="co">#&gt; [22]  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404 168.53768</span></span>
+<span><span class="co">#&gt; [29] 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077</span></span>
+<span><span class="co">#&gt; [36] 106.19167  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546</span></span>
+<span><span class="co">#&gt; [43]  66.06766  71.64555  67.33849  71.37808  68.83077  69.17003  99.12000</span></span>
+<span><span class="co">#&gt; [50] 148.21219 165.89761</span></span>
+<span></span>
+<span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="../reference/eGFR.html">eGFR</a></span><span class="op">(</span></span>
+<span>    SCr <span class="op">=</span> <span class="va">SCr_</span>, SCysC <span class="op">=</span> <span class="va">SCysC_</span>,</span>
+<span>    Age <span class="op">=</span> <span class="va">Age_</span>, height <span class="op">=</span> <span class="va">height_</span>, BUN <span class="op">=</span> <span class="va">BUN_</span>,</span>
+<span>    male <span class="op">=</span> <span class="va">male_</span>, black <span class="op">=</span> <span class="va">black_</span>, pediatric <span class="op">=</span> <span class="va">pediatric_</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 51 × 11</span></span></span>
+<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_  BUN_ eGFR_…¹ eGFR_ pedia…²  eGFR</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/</span>… <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494;">[mL/</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494;">[mL/</span>…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE   139. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 162.  FALSE   162. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 167.  FALSE   167. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE   151. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 155.  FALSE   155. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 171.  FALSE   171. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE   139. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  66.8 FALSE    66.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  96.4 FALSE    96.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE   151. </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 41 more rows, and abbreviated variable names ¹​eGFR_calc_type_,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​pediatric_</span></span></span>
+<span></span>
+<span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="../reference/eGFR_adult_SCr.html">eGFR_adult_SCr</a></span><span class="op">(</span></span>
+<span>    SCr <span class="op">=</span> <span class="va">SCr_</span>, Age <span class="op">=</span> <span class="va">Age_</span>, male <span class="op">=</span> <span class="va">male_</span>, black <span class="op">=</span> <span class="va">black_</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 51 × 11</span></span></span>
+<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_  BUN_ eGFR_…¹ eGFR_ pedia…²  eGFR</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/</span>… <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494;">[mL/</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494;">[mL/</span>…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE    139.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 162.  FALSE     <span style="color: #BB0000;">NA</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 167.  FALSE    139.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE    151.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 155.  FALSE     <span style="color: #BB0000;">NA</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 171.  FALSE    151.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE    139.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  66.8 FALSE     <span style="color: #BB0000;">NA</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  96.4 FALSE    139.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE    151.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 41 more rows, and abbreviated variable names ¹​eGFR_calc_type_,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​pediatric_</span></span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="reference">Reference<a class="anchor" aria-label="anchor" href="#reference"></a>
 </h2>
-<p>See <a href="https://alwinw.github.io/epocakir/reference/index.html" class="uri">https://alwinw.github.io/epocakir/reference/index.html</a> for more usage details and package reference.</p>
-<p>See <a href="https://kdigo.org/guidelines/" class="external-link uri">https://kdigo.org/guidelines/</a> for full KDIGO guidelines.</p>
+<p>See <a href="https://alwinw.github.io/epocakir/reference/index.html" class="uri">https://alwinw.github.io/epocakir/reference/index.html</a>
+for more usage details and package reference.</p>
+<p>See <a href="https://kdigo.org/guidelines/" class="external-link uri">https://kdigo.org/guidelines/</a> for full KDIGO
+guidelines.</p>
 </div>
   </div>
 
@@ -368,7 +409,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

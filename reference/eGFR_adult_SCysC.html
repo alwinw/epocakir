@@ -60,37 +60,48 @@ Volume 3 | Issue 1 | January 2013</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for data.frame</span>
-<span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">.data</span>, <span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for units</span>
-<span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for numeric</span>
-<span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for data.frame</span></span>
+<span><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">.data</span>, <span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for units</span></span>
+<span><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for numeric</span></span>
+<span><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">SCysC</span>, <span class="va">Age</span>, <span class="va">male</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>...</dt>
 <dd><p>Further optional arguments</p></dd>
+
+
 <dt>.data</dt>
 <dd><p>(data.frame) A data.frame, optional</p></dd>
+
+
 <dt>SCysC</dt>
 <dd><p>Serum Cystatin C
 column name, or vector of units or numeric if <code>.data</code> is not provided</p></dd>
+
+
 <dt>Age</dt>
 <dd><p>Age of patient
 column name, or vector of units or numeric if <code>.data</code> is not provided</p></dd>
+
+
 <dt>male</dt>
 <dd><p>Male or not
 column name, or vector of logical (TRUE/FALSE) if <code>.data</code> is not provided</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Estimated GFR
+    
+
+<p>Estimated GFR
 of the same type provided (numeric or units)</p>
     </div>
     <div id="details">
@@ -100,9 +111,9 @@ of the same type provided (numeric or units)</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">eGFR_pt_data</span>,</span>
-<span class="r-in">  SCysC <span class="op">=</span> <span class="st">"SCysC_"</span>, Age <span class="op">=</span> <span class="st">"Age_"</span>, male <span class="op">=</span> <span class="st">"male_"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">eGFR_adult_SCysC</span><span class="op">(</span><span class="va">eGFR_pt_data</span>,</span></span>
+<span class="r-in"><span>  SCysC <span class="op">=</span> <span class="st">"SCysC_"</span>, Age <span class="op">=</span> <span class="st">"Age_"</span>, male <span class="op">=</span> <span class="st">"male_"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Units: [mL/1.73m2/min]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]        NA 161.68446 161.68446        NA 155.33226 155.33226        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  66.77365  66.77365        NA  64.15027  64.15027        NA 161.68446</span>
@@ -112,26 +123,26 @@ of the same type provided (numeric or units)</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [36]  68.83077        NA 173.48118 173.48118        NA 166.66552 166.66552</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [43]        NA  71.64555  71.64555        NA  68.83077  68.83077        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [50]        NA        NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span class="r-in">  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu">eGFR_adult_SCysC</span><span class="op">(</span></span>
-<span class="r-in">    SCysC <span class="op">=</span> <span class="va">SCysC_</span>, Age <span class="op">=</span> <span class="va">Age_</span>, male <span class="op">=</span> <span class="va">male_</span></span>
-<span class="r-in">  <span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu">eGFR_adult_SCysC</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    SCysC <span class="op">=</span> <span class="va">SCysC_</span>, Age <span class="op">=</span> <span class="va">Age_</span>, male <span class="op">=</span> <span class="va">male_</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 51 × 11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494;">[mL/</span>…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    162. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 167. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC    155. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy… 171. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      139. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCysC     66.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr_SCy…  96.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> eGFR_adult_SCr      150. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 41 more rows, and 2 more variables: pediatric_ &lt;lgl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   eGFR [mL/1.73m2/min]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       SCr_ SCysC_    Age_ male_ black_ height_  BUN_ eGFR_…¹ eGFR_ pedia…²  eGFR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494;">[mg/dl]</span> <span style="color: #949494;">[mg/L]</span> <span style="color: #949494;">[years]</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>      <span style="color: #949494;">[m]</span> <span style="color: #949494;">[mg/</span>… <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494;">[mL/</span>… <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>   <span style="color: #949494;">[mL/</span>…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>    <span style="color: #BB0000;">NA</span>      0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 162.  FALSE   162. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     0.5    0.4      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 167.  FALSE   162. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>    <span style="color: #BB0000;">NA</span>      0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 155.  FALSE   155. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     0.5    0.4      30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 171.  FALSE   155. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     0.5   <span style="color: #BB0000;">NA</span>        20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 139.  FALSE    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>    <span style="color: #BB0000;">NA</span>      1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  66.8 FALSE    66.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     0.5    1.2      20 FALSE FALSE       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a…  96.4 FALSE    66.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     0.5   <span style="color: #BB0000;">NA</span>        30 FALSE TRUE        <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> eGFR_a… 150.  FALSE    <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 41 more rows, and abbreviated variable names ¹​eGFR_calc_type_,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​pediatric_</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -146,7 +157,7 @@ of the same type provided (numeric or units)</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
