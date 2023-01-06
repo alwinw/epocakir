@@ -11,6 +11,7 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 ^codemeta.json
+^codemeta\.json$
 ^cran-comments.md$
 ^CRAN-RELEASE$
 ^data-raw$

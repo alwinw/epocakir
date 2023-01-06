@@ -1,22 +1,19 @@
 {
-  "@context": [
-    "https://doi.org/10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "epocakir",
-  "description": "Clinical coding and diagnosis of patients with kidney using\n    clinical practice guidelines. The guidelines used are the evidence-based\n    KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information.\n    This package covers acute kidney injury (AKI), anemia, and\n    chronic kidney disease (CKD).",
+  "description": "Clinical coding and diagnosis of patients with kidney using clinical practice guidelines. The guidelines used are the evidence-based KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information. This package covers acute kidney injury (AKI), anemia, and chronic kidney disease (CKD).",
   "name": "epocakir: Clinical Coding of Patients with Kidney Disease",
   "codeRepository": "https://github.com/alwinw/epocakir",
   "issueTracker": "https://github.com/alwinw/epocakir/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.9.7",
+  "version": "0.9.9",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.0.3 (2020-10-10)",
+  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -39,9 +36,14 @@
       "@id": "https://orcid.org/0000-0002-5994-3666"
     }
   ],
-  "contributor": {},
-  "copyrightHolder": {},
-  "funder": {},
+  "contributor": [
+    {
+      "@type": "Person",
+      "givenName": "Davis",
+      "familyName": "Vaughan",
+      "email": "davis@rstudio.com"
+    }
+  ],
   "maintainer": [
     {
       "@type": "Person",
@@ -125,14 +127,14 @@
       "sameAs": "https://CRAN.R-project.org/package=vctrs"
     }
   ],
-  "softwareRequirements": [
-    {
+  "softwareRequirements": {
+    "1": {
       "@type": "SoftwareApplication",
       "identifier": "R",
       "name": "R",
       "version": ">= 3.5.0"
     },
-    {
+    "2": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -145,7 +147,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -158,7 +160,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "tibble",
       "name": "tibble",
@@ -171,7 +173,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
     },
-    {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "ellipsis",
       "name": "ellipsis",
@@ -183,7 +185,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ellipsis"
     },
-    {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
@@ -196,7 +198,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "units",
       "name": "units",
@@ -209,7 +211,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=units"
     },
-    {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -222,7 +224,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",
@@ -234,22 +236,28 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=magrittr"
-    }
-  ],
+    },
+    "SystemRequirements": null
+  },
+  "fileSize": "701.367KB",
   "releaseNotes": "https://github.com/alwinw/epocakir/blob/master/NEWS.md",
   "readme": "https://github.com/alwinw/epocakir/blob/master/README.md",
-  "fileSize": "135.26KB",
   "contIntegration": [
     "https://github.com/alwinw/epocakir/actions",
     "https://codecov.io/gh/alwinw/epocakir?branch=master"
   ],
-  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html#stable",
+  "developmentStatus": [
+    "https://www.repostatus.org/",
+    "https://lifecycle.r-lib.org/articles/stages.html#stable"
+  ],
   "keywords": [
     "r",
     "kdigo-guidelines",
     "kdigo",
     "medical",
-    "kidney-disease"
+    "kidney-disease",
+    "r-package",
+    "rstats"
   ],
   "relatedLink": "https://CRAN.R-project.org/package=epocakir"
 }
