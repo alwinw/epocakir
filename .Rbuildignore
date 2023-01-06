@@ -1,6 +1,7 @@
 ^_pkgdown\.yml$
 ^.*\.Rproj$
 ^.covrignore
+^.cz.toml
 ^.pytest_cache
 ^\.github$
 ^\.png$

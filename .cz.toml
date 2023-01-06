@@ -1,0 +1,4 @@
+[tool.commitizen]
+version = "0.9.8"
+tag_format = "v$version"
+version_files = ["DESCRIPTION:Version"]
