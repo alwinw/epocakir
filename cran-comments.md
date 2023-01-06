@@ -1,17 +1,17 @@
 # Release Summary
 
-Submission of `epocakir`, version bumped to v0.9.8. In this version:
+Submission of `epocakir`, version bumped to v0.9.9. In this version:
 
-- Updated README and description
-- Addressed comments from `goodpractice::gp()`
+- Use correctly typed missing values for upcoming dplyr 1.1.0
 
 ## R CMD check results
 
-```console
--- R CMD check results ----------------------------------- epocakir 0.9.8 ----
-Duration: 1m 31.9s
-
-0 errors √ | 0 warnings √ | 0 notes √
+```r
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+#> -- R CMD check results ----------------------------------- epocakir 0.9.9 ----
+#> Duration: 1m 39.4s
+#>
+#> 0 errors √ | 0 warnings √ | 0 notes √
 ```
 
 ## Test Environments

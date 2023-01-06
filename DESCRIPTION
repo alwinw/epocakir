@@ -11,7 +11,11 @@ Authors@R:
              family = "Toh",
              role = "aut",
              email = "lisa.toh2@austin.org.au",
-             comment = c(ORCID = "0000-0002-5994-3666")))
+             comment = c(ORCID = "0000-0002-5994-3666")),
+      person(given = "Davis",
+             family = "Vaughan",
+             role = "ctb",
+             email = "davis@rstudio.com"))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
     KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information.

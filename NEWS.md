@@ -1,3 +1,9 @@
+# epocakir 0.9.9
+
+## Bug Fixes
+
+- Use correctly typed missing values for upcoming dplyr 1.1.0 (#41)
+
 # epocakir 0.9.8
 
 Update README and formatting
