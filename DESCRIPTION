@@ -1,6 +1,6 @@
 Package: epocakir
 Title: Clinical Coding of Patients with Kidney Disease
-Version: 0.9.8.9000
+Version: 0.9.9
 Authors@R:
     c(person(given = "Alwin",
              family = "Wang",
