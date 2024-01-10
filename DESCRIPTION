@@ -22,7 +22,7 @@ Description: Clinical coding and diagnosis of patients with kidney using
     This package covers acute kidney injury (AKI), anemia, and
     chronic kidney disease (CKD).
 License: MIT + file LICENSE
-URL: https://github.com/alwinw/epocakir
+URL: https://github.com/alwinw/epocakir, https://alwinw.github.io/epocakir/
 BugReports: https://github.com/alwinw/epocakir/issues
 Depends:
     R (>= 3.5.0)
