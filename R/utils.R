@@ -78,7 +78,7 @@ conversion_factors <- tibble::tribble(
 #' values <- units::set_units(c(60, 70, 80), "umol/l")
 #' as_metric(SCr = values)
 as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
     if (length(elli) == 0) {
@@ -137,7 +137,7 @@ as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
 #' )
 dob2age <- function(dob, age_on = lubridate::today(),
                     fun = NULL, units = "years", ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   age <- lubridate::as.duration(lubridate::interval(dob, age_on))
   if (!is.null(fun)) {
     age <- lubridate::duration(fun(as.numeric(age, units), ...), units)
@@ -298,7 +298,7 @@ combn_changes <- function(...) {
 #' @rdname combn_changes
 #' @export
 combn_changes.data.frame <- function(.data, dttm, val, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   val_name <- rlang::as_name(rlang::enquo(val))
   dttm_name <- rlang::as_name(rlang::enquo(dttm))
   pt_id_name <- rlang::as_name(rlang::enquo(pt_id))

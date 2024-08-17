@@ -57,7 +57,7 @@ aki_stages <- factor(
 #'   dplyr::mutate(aki = aki_staging(SCr = SCr_, bCr = bCr_, UO = UO_, dttm = dttm_, pt_id = pt_id_))
 #' @export
 aki_staging <- function(...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   UseMethod("aki_staging")
 }
 
@@ -70,7 +70,7 @@ aki_staging.data.frame <- function(.data,
                                    dttm = NULL,
                                    pt_id = NULL,
                                    ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(bCr)) bCr <- .data[[rlang::as_name(rlang::enquo(bCr))]]
   if (!is.null(UO)) UO <- .data[[rlang::as_name(rlang::enquo(UO))]]
@@ -92,7 +92,7 @@ aki_staging.units <- function(SCr = NULL,
                               dttm = NULL,
                               pt_id = NULL,
                               ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = TRUE)
   if (!is.null(bCr)) bCr <- as_metric(SCr = bCr, value_only = TRUE)
   if (!is.null(UO)) UO <- as_metric(UO = UO, value_only = TRUE)
@@ -112,7 +112,7 @@ aki_staging.numeric <- function(SCr = NULL,
                                 dttm = NULL,
                                 pt_id = NULL,
                                 ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
 
   if (!is.null(dttm) & is.null(pt_id)) {
     warning("Assuming provided data is for a single patient")
@@ -174,7 +174,7 @@ aki_bCr <- function(...) {
 #' @rdname aki_bCr
 #' @export
 aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_bCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(bCr))]]
@@ -184,7 +184,7 @@ aki_bCr.data.frame <- function(.data, SCr, bCr, ...) {
 #' @rdname aki_bCr
 #' @export
 aki_bCr.units <- function(SCr, bCr, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_bCr(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(SCr = bCr, value_only = TRUE)
@@ -194,7 +194,7 @@ aki_bCr.units <- function(SCr, bCr, ...) {
 #' @rdname aki_bCr
 #' @export
 aki_bCr.numeric <- function(SCr, bCr, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   dplyr::case_when(
     SCr >= 4.0 ~ aki_stages[3],
     SCr >= 3.0 * bCr ~ aki_stages[3],
@@ -243,7 +243,7 @@ aki_SCr <- function(...) {
 #' @rdname aki_SCr
 #' @export
 aki_SCr.data.frame <- function(.data, SCr, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(dttm))]],
@@ -254,7 +254,7 @@ aki_SCr.data.frame <- function(.data, SCr, dttm, pt_id, ...) {
 #' @rdname aki_SCr
 #' @export
 aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_SCr(
     as_metric(SCr = SCr, value_only = TRUE),
     dttm,
@@ -265,7 +265,7 @@ aki_SCr.units <- function(SCr, dttm, pt_id, ...) {
 #' @rdname aki_SCr
 #' @export
 aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   SCr_changes <- combn_changes(dttm, SCr, pt_id) %>%
     dplyr::mutate(
       .aki = dplyr::case_when(
@@ -327,7 +327,7 @@ aki_UO <- function(...) {
 #' @rdname aki_UO
 #' @export
 aki_UO.data.frame <- function(.data, UO, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_UO(
     .data[[rlang::as_name(rlang::enquo(UO))]],
     .data[[rlang::as_name(rlang::enquo(dttm))]],
@@ -338,7 +338,7 @@ aki_UO.data.frame <- function(.data, UO, dttm, pt_id, ...) {
 #' @rdname aki_UO
 #' @export
 aki_UO.units <- function(UO, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   aki_UO(
     as_metric(UO = UO, value_only = TRUE),
     dttm,
@@ -349,7 +349,7 @@ aki_UO.units <- function(UO, dttm, pt_id, ...) {
 #' @rdname aki_UO
 #' @export
 aki_UO.numeric <- function(UO, dttm, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   UO_df <- data.frame(UO = UO, dttm = dttm, pt_id = pt_id)
 
   UO_changes <- UO_df %>%
