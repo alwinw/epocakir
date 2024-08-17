@@ -35,9 +35,7 @@ Imports:
     lubridate (>= 1.7.0),
     magrittr (>= 2.0.1),
 Suggests:
-    usethis,
     testthat,
-    covr,
     knitr,
     rmarkdown,
     vctrs,
