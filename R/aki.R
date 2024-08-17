@@ -274,7 +274,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
         TRUE ~ dplyr::last(aki_stages)
       )
     ) %>%
-    dplyr::select(.data$pt_id, .data$dttm, .data$.aki) %>%
+    dplyr::select("pt_id", "dttm", ".aki") %>%
     dplyr::group_by(.data$pt_id, .data$dttm) %>%
     dplyr::slice_max(.data$.aki, with_ties = FALSE) %>%
     dplyr::ungroup()
@@ -285,7 +285,7 @@ aki_SCr.numeric <- function(SCr, dttm, pt_id, ...) {
     by = c("pt_id", "dttm")
   ) %>%
     dplyr::mutate(.aki = dplyr::if_else(is.na(.data$.aki), dplyr::last(aki_stages), .data$.aki)) %>%
-    dplyr::pull(.data$.aki)
+    dplyr::pull(".aki")
 }
 
 

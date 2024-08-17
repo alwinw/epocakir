@@ -223,16 +223,16 @@ combine_date_time_cols <- function(.data, tz = NULL) {
     find_cols("time", "DateTime", colnames(.data)),
     by = "match"
   ) %>%
-    dplyr::select(.data$date, .data$time, .data$match) %>%
-    tidyr::pivot_longer(-.data$match, values_to = "raw") %>%
-    dplyr::select(-.data$name)
+    dplyr::select("date", "time", "match") %>%
+    tidyr::pivot_longer(-"match", values_to = "raw") %>%
+    dplyr::select(-"name")
 
   new_col_names <- dplyr::left_join(
     data.frame(raw = colnames(.data)), dttm_col,
     by = "raw"
   ) %>%
     dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
-    dplyr::pull(match) %>%
+    dplyr::pull("match") %>%
     unique(.data)
 
   .data %>%
@@ -358,5 +358,5 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     D.dttm = T2$dttm - T1$dttm
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
-    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm)
+    dplyr::select("pt_id", "dttm":"D.dttm")
 }
