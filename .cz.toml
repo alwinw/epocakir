@@ -1,4 +1,10 @@
 [tool.commitizen]
-version = "0.9.9"
+name = "cz_conventional_commits"
+version_scheme = "semver"
 tag_format = "v$version"
+update_changelog_on_bump = false
+changelog_incremental = false
+use_shortcuts = true
+major_version_zero = true
+version = "0.9.9"
 version_files = ["DESCRIPTION:Version"]
