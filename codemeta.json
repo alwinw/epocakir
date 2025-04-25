@@ -56,18 +56,6 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
-      "identifier": "usethis",
-      "name": "usethis",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=usethis"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "provider": {
@@ -77,18 +65,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "covr",
-      "name": "covr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=covr"
     },
     {
       "@type": "SoftwareApplication",
@@ -175,18 +151,6 @@
     },
     "5": {
       "@type": "SoftwareApplication",
-      "identifier": "ellipsis",
-      "name": "ellipsis",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=ellipsis"
-    },
-    "6": {
-      "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
       "version": ">= 0.4.0",
@@ -198,7 +162,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "7": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "units",
       "name": "units",
@@ -211,7 +175,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=units"
     },
-    "8": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -224,7 +188,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "9": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "magrittr",
       "name": "magrittr",

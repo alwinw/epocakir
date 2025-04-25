@@ -41,7 +41,7 @@ anemia <- function(...) {
 #' @rdname anemia
 #' @export
 anemia.data.frame <- function(.data, Hb, age, male, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   anemia(
     .data[[rlang::as_name(rlang::enquo(Hb))]],
     .data[[rlang::as_name(rlang::enquo(age))]],
@@ -52,7 +52,7 @@ anemia.data.frame <- function(.data, Hb, age, male, ...) {
 #' @rdname anemia
 #' @export
 anemia.units <- function(Hb, age, male, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   anemia(
     as_metric(Hb = Hb, value_only = TRUE),
     as_metric(age = age, value_only = TRUE),

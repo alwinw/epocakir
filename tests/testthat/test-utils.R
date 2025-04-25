@@ -35,62 +35,68 @@ test_that("as_metric() conversions are correct", {
   expect_identical(nrow(conversion_factors), nrow(kdigo_factors))
 
   for (i in seq_len(nrow(kdigo_factors))) {
-    expect_lte(abs(
-      as_metric(
-        param = kdigo_factors[[i, "parameter"]],
-        meas = units::set_units(
-          kdigo_factors[[i, "factor"]], kdigo_factors[[i, "si_units"]],
-          mode = "standard"
-        )
-      ) - units::set_units(1, kdigo_factors[[i, "metric_units"]], mode = "standard")
-    ),
-    expected = units::set_units(5e-3, kdigo_factors[[i, "metric_units"]], mode = "standard"),
-    label = paste(kdigo_factors[[i, "description"]], "conversion of", kdigo_factors[[i, "factor"]]),
-    expected.label = "allowable tolerance"
+    expect_lte(
+      abs(
+        as_metric(
+          param = kdigo_factors[[i, "parameter"]],
+          meas = units::set_units(
+            kdigo_factors[[i, "factor"]], kdigo_factors[[i, "si_units"]],
+            mode = "standard"
+          )
+        ) - units::set_units(1, kdigo_factors[[i, "metric_units"]], mode = "standard")
+      ),
+      expected = units::set_units(5e-3, kdigo_factors[[i, "metric_units"]], mode = "standard"),
+      label = paste(kdigo_factors[[i, "description"]], "conversion of", kdigo_factors[[i, "factor"]]),
+      expected.label = "allowable tolerance"
     )
   }
 })
 
 test_that("as_metric() on single value", {
-  expect_lte(abs(
-    as_metric(param = "scr", meas = units::set_units(88.4, "umol/l")) -
-      units::set_units(1, "mg/dl")
-  ),
-  expected = units::set_units(5e-3, "mg/dl")
+  expect_lte(
+    abs(
+      as_metric(param = "scr", meas = units::set_units(88.4, "umol/l")) -
+        units::set_units(1, "mg/dl")
+    ),
+    expected = units::set_units(5e-3, "mg/dl")
   )
 
-  expect_lte(abs(
-    as_metric("SCr", units::set_units(88.4, "umol/l")) -
-      units::set_units(1, "mg/dl")
-  ),
-  expected = units::set_units(5e-3, "mg/dl")
+  expect_lte(
+    abs(
+      as_metric("SCr", units::set_units(88.4, "umol/l")) -
+        units::set_units(1, "mg/dl")
+    ),
+    expected = units::set_units(5e-3, "mg/dl")
   )
 
-  expect_lte(abs(
-    as_metric(SCr = units::set_units(88.4, "umol/l")) -
-      units::set_units(1, "mg/dl")
-  ),
-  expected = units::set_units(5e-3, "mg/dl")
+  expect_lte(
+    abs(
+      as_metric(SCr = units::set_units(88.4, "umol/l")) -
+        units::set_units(1, "mg/dl")
+    ),
+    expected = units::set_units(5e-3, "mg/dl")
   )
 })
 
 test_that("as_metric() on vector", {
   values <- units::set_units(c(88.4, 88.4, 88.4), "umol/l")
 
-  expect_lte(abs(sum(
-    as_metric(SCr = values) -
-      units::set_units(1, "mg/dl")
-  )),
-  expected = units::set_units(5e-3, "mg/dl")
+  expect_lte(
+    abs(sum(
+      as_metric(SCr = values) -
+        units::set_units(1, "mg/dl")
+    )),
+    expected = units::set_units(5e-3, "mg/dl")
   )
 
-  expect_lte(abs(sum(
-    data.frame(meas = values) %>%
-      dplyr::mutate(meas = as_metric(SCr = meas)) %>%
-      dplyr::pull(meas) -
-      units::set_units(1, "mg/dl")
-  )),
-  expected = units::set_units(5e-3, "mg/dl")
+  expect_lte(
+    abs(sum(
+      data.frame(meas = values) %>%
+        dplyr::mutate(meas = as_metric(SCr = meas)) %>%
+        dplyr::pull(meas) -
+        units::set_units(1, "mg/dl")
+    )),
+    expected = units::set_units(5e-3, "mg/dl")
   )
 })
 

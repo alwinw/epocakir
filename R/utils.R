@@ -78,7 +78,7 @@ conversion_factors <- tibble::tribble(
 #' values <- units::set_units(c(60, 70, 80), "umol/l")
 #' as_metric(SCr = values)
 as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   if (is.null(param) | is.null(meas)) {
     elli <- list(...)
     if (length(elli) == 0) {
@@ -137,7 +137,7 @@ as_metric <- function(param = NULL, meas = NULL, ..., value_only = FALSE) {
 #' )
 dob2age <- function(dob, age_on = lubridate::today(),
                     fun = NULL, units = "years", ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   age <- lubridate::as.duration(lubridate::interval(dob, age_on))
   if (!is.null(fun)) {
     age <- lubridate::duration(fun(as.numeric(age, units), ...), units)
@@ -223,16 +223,16 @@ combine_date_time_cols <- function(.data, tz = NULL) {
     find_cols("time", "DateTime", colnames(.data)),
     by = "match"
   ) %>%
-    dplyr::select(.data$date, .data$time, .data$match) %>%
-    tidyr::pivot_longer(-.data$match, values_to = "raw") %>%
-    dplyr::select(-.data$name)
+    dplyr::select("date", "time", "match") %>%
+    tidyr::pivot_longer(-"match", values_to = "raw") %>%
+    dplyr::select(-"name")
 
   new_col_names <- dplyr::left_join(
     data.frame(raw = colnames(.data)), dttm_col,
     by = "raw"
   ) %>%
     dplyr::mutate(match = dplyr::if_else(is.na(match), raw, match)) %>%
-    dplyr::pull(match) %>%
+    dplyr::pull("match") %>%
     unique(.data)
 
   .data %>%
@@ -298,7 +298,7 @@ combn_changes <- function(...) {
 #' @rdname combn_changes
 #' @export
 combn_changes.data.frame <- function(.data, dttm, val, pt_id, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   val_name <- rlang::as_name(rlang::enquo(val))
   dttm_name <- rlang::as_name(rlang::enquo(dttm))
   pt_id_name <- rlang::as_name(rlang::enquo(pt_id))
@@ -358,5 +358,5 @@ combn_changes.POSIXct <- function(dttm, val, pt_id, ...) {
     D.dttm = T2$dttm - T1$dttm
   ) %>%
     dplyr::filter(.data$D.dttm <= lubridate::duration(hours = 48)) %>%
-    dplyr::select(.data$pt_id, .data$dttm:.data$D.dttm)
+    dplyr::select("pt_id", "dttm":"D.dttm")
 }

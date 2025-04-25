@@ -30,21 +30,19 @@ Imports:
     dplyr (>= 1.0.1),
     tidyr (>= 1.1.1),
     tibble (>= 3.0.1),
-    ellipsis,
-    rlang (>= 0.4.0),
+    rlang (>= 1.0.0),
     units (>= 0.7),
     lubridate (>= 1.7.0),
     magrittr (>= 2.0.1),
 Suggests:
-    usethis,
-    testthat,
-    covr,
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    vctrs,
+    vctrs
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Language: en-US
+Config/testthat/edition: 3

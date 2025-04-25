@@ -76,7 +76,7 @@ eGFR_adult_df <- function(env = parent.frame()) {
       )
     ) %>%
     dplyr::mutate(dplyr::across(
-      dplyr::starts_with("eGFR"), units::set_units, "mL/min/1.73m2"
+      dplyr::starts_with("eGFR"), function(x) units::set_units(x, "mL/min/1.73m2")
     ))
 }
 
@@ -93,7 +93,7 @@ eGFR_child_df <- function(env = parent.frame()) {
       eGFR_child_SCysC = 70.69 * (0.4)^-0.931
     ) %>%
     dplyr::mutate(dplyr::across(
-      dplyr::starts_with("eGFR"), units::set_units, "mL/min/1.73m2"
+      dplyr::starts_with("eGFR"), function(x) units::set_units(x, "mL/min/1.73m2")
     ))
 }
 

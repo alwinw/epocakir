@@ -96,7 +96,7 @@ eGFR.data.frame <- function(.data,
                             black = NULL,
                             pediatric = NULL,
                             ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   # [ ] !is.null won't work if SCr is a symbol...
   if (!is.null(SCr)) SCr <- .data[[rlang::as_name(rlang::enquo(SCr))]]
   if (!is.null(SCysC)) SCysC <- .data[[rlang::as_name(rlang::enquo(SCysC))]]
@@ -133,7 +133,7 @@ eGFR.units <- function(SCr = NULL,
                        black = NULL,
                        pediatric = NULL,
                        ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   if (!is.null(SCr)) SCr <- as_metric(SCr = SCr, value_only = TRUE)
   if (!is.null(SCysC)) SCysC <- as_metric(SCysC = SCysC, value_only = TRUE)
   if (!is.null(Age)) Age <- as_metric(Age = Age, value_only = TRUE)
@@ -168,7 +168,7 @@ eGFR.numeric <- function(SCr = NULL,
                          black = NULL,
                          pediatric = NULL,
                          ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   cols <- c(SCr = NA, SCysC = NA, Age = NA, height = NA, BUN = NA, male = NA, black = NA, pediatric = NA)
   df <- cbind(SCr, SCysC, Age, height, BUN, male, black, pediatric) %>%
     tibble::as_tibble(.data)
@@ -237,7 +237,7 @@ eGFR_adult_SCr <- function(...) {
 #' @rdname eGFR_adult_SCr
 #' @export
 eGFR_adult_SCr.data.frame <- function(.data, SCr, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_adult_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(Age))]],
@@ -249,7 +249,7 @@ eGFR_adult_SCr.data.frame <- function(.data, SCr, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr
 #' @export
 eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_adult_SCr(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(Age = Age, value_only = TRUE),
@@ -262,7 +262,7 @@ eGFR_adult_SCr.units <- function(SCr, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr
 #' @export
 eGFR_adult_SCr.numeric <- function(SCr, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
@@ -310,7 +310,7 @@ eGFR_adult_SCysC <- function(...) {
 #' @rdname eGFR_adult_SCysC
 #' @export
 eGFR_adult_SCysC.data.frame <- function(.data, SCysC, Age, male, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_adult_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]],
     .data[[rlang::as_name(rlang::enquo(Age))]],
@@ -321,7 +321,7 @@ eGFR_adult_SCysC.data.frame <- function(.data, SCysC, Age, male, ...) {
 #' @rdname eGFR_adult_SCysC
 #' @export
 eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_adult_SCysC(
     as_metric(SCysC = SCysC, value_only = TRUE),
     as_metric(Age = Age, value_only = TRUE),
@@ -333,7 +333,7 @@ eGFR_adult_SCysC.units <- function(SCysC, Age, male, ...) {
 #' @rdname eGFR_adult_SCysC
 #' @export
 eGFR_adult_SCysC.numeric <- function(SCysC, Age, male, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   male <- as.logical(male)
   133 * pmin(SCysC / 0.8, 1)^-0.499 * pmax(SCysC / 0.8, 1)^-1.328 * 0.996^Age *
     dplyr::if_else(male, 1, 0.932)
@@ -383,7 +383,7 @@ eGFR_adult_SCr_SCysC <- function(...) {
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
 eGFR_adult_SCr_SCysC.data.frame <- function(.data, SCr, SCysC, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_adult_SCr_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(SCysC))]],
@@ -396,7 +396,7 @@ eGFR_adult_SCr_SCysC.data.frame <- function(.data, SCr, SCysC, Age, male, black,
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
 eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_adult_SCr_SCysC(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(SCysC = SCysC, value_only = TRUE),
@@ -410,7 +410,7 @@ eGFR_adult_SCr_SCysC.units <- function(SCr, SCysC, Age, male, black, ...) {
 #' @rdname eGFR_adult_SCr_SCysC
 #' @export
 eGFR_adult_SCr_SCysC.numeric <- function(SCr, SCysC, Age, male, black, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   male <- as.logical(male)
   black <- as.logical(black)
   kappa <- dplyr::if_else(!male, 0.7, 0.9)
@@ -458,7 +458,7 @@ eGFR_child_SCr <- function(...) {
 #' @rdname eGFR_child_SCr
 #' @export
 eGFR_child_SCr.data.frame <- function(.data, SCr, height, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_child_SCr(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(height))]]
@@ -468,7 +468,7 @@ eGFR_child_SCr.data.frame <- function(.data, SCr, height, ...) {
 #' @rdname eGFR_child_SCr
 #' @export
 eGFR_child_SCr.units <- function(SCr, height, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_child_SCr(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(height = height, value_only = TRUE),
@@ -479,7 +479,7 @@ eGFR_child_SCr.units <- function(SCr, height, ...) {
 #' @rdname eGFR_child_SCr
 #' @export
 eGFR_child_SCr.numeric <- function(SCr, height, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   41.3 * (height / SCr)
 }
 
@@ -521,7 +521,7 @@ eGFR_child_SCr_BUN <- function(...) {
 #' @rdname eGFR_child_SCr_BUN
 #' @export
 eGFR_child_SCr_BUN.data.frame <- function(.data, SCr, height, BUN, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_child_SCr_BUN(
     .data[[rlang::as_name(rlang::enquo(SCr))]],
     .data[[rlang::as_name(rlang::enquo(height))]],
@@ -532,7 +532,7 @@ eGFR_child_SCr_BUN.data.frame <- function(.data, SCr, height, BUN, ...) {
 #' @rdname eGFR_child_SCr_BUN
 #' @export
 eGFR_child_SCr_BUN.units <- function(SCr, height, BUN, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_child_SCr_BUN(
     as_metric(SCr = SCr, value_only = TRUE),
     as_metric(height = height, value_only = TRUE),
@@ -544,7 +544,7 @@ eGFR_child_SCr_BUN.units <- function(SCr, height, BUN, ...) {
 #' @rdname eGFR_child_SCr_BUN
 #' @export
 eGFR_child_SCr_BUN.numeric <- function(SCr, height, BUN, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   40.7 * (height / SCr)^0.64 * (30 / BUN)^0.202
 }
 
@@ -582,7 +582,7 @@ eGFR_child_SCysC <- function(...) {
 #' @rdname eGFR_child_SCysC
 #' @export
 eGFR_child_SCysC.data.frame <- function(.data, SCysC, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR_child_SCysC(
     .data[[rlang::as_name(rlang::enquo(SCysC))]]
   )
@@ -591,7 +591,7 @@ eGFR_child_SCysC.data.frame <- function(.data, SCysC, ...) {
 #' @rdname eGFR_child_SCysC
 #' @export
 eGFR_child_SCysC.units <- function(SCysC, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   eGFR <- eGFR_child_SCysC(
     as_metric(SCysC = SCysC, value_only = TRUE)
   )
@@ -601,7 +601,7 @@ eGFR_child_SCysC.units <- function(SCysC, ...) {
 #' @rdname eGFR_child_SCysC
 #' @export
 eGFR_child_SCysC.numeric <- function(SCysC, ...) {
-  ellipsis::check_dots_used()
+  rlang::check_dots_used()
   70.69 * (SCysC)^-0.931
 }
 
