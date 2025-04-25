@@ -2,10 +2,7 @@
 # Custom.gitignore
 #---------------------------------------------------------------------------------------
 resources/
-renv/
-renv.lock
 docs
-.Rprofile
 CRAN-RELEASE
 CRAN-SUBMISSION
 check/
