@@ -1,117 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://alwinw.github.io/epocakir/404.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/articles/epocakir.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/index.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/Albuminuria_stages.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/Albuminuria_staging_ACR.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/Albuminuria_staging_AER.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/GFR_stages.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/GFR_staging.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_SCr.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_UO.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_bCr.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_pt_data.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_stages.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/aki_staging.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/anemia.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/anemia_pt_data.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/as_metric.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/binary2factor.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/clinical_obvs.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/combine_date_time_cols.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/combn_changes.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/conversion_factors.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/dob2age.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCr.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCr_SCysC.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCysC.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCr.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCr_BUN.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCysC.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/eGFR_pt_data.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://alwinw.github.io/epocakir/reference/reexports.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://alwinw.github.io/epocakir/404.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/LICENSE-text.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/LICENSE.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/articles/epocakir.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/articles/index.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/authors.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/index.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/news/index.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/Albuminuria_stages.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/Albuminuria_staging_ACR.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/Albuminuria_staging_AER.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/GFR_stages.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/GFR_staging.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_SCr.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_UO.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_bCr.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_pt_data.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_stages.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/aki_staging.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/anemia.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/anemia_pt_data.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/as_metric.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/binary2factor.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/clinical_obvs.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/combine_date_time_cols.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/combn_changes.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/conversion_factors.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/dob2age.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCr.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCr_SCysC.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_adult_SCysC.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCr.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCr_BUN.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_child_SCysC.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/eGFR_pt_data.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/index.html</loc></url>
+<url><loc>https://alwinw.github.io/epocakir/reference/reexports.html</loc></url>
 </urlset>
+
