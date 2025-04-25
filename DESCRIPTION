@@ -15,7 +15,9 @@ Authors@R:
       person(given = "Davis",
              family = "Vaughan",
              role = "ctb",
-             email = "davis@rstudio.com"))
+             email = "davis@rstudio.com"),
+      person(given = "olivroy",
+             role = "ctb"))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
     KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information.
