@@ -6,3 +6,6 @@ home:
 authors:
   Alwin Wang:
   Lisa Toh:
+
+template:
+  bootstrap: 5
