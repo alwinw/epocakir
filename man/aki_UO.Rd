@@ -39,7 +39,7 @@ Volume 2 | Issue 1 | March 2012
 }
 \details{
 \itemize{
-\item{AKI Stage 1: <0.5 ml/kg/h for 6–12 hours}
+\item{AKI Stage 1: <0.5 ml/kg/h for 6-12 hours}
 \item{AKI Stage 2: <0.5 ml/kg/h for \eqn{\ge}12 hours}
 \item{AKI Stage 3: <0.3 ml/kg/h for \eqn{\ge}24 hours OR Anuria for \eqn{\ge}12 hours}
 }

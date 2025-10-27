@@ -13,6 +13,7 @@
 ^codemeta.json
 ^codemeta\.json$
 ^cran-comments.md$
+^CONTRIBUTING.md$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^data-raw$

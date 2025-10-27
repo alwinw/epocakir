@@ -18,6 +18,9 @@ Authors@R:
              email = "davis@rstudio.com"),
       person(given = "Olivier",
              family = "Roy",
+             role = "ctb"),
+      person(given = "Inaki",
+             family = "Ucar",
              role = "ctb"))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based

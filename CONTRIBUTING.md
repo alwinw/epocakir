@@ -97,6 +97,12 @@ pkgdown::build_site()
 
 ## Release
 
+Set up a GitHub [personal access token for the repository][10] and create a GitHub issue with a [checklist][11]
+
+```R
+usethis::use_release_issue()
+```
+
 <!-- References -->
 
 [1]: https://www.r-project.org/
@@ -108,3 +114,5 @@ pkgdown::build_site()
 [7]: https://roxygen2.r-lib.org/index.html
 [8]: https://r-pkgs.org/man.html
 [9]: https://pkgdown.r-lib.org/
+[10]: https://happygitwithr.com/https-pat#get-a-pat
+[11]: https://r-pkgs.org/release.html
