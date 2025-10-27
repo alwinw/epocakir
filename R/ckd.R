@@ -667,7 +667,7 @@ GFR_staging.data.frame <- function(.data, GFR, ...) {
 #' @rdname GFR_staging
 #' @export
 GFR_staging.units <- function(GFR, ...) {
-  if (grepl("1.73m2-1", units::deparse_unit(GFR))) {
+  if (units(GFR) == units(units::as_units("mL/min/1.73m2"))) {
     GFR <- GFR * units::set_units(1, "1.73m2")
   }
   GFR_staging(
