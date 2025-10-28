@@ -97,6 +97,25 @@ pkgdown::build_site()
 
 ## Release
 
+Set up a GitHub [personal access token for the repository][10] and create a GitHub issue with a [checklist][11].
+Run through the checks as required, and additional ones below:
+
+```R
+# Creat new GitHub issue
+usethis::use_release_issue()
+# Run additional checks
+devtools::spell_check()
+urlchecker::url_check()
+rhub::check_for_cran()
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+revdepcheck::revdep_check(num_workers = 4)
+devtools::check_rhub()
+devtools::check_mac_release()
+devtools::check_win_devel()
+```
+
+Increment the version:
+
 <!-- References -->
 
 [1]: https://www.r-project.org/
@@ -108,3 +127,5 @@ pkgdown::build_site()
 [7]: https://roxygen2.r-lib.org/index.html
 [8]: https://r-pkgs.org/man.html
 [9]: https://pkgdown.r-lib.org/
+[10]: https://happygitwithr.com/https-pat#get-a-pat
+[11]: https://r-pkgs.org/release.html

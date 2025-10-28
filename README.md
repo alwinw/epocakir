@@ -135,7 +135,7 @@ glimpse(tidy_obvs)
 #> $ Male                 <ord> Male, Not_Male, Male
 #> $ Height               [m] 1.82 [m], 1.61 [m], 1.68 [m]
 #> $ Surgery              <ord> Not_Surgery, Not_Surgery, Surgery
-#> $ Age                  <Duration> 2165011200s (~68.61 years), 842659200s (~26.7 ye…
+#> $ Age                  <Duration> 2202768000s (~69.8 years), 880416000s (~27.9 yea…
 ```
 
 Make sure to use `set_units()` from the `units` package to convert all
@@ -236,7 +236,7 @@ eGFR(eGFR_pt_data,
   Age = "Age_", height = "height_", BUN = "BUN_",
   male = "male_", black = "black_", pediatric = "pediatric_"
 )
-#> Units: [mL/1.73m2/min]
+#> Units: [mL/(min*1.73m^2)]
 #>  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466
 #>  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446
 #> [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368
@@ -267,7 +267,7 @@ eGFR_pt_data %>%
 #>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4
 #> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
 #> # ℹ 41 more rows
-#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/1.73m2/min]
+#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/(min*1.73m^2)]
 
 eGFR_pt_data %>%
   dplyr::mutate(eGFR = eGFR_adult_SCr(
@@ -288,7 +288,7 @@ eGFR_pt_data %>%
 #>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4
 #> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
 #> # ℹ 41 more rows
-#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/1.73m2/min]
+#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/(min*1.73m^2)]
 ```
 
 ## References

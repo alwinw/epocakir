@@ -1,6 +1,6 @@
 Package: epocakir
 Title: Clinical Coding of Patients with Kidney Disease
-Version: 0.9.9
+Version: 0.9.9.9000
 Authors@R:
     c(person(given = "Alwin",
              family = "Wang",
@@ -18,6 +18,9 @@ Authors@R:
              email = "davis@rstudio.com"),
       person(given = "Olivier",
              family = "Roy",
+             role = "ctb"),
+      person(given = "Inaki",
+             family = "Ucar",
              role = "ctb"))
 Description: Clinical coding and diagnosis of patients with kidney using
     clinical practice guidelines. The guidelines used are the evidence-based
@@ -45,7 +48,7 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Language: en-US
 Config/testthat/edition: 3
