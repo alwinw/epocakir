@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">epocakir</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,7 +167,7 @@
 <span><span class="co">#&gt; $ Male                 &lt;ord&gt; Male, Not_Male, Male</span></span>
 <span><span class="co">#&gt; $ Height               [m] 1.82 [m], 1.61 [m], 1.68 [m]</span></span>
 <span><span class="co">#&gt; $ Surgery              &lt;ord&gt; Not_Surgery, Not_Surgery, Surgery</span></span>
-<span><span class="co">#&gt; $ Age                  &lt;Duration&gt; 2165011200s (~68.61 years), 842659200s (~26.7 ye…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ Age                  &lt;Duration&gt; 2202768000s (~69.8 years), 880416000s (~27.9 yea…</span></span></code></pre></div>
 <p>Make sure to use <code><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units()</a></code> from the <code>units</code> package to convert all measurements into unit objects for automatic unit conversion in epocakir.</p>
 </div>
 <div class="section level2">
@@ -255,7 +255,7 @@
 <span>  Age <span class="op">=</span> <span class="st">"Age_"</span>, height <span class="op">=</span> <span class="st">"height_"</span>, BUN <span class="op">=</span> <span class="st">"BUN_"</span>,</span>
 <span>  male <span class="op">=</span> <span class="st">"male_"</span>, black <span class="op">=</span> <span class="st">"black_"</span>, pediatric <span class="op">=</span> <span class="st">"pediatric_"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Units: [mL/1.73m2/min]</span></span>
+<span><span class="co">#&gt; Units: [mL/(min*1.73m^2)]</span></span>
 <span><span class="co">#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466</span></span>
 <span><span class="co">#&gt;  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446</span></span>
 <span><span class="co">#&gt; [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368</span></span>
@@ -286,7 +286,7 @@
 <span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4</span></span>
 <span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
 <span><span class="co">#&gt; # ℹ 41 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/1.73m2/min]</span></span>
+<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/(min*1.73m^2)]</span></span>
 <span></span>
 <span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="reference/eGFR_adult_SCr.html">eGFR_adult_SCr</a></span><span class="op">(</span></span>
@@ -307,7 +307,7 @@
 <span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4</span></span>
 <span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
 <span><span class="co">#&gt; # ℹ 41 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/1.73m2/min]</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/(min*1.73m^2)]</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
