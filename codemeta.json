@@ -4,16 +4,17 @@
   "identifier": "epocakir",
   "description": "Clinical coding and diagnosis of patients with kidney using clinical practice guidelines. The guidelines used are the evidence-based KDIGO guidelines, see <https://kdigo.org/guidelines/> for more information. This package covers acute kidney injury (AKI), anemia, and chronic kidney disease (CKD).",
   "name": "epocakir: Clinical Coding of Patients with Kidney Disease",
+  "relatedLink": "https://alwinw.github.io/epocakir/",
   "codeRepository": "https://github.com/alwinw/epocakir",
   "issueTracker": "https://github.com/alwinw/epocakir/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.1.2 (2021-11-01)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13 ucrt)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -42,6 +43,16 @@
       "givenName": "Davis",
       "familyName": "Vaughan",
       "email": "davis@rstudio.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Olivier",
+      "familyName": "Roy"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Inaki",
+      "familyName": "Ucar"
     }
   ],
   "maintainer": [
@@ -58,6 +69,7 @@
       "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
+      "version": ">= 3.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -153,7 +165,7 @@
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
-      "version": ">= 0.4.0",
+      "version": ">= 1.0.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -203,25 +215,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "701.367KB",
-  "releaseNotes": "https://github.com/alwinw/epocakir/blob/master/NEWS.md",
-  "readme": "https://github.com/alwinw/epocakir/blob/master/README.md",
-  "contIntegration": [
-    "https://github.com/alwinw/epocakir/actions",
-    "https://codecov.io/gh/alwinw/epocakir?branch=master"
-  ],
-  "developmentStatus": [
-    "https://www.repostatus.org/",
-    "https://lifecycle.r-lib.org/articles/stages.html#stable"
-  ],
-  "keywords": [
-    "r",
-    "kdigo-guidelines",
-    "kdigo",
-    "medical",
-    "kidney-disease",
-    "r-package",
-    "rstats"
-  ],
-  "relatedLink": "https://CRAN.R-project.org/package=epocakir"
+  "fileSize": "403.521KB"
 }

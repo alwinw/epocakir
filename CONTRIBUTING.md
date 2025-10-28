@@ -97,6 +97,8 @@ pkgdown::build_site()
 
 ## Release
 
+### Preparing for Release
+
 Set up a GitHub [personal access token for the repository][10] and create a GitHub issue with a [checklist][11].
 Run through the checks as required, and additional ones below:
 
@@ -114,7 +116,27 @@ devtools::check_mac_release()
 devtools::check_win_devel()
 ```
 
-Increment the version:
+### Submit to CRAN
+
+Please make sure that releases are on the master branch.
+Instead of using `usethis::use_version('minor')`, commitizen is used instead.
+
+```bash
+git checkout master && git pull --rebase
+git merge --no-ff rc-1.0.0
+cz bump --increment MAJOR
+```
+
+```R
+codemetar::write_codemeta()
+```
+
+```bash
+git add codemeta.json
+git commit --amend --no-edit
+```
+
+devtools::submit_cran()
 
 <!-- References -->
 

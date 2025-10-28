@@ -1,3 +1,13 @@
+# epocakir 1.0.0
+
+## Bug Fixes
+
+- `units` 1.0.0 support (#45)
+
+## Breaking Changes
+
+- `ellipsis` replaced with `rlang` (#43)
+
 # epocakir 0.9.9
 
 ## Bug Fixes
