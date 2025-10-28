@@ -1,29 +1,42 @@
 # Release Summary
 
-Submission of `epocakir`, version bumped to v0.9.9. In this version:
+Submission of `epocakir`, version bumped to v1.0.0. In this version:
 
-- Use correctly typed missing values for upcoming dplyr 1.1.0
+- `units` 1.0.0 support (#45)
+- `ellipsis` replaced with `rlang` (#43)
 
 ## R CMD check results
 
 ```r
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
-#> -- R CMD check results ----------------------------------- epocakir 0.9.9 ----
-#> Duration: 1m 39.4s
+#> -- R CMD check results ----------------------------------- epocakir 1.0.0 ----
+#> Duration: 36.7s
 #>
-#> 0 errors √ | 0 warnings √ | 0 notes √
+#> 0 errors v | 0 warnings v | 0 notes v
 ```
+
+## revdepcheck results
+
+We checked 0 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+- We saw 0 new problems
+- We failed to check 0 packages
 
 ## Test Environments
 
-- Local Windows 10 install: R 4.0.3
+- Local
+  - Windows 10 install: R 4.5.1 (2025-06-13 ucrt) with Rtools45
 
-- macOS Big Sur  (GitHub Actions): R 4.2.2
-- Windows Server (GitHub Actions): R 4.2.2, R 3.6.3 with Rtools35,
-- Ubuntu 18.04.6 (GitHub Actions): R-devel, 4.2.2, R 4.1.3, 4.0.5, 3.6.3, 3.5.3
+- GitHub Actions
+  - macOS Sequoia 15.7.1: R 4.5.1 (2025-06-13)
+  - Windows Server 2022 x64 (build 26100): R 4.5.1 (2025-06-13 ucrt) with Rtools45
+  - Ubuntu 24.04.3 LTS: R-devel (2025-10-25 r88970), R 4.5.1 (2025-06-13), R 4.4.3 (2025-02-28)
 
-- win-builder: R-devel, R-release, R-oldrelease
-- R-hub: Windows R-devel, Ubuntu R-release, Fedora R-devel
+- win-builder:
+  - R-devel, R-release, R-oldrelease
+
+- R-hub:
+  - Windows R-devel, Ubuntu R-release, Fedora R-devel
 
 - Checks:
   - `goodpractice::gp()`,
