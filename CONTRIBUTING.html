@@ -30,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Contributing</h1>
-      <small class="dont-index">Source: <a href="https://github.com/alwinw/epocakir/blob/v1.0.0/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/alwinw/epocakir/blob/master/CONTRIBUTING.md" class="external-link"><code>CONTRIBUTING.md</code></a></small>
     </div>
 
 <div id="contributing" class="section level1">
@@ -132,19 +132,21 @@
 <span><span class="fu">revdepcheck</span><span class="fu">::</span><span class="fu">revdep_check</span><span class="op">(</span>num_workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check_rhub</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check_mac_release</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check_win_devel</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">check_win_devel</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">codemetar</span><span class="fu">::</span><span class="fu">write_codemeta</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="submit-to-cran">Submit to CRAN<a class="anchor" aria-label="anchor" href="#submit-to-cran"></a></h3>
 <p>Please make sure that releases are on the master branch. Instead of using <code>usethis::use_version('minor')</code>, commitizen is used instead.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">git</span> checkout master <span class="kw">&amp;&amp;</span> <span class="fu">git</span> pull <span class="at">--rebase</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">git</span> merge <span class="at">--no-ff</span> rc-1.0.0</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">cz</span> bump <span class="at">--increment</span> MAJOR</span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">cz</span> bump <span class="at">--increment</span> MAJOR</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">git</span> push <span class="kw">&amp;&amp;</span> <span class="fu">git</span> push <span class="at">--tags</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">codemetar</span><span class="fu">::</span><span class="fu">write_codemeta</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">git</span> add codemeta.json</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">--amend</span> <span class="at">--no-edit</span></span></code></pre></div>
-<p>devtools::submit_cran()</p>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">submit_cran</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Click on the email to finalise the submission and then wait for approval.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_github_release</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <!-- References -->
 </div>
 </div>

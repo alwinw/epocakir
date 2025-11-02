@@ -161,13 +161,13 @@
 <span><span class="co">#&gt; Rows: 3</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
 <span><span class="co">#&gt; $ `Patient Number`     &lt;chr&gt; "p10001", "p10002", "p10003"</span></span>
-<span><span class="co">#&gt; $ `Admission DateTime` &lt;dttm&gt; 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03…</span></span>
-<span><span class="co">#&gt; $ Discharge_DateTime   &lt;dttm&gt; 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-0…</span></span>
+<span><span class="co">#&gt; $ `Admission DateTime` &lt;dttm&gt; 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03-17 12:48:00</span></span>
+<span><span class="co">#&gt; $ Discharge_DateTime   &lt;dttm&gt; 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-03-18 09:12:00</span></span>
 <span><span class="co">#&gt; $ `Date of Birth`      &lt;chr&gt; "1956-01-09", "1997-12-04", "1973-05-28"</span></span>
 <span><span class="co">#&gt; $ Male                 &lt;ord&gt; Male, Not_Male, Male</span></span>
 <span><span class="co">#&gt; $ Height               [m] 1.82 [m], 1.61 [m], 1.68 [m]</span></span>
 <span><span class="co">#&gt; $ Surgery              &lt;ord&gt; Not_Surgery, Not_Surgery, Surgery</span></span>
-<span><span class="co">#&gt; $ Age                  &lt;Duration&gt; 2202768000s (~69.8 years), 880416000s (~27.9 yea…</span></span></code></pre></div>
+<span><span class="co">#&gt; $ Age                  &lt;Duration&gt; 2203286400s (~69.82 years), 880934400s (~27.92 years), 1654732800s…</span></span></code></pre></div>
 <p>Make sure to use <code><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units()</a></code> from the <code>units</code> package to convert all measurements into unit objects for automatic unit conversion in epocakir.</p>
 </div>
 <div class="section level2">
@@ -190,11 +190,10 @@
 <span>  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, bCr <span class="op">=</span> <span class="st">"bCr_"</span>, UO <span class="op">=</span> <span class="st">"UO_"</span>,</span>
 <span>  dttm <span class="op">=</span> <span class="st">"dttm_"</span>, pt_id <span class="op">=</span> <span class="st">"pt_id_"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3</span></span>
-<span><span class="co">#&gt;  [7] No AKI      No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1</span></span>
-<span><span class="co">#&gt; [13] No AKI      No AKI      No AKI      AKI Stage 1 No AKI      AKI Stage 2</span></span>
-<span><span class="co">#&gt; [19] AKI Stage 3 AKI Stage 1 AKI Stage 3 AKI Stage 2 No AKI      AKI Stage 1</span></span>
-<span><span class="co">#&gt; [25] AKI Stage 3 AKI Stage 3 No AKI     </span></span>
+<span><span class="co">#&gt;  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3 No AKI     </span></span>
+<span><span class="co">#&gt;  [8] No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1 No AKI      No AKI     </span></span>
+<span><span class="co">#&gt; [15] No AKI      AKI Stage 1 No AKI      AKI Stage 2 AKI Stage 3 AKI Stage 1 AKI Stage 3</span></span>
+<span><span class="co">#&gt; [22] AKI Stage 2 No AKI      AKI Stage 1 AKI Stage 3 AKI Stage 3 No AKI     </span></span>
 <span><span class="co">#&gt; Levels: No AKI &lt; AKI Stage 1 &lt; AKI Stage 2 &lt; AKI Stage 3</span></span>
 <span></span>
 <span><span class="va">aki_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -241,14 +240,14 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
-<span><span class="co">#&gt;    SCr_ SCysC_  Age_ male_ black_ height_  BUN_ eGFR_calc_type_ eGFR_ pediatric_</span></span>
-<span><span class="co">#&gt;   [mg/… [mg/L] [yea… &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/… &lt;chr&gt;           [mL/… &lt;lgl&gt;     </span></span>
-<span><span class="co">#&gt; 1   0.5   NA      20 FALSE FALSE       NA    NA eGFR_adult_SCr   139. FALSE     </span></span>
-<span><span class="co">#&gt; 2  NA      0.4    20 FALSE FALSE       NA    NA eGFR_adult_SCy…  162. FALSE     </span></span>
-<span><span class="co">#&gt; 3   0.5    0.4    20 FALSE FALSE       NA    NA eGFR_adult_SCr…  167. FALSE     </span></span>
-<span><span class="co">#&gt; 4   0.5   NA      30 FALSE TRUE        NA    NA eGFR_adult_SCr   150. FALSE     </span></span>
-<span><span class="co">#&gt; 5  NA      0.4    30 FALSE TRUE        NA    NA eGFR_adult_SCy…  155. FALSE     </span></span>
-<span><span class="co">#&gt; 6   0.5    0.4    30 FALSE TRUE        NA    NA eGFR_adult_SCr…  171. FALSE</span></span>
+<span><span class="co">#&gt;      SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_            eGFR_ pediatric_</span></span>
+<span><span class="co">#&gt;   [mg/dl] [mg/L] [years] &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/dl] &lt;chr&gt;                [mL/(1.73m… &lt;lgl&gt;     </span></span>
+<span><span class="co">#&gt; 1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr              139. FALSE     </span></span>
+<span><span class="co">#&gt; 2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC            162. FALSE     </span></span>
+<span><span class="co">#&gt; 3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCysC        167. FALSE     </span></span>
+<span><span class="co">#&gt; 4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr              150. FALSE     </span></span>
+<span><span class="co">#&gt; 5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC            155. FALSE     </span></span>
+<span><span class="co">#&gt; 6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCysC        171. FALSE</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/eGFR.html">eGFR</a></span><span class="op">(</span><span class="va">eGFR_pt_data</span>,</span>
 <span>  SCr <span class="op">=</span> <span class="st">"SCr_"</span>, SCysC <span class="op">=</span> <span class="st">"SCysC_"</span>,</span>
@@ -256,14 +255,12 @@
 <span>  male <span class="op">=</span> <span class="st">"male_"</span>, black <span class="op">=</span> <span class="st">"black_"</span>, pediatric <span class="op">=</span> <span class="st">"pediatric_"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Units: [mL/(min*1.73m^2)]</span></span>
-<span><span class="co">#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466</span></span>
-<span><span class="co">#&gt;  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446</span></span>
-<span><span class="co">#&gt; [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368</span></span>
-<span><span class="co">#&gt; [22]  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404 168.53768</span></span>
-<span><span class="co">#&gt; [29] 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077</span></span>
-<span><span class="co">#&gt; [36] 106.19167  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546</span></span>
-<span><span class="co">#&gt; [43]  66.06766  71.64555  67.33849  71.37808  68.83077  69.17003  99.12000</span></span>
-<span><span class="co">#&gt; [50] 148.21219 165.89761</span></span>
+<span><span class="co">#&gt;  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466  66.77365  96.41798</span></span>
+<span><span class="co">#&gt; [10] 150.52336  64.15027  99.04045  49.63420 161.68446  97.06854  53.62373 155.33226  99.70870</span></span>
+<span><span class="co">#&gt; [19]  49.63420  66.77365  56.10368  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404</span></span>
+<span><span class="co">#&gt; [28] 168.53768 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077 106.19167</span></span>
+<span><span class="co">#&gt; [37]  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546  66.06766  71.64555  67.33849</span></span>
+<span><span class="co">#&gt; [46]  71.37808  68.83077  69.17003  99.12000 148.21219 165.89761</span></span>
 <span></span>
 <span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="reference/eGFR.html">eGFR</a></span><span class="op">(</span></span>
@@ -273,20 +270,19 @@
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 51 × 11</span></span>
-<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_</span></span>
-<span><span class="co">#&gt;    [mg/dl] [mg/L] [years] &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/dl] &lt;chr&gt;               [mL/…</span></span>
-<span><span class="co">#&gt;  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. </span></span>
-<span><span class="co">#&gt;  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162. </span></span>
-<span><span class="co">#&gt;  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167. </span></span>
-<span><span class="co">#&gt;  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
-<span><span class="co">#&gt;  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155. </span></span>
-<span><span class="co">#&gt;  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171. </span></span>
-<span><span class="co">#&gt;  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. </span></span>
-<span><span class="co">#&gt;  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8</span></span>
-<span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4</span></span>
-<span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
+<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_ pediatric_  eGFR</span></span>
+<span><span class="co">#&gt;    [mg/dl] [mg/L] [years] &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/dl] &lt;chr&gt;               [mL/… &lt;lgl&gt;      [mL/…</span></span>
+<span><span class="co">#&gt;  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE      139. </span></span>
+<span><span class="co">#&gt;  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162.  FALSE      162. </span></span>
+<span><span class="co">#&gt;  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167.  FALSE      167. </span></span>
+<span><span class="co">#&gt;  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE      151. </span></span>
+<span><span class="co">#&gt;  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155.  FALSE      155. </span></span>
+<span><span class="co">#&gt;  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171.  FALSE      171. </span></span>
+<span><span class="co">#&gt;  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE      139. </span></span>
+<span><span class="co">#&gt;  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8 FALSE       66.8</span></span>
+<span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4 FALSE       96.4</span></span>
+<span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE      151. </span></span>
 <span><span class="co">#&gt; # ℹ 41 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/(min*1.73m^2)]</span></span>
 <span></span>
 <span><span class="va">eGFR_pt_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>eGFR <span class="op">=</span> <span class="fu"><a href="reference/eGFR_adult_SCr.html">eGFR_adult_SCr</a></span><span class="op">(</span></span>
@@ -294,20 +290,19 @@
 <span>  <span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">SCr_</span><span class="op">:</span><span class="va">pediatric_</span>, <span class="va">eGFR</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 51 × 11</span></span>
-<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_</span></span>
-<span><span class="co">#&gt;    [mg/dl] [mg/L] [years] &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/dl] &lt;chr&gt;               [mL/…</span></span>
-<span><span class="co">#&gt;  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. </span></span>
-<span><span class="co">#&gt;  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162. </span></span>
-<span><span class="co">#&gt;  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167. </span></span>
-<span><span class="co">#&gt;  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
-<span><span class="co">#&gt;  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155. </span></span>
-<span><span class="co">#&gt;  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171. </span></span>
-<span><span class="co">#&gt;  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. </span></span>
-<span><span class="co">#&gt;  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8</span></span>
-<span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4</span></span>
-<span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. </span></span>
-<span><span class="co">#&gt; # ℹ 41 more rows</span></span>
-<span><span class="co">#&gt; # ℹ 2 more variables: pediatric_ &lt;lgl&gt;, eGFR [mL/(min*1.73m^2)]</span></span></code></pre></div>
+<span><span class="co">#&gt;       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_ pediatric_  eGFR</span></span>
+<span><span class="co">#&gt;    [mg/dl] [mg/L] [years] &lt;lgl&gt; &lt;lgl&gt;      [m] [mg/dl] &lt;chr&gt;               [mL/… &lt;lgl&gt;      [mL/…</span></span>
+<span><span class="co">#&gt;  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE       139.</span></span>
+<span><span class="co">#&gt;  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162.  FALSE        NA </span></span>
+<span><span class="co">#&gt;  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167.  FALSE       139.</span></span>
+<span><span class="co">#&gt;  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE       151.</span></span>
+<span><span class="co">#&gt;  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155.  FALSE        NA </span></span>
+<span><span class="co">#&gt;  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171.  FALSE       151.</span></span>
+<span><span class="co">#&gt;  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE       139.</span></span>
+<span><span class="co">#&gt;  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8 FALSE        NA </span></span>
+<span><span class="co">#&gt;  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4 FALSE       139.</span></span>
+<span><span class="co">#&gt; 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE       151.</span></span>
+<span><span class="co">#&gt; # ℹ 41 more rows</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -317,7 +312,7 @@
 <div class="section level2">
 <h2 id="activity">Activity<a class="anchor" aria-label="anchor" href="#activity"></a>
 </h2>
-<p><img src="https://img.shields.io/github/commit-activity/m/alwinw/epocakir" alt="GitHub commit activity"><img src="https://img.shields.io/github/last-commit/alwinw/epocakir" alt="GitHub last commit"><img src="https://badges.pufler.dev/visits/alwinw/epocakir?&amp;label=visits" alt="Visits"><img src="https://img.shields.io/github/repo-size/alwinw/epocakir" alt="GitHub repo size in bytes"><img src="https://img.shields.io/tokei/lines/github/alwinw/epocakir" alt="Total Lines"></p>
+<p><img src="https://img.shields.io/github/commit-activity/m/alwinw/epocakir" alt="GitHub commit activity"><img src="https://img.shields.io/github/last-commit/alwinw/epocakir" alt="GitHub last commit"><img src="https://img.shields.io/github/commits-since/alwinw/epocakir/latest" alt="GitHub commits since latest release"><img src="https://img.shields.io/github/issues/alwinw/epocakir" alt="GitHub Issues"><img src="https://img.shields.io/github/issues-pr/alwinw/epocakir" alt="GitHub Pull Requests"><img src="https://img.shields.io/github/contributors/alwinw/epocakir" alt="GitHub contributors"><img src="https://img.shields.io/github/repo-size/alwinw/epocakir" alt="GitHub repo size in bytes"></p>
 <hr>
 <p>See <a href="https://alwinw.github.io/epocakir/reference/index.html" class="uri">https://alwinw.github.io/epocakir/reference/index.html</a> for more usage details and package reference.</p>
 </div>
@@ -365,10 +360,10 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=epocakir" class="external-link"><img src="https://www.r-pkg.org/badges/version/epocakir" alt="CRAN status"></a></li>
+<li><a href="https://cran.r-project.org/package=epocakir" class="external-link"><img src="https://www.r-pkg.org/badges/version/epocakir" alt="CRAN version"></a></li>
 <li><a href="https://github.com/alwinw/epocakir/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/alwinw/epocakir/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://app.codecov.io/gh/alwinw/epocakir" class="external-link"><img src="https://codecov.io/gh/alwinw/epocakir/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.repostatus.org/" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
+<li><a href="https://www.repostatus.org/" class="external-link"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active - The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://cran.r-project.org/package=epocakir" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/epocakir" alt="Downloads"></a></li>
 </ul>
