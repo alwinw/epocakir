@@ -114,6 +114,7 @@ revdepcheck::revdep_check(num_workers = 4)
 devtools::check_rhub()
 devtools::check_mac_release()
 devtools::check_win_devel()
+codemetar::write_codemeta()
 ```
 
 ### Submit to CRAN
@@ -125,18 +126,18 @@ Instead of using `usethis::use_version('minor')`, commitizen is used instead.
 git checkout master && git pull --rebase
 git merge --no-ff rc-1.0.0
 cz bump --increment MAJOR
+git push && git push --tags
 ```
 
 ```R
-codemetar::write_codemeta()
-```
-
-```bash
-git add codemeta.json
-git commit --amend --no-edit
-```
-
 devtools::submit_cran()
+```
+
+Click on the email to finalise the submission and then wait for approval.
+
+```R
+usethis::use_github_release()
+```
 
 <!-- References -->
 

@@ -8,11 +8,11 @@
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/epocakir)](https://cran.r-project.org/package=epocakir)
+version](https://www.r-pkg.org/badges/version/epocakir)](https://cran.r-project.org/package=epocakir)
 [![R-CMD-check](https://github.com/alwinw/epocakir/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/alwinw/epocakir/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/alwinw/epocakir/graph/badge.svg)](https://app.codecov.io/gh/alwinw/epocakir)
-[![Project Status: Active – The project has reached a stable, usable
+[![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![Lifecycle:
@@ -129,13 +129,13 @@ glimpse(tidy_obvs)
 #> Rows: 3
 #> Columns: 8
 #> $ `Patient Number`     <chr> "p10001", "p10002", "p10003"
-#> $ `Admission DateTime` <dttm> 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03…
-#> $ Discharge_DateTime   <dttm> 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-0…
+#> $ `Admission DateTime` <dttm> 2020-03-05 14:01:00, 2020-03-06 09:10:00, 2020-03-17 12:48:00
+#> $ Discharge_DateTime   <dttm> 2020-03-10 16:34:00, 2020-03-16 18:51:00, 2020-03-18 09:12:00
 #> $ `Date of Birth`      <chr> "1956-01-09", "1997-12-04", "1973-05-28"
 #> $ Male                 <ord> Male, Not_Male, Male
 #> $ Height               [m] 1.82 [m], 1.61 [m], 1.68 [m]
 #> $ Surgery              <ord> Not_Surgery, Not_Surgery, Surgery
-#> $ Age                  <Duration> 2202768000s (~69.8 years), 880416000s (~27.9 yea…
+#> $ Age                  <Duration> 2203286400s (~69.82 years), 880934400s (~27.92 years), 1654732800s…
 ```
 
 Make sure to use `set_units()` from the `units` package to convert all
@@ -164,11 +164,10 @@ aki_staging(aki_pt_data,
   SCr = "SCr_", bCr = "bCr_", UO = "UO_",
   dttm = "dttm_", pt_id = "pt_id_"
 )
-#>  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3
-#>  [7] No AKI      No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1
-#> [13] No AKI      No AKI      No AKI      AKI Stage 1 No AKI      AKI Stage 2
-#> [19] AKI Stage 3 AKI Stage 1 AKI Stage 3 AKI Stage 2 No AKI      AKI Stage 1
-#> [25] AKI Stage 3 AKI Stage 3 No AKI     
+#>  [1] No AKI      AKI Stage 1 AKI Stage 2 AKI Stage 2 AKI Stage 3 AKI Stage 3 No AKI     
+#>  [8] No AKI      AKI Stage 1 No AKI      No AKI      AKI Stage 1 No AKI      No AKI     
+#> [15] No AKI      AKI Stage 1 No AKI      AKI Stage 2 AKI Stage 3 AKI Stage 1 AKI Stage 3
+#> [22] AKI Stage 2 No AKI      AKI Stage 1 AKI Stage 3 AKI Stage 3 No AKI     
 #> Levels: No AKI < AKI Stage 1 < AKI Stage 2 < AKI Stage 3
 
 aki_pt_data %>%
@@ -222,14 +221,14 @@ particular formula is required, then `eGFR_adult_SCr`,
 ``` r
 head(eGFR_pt_data)
 #> # A tibble: 6 × 10
-#>    SCr_ SCysC_  Age_ male_ black_ height_  BUN_ eGFR_calc_type_ eGFR_ pediatric_
-#>   [mg/… [mg/L] [yea… <lgl> <lgl>      [m] [mg/… <chr>           [mL/… <lgl>     
-#> 1   0.5   NA      20 FALSE FALSE       NA    NA eGFR_adult_SCr   139. FALSE     
-#> 2  NA      0.4    20 FALSE FALSE       NA    NA eGFR_adult_SCy…  162. FALSE     
-#> 3   0.5    0.4    20 FALSE FALSE       NA    NA eGFR_adult_SCr…  167. FALSE     
-#> 4   0.5   NA      30 FALSE TRUE        NA    NA eGFR_adult_SCr   150. FALSE     
-#> 5  NA      0.4    30 FALSE TRUE        NA    NA eGFR_adult_SCy…  155. FALSE     
-#> 6   0.5    0.4    30 FALSE TRUE        NA    NA eGFR_adult_SCr…  171. FALSE
+#>      SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_            eGFR_ pediatric_
+#>   [mg/dl] [mg/L] [years] <lgl> <lgl>      [m] [mg/dl] <chr>                [mL/(1.73m… <lgl>     
+#> 1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr              139. FALSE     
+#> 2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC            162. FALSE     
+#> 3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCysC        167. FALSE     
+#> 4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr              150. FALSE     
+#> 5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC            155. FALSE     
+#> 6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCysC        171. FALSE
 
 eGFR(eGFR_pt_data,
   SCr = "SCr_", SCysC = "SCysC_",
@@ -237,14 +236,12 @@ eGFR(eGFR_pt_data,
   male = "male_", black = "black_", pediatric = "pediatric_"
 )
 #> Units: [mL/(min*1.73m^2)]
-#>  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466
-#>  [8]  66.77365  96.41798 150.52336  64.15027  99.04045  49.63420 161.68446
-#> [15]  97.06854  53.62373 155.33226  99.70870  49.63420  66.77365  56.10368
-#> [22]  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404 168.53768
-#> [29] 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077
-#> [36] 106.19167  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546
-#> [43]  66.06766  71.64555  67.33849  71.37808  68.83077  69.17003  99.12000
-#> [50] 148.21219 165.89761
+#>  [1] 139.32466 161.68446 166.81886 150.52336 155.33226 171.35616 139.32466  66.77365  96.41798
+#> [10] 150.52336  64.15027  99.04045  49.63420 161.68446  97.06854  53.62373 155.33226  99.70870
+#> [19]  49.63420  66.77365  56.10368  53.62373  64.15027  57.62964 155.99874 173.48118 178.86404
+#> [28] 168.53768 166.66552 183.72895 155.99874  71.64555 103.37985 168.53768  68.83077 106.19167
+#> [37]  66.06766 173.48118 116.50660  71.37808 166.66552 119.67546  66.06766  71.64555  67.33849
+#> [46]  71.37808  68.83077  69.17003  99.12000 148.21219 165.89761
 
 eGFR_pt_data %>%
   dplyr::mutate(eGFR = eGFR(
@@ -254,20 +251,19 @@ eGFR_pt_data %>%
   )) %>%
   select(SCr_:pediatric_, eGFR)
 #> # A tibble: 51 × 11
-#>       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_
-#>    [mg/dl] [mg/L] [years] <lgl> <lgl>      [m] [mg/dl] <chr>               [mL/…
-#>  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. 
-#>  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162. 
-#>  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167. 
-#>  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
-#>  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155. 
-#>  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171. 
-#>  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. 
-#>  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8
-#>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4
-#> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
+#>       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_ pediatric_  eGFR
+#>    [mg/dl] [mg/L] [years] <lgl> <lgl>      [m] [mg/dl] <chr>               [mL/… <lgl>      [mL/…
+#>  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE      139. 
+#>  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162.  FALSE      162. 
+#>  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167.  FALSE      167. 
+#>  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE      151. 
+#>  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155.  FALSE      155. 
+#>  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171.  FALSE      171. 
+#>  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE      139. 
+#>  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8 FALSE       66.8
+#>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4 FALSE       96.4
+#> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE      151. 
 #> # ℹ 41 more rows
-#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/(min*1.73m^2)]
 
 eGFR_pt_data %>%
   dplyr::mutate(eGFR = eGFR_adult_SCr(
@@ -275,20 +271,19 @@ eGFR_pt_data %>%
   )) %>%
   select(SCr_:pediatric_, eGFR)
 #> # A tibble: 51 × 11
-#>       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_
-#>    [mg/dl] [mg/L] [years] <lgl> <lgl>      [m] [mg/dl] <chr>               [mL/…
-#>  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. 
-#>  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162. 
-#>  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167. 
-#>  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
-#>  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155. 
-#>  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171. 
-#>  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139. 
-#>  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8
-#>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4
-#> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150. 
+#>       SCr_ SCysC_    Age_ male_ black_ height_    BUN_ eGFR_calc_type_     eGFR_ pediatric_  eGFR
+#>    [mg/dl] [mg/L] [years] <lgl> <lgl>      [m] [mg/dl] <chr>               [mL/… <lgl>      [mL/…
+#>  1     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE       139.
+#>  2    NA      0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCysC    162.  FALSE        NA 
+#>  3     0.5    0.4      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy… 167.  FALSE       139.
+#>  4     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE       151.
+#>  5    NA      0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCysC    155.  FALSE        NA 
+#>  6     0.5    0.4      30 FALSE TRUE        NA      NA eGFR_adult_SCr_SCy… 171.  FALSE       151.
+#>  7     0.5   NA        20 FALSE FALSE       NA      NA eGFR_adult_SCr      139.  FALSE       139.
+#>  8    NA      1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCysC     66.8 FALSE        NA 
+#>  9     0.5    1.2      20 FALSE FALSE       NA      NA eGFR_adult_SCr_SCy…  96.4 FALSE       139.
+#> 10     0.5   NA        30 FALSE TRUE        NA      NA eGFR_adult_SCr      150.  FALSE       151.
 #> # ℹ 41 more rows
-#> # ℹ 2 more variables: pediatric_ <lgl>, eGFR [mL/(min*1.73m^2)]
 ```
 
 ## References
@@ -301,10 +296,15 @@ KDIGO Guidelines - <https://kdigo.org/guidelines/>
 activity](https://img.shields.io/github/commit-activity/m/alwinw/epocakir)
 ![GitHub last
 commit](https://img.shields.io/github/last-commit/alwinw/epocakir)
-![Visits](https://badges.pufler.dev/visits/alwinw/epocakir?&label=visits)
+![GitHub commits since latest
+release](https://img.shields.io/github/commits-since/alwinw/epocakir/latest)
+![GitHub Issues](https://img.shields.io/github/issues/alwinw/epocakir)
+![GitHub Pull
+Requests](https://img.shields.io/github/issues-pr/alwinw/epocakir)
+![GitHub
+contributors](https://img.shields.io/github/contributors/alwinw/epocakir)
 ![GitHub repo size in
-bytes](https://img.shields.io/github/repo-size/alwinw/epocakir) ![Total
-Lines](https://img.shields.io/tokei/lines/github/alwinw/epocakir)
+bytes](https://img.shields.io/github/repo-size/alwinw/epocakir)
 
 ------------------------------------------------------------------------
 
